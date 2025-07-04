@@ -69,7 +69,6 @@ System fonts with fluid sizing:
   
   /* Font sizes using rem */
   --text-size-0-75: 0.75rem;   /* 12px */
-  --text-size-0-875: 0.875rem; /* 14px */
   --text-size-1-0: 1rem;        /* 16px */
   --text-size-1-25: 1.25rem;    /* 20px */
   --text-size-1-5: 1.5rem;      /* 24px */
@@ -120,9 +119,9 @@ Shadows and transitions:
   
   /* Shadow elevations */
   --shadow-xs: 0 1px 2px hsla(220, 10%, 20%, 0.1);
-  --shadow-sm: 0 2px 4px hsla(220, 10%, 20%, 0.12);
-  --shadow-md: 0 4px 8px hsla(220, 10%, 20%, 0.15);
-  --shadow-lg: 0 8px 16px hsla(220, 10%, 20%, 0.18);
+  --shadow-subtle: 0 2px 4px hsla(220, 10%, 20%, 0.12);
+  --shadow-default: 0 4px 8px hsla(220, 10%, 20%, 0.15);
+  --shadow-elevated: 0 8px 16px hsla(220, 10%, 20%, 0.18);
   
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -153,7 +152,7 @@ Shadows and transitions:
 .card {
   padding: var(--card-padding, var(--space-1-5));
   background: var(--card-bg, var(--colour-neutral-95));
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-subtle);
 }
 ```
 
@@ -222,7 +221,7 @@ Follow these patterns when adding tokens:
 :root {
   /* Badge tokens */
   --badge-padding: var(--space-0-25) var(--space-0-5);
-  --badge-font-size: var(--text-size-0-875);
+  --badge-font-size: var(--text-size-0-75);
   --badge-radius: var(--radius-full);
   
   /* Reference existing tokens for consistency */

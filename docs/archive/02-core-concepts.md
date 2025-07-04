@@ -6,11 +6,58 @@ Every CRISP element follows this pattern:
 
 ```html
 <element class="[component] [as-layout] [with-property]" 
+  id="[accessibility-only]"
   role="[function]"
   aria-label="[description]"
   style="--property: value;">
   Content
 </element>
+```
+
+### Attribute Order Convention
+
+CRISP enforces a consistent attribute order for readability and maintainability:
+
+1. `class` - Always first after the HTML tag (descriptive component names)
+2. `id` - Only when required for accessibility
+3. `type` - For form elements (input, button)
+4. `name` - For form elements
+5. `href` - For links
+6. `src` - For media elements
+7. `role` - ARIA role
+8. `aria-*` - ARIA attributes
+9. `data-*` - Data attributes
+10. `style` - Inline custom properties
+11. Event handlers - onclick, etc. (if needed)
+
+```html
+<!-- ✅ Correct attribute order -->
+<button class="button with-interaction" 
+  type="submit"
+  role="button"
+  aria-label="Submit form"
+  style="--button-size: large;">
+  Submit
+</button>
+
+<a class="link" 
+  href="/about"
+  role="link"
+  aria-current="page">
+  About
+</a>
+
+<input class="input" 
+  id="user-email"
+  type="email"
+  name="email"
+  aria-required="true"
+  style="--input-width: 100%;">
+
+<!-- ❌ Wrong: Inconsistent order -->
+<button type="submit" class="button" style="--button-size: large;" role="button">
+  Submit
+</button>
 ```
 
 ## Class System
@@ -23,7 +70,9 @@ CRISP uses semantic prefixes to clearly identify the purpose of each class:
 2. **`as-`** - Layout modes (`as-stack`, `as-grid`, `as-cluster`)
 3. **`with-`** - Additional properties (`with-shadow`, `with-border`)
 
-This creates self-documenting HTML that reads like natural language:
+This creates self-documenting HTML that reads like natural language.
+
+**Why class comes first:** Since CRISP classes are descriptive component names (not cryptic abbreviations like `btn-2xl-primary`), placing them first immediately tells you what element you're looking at. You see `<article class="card"` and instantly know it's a card component, or `<nav class="breadcrumb"` for navigation breadcrumbs - the most important information comes first.
 
 ```html
 <!-- Reads as: "Article card displayed as stack with shadow" -->
@@ -37,12 +86,12 @@ This creates self-documenting HTML that reads like natural language:
 </nav>
 ```
 
-### Maximum Three Classes Rule
+### Class Formula Rule
 
-Each element may have up to three classes:
+Each element follows the formula: 1 component + 1 layout + up to 3 properties:
 
 ```html
-<!-- Component + Layout + Property -->
+<!-- Component + Layout + Property (max 3) -->
 <article class="card as-stack with-shadow">
   All three types
 </article>
@@ -64,12 +113,61 @@ Each element may have up to three classes:
 
 Base building blocks of your interface:
 
-- `button` - Interactive button
+**Interactive Elements:**
+- `button` - Interactive button ([docs](./components/button.md))
+- `link` - Styled anchor ([docs](./components/link.md))
+- `tab` - Tab navigation item (radio + :checked)
+- `accordion` - Collapsible sections (details/summary)
+- `carousel` - Content slider (radio + :checked + scroll) ([docs](./components/carousel.md))
+
+**Content Containers:**
 - `card` - Content container
-- `nav` - Navigation element
+- `article` - Article container
+- `section` - Section wrapper
+- `dialog` - Modal/dialog (dialog element)
+
+**Navigation:**
+- `nav` - Navigation container
+- `path` - Navigation path/breadcrumb
+- `pagination` - Page navigation (nav + aria-label)
+
+**Forms:**
 - `form` - Form container
+- `field` - Form field wrapper
+- `input` - Text input
+- `select` - Dropdown select
+- `textarea` - Multi-line input
+- `checkbox` - Checkbox input
+- `radio` - Radio button
+- `switch` - Toggle switch (radio + :checked)
+- `slider` - Value slider (input range + custom styling)
+
+**Data Display:**
 - `table` - Data table
 - `list` - List container
+- `definition` - Definition list
+
+**Media:**
+- `image` - Single image (img + object-fit)
+- `figure` - Figure with caption (figure + figcaption)
+- `picture` - Responsive image (picture element)
+- `video` - Video container (video element)
+- `audio` - Audio player (audio element)
+- `embed` - Embedded content (object/embed)
+- `iframe` - Iframe wrapper (iframe + aspect-ratio)
+
+**Text:**
+- `text` - Text content
+- `heading` - Headings
+- `code` - Code blocks
+- `quote` - Blockquotes
+
+**Feedback:**
+- `alert` - Alert messages
+- `toast` - Toast notifications (animation + aria-live)
+- `badge` - Status badges (span + aria-label)
+- `tag` - Content tags (span + aria-label)
+- `progress` - Progress indicators (progress element)
 
 ```html
 <button class="button" role="button">

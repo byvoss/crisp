@@ -21,7 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Integration guides for popular frameworks
 
 ### Core Principles Established
-- Maximum 3 classes per element rule
+- Maximum 1 component + 1 layout + up to 3 properties per element rule
 - No ID selectors in CSS
 - Semantic HTML first approach
 - Progressive enhancement philosophy

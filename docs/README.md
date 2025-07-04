@@ -33,7 +33,7 @@ It prioritises semantic HTML, minimal CSS, and accessibility-first design.
 ## Core Principles
 
 1. **Semantic class prefixes** (no prefix, `as-`, `with-`)
-2. **Maximum 3 classes per element**
+2. **Maximum 1 component + 1 layout + up to 3 properties per element**
 3. **ARIA/role for functionality**
 4. **Custom Properties for variations**
 5. **WCAG-compliant by default**

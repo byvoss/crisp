@@ -5,7 +5,7 @@ Thank you for your interest in contributing to CRISP! We welcome contributions t
 ## Core Principles
 
 1. **Semantic HTML First** - Every contribution must prioritise semantic HTML
-2. **Maximum 3 Classes** - No element should require more than 3 classes
+2. **Class Formula** - No element should have more than 1 component + 1 layout + up to 3 properties
 3. **Accessibility Always** - All features must meet WCAG 2.1 AA standards
 4. **No ID Selectors** - IDs are reserved exclusively for accessibility
 5. **Progressive Enhancement** - Features must work without JavaScript

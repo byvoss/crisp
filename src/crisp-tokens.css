@@ -87,16 +87,25 @@
   --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Monaco, monospace;
   
   /* Font Sizes */
-  --text-size-0-75: 0.75rem;
-  --text-size-0-875: 0.875rem;
-  --text-size-1-0: 1rem;
-  --text-size-1-125: 1.125rem;
-  --text-size-1-25: 1.25rem;
-  --text-size-1-5: 1.5rem;
-  --text-size-2-0: 2rem;
-  --text-size-2-5: 2.5rem;
-  --text-size-3-0: 3rem;
-  --text-size-4-0: 4rem;
+  --text-size-xs: 0.75rem;      /* extra small */
+  --text-size-sm: 0.875rem;     /* small */
+  --text-size-base: 1rem;       /* base/default */
+  --text-size-lg: 1.25rem;      /* large */
+  --text-size-xl: 1.5rem;       /* extra large */
+  --text-size-2xl: 2rem;        /* 2x large */
+  --text-size-3xl: 3rem;        /* 3x large */
+  
+  /* Legacy mappings (deprecated) */
+  --text-size-0-75: var(--text-size-xs);
+  --text-size-0-875: var(--text-size-sm);
+  --text-size-1-0: var(--text-size-base);
+  --text-size-1-125: 1.125rem;  /* No direct mapping */
+  --text-size-1-25: var(--text-size-lg);
+  --text-size-1-5: var(--text-size-xl);
+  --text-size-2-0: var(--text-size-2xl);
+  --text-size-2-5: 2.5rem;       /* No direct mapping */
+  --text-size-3-0: var(--text-size-3xl);
+  --text-size-4-0: 4rem;         /* No direct mapping */
 
   /* Line Heights */
   --text-height-tight: 1.2;
