@@ -1,0 +1,118 @@
+/**
+ * CRISP Utilities
+ * Essential utility classes (use sparingly)
+ */
+
+/* Display utilities */
+.hidden {
+  display: none !important;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+/* Responsive utilities */
+@media (max-width: 768px) {
+  .hidden-mobile {
+    display: none !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .hidden-desktop {
+    display: none !important;
+  }
+}
+
+/* Print utilities */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  .print-only {
+    display: block !important;
+  }
+}
+
+/* Screen reader only */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Focus management */
+.focus-visible:focus {
+  outline: 2px solid var(--colour-primary-50);
+  outline-offset: 2px;
+}
+
+/* Skip link */
+.skip-link {
+  position: absolute;
+  top: -40px;
+  left: 0;
+  background: var(--colour-primary-50);
+  color: white;
+  padding: var(--space-0-5) var(--space-1-0);
+  text-decoration: none;
+  border-radius: var(--radius-sm);
+  z-index: 100;
+}
+
+.skip-link:focus {
+  top: var(--space-1-0);
+}
+
+/* Error states */
+.error {
+  color: var(--colour-error-50);
+  font-size: var(--text-size-0-875);
+  margin-top: var(--space-0-25);
+}
+
+/* Success states */
+.success {
+  color: var(--colour-success-50);
+  font-size: var(--text-size-0-875);
+  margin-top: var(--space-0-25);
+}
+
+/* Warning states */
+.warning {
+  color: var(--colour-warning-50);
+  font-size: var(--text-size-0-875);
+  margin-top: var(--space-0-25);
+}
+
+/* Loading states */
+[aria-busy="true"] {
+  cursor: wait;
+}
+
+/* Disabled states */
+[disabled],
+[aria-disabled="true"] {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Required fields */
+[required],
+[aria-required="true"] {
+  --required-indicator: "*";
+}
+
+label:has(+ [required])::after,
+label:has(+ [aria-required="true"])::after {
+  content: " *";
+  color: var(--colour-error-50);
+}

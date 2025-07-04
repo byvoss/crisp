@@ -1,0 +1,68 @@
+{
+  "name": "@byvoss/crisp",
+  "version": "25.0704-01",
+  "description": "Code Rules for Intuitive Semantic Projects - A modern CSS framework",
+  "main": "dist/crisp.css",
+  "style": "dist/crisp.css",
+  "exports": {
+    ".": "./dist/crisp.css",
+    "./modern": "./dist/crisp-modern.css",
+    "./bundle": "./dist/crisp-bundle.css"
+  },
+  "files": [
+    "dist/",
+    "src/",
+    "docs/",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "npm run build:css && npm run build:minify",
+    "build:css": "node build.js",
+    "build:minify": "cleancss -o dist/crisp.min.css dist/crisp.css",
+    "watch": "npm run build && chokidar 'src/**/*.css' -c 'npm run build'",
+    "test": "npm run lint",
+    "lint": "stylelint 'src/**/*.css'",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "css",
+    "framework",
+    "semantic",
+    "accessibility",
+    "crisp",
+    "css-framework",
+    "a11y",
+    "wcag"
+  ],
+  "author": "ByVoss",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/byvoss/crisp"
+  },
+  "homepage": "https://byvoss.tech/crisp",
+  "bugs": {
+    "url": "https://github.com/byvoss/crisp/issues"
+  },
+  "devDependencies": {
+    "clean-css-cli": "^5.6.2",
+    "chokidar-cli": "^3.0.0",
+    "stylelint": "^15.10.3",
+    "stylelint-config-standard": "^34.0.0",
+    "stylelint-a11y": "^1.2.3"
+  },
+  "stylelint": {
+    "extends": [
+      "stylelint-config-standard",
+      "stylelint-a11y/recommended"
+    ],
+    "rules": {
+      "selector-id-pattern": "^(?!.*)",
+      "selector-max-id": 0,
+      "declaration-property-value-allowed-list": {
+        "/^font-family$/": ["/^var\\(--font-/"]
+      }
+    }
+  }
+}

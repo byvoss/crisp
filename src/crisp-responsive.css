@@ -1,0 +1,187 @@
+/**
+ * CRISP Responsive System
+ * Global viewport attributes for responsive design
+ */
+
+/* Set viewport attributes on body */
+@media (max-width: 479px) {
+  body {
+    --viewport: mobile;
+  }
+  body::before {
+    content: "mobile";
+    display: none;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  body {
+    --viewport: mobile-landscape;
+  }
+  body::before {
+    content: "mobile-landscape";
+    display: none;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  body {
+    --viewport: tablet;
+  }
+  body::before {
+    content: "tablet";
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1279px) {
+  body {
+    --viewport: desktop;
+  }
+  body::before {
+    content: "desktop";
+    display: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  body {
+    --viewport: wide;
+  }
+  body::before {
+    content: "wide";
+    display: none;
+  }
+}
+
+/* JavaScript helper to set attributes */
+.viewport-helper {
+  position: fixed;
+  top: -9999px;
+  left: -9999px;
+  visibility: hidden;
+}
+
+/* Responsive utilities based on viewport attribute */
+[data-viewport="mobile"] {
+  /* Mobile-specific custom properties */
+  --container-padding: var(--space-1-0);
+  --grid-columns: 1;
+  --stack-gap: var(--space-1-0);
+  --cluster-gap: var(--space-0-5);
+  --nav-display: none;
+  --nav-mobile-display: block;
+}
+
+[data-viewport="tablet"] {
+  /* Tablet-specific custom properties */
+  --container-padding: var(--space-1-5);
+  --grid-columns: 2;
+  --stack-gap: var(--space-1-5);
+  --cluster-gap: var(--space-1-0);
+}
+
+[data-viewport="desktop"],
+[data-viewport="wide"] {
+  /* Desktop-specific custom properties */
+  --container-padding: var(--space-2-0);
+  --grid-columns: 3;
+  --stack-gap: var(--space-2-0);
+  --cluster-gap: var(--space-1-5);
+}
+
+/* Orientation detection */
+@media (orientation: portrait) {
+  body {
+    --orientation: portrait;
+  }
+}
+
+@media (orientation: landscape) {
+  body {
+    --orientation: landscape;
+  }
+}
+
+/* Device capabilities */
+@media (hover: hover) and (pointer: fine) {
+  body {
+    --input-type: mouse;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  body {
+    --input-type: touch;
+  }
+}
+
+/* Combined attributes for specific states */
+[data-viewport="mobile"][data-orientation="landscape"] {
+  /* Mobile landscape specific */
+  --container-padding: var(--space-0-5);
+  --text-size-1-0: 0.875rem;
+}
+
+/* Responsive visibility utilities */
+[data-viewport="mobile"] .hide-mobile,
+[data-viewport="mobile-landscape"] .hide-mobile {
+  display: none !important;
+}
+
+[data-viewport="tablet"] .hide-tablet {
+  display: none !important;
+}
+
+[data-viewport="desktop"] .hide-desktop,
+[data-viewport="wide"] .hide-desktop {
+  display: none !important;
+}
+
+/* Show only on specific viewports */
+.show-mobile {
+  display: none !important;
+}
+
+[data-viewport="mobile"] .show-mobile,
+[data-viewport="mobile-landscape"] .show-mobile {
+  display: block !important;
+}
+
+/* Navigation patterns based on viewport */
+[data-viewport="mobile"] .nav,
+[data-viewport="mobile-landscape"] .nav {
+  position: fixed;
+  inset: 0;
+  transform: translateX(-100%);
+  transition: transform var(--transition-base);
+}
+
+[data-viewport="mobile"] .nav[data-state="open"],
+[data-viewport="mobile-landscape"] .nav[data-state="open"] {
+  transform: translateX(0);
+}
+
+/* Container queries fallback */
+[data-viewport="mobile"] .card {
+  --card-padding: var(--space-1-0);
+  --card-direction: column;
+}
+
+[data-viewport="tablet"] .card {
+  --card-padding: var(--space-1-5);
+  --card-direction: row;
+}
+
+/* Print viewport */
+@media print {
+  body {
+    --viewport: print;
+  }
+}
+
+[data-viewport="print"] {
+  --colour-background: white;
+  --colour-text: black;
+  --page-break: auto;
+}

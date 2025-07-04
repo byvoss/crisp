@@ -1,0 +1,305 @@
+/**
+ * CRISP Theme System
+ * Automatic light/dark theme support
+ */
+
+/* Light Theme (Default) */
+:root {
+  /* Semantic colour tokens */
+  --colour-background: var(--colour-neutral-98);
+  --colour-surface: var(--colour-neutral-100);
+  --colour-surface-variant: var(--colour-neutral-95);
+  --colour-on-background: var(--colour-neutral-10);
+  --colour-on-surface: var(--colour-neutral-10);
+  
+  /* Primary colours */
+  --colour-primary: var(--colour-primary-50);
+  --colour-on-primary: var(--colour-neutral-100);
+  --colour-primary-container: var(--colour-primary-90);
+  --colour-on-primary-container: var(--colour-primary-10);
+  
+  /* Secondary colours */
+  --colour-secondary: var(--colour-secondary-50);
+  --colour-on-secondary: var(--colour-neutral-100);
+  --colour-secondary-container: var(--colour-secondary-90);
+  --colour-on-secondary-container: var(--colour-secondary-10);
+  
+  /* Semantic colours */
+  --colour-error: var(--colour-error-50);
+  --colour-on-error: var(--colour-neutral-100);
+  --colour-error-container: var(--colour-error-90);
+  --colour-on-error-container: var(--colour-error-10);
+  
+  --colour-success: var(--colour-success-50);
+  --colour-on-success: var(--colour-neutral-100);
+  --colour-success-container: var(--colour-success-90);
+  --colour-on-success-container: var(--colour-success-10);
+  
+  /* Text colours */
+  --colour-text-primary: var(--colour-neutral-10);
+  --colour-text-secondary: var(--colour-neutral-30);
+  --colour-text-disabled: var(--colour-neutral-60);
+  
+  /* Border colours */
+  --colour-border: var(--colour-neutral-90);
+  --colour-border-variant: var(--colour-neutral-80);
+  
+  /* Shadow colours */
+  --colour-shadow: hsla(220, 10%, 20%, 0.15);
+  
+  /* Elevation colours */
+  --colour-elevation-1: var(--colour-surface);
+  --colour-elevation-2: var(--colour-neutral-95);
+  --colour-elevation-3: var(--colour-neutral-90);
+}
+
+/* Dark Theme */
+[data-theme="dark"] {
+  /* Semantic colour tokens */
+  --colour-background: var(--colour-neutral-10);
+  --colour-surface: var(--colour-neutral-15);
+  --colour-surface-variant: var(--colour-neutral-20);
+  --colour-on-background: var(--colour-neutral-90);
+  --colour-on-surface: var(--colour-neutral-90);
+  
+  /* Primary colours */
+  --colour-primary: var(--colour-primary-60);
+  --colour-on-primary: var(--colour-primary-10);
+  --colour-primary-container: var(--colour-primary-30);
+  --colour-on-primary-container: var(--colour-primary-90);
+  
+  /* Secondary colours */
+  --colour-secondary: var(--colour-secondary-60);
+  --colour-on-secondary: var(--colour-secondary-10);
+  --colour-secondary-container: var(--colour-secondary-30);
+  --colour-on-secondary-container: var(--colour-secondary-90);
+  
+  /* Semantic colours */
+  --colour-error: var(--colour-error-60);
+  --colour-on-error: var(--colour-error-10);
+  --colour-error-container: var(--colour-error-30);
+  --colour-on-error-container: var(--colour-error-90);
+  
+  --colour-success: var(--colour-success-60);
+  --colour-on-success: var(--colour-success-10);
+  --colour-success-container: var(--colour-success-30);
+  --colour-on-success-container: var(--colour-success-90);
+  
+  /* Text colours */
+  --colour-text-primary: var(--colour-neutral-90);
+  --colour-text-secondary: var(--colour-neutral-70);
+  --colour-text-disabled: var(--colour-neutral-40);
+  
+  /* Border colours */
+  --colour-border: var(--colour-neutral-20);
+  --colour-border-variant: var(--colour-neutral-30);
+  
+  /* Shadow colours */
+  --colour-shadow: hsla(0, 0%, 0%, 0.3);
+  
+  /* Elevation colours */
+  --colour-elevation-1: var(--colour-neutral-20);
+  --colour-elevation-2: var(--colour-neutral-25);
+  --colour-elevation-3: var(--colour-neutral-30);
+}
+
+/* System preference */
+@media (prefers-color-scheme: dark) {
+  body:not([data-theme="light"]) {
+    /* Copy dark theme values */
+    --colour-background: var(--colour-neutral-10);
+    --colour-surface: var(--colour-neutral-15);
+    --colour-surface-variant: var(--colour-neutral-20);
+    --colour-on-background: var(--colour-neutral-90);
+    --colour-on-surface: var(--colour-neutral-90);
+    
+    --colour-primary: var(--colour-primary-60);
+    --colour-on-primary: var(--colour-primary-10);
+    --colour-primary-container: var(--colour-primary-30);
+    --colour-on-primary-container: var(--colour-primary-90);
+    
+    --colour-secondary: var(--colour-secondary-60);
+    --colour-on-secondary: var(--colour-secondary-10);
+    --colour-secondary-container: var(--colour-secondary-30);
+    --colour-on-secondary-container: var(--colour-secondary-90);
+    
+    --colour-error: var(--colour-error-60);
+    --colour-on-error: var(--colour-error-10);
+    --colour-error-container: var(--colour-error-30);
+    --colour-on-error-container: var(--colour-error-90);
+    
+    --colour-success: var(--colour-success-60);
+    --colour-on-success: var(--colour-success-10);
+    --colour-success-container: var(--colour-success-30);
+    --colour-on-success-container: var(--colour-success-90);
+    
+    --colour-text-primary: var(--colour-neutral-90);
+    --colour-text-secondary: var(--colour-neutral-70);
+    --colour-text-disabled: var(--colour-neutral-40);
+    
+    --colour-border: var(--colour-neutral-20);
+    --colour-border-variant: var(--colour-neutral-30);
+    
+    --colour-shadow: hsla(0, 0%, 0%, 0.3);
+    
+    --colour-elevation-1: var(--colour-neutral-20);
+    --colour-elevation-2: var(--colour-neutral-25);
+    --colour-elevation-3: var(--colour-neutral-30);
+  }
+}
+
+/* Apply theme colours to components */
+body {
+  background: var(--colour-background);
+  color: var(--colour-text-primary);
+}
+
+.card {
+  background: var(--colour-surface);
+  color: var(--colour-on-surface);
+}
+
+.button {
+  background: var(--colour-primary);
+  color: var(--colour-on-primary);
+}
+
+.button:hover {
+  background: color-mix(
+    in srgb,
+    var(--colour-primary) 90%,
+    var(--colour-on-primary)
+  );
+}
+
+.input,
+.textarea,
+.select {
+  background: var(--colour-surface);
+  color: var(--colour-on-surface);
+  border-color: var(--colour-border);
+}
+
+.input:focus,
+.textarea:focus,
+.select:focus {
+  border-color: var(--colour-primary);
+  outline-color: var(--colour-primary);
+}
+
+/* Theme toggle component */
+.theme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  padding: var(--space-0-25);
+  background: var(--colour-surface-variant);
+  border-radius: var(--radius-full);
+}
+
+.theme-toggle input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+
+.theme-toggle label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  cursor: pointer;
+  border-radius: var(--radius-full);
+  transition: background var(--transition-fast);
+}
+
+.theme-toggle input:checked + label {
+  background: var(--colour-primary);
+  color: var(--colour-on-primary);
+}
+
+/* Smooth theme transitions */
+:root {
+  transition: 
+    background-color var(--transition-base),
+    color var(--transition-base);
+}
+
+* {
+  transition: 
+    background-color var(--transition-base),
+    border-color var(--transition-base),
+    color var(--transition-base);
+}
+
+/* Disable transitions on theme change */
+.theme-transitioning * {
+  transition: none !important;
+}
+
+/* High contrast theme */
+[data-theme="high-contrast"] {
+  --colour-background: black;
+  --colour-surface: black;
+  --colour-on-background: white;
+  --colour-on-surface: white;
+  
+  --colour-primary: yellow;
+  --colour-on-primary: black;
+  --colour-primary-container: yellow;
+  --colour-on-primary-container: black;
+  
+  --colour-border: white;
+  --colour-border-variant: white;
+  
+  --colour-text-primary: white;
+  --colour-text-secondary: white;
+  
+  --border-width: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  body:not([data-theme]) {
+    --colour-background: black;
+    --colour-surface: black;
+    --colour-on-background: white;
+    --colour-border: white;
+    --colour-primary: yellow;
+    --colour-on-primary: black;
+    --border-width: 2px;
+  }
+}
+
+/* Reduced motion theme */
+[data-theme="reduced-motion"] {
+  --transition-fast: 0ms;
+  --transition-base: 0ms;
+  --transition-slow: 0ms;
+}
+
+/* Large print theme */
+[data-theme="large-print"] {
+  --text-size-0-75: 0.875rem;
+  --text-size-0-875: 1rem;
+  --text-size-1-0: 1.25rem;
+  --text-size-1-125: 1.375rem;
+  --text-size-1-25: 1.5rem;
+  --text-size-1-5: 1.875rem;
+  --text-size-2-0: 2.5rem;
+  --text-size-2-5: 3rem;
+  --text-size-3-0: 3.5rem;
+  --text-size-4-0: 5rem;
+  
+  --text-height-base: 1.75;
+  --text-height-loose: 2;
+}
+
+/* Print styles */
+@media print {
+  :root {
+    --colour-background: white;
+    --colour-text-primary: black;
+    --colour-border: black;
+  }
+}
