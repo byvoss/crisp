@@ -8,7 +8,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C04-anatomy.md - Update custom property pattern (--button-bg → --bg)
   - [x] C05-tokens.md - Ensure token naming rules are consistent
   - [x] C06-layouts.md - Check for context classes → data attributes
-  - [ ] C07-elements.md - Update all component examples to new pattern
+  - [x] C07-elements.md - Update all component examples to new pattern
   - [ ] C08-containers.md - Apply new custom property pattern
   - [ ] C09-navigation.md - Update examples with new patterns
   - [ ] C10-forms.md - Critical: update form component patterns
@@ -26,7 +26,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C04-anatomy.md - Verify component anatomy rules
   - [x] C05-tokens.md - Check token system completeness
   - [x] C06-layouts.md - Verify all layout patterns
-  - [ ] C07-elements.md - Check element documentation
+  - [x] C07-elements.md - Check element documentation
   - [ ] C08-containers.md - Verify container patterns
   - [ ] C09-navigation.md - Check navigation components
   - [ ] C10-forms.md - Verify form patterns and accessibility
