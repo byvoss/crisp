@@ -127,6 +127,12 @@ Keeps class namespace clean. Contexts are data, not components.
 - **`data-variant`**: Visual variations (`primary`, `pills`, `compact`, `ghost`, `minimal`, `horizontal`, `vertical`)
 - **`data-theme`**: Color scheme (`light`, `dark`, `high-contrast`)
 
+**Semantic Information Keys (CSS-friendly):**
+- **`data-entries`**: Count of child elements (required for countable containers)
+- **`data-level`**: Hierarchical depth (`1`, `2`, `3` for nested navigation)
+- **`data-current`**: Current position in sequence (`3` for page 3, `2` for step 2)
+- **`data-total`**: Total items when different from entries (`256` when showing 20 of 256)
+
 **JavaScript-specific Keys:**
 - **`data-function`**: JavaScript behavior hooks (`toggle`, `trigger`, `target`, `container`)
 - **`data-action`**: User actions (`submit`, `close`, `expand`)
@@ -137,6 +143,7 @@ Keeps class namespace clean. Contexts are data, not components.
 - Use kebab-case for custom keys (`data-user-role`)
 - Semantic naming, not visual (`data-tier="premium"`, not `data-color="gold"`)
 - Keep the list minimal - these core keys cover most use cases
+- Only use attributes that make sense without JavaScript (CSS-only first)
 
 #### 10. Complete Default Values Required
 
@@ -278,6 +285,55 @@ const updateNavCount = (nav) => {
 - Sliders/Carousels
 - Pagination
 - Any container where count matters for UX
+
+**Additional semantic data attributes for enhanced meaning:**
+
+**`data-level`** - Hierarchical depth (for nested structures):
+```html
+<nav class="navigation" data-entries="4" data-level="1" aria-label="Main">
+  <a href="/products">Products</a>
+  <nav class="navigation" data-entries="3" data-level="2" aria-label="Products submenu">
+    <a href="/products/crisp">CRISP Framework</a>
+    <a href="/products/themes">Themes</a>
+    <a href="/products/enterprise">Enterprise</a>
+  </nav>
+</nav>
+```
+
+**`data-current`** - Current position in a sequence:
+```html
+<nav class="pagination" data-entries="10" data-current="3" aria-label="Page navigation">
+  <a class="link" href="?page=2">Previous</a>
+  <span>Page 3 of 10</span>
+  <a class="link" href="?page=4">Next</a>
+</nav>
+
+<nav class="steps" data-entries="5" data-current="2">
+  <span class="step">Billing</span>
+  <span class="step" aria-current="step">Shipping</span>
+  <span class="step">Payment</span>
+  <span class="step">Review</span>
+  <span class="step">Confirm</span>
+</nav>
+```
+
+**`data-total`** - Total count when different from visible entries:
+```html
+<section class="results" data-entries="20" data-total="256">
+  <h2>Showing 20 of 256 results</h2>
+  <!-- 20 visible items, but 256 total exist -->
+</section>
+
+<div class="gallery" data-entries="12" data-total="48">
+  <!-- Showing 12 images, 48 total available -->
+</div>
+```
+
+These semantic attributes work with pure CSS and enhance:
+- **Readability**: HTML structure is self-documenting
+- **Styling**: CSS can react to counts and positions
+- **Accessibility**: Screen readers can announce totals and positions
+- **JavaScript**: Easy progressive enhancement without DOM queries
 
 ### Documentation Writing Principles
 
