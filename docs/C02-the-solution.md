@@ -61,15 +61,15 @@ Remember creating 15 button variants? Watch this:
 <button class="btn btn--danger btn--medium">More Classes</button>
 
 <!-- CRISP way (1 class in your CSS) -->
-<button class="button" style="--button-bg: var(--colour-primary-50); --button-size: large;">Primary Large</button>
-<button class="button" style="--button-bg: var(--colour-neutral-50); --button-size: small;">Secondary Small</button>
-<button class="button" style="--button-bg: var(--colour-danger-50);">Danger Default</button>
+<button class="button" style="--button-bg: var(--color-primary-50); --button-size: large;">Primary Large</button>
+<button class="button" style="--button-bg: var(--color-neutral-50); --button-size: small;">Secondary Small</button>
+<button class="button" style="--button-bg: var(--color-danger-50);">Danger Default</button>
 ```
 
 ```css
 /* The entire button CSS */
 .button {
-  background: var(--button-bg, var(--colour-neutral-90));
+  background: var(--button-bg, var(--color-neutral-90));
   font-size: var(--button-size, 1rem);
   /* That's it. No variants. No modifiers. */
 }
@@ -141,7 +141,7 @@ HTML elements have meaning. Use them.
 <article class="card">
 
 <!-- Properties say HOW it looks -->
-<article class="card" style="--card-bg: var(--colour-primary-10);">
+<article class="card" style="--card-bg: var(--color-primary-10);">
 ```
 
 ### 3. Prefixes That Make Sense
@@ -149,7 +149,7 @@ HTML elements have meaning. Use them.
 Only three prefixes, each with clear purpose:
 
 - **No prefix** = Component (`card`, `button`, `navigation`)
-- **`as-`** = Layout mode (`as-stack`, `as-grid`, `as-centre`)
+- **`as-`** = Layout mode (`as-stack`, `as-grid`, `as-center`)
 - **`with-`** = Enhancement (`with-shadow`, `with-animate`)
 
 ```html
@@ -172,7 +172,7 @@ Modern CSS is incredible. CRISP embraces it:
 /* Nesting? Naturally */
 .button {
   &:hover {
-    --button-bg: var(--colour-primary-60);
+    --button-bg: var(--color-primary-60);
   }
 }
 
@@ -188,10 +188,10 @@ Modern CSS is incredible. CRISP embraces it:
 Let's build a pricing card without crying:
 
 ```html
-<article class="card as-stack with-shadow" style="--card-bg: var(--colour-primary-5);">
+<article class="card as-stack with-shadow" style="--card-bg: var(--color-primary-5);">
   <header class="as-stack">
     <h2 class="heading" style="--heading-size: 1.5rem;">Professional</h2>
-    <p class="text" style="--text-colour: var(--colour-neutral-60);">For growing teams</p>
+    <p class="text" style="--text-color: var(--color-neutral-60);">For growing teams</p>
   </header>
   
   <div class="as-stack" style="--stack-gap: var(--space-2-0);">
