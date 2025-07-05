@@ -27,7 +27,7 @@ One HTML structure. Three capability levels. Zero rewrites.
 ```html
 <!-- This HTML works at ALL levels -->
 <button class="button with-interaction" 
-  style="--bg: var(--color-primary);">
+  style="--button-bg: var(--color-primary-50);">
   Click Me
 </button>
 ```
@@ -71,7 +71,7 @@ One HTML structure. Three capability levels. Zero rewrites.
     <input class="radio" id="tab-1" type="radio" name="tabs" checked>
     <input class="radio" id="tab-2" type="radio" name="tabs">
     
-    <nav class="navigation as-cluster" data-variant="tabs">
+    <nav class="navigation as-cluster">
       <label class="tab" for="tab-1">Tab 1</label>
       <label class="tab" for="tab-2">Tab 2</label>
     </nav>
@@ -83,43 +83,6 @@ One HTML structure. Three capability levels. Zero rewrites.
   </div>
 </body>
 </html>
-```
-
-CSS for tabs (Define/Use pattern):
-```css
-.tabs {
-  /* 1. Define defaults */
-  --gap: var(--space-1-0);
-  --radius: var(--radius-md);
-  
-  /* 2. Use the tokens */
-  display: grid;
-  gap: var(--gap);
-}
-
-.tab {
-  /* 1. Define defaults */
-  --bg: transparent;
-  --color: var(--color-neutral);
-  --padding: var(--space-0-75) var(--space-1-5);
-  --border-width: 2px;
-  --border-color: transparent;
-  
-  /* 2. Use the tokens */
-  background: var(--bg);
-  color: var(--color);
-  padding: var(--padding);
-  border-bottom: var(--border-width) solid var(--border-color);
-  cursor: pointer;
-  transition: all 250ms ease;
-}
-
-/* Active state */
-input[type="radio"]:checked + .navigation .tab:nth-of-type(1),
-input[type="radio"]:nth-of-type(2):checked ~ .navigation .tab:nth-of-type(2) {
-  --border-color: var(--color-primary);
-  --color: var(--color-primary);
-}
 ```
 
 ### When to Use CRISP
@@ -150,15 +113,15 @@ input[type="radio"]:nth-of-type(2):checked ~ .navigation .tab:nth-of-type(2) {
 <body>
   <!-- Exact same HTML -->
   <button class="button with-interaction" 
-    style="--bg: var(--color-primary);">
+    style="--button-bg: var(--color-primary-50);">
     Click Me
   </button>
   
   <!-- Theme switcher (optional) -->
   <div class="theme-switcher as-cluster">
-    <button class="button" data-function="theme" data-theme="light">Light</button>
-    <button class="button" data-function="theme" data-theme="dark">Dark</button>
-    <button class="button" data-function="theme" data-theme="auto">Auto</button>
+    <button class="button" data-theme="light">Light</button>
+    <button class="button" data-theme="dark">Dark</button>
+    <button class="button" data-theme="auto">Auto</button>
   </div>
 </body>
 </html>
@@ -188,7 +151,7 @@ input[type="radio"]:nth-of-type(2):checked ~ .navigation .tab:nth-of-type(2) {
   });
   
   // Theme switcher
-  document.querySelectorAll('[data-function="theme"]').forEach(button => {
+  document.querySelectorAll('[data-theme]').forEach(button => {
     button.addEventListener('click', () => {
       const theme = button.getAttribute('data-theme');
       localStorage.setItem('theme', theme);
@@ -232,22 +195,22 @@ input[type="radio"]:nth-of-type(2):checked ~ .navigation .tab:nth-of-type(2) {
 <body data-lang="en-GB">
   <!-- EXACT same HTML, now with superpowers -->
   <button class="button with-interaction" 
-    data-function="submit"
+    data-component="button"
     data-i18n="actions.submit"
-    style="--bg: var(--color-primary);">
+    style="--button-bg: var(--color-primary-50);">
     Click Me
   </button>
   
   <!-- Reactive form -->
   <form class="form as-stack" 
-    data-function="form"
+    data-component="form"
     data-validate="true"
     data-submit="async">
     
     <input class="input" 
       type="email" 
       name="email"
-      data-function="input"
+      data-component="input"
       data-validate="email"
       required>
     
@@ -282,7 +245,7 @@ export class Button extends CRISPComponent {
     // Track analytics
     this.track('button_click', {
       label: this.textContent,
-      variant: this.style.getPropertyValue('--bg')
+      variant: this.style.getPropertyValue('--button-bg')
     });
   }
   
@@ -295,13 +258,13 @@ export class Button extends CRISPComponent {
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === 'loading') {
       this.ariaBusy = newValue === 'true' ? 'true' : 'false';
-      this.setAttribute('data-state', newValue === 'true' ? 'loading' : '');
+      this.classList.toggle('is-loading', newValue === 'true');
     }
   }
 }
 
 // Auto-register components
-document.querySelectorAll('[data-function="submit"]').forEach(el => {
+document.querySelectorAll('[data-component="button"]').forEach(el => {
   new Button(el);
 });
 ```
@@ -356,11 +319,11 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 <!-- Step 1: Add enterprise script -->
 <script type="module" src="crisp-enterprise.min.js"></script>
 
-<!-- Step 2: Add data-function where needed (optional) -->
-<button class="button" data-function="submit">
+<!-- Step 2: Add data-component where needed (optional) -->
+<button class="button" data-component="button">
 
 <!-- Step 3: Add i18n keys (optional) -->
-<button class="button" data-function="submit" data-i18n="actions.submit">
+<button class="button" data-component="button" data-i18n="actions.submit">
 ```
 
 ## The Beautiful Truth
@@ -381,16 +344,16 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 ```html
 <!-- This button works in all three levels -->
 <button class="button with-interaction" 
-  style="--bg: var(--color-primary);">
+  style="--button-bg: var(--color-primary-50);">
   Always Works
 </button>
 
 <!-- Progressive enhancement in action -->
 <button class="button with-interaction" 
-  data-function="submit"             <!-- Enterprise only -->
+  data-component="button"           <!-- Enterprise only -->
   data-haptic="true"                <!-- Enterprise only -->
   data-analytics="cta-primary"      <!-- Enterprise only -->
-  style="--bg: var(--color-primary);">
+  style="--button-bg: var(--color-primary-50);">
   Enhanced When Available
 </button>
 ```
@@ -400,7 +363,7 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 ### E-commerce Product Card
 ```html
 <!-- Works at all levels -->
-<article class="card as-stack with-shadow" data-context="product">
+<article class="card as-stack with-shadow">
   <img class="image" src="product.jpg" alt="Product">
   
   <div class="as-stack">
@@ -410,32 +373,12 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
   </div>
   
   <button class="button with-interaction" 
-    data-function="buy"
+    data-component="buy-button"
     data-product-id="123"
-    style="--bg: var(--color-primary);">
+    style="--button-bg: var(--color-primary-50);">
     Add to Cart
   </button>
 </article>
-```
-
-CSS for product context:
-```css
-[data-context="product"] {
-  /* 1. Define context tokens */
-  --spacing: var(--space-1-5);
-  --highlight: var(--color-primary);
-  
-  /* 2. Apply to children */
-  .card {
-    --padding: var(--spacing);
-  }
-  
-  .price {
-    --color: var(--highlight);
-    --size: var(--text-size-1-25);
-    --weight: var(--text-weight-bold);
-  }
-}
 ```
 
 **Level 1 (CRISP)**: Beautiful static card
@@ -454,11 +397,8 @@ With CRISP's progressive enhancement:
 - Never rewrite HTML
 - Each level is production-ready
 - Graceful degradation built-in
-- Context-aware styling via data attributes
 - Your future self thanks you
 
 Your HTML is eternal. Your capabilities are progressive. Your users are happy.
-
-And when the PM asks for "enterprise features"? You don't rewrite your HTML. You add data attributes and progressive JavaScript. That's the power of true progressive enhancement.
 
 → Continue to [Chapter 13: Common Patterns & Clever Tricks](./C13-patterns.md)
