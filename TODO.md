@@ -14,7 +14,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C01-the-problem.md
   - [x] C02-the-solution.md
   - [x] C03-principles.md
-  - [ ] C04-anatomy.md
+  - [x] C04-anatomy.md
   - [ ] C05-tokens.md
   - [ ] C06-layouts.md
   - [ ] C07-elements.md

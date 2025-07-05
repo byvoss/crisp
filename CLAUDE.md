@@ -95,6 +95,15 @@ Please read these files in order to understand the complete project:
 - Tasks to add when discovering problems
 - Tasks to check off when completed
 
+**Workflow for EVERY task:**
+1. Complete the implementation
+2. Commit and push changes
+3. Check CI with `gh run list --limit=1`
+4. If CI fails: Fix issues and repeat
+5. When CI passes:
+   - For TODO tasks: Check off in TODO.md
+   - For other tasks: Write "TASK: [Task name] completed successfully"
+
 ### GitHub Repository
 
 - **Repository**: `github.com:byvoss/crisp.git`
