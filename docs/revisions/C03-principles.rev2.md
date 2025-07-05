@@ -253,18 +253,6 @@ No theme-specific classes. No dark mode modifiers. Just CSS custom properties ca
 
 **The Principle**: CSS is for layout and presentation only - never for context. Context is semantic information that belongs in HTML via data attributes. Don't pollute your styling with meaning.
 
-### Direct Application
-```html
-<!-- ✅ Component AND context on same element -->
-<button class="button" data-context="danger">Delete Account</button>
-<article class="card" data-theme="dark">Dark Card</article>
-
-<!-- ❌ Unnecessary nesting -->
-<div data-context="danger">
-  <button class="button">Delete Account</button>
-</div>
-```
-
 **The "Aha!"**: When you stop fighting the cascade and start using it, your CSS becomes dramatically simpler. Theme switching? One attribute. Responsive design? Container queries. Component variants? Custom properties.
 
 ## The Tablet of Stone (TL;DR)

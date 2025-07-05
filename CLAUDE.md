@@ -107,6 +107,18 @@ Keeps class namespace clean. Contexts are data, not components.
 
 **The Principle**: CSS is for layout and presentation only - never for context. Context is semantic information that belongs in HTML via data attributes. This maintains proper separation of concerns.
 
+**Important**: Elements can have BOTH component classes AND data attributes to avoid unnecessary nesting:
+```html
+<!-- ✅ Good - direct application -->
+<button class="button" data-brand="premium">Premium Button</button>
+<article class="card" data-context="danger">Warning Card</article>
+
+<!-- ❌ Bad - unnecessary wrapper -->
+<div data-brand="premium">
+  <button class="button">Premium Button</button>
+</div>
+```
+
 ### Documentation Writing Principles
 
 1. **British Humour with Bite** - Use sarcasm to highlight absurdities, but never be malicious. Think "cricket analogies" and "mint-flavoured dental floss", not personal attacks.

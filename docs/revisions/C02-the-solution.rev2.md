@@ -253,7 +253,7 @@ Modern CSS is incredible. CRISP embraces it:
 Let's build a pricing card without crying:
 
 ```html
-<article class="card as-stack with-shadow" data-plan="professional" style="--bg: var(--color-accent);">
+<article class="card as-stack with-shadow" style="--bg: var(--color-accent);">
   <header class="as-stack">
     <h2 class="heading" style="--size: 1.5rem;">Professional</h2>
     <p class="text" style="--color: var(--color-neutral);">For growing teams</p>
@@ -280,8 +280,6 @@ Let's build a pricing card without crying:
 Count the concepts you had to learn: `card`, `as-stack`, `with-shadow`. That's it.
 
 No utility classes. No modifier chains. No BEM hieroglyphics. Just descriptive classes and custom properties.
-
-**The "Aha!"**: Notice the `data-plan="professional"` directly on the card? No wrapper needed. Components can have both classes AND data attributes.
 
 ## The Revelation, Revisited
 
