@@ -21,8 +21,8 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--button-bg`: Background colour
-- `--button-colour`: Text colour
+- `--button-bg`: Background color
+- `--button-color`: Text color
 - `--button-size`: Font size
 - `--button-padding`: Internal spacing
 - `--button-radius`: Corner radius
@@ -33,7 +33,7 @@ Each component includes:
 ```html
 <!-- Primary button -->
 <button class="button" type="button" 
-  style="--button-bg: var(--colour-primary-50);">
+  style="--button-bg: var(--color-primary-50);">
   Primary Action
 </button>
 
@@ -59,7 +59,7 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--link-colour`: Text colour
+- `--link-color`: Text color
 - `--link-decoration`: Underline style
 - `--link-weight`: Font weight
 - `--link-opacity`: Hover opacity
@@ -92,12 +92,12 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--input-bg`: Background colour
+- `--input-bg`: Background color
 - `--input-border`: Border style
 - `--input-radius`: Corner radius
 - `--input-padding`: Internal spacing
 - `--input-width`: Width
-- `--input-colour`: Text colour
+- `--input-color`: Text color
 
 **Common Patterns**:
 ```html
@@ -123,7 +123,7 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--select-bg`: Background colour
+- `--select-bg`: Background color
 - `--select-border`: Border style
 - `--select-radius`: Corner radius
 - `--select-padding`: Internal spacing
@@ -137,7 +137,7 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--textarea-bg`: Background colour
+- `--textarea-bg`: Background color
 - `--textarea-border`: Border style
 - `--textarea-radius`: Corner radius
 - `--textarea-padding`: Internal spacing
@@ -192,7 +192,7 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--card-bg`: Background colour
+- `--card-bg`: Background color
 - `--card-padding`: Internal spacing
 - `--card-radius`: Corner radius
 - `--card-border`: Border style
@@ -466,7 +466,7 @@ document.getElementById('modal').showModal();
 **Custom Properties**:
 - `--heading-size`: Font size
 - `--heading-weight`: Font weight
-- `--heading-colour`: Text colour
+- `--heading-color`: Text color
 - `--heading-line`: Line height
 
 ### text
@@ -479,7 +479,7 @@ document.getElementById('modal').showModal();
 **Custom Properties**:
 - `--text-size`: Font size
 - `--text-weight`: Font weight
-- `--text-colour`: Text colour
+- `--text-color`: Text color
 - `--text-line`: Line height
 
 ### code
@@ -586,17 +586,17 @@ function example() {
 - `--grid-gap`: Gap between cells
 - `--grid-min`: Minimum cell width
 
-### as-centre
+### as-center
 **Purpose**: Perfect centering
 
 ```html
-<div class="as-centre">
-  <p>Centred content</p>
+<div class="as-center">
+  <p>Centered content</p>
 </div>
 ```
 
 **Custom Properties**:
-- `--centre-height`: Container height
+- `--center-height`: Container height
 
 ### as-sidebar
 **Purpose**: Main content with sidebar
@@ -700,7 +700,7 @@ function example() {
 | Build navigation | `navigation` |
 | Stack things vertically | `as-stack` |
 | Create a grid | `as-grid` |
-| Center something | `as-centre` |
+| Center something | `as-center` |
 | Add a shadow | `with-shadow` |
 | Make it interactive | `with-interaction` |
 | Show an alert | `alert` |
