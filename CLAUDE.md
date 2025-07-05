@@ -171,6 +171,47 @@ Keeps class namespace clean. Contexts are data, not components.
 <button class="button" style="--bg: var(--color-primary);">Primary</button>
 ```
 
+#### 11. Layout Classes Must Use Pattern-Specific Tokens
+
+**Layout classes (`as-*`) MUST use tokens that describe the PATTERN, not the content:**
+
+```css
+/* ✅ CORRECT: Token describes the layout pattern */
+.as-split {
+  --split: 300px;      /* How much space for fixed element */
+  --gap: 1rem;         /* Space between elements */
+}
+
+.as-columns {
+  --columns: 1fr 2fr;  /* Column ratios */
+}
+
+.as-grid {
+  --columns: 3;        /* Number of columns */
+  --min-width: 250px;  /* Minimum item width */
+}
+
+/* ❌ WRONG: Token suggests content */
+.as-sidebar {          /* Bad name - suggests content */
+  --width: 300px;      /* Too generic */
+}
+```
+
+**The Principle**: Layout classes describe HOW things are arranged, not WHAT they contain. Tokens should reflect the layout mechanism, not element names or positions.
+
+```html
+<!-- ✅ Clear separation of layout and content -->
+<div class="as-split" style="--split: 250px;">
+  <aside class="sidebar">...</aside>  <!-- Element class -->
+  <main class="content">...</main>     <!-- Element class -->
+</div>
+
+<!-- ❌ Confusing mix of layout and content -->
+<div class="as-sidebar" style="--width: 250px;">
+  <!-- Is this a layout or an element? -->
+</div>
+```
+
 ### Documentation Writing Principles
 
 1. **British Humour with Bite** - Use sarcasm to highlight absurdities, but never be malicious. Think "cricket analogies" and "mint-flavoured dental floss", not personal attacks.

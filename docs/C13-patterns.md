@@ -25,7 +25,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
   
   <!-- Main content with sidebars -->
   <div class="as-container">
-    <main class="as-sidebar" style="--width: 250px;">
+    <main class="as-split" style="--split: 250px;">
       <!-- Left sidebar -->
       <aside class="aside as-stack with-sticky" style="--top: 5rem;">
         <nav class="navigation as-stack">
@@ -37,7 +37,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
       </aside>
       
       <!-- Main + right sidebar wrapper -->
-      <div class="as-sidebar" data-variant="reverse" style="--width: 300px;">
+      <div class="as-split" data-variant="reverse" style="--split: 300px;">
         <!-- Content -->
         <article class="article as-stack">
           <h1 class="heading">Article Title</h1>
@@ -132,6 +132,37 @@ CSS for app context:
       --bg: var(--color-primary);
     }
   }
+}
+```
+
+CSS for split layout:
+```css
+.as-split {
+  /* 1. Define split layout tokens */
+  --split: 300px;        /* Fixed width for first element */
+  --gap: var(--space-1-0);
+  --align: start;
+  
+  /* 2. Use the tokens */
+  display: flex;
+  gap: var(--gap);
+  align-items: var(--align);
+  
+  /* First child gets fixed width */
+  > :first-child {
+    flex-basis: var(--split);
+    flex-shrink: 0;
+  }
+  
+  /* Second child fills remaining space */
+  > :last-child {
+    flex: 1;
+  }
+}
+
+/* Reverse variant */
+.as-split[data-variant="reverse"] {
+  flex-direction: row-reverse;
 }
 ```
 
