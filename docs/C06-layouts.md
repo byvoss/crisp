@@ -173,29 +173,29 @@ When you need rows AND columns.
 
 **Use for**: Card grids, image galleries, any multi-column layout
 
-### 4. The Centre - Perfect Centring
+### 4. The Center - Perfect Centering
 
 The holy grail of CSS, solved.
 
 ```css
-.as-centre {
+.as-center {
   display: grid;
   place-items: center;
-  min-height: var(--centre-height, 100vh);
+  min-height: var(--center-height, 100vh);
 }
 ```
 
 ```html
-<!-- Full viewport centring -->
-<div class="as-centre">
+<!-- Full viewport centering -->
+<div class="as-center">
   <div class="card">
-    <h1>Perfectly Centred</h1>
+    <h1>Perfectly Centered</h1>
     <p>Horizontally AND vertically</p>
   </div>
 </div>
 
-<!-- Custom height centring -->
-<section class="hero as-centre" style="--centre-height: 50vh;">
+<!-- Custom height centering -->
+<section class="hero as-center" style="--center-height: 50vh;">
   <div class="as-stack">
     <h1>Hero Title</h1>
     <p>Hero subtitle</p>
@@ -204,7 +204,7 @@ The holy grail of CSS, solved.
 </section>
 ```
 
-**Use for**: Hero sections, modals, loading states, any centred content
+**Use for**: Hero sections, modals, loading states, any centered content
 
 ### 5. The Sidebar - Content with Aside
 
@@ -276,7 +276,7 @@ For readable line lengths and consistent padding.
 <!-- Standard container -->
 <div class="as-container">
   <h1>Contained Content</h1>
-  <p>Maximum width with automatic centring</p>
+  <p>Maximum width with automatic centering</p>
 </div>
 
 <!-- Article container (narrower for readability) -->
@@ -286,8 +286,8 @@ For readable line lengths and consistent padding.
 </article>
 
 <!-- Full-width with contained content -->
-<section class="hero" style="background: var(--colour-primary-50);">
-  <div class="as-container as-centre" style="--centre-height: 40vh;">
+<section class="hero" style="background: var(--color-primary-50);">
+  <div class="as-container as-center" style="--center-height: 40vh;">
     <h1>Full-width background, contained content</h1>
   </div>
 </section>
@@ -346,7 +346,7 @@ The real power comes from composition:
   </main>
   
   <!-- Footer -->
-  <footer class="as-container as-centre" style="--centre-height: 200px;">
+  <footer class="as-container as-center" style="--center-height: 200px;">
     <p>&copy; 2025 Your Company</p>
   </footer>
 </body>
@@ -361,7 +361,7 @@ Each layout accepts customisation:
 | `as-stack` | `--stack-gap` | `var(--space-1-0)` |
 | `as-cluster` | `--cluster-gap`<br>`--cluster-align` | `var(--space-1-0)`<br>`center` |
 | `as-grid` | `--grid-columns`<br>`--grid-min`<br>`--grid-gap` | `auto-fit`<br>`250px`<br>`var(--space-1-0)` |
-| `as-centre` | `--centre-height` | `100vh` |
+| `as-center` | `--center-height` | `100vh` |
 | `as-sidebar` | `--sidebar-width`<br>`--sidebar-gap`<br>`--sidebar-content-min` | `300px`<br>`var(--space-1-0)`<br>`50%` |
 | `as-container` | `--container-max`<br>`--container-padding` | `1200px`<br>`var(--space-1-0)` |
 
@@ -388,7 +388,7 @@ Each layout accepts customisation:
 
 ### Hero Section
 ```html
-<section class="hero as-centre" style="--centre-height: 80vh;">
+<section class="hero as-center" style="--center-height: 80vh;">
   <div class="as-stack" style="--stack-gap: var(--space-2-0);">
     <h1>Big Hero Title</h1>
     <p>Compelling subtitle</p>
