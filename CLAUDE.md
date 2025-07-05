@@ -3,7 +3,17 @@
 ## Language Rules
 
 1. **Documentation**: British English (BBC standard)
+   - All markdown files
+   - Code comments
+   - Error messages
+   - README content
+
 2. **Code**: US English (for consistency with CSS/JavaScript)
+   - CSS properties and values: `color`, `center`, `gray`
+   - Variable names: `--color-primary-50`
+   - Class names: `as-center`
+   - Function names: `initializeComponent()`
+   - File names: `color-system.css`
 
 ## Essential CRISP Rules
 

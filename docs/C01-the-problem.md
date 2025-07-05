@@ -71,7 +71,7 @@ Nicole Sullivan had good intentions, but then this happened:
 ```html
 <!-- "Separation of structure and skin" they said -->
 <div class="box skin-white corners-rounded shadow-large 
-            padding-medium margin-small border-grey 
+            padding-medium margin-small border-gray 
             text-dark bg-gradient float-left clearfix 
             responsive-width min-height-200">
   Content
@@ -173,7 +173,7 @@ Your CSS file has 15 different button variations, 300 utility classes for margin
 
 All these methodologies share the same fundamental flaw: **they're solving the wrong problem**.
 
-They focus on "How do we organise our CSS?" when they should ask "How do we write less CSS?"
+They focus on "How do we organize our CSS?" when they should ask "How do we write less CSS?"
 
 They create naming conventions instead of using the web platform's built-in semantics.
 
@@ -207,7 +207,7 @@ What if we wrote CSS that reads like English, HTML that's actually semantic, and
 Want to customise it? Use CSS custom properties - you know, that feature that's been in browsers since 2017:
 
 ```html
-<button class="button" style="--button-size: large; --button-bg: var(--colour-primary-50);">
+<button class="button" style="--button-size: large; --button-bg: var(--color-primary-50);">
   Customised without a single modifier class
 </button>
 ```
