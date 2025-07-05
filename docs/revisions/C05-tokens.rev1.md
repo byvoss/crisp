@@ -122,7 +122,6 @@ CRISP uses HSL with an alpha channel for ultimate flexibility:
   --text-weight-medium: 500;
   --text-weight-semibold: 600;
   --text-weight-bold: 700;
-  --text-weight-massiv: 900;
   
   /* Line heights */
   --text-leading-tight: 1.25;
@@ -162,36 +161,33 @@ Tokens make components predictable:
 
 ```css
 .button {
-  /* 1. Define defaults using tokens */
-  --bg: var(--color-primary);
-  --color: var(--color-white);
-  --size: var(--text-size-1-0);
-  --radius: var(--radius-md);
-  
-  /* 2. Use the tokens */
+  /* Spacing tokens for padding */
   padding: var(--space-0-75) var(--space-1-5);
-  background: var(--bg);
-  color: var(--color);
   
+  /* Colour tokens for theme */
+  background: var(--button-bg, var(--color-primary-50));
+  color: var(--button-color, white);
+  
+  /* Typography tokens for text */
   font-family: var(--font-sans);
-  font-size: var(--size);
+  font-size: var(--button-size, var(--text-size-base));
   font-weight: var(--text-weight-medium);
   
-  border-radius: var(--radius);
+  /* Effect tokens for polish */
+  border-radius: var(--button-radius, var(--radius-md));
   transition: all var(--transition-fast);
 }
 
 .card {
-  /* 1. Define defaults using tokens */
-  --bg: var(--color-background);
-  --padding: var(--space-1-5);
-  --radius: var(--radius-lg);
+  /* Consistent spacing */
+  padding: var(--card-padding, var(--space-1-5));
   
-  /* 2. Use the tokens */
-  padding: var(--padding);
-  background: var(--bg);
+  /* Semantic colours */
+  background: var(--card-bg, var(--color-background));
   border: 1px solid var(--color-border);
-  border-radius: var(--radius);
+  
+  /* Standard effects */
+  border-radius: var(--card-radius, var(--radius-lg));
 }
 ```
 
@@ -233,13 +229,13 @@ Tokens can be responsive too:
 :root {
   /* Mobile first */
   --space-section: var(--space-2-0);
-  --text-size-hero: var(--text-size-2-0);
+  --text-size-hero: var(--text-size-2xl);
 }
 
 @media (min-width: 768px) {
   :root {
     --space-section: var(--space-3-0);
-    --text-size-hero: var(--text-size-3-0);
+    --text-size-hero: var(--text-size-3xl);
   }
 }
 
@@ -257,22 +253,22 @@ For different brands or contexts:
 
 ```css
 /* Default brand */
-[data-brand="default"] {
-  --color-primary: hsla(220, 80%, 60%, 1);
+.brand-default {
+  --color-primary-50: hsla(220, 80%, 60%, 1);
   --font-sans: system-ui, sans-serif;
 }
 
 /* Premium brand */
-[data-brand="premium"] {
-  --color-primary: hsla(280, 60%, 50%, 1);
+.brand-premium {
+  --color-primary-50: hsla(280, 60%, 50%, 1);
   --font-sans: 'Elegant Font', serif;
   --space-1-0: 1.25rem; /* More spacious */
 }
 
 /* Compact context */
-[data-context="compact"] {
+.context-compact {
   --space-1-0: 0.875rem;
-  --text-size-1-0: 0.9375rem;
+  --text-size-base: 0.9375rem;
 }
 ```
 
@@ -285,11 +281,9 @@ For different brands or contexts:
 --spacing-16: 16px;
 
 /* ✅ Good: Describes purpose */
---color-primary: hsla(220, 80%, 60%, 1);
+--color-primary-50: hsla(220, 80%, 60%, 1);
 --space-1-0: 1rem;
 ```
-
-**Note**: While colour scales (10-90) are useful internally, consider simplifying to semantic names in components (`--color-primary` instead of `--color-primary-50`).
 
 ### 2. Create Scales That Make Sense
 ```css
@@ -308,23 +302,14 @@ For different brands or contexts:
 ```css
 :root {
   /* Base values */
-  --color-primary: hsla(220, 80%, 60%, 1);
+  --color-primary-50: hsla(220, 80%, 60%, 1);
   
   /* Derived values */
-  --color-primary-hover: hsla(220, 80%, 50%, 1);
-  --color-primary-active: hsla(220, 80%, 40%, 1);
+  --color-primary-hover: var(--color-primary-60);
+  --color-primary-active: var(--color-primary-70);
   --color-primary-disabled: hsla(220, 80%, 60%, 0.5);
 }
 ```
-
-## Token Naming Rules
-
-Remember the hierarchy:
-- **Element tokens** - No prefix needed (`--bg`, `--size`, `--color`)
-- **Property tokens** - Need prefixes (`--shadow-blur`, `--border-width`)
-- **Global tokens** - Always prefixed (`--space-1-0`, `--color-primary`, `--radius-md`)
-
-**The "Aha!"**: Element tokens are unambiguous within their element's context. Everything else needs identification.
 
 ## The Token Contract
 
