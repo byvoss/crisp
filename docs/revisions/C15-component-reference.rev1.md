@@ -6,10 +6,10 @@
 
 Each component includes:
 - Basic usage
-- Custom properties (without prefixes for elements)
+- Custom properties
 - Common patterns
 - Accessibility notes
-- Define/Use pattern examples
+- Link to detailed docs
 
 ## Interactive Elements
 
@@ -21,48 +21,25 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--bg`: Background color
-- `--color`: Text color
-- `--size`: Font size
-- `--weight`: Font weight
-- `--padding`: Internal spacing
-- `--radius`: Corner radius
-- `--border`: Border style
-
-**Define/Use Pattern**:
-```css
-.button {
-  /* 1. Define defaults */
-  --bg: var(--color-neutral);
-  --color: white;
-  --size: var(--text-size-base);
-  --weight: var(--text-weight-medium);
-  --padding: var(--space-0-75) var(--space-1-5);
-  --radius: var(--radius-md);
-  --border: none;
-  
-  /* 2. Use the tokens */
-  background: var(--bg);
-  color: var(--color);
-  font-size: var(--size);
-  font-weight: var(--weight);
-  padding: var(--padding);
-  border-radius: var(--radius);
-  border: var(--border);
-}
-```
+- `--button-bg`: Background color
+- `--button-color`: Text color
+- `--button-size`: Font size
+- `--button-padding`: Internal spacing
+- `--button-radius`: Corner radius
+- `--button-border`: Border style
+- `--button-width`: Width (defaults to auto)
 
 **Common Patterns**:
 ```html
 <!-- Primary button -->
 <button class="button" type="button" 
-  style="--bg: var(--color-primary);">
+  style="--button-bg: var(--color-primary-50);">
   Primary Action
 </button>
 
 <!-- Full-width button -->
 <button class="button" type="submit" 
-  style="width: 100%;">
+  style="--button-width: 100%;">
   Submit Form
 </button>
 
@@ -70,12 +47,9 @@ Each component includes:
 <button class="button" type="button" aria-label="Settings">
   ⚙️
 </button>
-
-<!-- Loading state -->
-<button class="button" type="button" disabled data-state="loading">
-  <span class="spinner"></span> Loading...
-</button>
 ```
+
+**See**: [Button Documentation](./components/button.md)
 
 ### link
 **Purpose**: Navigation between pages or sections
@@ -85,10 +59,10 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--color`: Text color
-- `--decoration`: Underline style
-- `--weight`: Font weight
-- `--opacity`: Hover opacity
+- `--link-color`: Text color
+- `--link-decoration`: Underline style
+- `--link-weight`: Font weight
+- `--link-opacity`: Hover opacity
 
 **Common Patterns**:
 ```html
@@ -108,6 +82,8 @@ Each component includes:
 </a>
 ```
 
+**See**: [Link Documentation](./components/link.md)
+
 ### input
 **Purpose**: Single-line text input
 
@@ -116,11 +92,12 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--bg`: Background color
-- `--border`: Border style
-- `--radius`: Corner radius
-- `--padding`: Internal spacing
-- `--color`: Text color
+- `--input-bg`: Background color
+- `--input-border`: Border style
+- `--input-radius`: Corner radius
+- `--input-padding`: Internal spacing
+- `--input-width`: Width
+- `--input-color`: Text color
 
 **Common Patterns**:
 ```html
@@ -129,10 +106,10 @@ Each component includes:
 <input class="input" id="email" type="email" name="email" required>
 
 <!-- Full width -->
-<input class="input" type="search" style="width: 100%;">
+<input class="input" type="search" style="--input-width: 100%;">
 
-<!-- With validation state -->
-<input class="input" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" data-state="invalid">
+<!-- With validation -->
+<input class="input" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
 ```
 
 ### select
@@ -146,10 +123,11 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--bg`: Background color
-- `--border`: Border style
-- `--radius`: Corner radius
-- `--padding`: Internal spacing
+- `--select-bg`: Background color
+- `--select-border`: Border style
+- `--select-radius`: Corner radius
+- `--select-padding`: Internal spacing
+- `--select-width`: Width
 
 ### textarea
 **Purpose**: Multi-line text input
@@ -159,12 +137,13 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--bg`: Background color
-- `--border`: Border style
-- `--radius`: Corner radius
-- `--padding`: Internal spacing
-- `--min-height`: Minimum height
-- `--resize`: Resize behavior
+- `--textarea-bg`: Background color
+- `--textarea-border`: Border style
+- `--textarea-radius`: Corner radius
+- `--textarea-padding`: Internal spacing
+- `--textarea-width`: Width
+- `--textarea-min-height`: Minimum height
+- `--textarea-resize`: Resize behavior (vertical, horizontal, both, none)
 
 ### checkbox
 **Purpose**: Binary choice input
@@ -197,9 +176,9 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--on-bg`: Background when checked
-- `--off-bg`: Background when unchecked
-- `--size`: Overall size
+- `--switch-on-bg`: Background when checked
+- `--switch-off-bg`: Background when unchecked
+- `--switch-size`: Overall size
 
 ## Content Containers
 
@@ -213,30 +192,11 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--bg`: Background color
-- `--padding`: Internal spacing
-- `--radius`: Corner radius
-- `--border`: Border style
-- `--shadow`: Box shadow
-
-**Define/Use Pattern**:
-```css
-.card {
-  /* 1. Define defaults */
-  --bg: white;
-  --padding: var(--space-1-5);
-  --radius: var(--radius-lg);
-  --border: 1px solid var(--color-border);
-  --shadow: none;
-  
-  /* 2. Use the tokens */
-  background: var(--bg);
-  padding: var(--padding);
-  border-radius: var(--radius);
-  border: var(--border);
-  box-shadow: var(--shadow);
-}
-```
+- `--card-bg`: Background color
+- `--card-padding`: Internal spacing
+- `--card-radius`: Corner radius
+- `--card-border`: Border style
+- `--card-shadow`: Box shadow
 
 **Common Patterns**:
 ```html
@@ -249,16 +209,6 @@ Each component includes:
 <!-- Interactive card -->
 <article class="card with-interaction" tabindex="0" role="button">
   Clickable card
-</article>
-
-<!-- Card with shadow -->
-<article class="card with-shadow">
-  Elevated card
-</article>
-
-<!-- Context-specific card -->
-<article class="card" data-context="premium">
-  <h3 class="heading">Premium Feature</h3>
 </article>
 ```
 
@@ -361,7 +311,7 @@ document.getElementById('modal').showModal();
   <input class="radio" id="tab1" type="radio" name="tabs" checked>
   <input class="radio" id="tab2" type="radio" name="tabs">
   
-  <nav class="navigation as-cluster" data-variant="tabs">
+  <nav class="navigation as-cluster">
     <label class="tab" for="tab1">Tab 1</label>
     <label class="tab" for="tab2">Tab 2</label>
   </nav>
@@ -424,25 +374,11 @@ document.getElementById('modal').showModal();
 </aside>
 ```
 
-**Variants** (using data attributes):
-```html
-<aside class="alert" role="alert" data-variant="success">
-  Success message
-</aside>
-
-<aside class="alert" role="alert" data-variant="warning">
-  Warning message
-</aside>
-
-<aside class="alert" role="alert" data-variant="error">
-  Error message
-</aside>
-
-<aside class="alert with-dismiss" role="alert">
-  <p>Dismissible alert</p>
-  <button aria-label="Dismiss">×</button>
-</aside>
-```
+**Variants**:
+- `with-success`: Success messages
+- `with-warning`: Warning messages
+- `with-error`: Error messages
+- `with-dismiss`: Dismissible alerts
 
 ### toast
 **Purpose**: Temporary notifications
@@ -459,9 +395,7 @@ document.getElementById('modal').showModal();
 
 ```html
 <span class="badge">42</span>
-<span class="badge" data-variant="success">Active</span>
-<span class="badge" data-variant="warning">Pending</span>
-<span class="badge" data-variant="error">Offline</span>
+<span class="badge with-success">Active</span>
 ```
 
 ### tag
@@ -496,10 +430,10 @@ document.getElementById('modal').showModal();
 ```
 
 **Custom Properties**:
-- `--width`: Width constraint
-- `--height`: Height constraint
-- `--fit`: Object fit
-- `--radius`: Corner radius
+- `--image-width`: Width constraint
+- `--image-height`: Height constraint
+- `--image-fit`: Object fit (cover, contain, etc.)
+- `--image-radius`: Corner radius
 
 ### video
 **Purpose**: Video player
@@ -530,10 +464,10 @@ document.getElementById('modal').showModal();
 ```
 
 **Custom Properties**:
-- `--size`: Font size
-- `--weight`: Font weight
-- `--color`: Text color
-- `--line-height`: Line height
+- `--heading-size`: Font size
+- `--heading-weight`: Font weight
+- `--heading-color`: Text color
+- `--heading-line`: Line height
 
 ### text
 **Purpose**: Body text
@@ -543,10 +477,10 @@ document.getElementById('modal').showModal();
 ```
 
 **Custom Properties**:
-- `--size`: Font size
-- `--weight`: Font weight
-- `--color`: Text color
-- `--line-height`: Line height
+- `--text-size`: Font size
+- `--text-weight`: Font weight
+- `--text-color`: Text color
+- `--text-line`: Line height
 
 ### code
 **Purpose**: Code snippets
@@ -621,7 +555,7 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--gap`: Gap between items
+- `--stack-gap`: Gap between items
 
 ### as-cluster
 **Purpose**: Horizontal grouping with wrap
@@ -634,8 +568,8 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--gap`: Gap between items
-- `--align`: Alignment
+- `--cluster-gap`: Gap between items
+- `--cluster-align`: Alignment (center, space-between, etc.)
 
 ### as-grid
 **Purpose**: Two-dimensional grid
@@ -648,9 +582,9 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--columns`: Number of columns or `auto-fit`
-- `--gap`: Gap between cells
-- `--min-width`: Minimum cell width
+- `--grid-columns`: Number of columns or `auto-fit`
+- `--grid-gap`: Gap between cells
+- `--grid-min`: Minimum cell width
 
 ### as-center
 **Purpose**: Perfect centering
@@ -662,30 +596,22 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--height`: Container height
+- `--center-height`: Container height
 
-### as-split
-**Purpose**: Two elements with one fixed width
+### as-sidebar
+**Purpose**: Main content with sidebar
 
 ```html
-<div class="as-split">
-  <aside>Fixed width</aside>
-  <main>Flexible content</main>
+<div class="as-sidebar">
+  <aside>Sidebar</aside>
+  <main>Main content</main>
 </div>
 ```
 
 **Custom Properties**:
-- `--split`: Fixed element width
-- `--gap`: Gap between sections
-
-**Variants**:
-```html
-<!-- Reverse order -->
-<div class="as-split" data-variant="reverse">
-  <main>Flexible content</main>
-  <aside>Fixed width</aside>
-</div>
-```
+- `--sidebar-width`: Sidebar width
+- `--sidebar-gap`: Gap between sections
+- `--sidebar-content-min`: Main content minimum width
 
 ### as-container
 **Purpose**: Width constraint and centering
@@ -697,8 +623,8 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--max-width`: Maximum width
-- `--padding`: Horizontal padding
+- `--container-max`: Maximum width
+- `--container-padding`: Horizontal padding
 
 ## Property Modifiers
 
@@ -711,11 +637,6 @@ function example() {
 </article>
 ```
 
-**Custom Properties**:
-- `--shadow-color`: Shadow color
-- `--shadow-blur`: Blur radius
-- `--shadow-offset`: Offset distance
-
 ### with-border
 **Purpose**: Add border styling
 
@@ -724,11 +645,6 @@ function example() {
   Bordered content
 </article>
 ```
-
-**Custom Properties**:
-- `--border-width`: Border thickness
-- `--border-color`: Border color
-- `--border-style`: Border style
 
 ### with-interaction
 **Purpose**: Interactive states (hover, focus)
@@ -748,9 +664,6 @@ function example() {
 </section>
 ```
 
-**Custom Properties**:
-- `--padding-size`: Padding amount
-
 ### with-margin
 **Purpose**: External spacing
 
@@ -760,9 +673,6 @@ function example() {
 </article>
 ```
 
-**Custom Properties**:
-- `--margin-size`: Margin amount
-
 ### with-sticky
 **Purpose**: Sticky positioning
 
@@ -771,9 +681,6 @@ function example() {
   Sticky header
 </header>
 ```
-
-**Custom Properties**:
-- `--sticky-top`: Top offset
 
 ### with-animate
 **Purpose**: Animation effects
@@ -794,27 +701,10 @@ function example() {
 | Stack things vertically | `as-stack` |
 | Create a grid | `as-grid` |
 | Center something | `as-center` |
-| Split layout | `as-split` |
 | Add a shadow | `with-shadow` |
 | Make it interactive | `with-interaction` |
 | Show an alert | `alert` |
 | Display a badge | `badge` |
 | Create a form | `form` |
-
-## State Management
-
-Use data attributes for states:
-- `data-state="loading"` - Loading state
-- `data-state="error"` - Error state
-- `data-state="success"` - Success state
-- `data-state="disabled"` - Disabled state
-
-## Context Management
-
-Use data attributes for context:
-- `data-context="admin"` - Admin interface
-- `data-context="premium"` - Premium features
-- `data-context="checkout"` - Checkout flow
-- `data-context="authenticated"` - Logged-in users
 
 → Continue to [Chapter 16: CRISP Cheatsheet](./C16-cheatsheet.md)
