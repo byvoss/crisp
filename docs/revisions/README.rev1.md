@@ -15,7 +15,7 @@ CRISP is both a CSS methodology and a framework that solves the complexity crisi
   <h2 class="heading">Hello CRISP</h2>
   <p class="text">One component, one layout, minimal properties.</p>
   <button class="button with-interaction" 
-    style="--bg: var(--color-primary);">
+    style="--button-bg: var(--color-primary-50);">
     Get Started
   </button>
 </article>
@@ -96,32 +96,9 @@ Chapters 5-11 cover all components in detail
 
 1. **Semantic HTML First** - Use real elements, not div soup
 2. **Rule of Three** - 1 component + 1 layout + max 3 properties
-3. **Define/Use Pattern** - Define defaults, then use the tokens
-4. **Data Attributes for Context** - Keep CSS for layout only
+3. **Custom Properties for Variants** - Not modifier classes
+4. **Meaningful Prefixes** - None, `as-`, or `with-`
 5. **Embrace the Cascade** - Work with CSS, not against it
-
-### Key Patterns
-
-**Custom Properties Without Prefixes** (for elements):
-```css
-.button {
-  /* 1. Define defaults */
-  --bg: var(--color-neutral);
-  --color: white;
-  
-  /* 2. Use the tokens */
-  background: var(--bg);
-  color: var(--color);
-}
-```
-
-**Context via Data Attributes**:
-```html
-<!-- Variants and states use data attributes -->
-<button class="button" data-variant="primary">Primary</button>
-<article class="card" data-context="danger">Warning Card</article>
-<form class="form" data-state="loading">Loading...</form>
-```
 
 ## Three Levels of CRISP
 
