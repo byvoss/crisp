@@ -228,18 +228,6 @@ Want to customise it? Use CSS custom properties - you know, that feature that's 
 </article>
 ```
 
-Need context? Use data attributes, not CSS classes:
-
-```html
-<!-- No .danger-zone .warning-context .theme-dark nonsense -->
-<section data-context="checkout">
-  <article class="card">
-    <p class="text">Context without class pollution</p>
-    <button class="button">Inherits checkout styling</button>
-  </article>
-</section>
-```
-
 ## The Relief
 
 CRISP isn't another methodology to learn. It's permission to stop overengineering.

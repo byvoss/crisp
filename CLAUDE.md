@@ -229,6 +229,22 @@ For HTML files:
 -->
 ```
 
+### Document Revision Process
+When making significant changes to documentation:
+
+1. **Create revision copy**: `cp docs/chapter.md docs/revisions/chapter.rev[N].md`
+2. **Make changes** in the original file
+3. **Keep revisions** for reference and rollback
+4. **Naming**: rev1, rev2, rev3... in chronological order
+
+Example:
+```bash
+cp docs/C04-anatomy.md docs/revisions/C04-anatomy.rev1.md
+# Now edit docs/C04-anatomy.md with new patterns
+```
+
+The `revisions/` folder maintains history without cluttering the main docs.
+
 ### Testing Guidelines
 - Check: `npm run lint`
 - Check: `npm run typecheck`

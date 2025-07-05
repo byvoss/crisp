@@ -4,10 +4,25 @@ Track all pending tasks here. Check off when completed.
 
 ## High Priority
 
+- [ ] Apply new CRISP patterns to all documentation chapters
+  - [ ] C04-anatomy.md - Update custom property pattern (--button-bg → --bg)
+  - [ ] C05-tokens.md - Ensure token naming rules are consistent
+  - [ ] C06-layouts.md - Check for context classes → data attributes
+  - [ ] C07-elements.md - Update all component examples to new pattern
+  - [ ] C08-containers.md - Apply new custom property pattern
+  - [ ] C09-navigation.md - Update examples with new patterns
+  - [ ] C10-forms.md - Critical: update form component patterns
+  - [ ] C11-feedback.md - Update feedback component examples
+  - [ ] C12-progressive.md - Ensure examples follow new patterns
+  - [ ] C13-patterns.md - Most important: update all pattern examples
+  - [ ] C14-migration.md - Add migration notes for new patterns
+  - [ ] C15-component-reference.md - Update ALL component documentation
+  - [ ] C16-cheatsheet.md - Must reflect all new patterns
+
 - [ ] Content Review - Verify all documentation chapters
-  - [ ] C01-the-problem.md - Review problem statement accuracy
-  - [ ] C02-the-solution.md - Verify CRISP solution presentation
-  - [ ] C03-principles.md - Check all 5 principles are correct
+  - [x] C01-the-problem.md - Review problem statement accuracy
+  - [x] C02-the-solution.md - Verify CRISP solution presentation
+  - [x] C03-principles.md - Check all 5 principles are correct
   - [ ] C04-anatomy.md - Verify component anatomy rules
   - [ ] C05-tokens.md - Check token system completeness
   - [ ] C06-layouts.md - Verify all layout patterns
