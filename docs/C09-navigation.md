@@ -470,8 +470,8 @@ CSS:
   <a class="link" href="/contact">Contact</a>
 </nav>
 
-<!-- With data attribute for styling context -->
-<nav class="navigation" data-style="pills">
+<!-- With data attribute for variant context -->
+<nav class="navigation" data-variant="pills">
   <a class="link" href="/">Home</a>
   <a class="link" href="/about" aria-current="page">About</a>
   <a class="link" href="/contact">Contact</a>
@@ -494,8 +494,8 @@ CSS:
   text-underline-offset: var(--underline-offset);
 }
 
-/* Context-specific current styles */
-[data-style="pills"] .link[aria-current="page"] {
+/* Variant-specific current styles */
+[data-variant="pills"] .link[aria-current="page"] {
   --bg: var(--color-primary);
   --color: white;
   --padding: var(--space-0-5) var(--space-1-0);
