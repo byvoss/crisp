@@ -101,7 +101,7 @@ Classes define **what** something is. Custom properties define **how** it looks.
 
 /* ✅ The New Covenant */
 .button {
-  background: var(--button-bg, var(--colour-neutral-90));
+  background: var(--button-bg, var(--color-neutral-90));
   font-size: var(--button-size, 1rem);
 }
 ```
@@ -111,12 +111,12 @@ Classes define **what** something is. Custom properties define **how** it looks.
 <!-- Identity (class) says "I am a button" -->
 <!-- Appearance (properties) says "I look like this" -->
 <button class="button" 
-  style="--button-bg: var(--colour-primary-50); --button-size: 1.25rem;">
+  style="--button-bg: var(--color-primary-50); --button-size: 1.25rem;">
   Primary Large Button
 </button>
 
 <button class="button" 
-  style="--button-bg: var(--colour-danger-50); --button-size: 0.75rem;">
+  style="--button-bg: var(--color-danger-50); --button-size: 0.75rem;">
   Danger Small Button
 </button>
 ```
@@ -183,16 +183,16 @@ Stop fighting CSS. The cascade is your friend.
 
 /* ✅ Flowing with the cascade */
 .button {
-  background: var(--button-bg, var(--colour-primary-50));
+  background: var(--button-bg, var(--color-primary-50));
 }
 
 /* Context naturally overrides */
 .dark-theme {
-  --colour-primary-50: var(--colour-primary-40);
+  --color-primary-50: var(--color-primary-40);
 }
 
 .danger-zone {
-  --button-bg: var(--colour-danger-50);
+  --button-bg: var(--color-danger-50);
 }
 ```
 
