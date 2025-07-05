@@ -124,13 +124,8 @@ Classes define **what** something is. Custom properties define **how** it looks.
 
 /* ✅ The New Covenant */
 .button {
-  /* 1. Define defaults */
-  --bg: var(--color-neutral);
-  --size: 1rem;
-  
-  /* 2. Use the tokens */
-  background: var(--bg);
-  font-size: var(--size);
+  background: var(--button-bg, var(--color-neutral-90));
+  font-size: var(--button-size, 1rem);
 }
 ```
 
@@ -139,12 +134,12 @@ Classes define **what** something is. Custom properties define **how** it looks.
 <!-- Identity (class) says "I am a button" -->
 <!-- Appearance (properties) says "I look like this" -->
 <button class="button" 
-  style="--bg: var(--color-primary); --size: 1.25rem;">
+  style="--button-bg: var(--color-primary-50); --size: 1.25rem;">
   Primary Large Button
 </button>
 
 <button class="button" 
-  style="--bg: var(--color-danger); --size: 0.75rem;">
+  style="--button-bg: var(--color-danger-50); --size: 0.75rem;">
   Danger Small Button
 </button>
 ```
@@ -220,7 +215,7 @@ Stop fighting CSS. The cascade is your friend.
 
 /* Context naturally overrides via data attributes */
 [data-theme="dark"] {
-  --color-primary: var(--color-primary-dark);
+  --color-primary: var(--color-primary-40);
 }
 
 [data-context="danger"] .button {
