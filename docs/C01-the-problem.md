@@ -37,7 +37,7 @@ Remember when we thought double underscores and double dashes would save us?
 .site-header__navigation-wrapper__list-container__item--active--mobile--collapsed
 ```
 
-The moment you mistype one underscore, you're debugging for hours. The moment you need to refactor, you're updating class names in 47 files. BEM turned our HTML into morse code that makes developers cry.
+The moment you mistype one underscore, you're debugging for hours. The moment you need to refactor, you're updating class names in 47 files. BEM turned our HTML into morse code that makes developers cry. Rather like learning cricket, once you've invested months deciphering the rules, you'll insist it all makes perfect sense – if only to justify the time spent.
 
 ### Atomic CSS - Born 2013, Death by a Thousand Classes
 
@@ -78,7 +78,7 @@ Nicole Sullivan had good intentions, but then this happened:
 </div>
 ```
 
-Eleven classes before you've even added your content. Your HTML looks like someone had an argument with a dictionary.
+Eleven classes before you've even added your content. Credit where it's due: it's less chaotic than utility classes, and the modular thinking was ahead of its time – until your team discovers everyone has a different interpretation of what constitutes an 'object' versus a 'skin'. Your HTML looks like someone had an argument with a dictionary.
 
 ### SMACSS - Born 2011, Died of Categorisation Paralysis
 
@@ -100,6 +100,8 @@ Eleven classes before you've even added your content. Your HTML looks like someo
 /* Your team 3 months later: */
 .l-mod-navigation-is-active-theme {}  /* ¯\_(ツ)_/¯ */
 ```
+
+SMACSS turned every CSS decision into an existential crisis. Is a modal overlay a layout pattern or a module? If it has a dark theme, is that a theme rule or a state? Spoiler: Nobody knows, and everyone's interpretation is different.
 
 ### Tailwind/Utility-First - Born 2017, Semantic HTML's Funeral
 
@@ -124,6 +126,10 @@ The newest kid on the block threw semantics out the window entirely:
 ```
 
 "Find the navbar" is now a game of Where's Waldo in your codebase. Your components are indistinguishable walls of utilities. But hey, at least you never have to write CSS again! (You're just writing it inline with extra steps.)
+
+## In Defence of Good Intentions
+
+To be fair, each of these methodologies solved real problems – for about six months, until the real world happened. The authors deserve medals for trying to tame the CSS beast. It's just that the beast keeps evolving, and what looked like a leash in 2011 looks like dental floss in 2025. And yes, CRISP is probably just another piece of dental floss, but at least it's mint-flavoured.
 
 ## The Problems They All Share
 
@@ -163,11 +169,11 @@ Need to change a component? Hope you enjoy:
 
 ### 4. **The Onboarding Horror**
 New developer: "How do I make a button?"
-You: "Well, first you need to understand our naming convention, then check if it's a block or an element, consider the modifiers, review our atomic classes, check the utility guidelines..."
+You: "Well, first you need to understand our naming convention, then check if it's a block or an element, consider the modifiers, review our atomic classes, check the utility guidelines... Just pray you never need to debug the SCSS – it's a 20-level nesting nightmare where changing one variable triggers a cascade of broken mixins across 47 partials. We've got .header { .nav { &-list { &-item { .link { .icon { .svg { ... } } } } } } }. The linter gave up at level 15."
 New developer: *Updates LinkedIn to "looking for opportunities"*
 
 ### 5. **CSS Bundle Obesity**
-Your CSS file has 15 different button variations, 300 utility classes for margins you'll never use, and enough specificity overrides to fill a novel. Users on slow connections? They're still downloading your CSS philosophy debates.
+Your CSS file has 15 different button variations, 300 utility classes for margins you'll never use, and enough specificity overrides to fill a novel. The Bootstrap mentality: why use 3 components when you can import 3,000? "It's what everyone does!" became the rallying cry of developers who never learned to manage vanilla CSS, just Bootstrap classes. Developers who learned CSS through Bootstrap defend this like a religion – "But what if we need accordions later?" Thankfully, since 2020, even they're starting to question why their landing page needs the entire Manhattan Project of CSS frameworks. Users on slow connections? They're still downloading your CSS philosophy debates.
 
 ## The Core Delusion
 
@@ -178,6 +184,10 @@ They focus on "How do we organize our CSS?" when they should ask "How do we writ
 They create naming conventions instead of using the web platform's built-in semantics.
 
 They build abstraction layers over HTML/CSS instead of embracing what these technologies do brilliantly.
+
+The bitter truth? We've spent two decades overengineering solutions to problems that didn't exist until we created them. We built cathedrals of complexity to avoid writing simple CSS. And now we're drowning in our own cleverness.
+
+Real engineering is about making things simpler, not more complex. But we've done the opposite – building layer upon layer, like an onion of abstractions. The deeper you go, the more mysterious the bugs become. When your CSS breaks, you're not just debugging styles anymore – you're archaeological digging through build processes, preprocessors, and naming conventions, trying to figure out which layer is crying.
 
 ## Enter CRISP
 
@@ -198,18 +208,22 @@ What if we wrote CSS that reads like English, HTML that's actually semantic, and
     No decoder ring required. No methodology manual needed.
     Just semantic HTML with descriptive classes.
   </p>
-  <button class="button with-interaction">
-    This Actually Makes Sense
-  </button>
+  <details class="disclosure">
+    <summary>See the difference?</summary>
+    <p class="text">This Actually Makes Sense</p>
+  </details>
 </article>
 ```
+
+Underwhelmed? Perfect. The best solutions always look obvious in hindsight. But watch how this simplicity scales without spawning a single modifier class:
 
 Want to customise it? Use CSS custom properties - you know, that feature that's been in browsers since 2017:
 
 ```html
-<button class="button" style="--button-size: large; --button-bg: var(--color-primary-50);">
-  Customised without a single modifier class
-</button>
+<article class="card as-stack with-shadow" style="--shadow-blur: 20px;">
+  <h2 class="heading">Real Semantic HTML</h2>
+  <p class="text">Customised without a single modifier class</p>
+</article>
 ```
 
 ## The Relief

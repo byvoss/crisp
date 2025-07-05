@@ -1,6 +1,8 @@
 # CLAUDE.md - CRISP Development Guide
 
-## Language Rules
+## 🚨 CRITICAL RULES (Non-negotiable)
+
+### Language Rules
 
 1. **Documentation**: British English (BBC standard)
    - All markdown files
@@ -15,20 +17,20 @@
    - Function names: `initializeComponent()`
    - File names: `color-system.css`
 
-## Essential CRISP Rules
+### Essential CRISP Rules
 
-### 1. The Sacred Formula
+#### 1. The Sacred Formula
 Every element follows: **1 component + 1 layout + max 3 properties**
 ```html
 <article class="card as-stack with-shadow">
 ```
 
-### 2. Class Prefixes
+#### 2. Class Prefixes
 - **No prefix**: Components (`card`, `button`, `navigation`)
 - **`as-`**: Layout modes (`as-stack`, `as-grid`, `as-center`)
 - **`with-`**: Properties (`with-shadow`, `with-interaction`)
 
-### 3. Custom Properties Over Modifier Classes
+#### 3. Custom Properties Over Modifier Classes
 ```html
 <!-- ❌ Wrong -->
 <button class="button button-primary button-large">
@@ -37,57 +39,39 @@ Every element follows: **1 component + 1 layout + max 3 properties**
 <button class="button" style="--button-bg: var(--color-primary-50); --button-size: large;">
 ```
 
-### 4. Semantic HTML First
+#### 4. Semantic HTML First
 Always use proper HTML elements. IDs only for accessibility.
 
-### 5. Progressive Enhancement Path
+#### 5. Progressive Enhancement Path
 - **CRISP** (~50KB): Pure CSS
 - **CRISP Theme** (~60KB): + Theme switching
 - **CRISP Enterprise** (~150KB): + TypeScript & i18n
 
-## Required Reading
+### Documentation Writing Principles
 
-Please read these files in order to understand the complete project:
+1. **British Humour with Bite** - Use sarcasm to highlight absurdities, but never be malicious. Think "cricket analogies" and "mint-flavoured dental floss", not personal attacks.
 
-### Essential Files
-- [ ] `README.md` - Project overview and quick start
-- [ ] `LICENSE` - MIT License details
-- [ ] `CONTRIBUTING.md` - Contribution guidelines
-- [ ] `docs/README.md` - **Complete documentation overview with all chapters**
-- [ ] `TODO.md` - **Current tasks and technical debt**
+2. **Respect Despite Critique** - Always acknowledge the good intentions and complexity of the problems others tried to solve. Criticise the solution, not the person.
 
-### Quick Reference
-- [ ] `docs/C16-cheatsheet.md` - Everything on one page (for quick lookup)
+3. **Real-World Examples** - Support arguments with scenarios every developer has experienced (SCSS nesting hell, Bootstrap kitchen-sink mentality).
 
-*Note: The docs/README.md provides a complete overview of all 16 documentation chapters. Read specific chapters as needed for your current task.*
+4. **Self-Deprecating Honesty** - Don't position CRISP as the ultimate solution. Acknowledge it might also end up in the methodology graveyard.
 
-## Key Design Decisions
+5. **Semantic Purity** - Always prefer semantic HTML5 elements over redundant class names. No `<button class="button">` nonsense.
 
-### Spacing Scale
-```css
---space-0-25  /* 0.25rem */
---space-0-5   /* 0.5rem */
---space-0-75  /* 0.75rem */
---space-1-0   /* 1rem */
---space-1-5   /* 1.5rem */
---space-2-0   /* 2rem */
---space-3-0   /* 3rem */
---space-4-0   /* 4rem */
-```
+6. **Engineering Philosophy** - Champion simplification over sophistication. Real engineering removes layers, it doesn't add them.
 
-### Color System
-- HSL-based with alpha channel
-- Scales from 10 (lightest) to 90 (darkest)
-- Semantic names: `--color-primary-50`, `--color-neutral-50`
+7. **Team Reality** - Address the actual problems teams face, like interpretation differences and philosophical debates that block progress.
 
-### Component Naming
-- Full words only (`button`, not `btn`)
-- Singular form (`card`, not `cards`)
-- Descriptive (`navigation`, not `nav` for the class)
+8. **No Redundancy** - Examples should demonstrate concepts without redundant attributes or unnecessary complexity.
 
-## Development Workflow
+Remember: Be honest, practical, respectfully sarcastic, and always focus on genuine simplification rather than creating new abstraction layers.
 
-### Task Management
+## ⚠️ IMPORTANT RULES (Must follow)
+
+### Development Workflow
+
+#### Task Management
 
 **ALWAYS check TODO.md for:**
 - Current tasks that need completion
@@ -103,6 +87,14 @@ Please read these files in order to understand the complete project:
 5. When CI passes:
    - For TODO tasks: Check off in TODO.md
    - For other tasks: Write "TASK: [Task name] completed successfully"
+
+### Common Pitfalls to Avoid
+
+1. **Don't create modifier classes** - Use custom properties
+2. **Don't fight the cascade** - Work with CSS, not against it
+3. **Don't use IDs for styling** - Only for accessibility
+4. **Don't nest selectors** - Keep specificity low
+5. **Don't abbreviate** - Clarity over brevity
 
 ### GitHub Repository
 
@@ -135,7 +127,7 @@ gh run list --limit=1
 gh run view [RUN_ID] --log-failed
 ```
 
-### Common Issues
+### Common CI/CD Issues
 
 - **CI Failures**: Check for missing `package-lock.json`
 - **Dependency Conflicts**: Use `npm install --legacy-peer-deps`
@@ -173,11 +165,53 @@ For HTML files:
 -->
 ```
 
-### Testing
+### Testing Guidelines
 - Check: `npm run lint`
 - Check: `npm run typecheck`
 - Always test in multiple browsers
 - Verify accessibility with screen readers
+
+## 📚 REFERENCE (Good to know)
+
+### Required Reading
+
+Please read these files in order to understand the complete project:
+
+### Essential Files
+- [ ] `README.md` - Project overview and quick start
+- [ ] `LICENSE` - MIT License details
+- [ ] `CONTRIBUTING.md` - Contribution guidelines
+- [ ] `docs/README.md` - **Complete documentation overview with all chapters**
+- [ ] `TODO.md` - **Current tasks and technical debt**
+
+### Quick Reference
+- [ ] `docs/C16-cheatsheet.md` - Everything on one page (for quick lookup)
+
+*Note: The docs/README.md provides a complete overview of all 16 documentation chapters. Read specific chapters as needed for your current task.*
+
+### Key Design Decisions
+
+#### Spacing Scale
+```css
+--space-0-25  /* 0.25rem */
+--space-0-5   /* 0.5rem */
+--space-0-75  /* 0.75rem */
+--space-1-0   /* 1rem */
+--space-1-5   /* 1.5rem */
+--space-2-0   /* 2rem */
+--space-3-0   /* 3rem */
+--space-4-0   /* 4rem */
+```
+
+#### Color System
+- HSL-based with alpha channel
+- Scales from 10 (lightest) to 90 (darkest)
+- Semantic names: `--color-primary-50`, `--color-neutral-50`
+
+#### Component Naming
+- Full words only (`button`, not `btn`)
+- Singular form (`card`, not `cards`)
+- Descriptive (`navigation`, not `nav` for the class)
 
 ### File Structure
 ```
@@ -189,15 +223,7 @@ src/
 └── themes/        # Theme variations
 ```
 
-## Common Pitfalls to Avoid
-
-1. **Don't create modifier classes** - Use custom properties
-2. **Don't fight the cascade** - Work with CSS, not against it
-3. **Don't use IDs for styling** - Only for accessibility
-4. **Don't nest selectors** - Keep specificity low
-5. **Don't abbreviate** - Clarity over brevity
-
-## Project Context
+### Project Context
 
 CRISP is part of the byvoss.tech ecosystem, created by Vivian Burkhard Voss (ByVoss Technologies). It prioritises semantic HTML, minimal classes, and accessibility-first design.
 
