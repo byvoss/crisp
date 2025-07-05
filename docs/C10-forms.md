@@ -138,7 +138,7 @@ Use fieldsets for related inputs:
   </label>
   
   <button class="button with-interaction" type="submit" 
-    style="--button-bg: var(--colour-primary-50);">
+    style="--button-bg: var(--color-primary-50);">
     Sign In
   </button>
   
@@ -203,7 +203,7 @@ Use fieldsets for related inputs:
       Next →
     </button>
     <button class="button" type="submit" hidden 
-      style="--button-bg: var(--colour-primary-50);">
+      style="--button-bg: var(--color-primary-50);">
       Complete
     </button>
   </div>
@@ -300,18 +300,18 @@ Use fieldsets for related inputs:
 ```css
 /* Invalid input */
 .input:invalid:not(:focus):not(:placeholder-shown) {
-  border-color: var(--colour-danger-50);
+  border-color: var(--color-danger-50);
 }
 
 /* Valid input */
 .input:valid:not(:focus):not(:placeholder-shown) {
-  border-color: var(--colour-success-50);
+  border-color: var(--color-success-50);
 }
 
 /* Error message */
 .input:invalid:not(:focus):not(:placeholder-shown) ~ .error {
   display: block;
-  color: var(--colour-danger-60);
+  color: var(--color-danger-60);
 }
 
 /* Loading state */
@@ -351,11 +351,11 @@ document.getElementById('password').addEventListener('input', (e) => {
   
   // Update progress colour
   if (strength < 2) {
-    progress.style.setProperty('--progress-colour', 'var(--colour-danger-50)');
+    progress.style.setProperty('--progress-color', 'var(--color-danger-50)');
   } else if (strength < 3) {
-    progress.style.setProperty('--progress-colour', 'var(--colour-warning-50)');
+    progress.style.setProperty('--progress-color', 'var(--color-warning-50)');
   } else {
-    progress.style.setProperty('--progress-colour', 'var(--colour-success-50)');
+    progress.style.setProperty('--progress-color', 'var(--color-success-50)');
   }
 });
 ```
@@ -462,7 +462,7 @@ document.querySelector('.form').addEventListener('submit', async (e) => {
 <div class="as-cluster" style="--cluster-align: flex-end;">
   <button class="button" type="button">Cancel</button>
   <button class="button with-interaction" type="submit" 
-    style="--button-bg: var(--colour-primary-50); --button-size: var(--text-size-1-25);">
+    style="--button-bg: var(--color-primary-50); --button-size: var(--text-size-1-25);">
     Complete Purchase
   </button>
 </div>
