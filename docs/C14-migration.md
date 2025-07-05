@@ -112,7 +112,7 @@ Pick one component type at a time:
 
 <!-- After -->
 <button class="button" 
-  style="--button-bg: var(--colour-primary-50); 
+  style="--button-bg: var(--color-primary-50); 
          --button-size: var(--text-size-1-25);
          --button-width: 100%;">
   Click me
@@ -141,7 +141,7 @@ Pick one component type at a time:
   </header>
   <p class="text">Content</p>
   <footer>
-    <button class="button" style="--button-bg: var(--colour-primary-50);">
+    <button class="button" style="--button-bg: var(--color-primary-50);">
       Action
     </button>
   </footer>
@@ -266,7 +266,7 @@ Run both systems during migration:
 
 /* CRISP won't win this fight directly */
 .text {
-  color: var(--text-colour);
+  color: var(--text-color);
 }
 ```
 
