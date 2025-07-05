@@ -31,22 +31,25 @@ Remember when we had 47 different button classes?
 ```css
 /* The entire button CSS */
 .button {
-  /* Base styles */
+  /* 1. Define defaults */
+  --bg: var(--color-neutral);
+  --color: white;
+  --size: var(--text-size-base);
+  --weight: var(--text-weight-medium);
+  --padding: var(--space-0-75) var(--space-1-5);
+  --radius: var(--radius-md);
+  --border: none;
+  
+  /* 2. Use the tokens */
   display: inline-block;
-  padding: var(--button-padding, var(--space-0-75) var(--space-1-5));
-  
-  /* Customisable appearance */
-  background: var(--button-bg, var(--color-neutral-90));
-  color: var(--button-color, white);
-  
-  /* Customisable typography */
+  padding: var(--padding);
+  background: var(--bg);
+  color: var(--color);
   font-family: var(--font-sans);
-  font-size: var(--button-size, var(--text-size-base));
-  font-weight: var(--text-weight-medium);
-  
-  /* Customisable shape */
-  border-radius: var(--button-radius, var(--radius-md));
-  border: var(--button-border, none);
+  font-size: var(--size);
+  font-weight: var(--weight);
+  border-radius: var(--radius);
+  border: var(--border);
   
   /* Standard behaviour */
   cursor: pointer;
@@ -68,19 +71,19 @@ That's it. One class handles every button you'll ever need.
 
 <!-- Primary button -->
 <button class="button" type="button" 
-  style="--button-bg: var(--color-primary-50);">
+  style="--bg: var(--color-primary);">
   Primary Button
 </button>
 
 <!-- Large danger button -->
 <button class="button" type="button"
-  style="--button-bg: var(--color-danger-50); --button-size: var(--text-size-lg);">
+  style="--bg: var(--color-danger); --size: var(--text-size-lg);">
   Delete Everything
 </button>
 
 <!-- Ghost button -->
 <button class="button" type="button"
-  style="--button-bg: transparent; --button-color: var(--color-primary-60); --button-border: 2px solid currentColor;">
+  style="--bg: transparent; --color: var(--color-primary); --border: 2px solid currentColor;">
   Ghost Button
 </button>
 
@@ -88,9 +91,14 @@ That's it. One class handles every button you'll ever need.
 <button class="button with-interaction with-shadow" type="button">
   Enhanced Button
 </button>
+
+<!-- Context-aware button -->
+<button class="button" type="button" data-context="premium">
+  Premium Action
+</button>
 ```
 
-**The "Aha!"**: No modifier classes. Just CSS custom properties doing what they do best.
+**The "Aha!"**: No modifier classes. Just CSS custom properties doing what they do best. Plus, components can have data attributes for context without wrapper divs.
 
 ### Link - Navigation Done Right
 
@@ -119,8 +127,19 @@ That's it. One class handles every button you'll ever need.
 CSS for link-as-button:
 ```css
 .link[role="button"] {
-  /* Inherits all button styles */
-  @extend .button;
+  /* Inherits button appearance without losing link semantics */
+  /* 1. Define defaults - same as button */
+  --bg: var(--color-neutral);
+  --color: white;
+  --padding: var(--space-0-75) var(--space-1-5);
+  --radius: var(--radius-md);
+  
+  /* 2. Use the tokens */
+  display: inline-block;
+  padding: var(--padding);
+  background: var(--bg);
+  color: var(--color);
+  border-radius: var(--radius);
   text-decoration: none;
 }
 ```
@@ -133,21 +152,39 @@ CSS for link-as-button:
 
 <!-- With custom width -->
 <input class="input" type="email" name="email" 
-  style="--input-width: 100%;" 
+  style="--width: 100%;" 
   placeholder="email@example.com">
 
 <!-- With validation styling -->
 <input class="input with-validation" type="password" 
   aria-invalid="true"
   aria-describedby="password-error">
-<p id="password-error" class="text" style="--text-color: var(--color-danger-60);">
+<p id="password-error" class="text" style="--color: var(--color-danger);">
   Password must be at least 8 characters
 </p>
 
 <!-- Search input with icon space -->
 <input class="input with-icon" type="search" 
-  style="--input-padding-left: var(--space-3-0);"
+  style="--padding-left: var(--space-3-0);"
   placeholder="Search...">
+```
+
+```css
+.input {
+  /* 1. Define defaults */
+  --bg: var(--color-white);
+  --border-color: var(--color-neutral);
+  --width: auto;
+  --padding: var(--space-0-75) var(--space-1-0);
+  --padding-left: var(--space-1-0);
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  border: 1px solid var(--border-color);
+  width: var(--width);
+  padding: var(--padding);
+  padding-left: var(--padding-left);
+}
 ```
 
 ### Select - Dropdowns That Work
@@ -161,7 +198,7 @@ CSS for link-as-button:
 </select>
 
 <!-- Full-width select -->
-<select class="select" style="--select-width: 100%;">
+<select class="select" style="--width: 100%;">
   <optgroup label="Europe">
     <option>United Kingdom</option>
     <option>Germany</option>
@@ -181,7 +218,7 @@ CSS for link-as-button:
 
 <!-- Resizable with min height -->
 <textarea class="textarea" 
-  style="--textarea-min-height: 150px; --textarea-resize: vertical;"
+  style="--min-height: 150px; --resize: vertical;"
   placeholder="Your message..."></textarea>
 
 <!-- Full featured -->
@@ -189,9 +226,25 @@ CSS for link-as-button:
   name="comment"
   rows="6"
   maxlength="500"
-  style="--textarea-width: 100%;"
+  style="--width: 100%;"
   aria-label="Comment"
   placeholder="Share your thoughts (500 chars max)"></textarea>
+```
+
+```css
+.textarea {
+  /* 1. Define defaults */
+  --width: auto;
+  --min-height: 100px;
+  --resize: both;
+  --padding: var(--space-1-0);
+  
+  /* 2. Use the tokens */
+  width: var(--width);
+  min-height: var(--min-height);
+  resize: var(--resize);
+  padding: var(--padding);
+}
 ```
 
 ### Checkbox & Radio - Choice Elements
@@ -237,7 +290,7 @@ CSS for link-as-button:
 <!-- Switch with custom colors -->
 <label class="label">
   <input class="switch" type="checkbox" 
-    style="--switch-on-bg: var(--color-success-50);">
+    style="--on-bg: var(--color-success);">
   <span>Available for hire</span>
 </label>
 
@@ -251,10 +304,16 @@ CSS for link-as-button:
 CSS-only implementation:
 ```css
 .switch {
+  /* 1. Define defaults */
+  --off-bg: var(--color-neutral);
+  --on-bg: var(--color-primary);
+  --thumb-color: white;
+  
+  /* 2. Use the tokens */
   appearance: none;
   width: 3rem;
   height: 1.5rem;
-  background: var(--switch-off-bg, var(--color-neutral-30));
+  background: var(--off-bg);
   border-radius: var(--radius-full);
   position: relative;
   cursor: pointer;
@@ -267,14 +326,14 @@ CSS-only implementation:
   width: 1.25rem;
   height: 1.25rem;
   border-radius: var(--radius-full);
-  background: white;
+  background: var(--thumb-color);
   top: 0.125rem;
   left: 0.125rem;
   transition: transform var(--transition-fast);
 }
 
 .switch:checked {
-  background: var(--switch-on-bg, var(--color-primary-50));
+  background: var(--on-bg);
 }
 
 .switch:checked::before {
@@ -299,7 +358,7 @@ Bringing it all together:
     <div class="field">
       <label class="label" for="password">Password</label>
       <input class="input" id="password" type="password" name="password" required>
-      <small class="text" style="--text-size: var(--text-size-sm);">
+      <small class="text" style="--size: var(--text-size-sm);">
         At least 8 characters
       </small>
     </div>
@@ -322,11 +381,41 @@ Bringing it all together:
   <div class="as-cluster" style="--cluster-align: flex-end;">
     <button class="button" type="button">Cancel</button>
     <button class="button" type="submit" 
-      style="--button-bg: var(--color-primary-50);">
+      style="--bg: var(--color-primary);">
       Create Account
     </button>
   </div>
 </form>
+```
+
+## Context-Aware Forms
+
+Forms can respond to their context without changing their structure:
+
+```html
+<!-- Admin context changes appearance automatically -->
+<form class="form as-stack" data-context="admin">
+  <input class="input" type="text" placeholder="Admin only field">
+  <button class="button" type="submit">Admin Action</button>
+</form>
+
+<!-- Checkout context with special styling -->
+<form class="form as-stack" data-context="checkout">
+  <input class="input" type="text" placeholder="Card number">
+  <button class="button" type="submit">Complete Purchase</button>
+</form>
+```
+
+```css
+/* Context-specific styling */
+[data-context="admin"] .input {
+  --border-color: var(--color-warning);
+}
+
+[data-context="checkout"] .button {
+  --bg: var(--color-success);
+  --size: var(--text-size-lg);
+}
 ```
 
 ## Element Best Practices
@@ -365,7 +454,7 @@ Bringing it all together:
 
 <!-- ✅ CRISP way -->
 <button class="button" 
-  style="--button-size: var(--text-size-lg); --button-bg: var(--color-primary-50);">
+  style="--size: var(--text-size-lg); --bg: var(--color-primary);">
 ```
 
 ### 4. Enhance Progressively
@@ -381,6 +470,17 @@ Bringing it all together:
   data-component="button">Click</button>
 ```
 
+### 5. Use Data Attributes for Context
+```html
+<!-- ✅ Component with direct context -->
+<button class="button" data-brand="premium">Premium Feature</button>
+<input class="input" data-state="error" aria-invalid="true">
+
+<!-- ❌ Avoid context classes -->
+<button class="button button--premium">Premium Feature</button>
+<input class="input input--error">
+```
+
 ## The Beauty of Simplicity
 
 With CRISP elements:
@@ -389,7 +489,10 @@ With CRISP elements:
 - Semantic HTML preserved
 - Accessibility built in
 - No modifier class explosion
+- Context via data attributes, not classes
 
 Your forms are readable. Your buttons are maintainable. Your inputs just work.
+
+And when the designer asks for a 7px shadow on the premium buttons? You don't touch your CSS. You just add `data-brand="premium"` and define the styles once. That's the power of separation of concerns.
 
 → Continue to [Chapter 8: Boxes That Contain Things](./C08-containers.md)
