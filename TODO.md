@@ -15,7 +15,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C11-feedback.md - Update feedback component examples
   - [x] C12-progressive.md - Ensure examples follow new patterns
   - [x] C13-patterns.md - Most important: update all pattern examples
-  - [ ] C14-migration.md - Add migration notes for new patterns
+  - [x] C14-migration.md - Add migration notes for new patterns
   - [ ] C15-component-reference.md - Update ALL component documentation
   - [ ] C16-cheatsheet.md - Must reflect all new patterns
 
@@ -33,7 +33,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C11-feedback.md - Check feedback components
   - [x] C12-progressive.md - Verify 3-tier system accuracy
   - [x] C13-patterns.md - Check all patterns work correctly
-  - [ ] C14-migration.md - Verify migration strategies
+  - [x] C14-migration.md - Verify migration strategies
   - [ ] C15-component-reference.md - Check completeness
   - [ ] C16-cheatsheet.md - Verify accuracy of quick reference
 
