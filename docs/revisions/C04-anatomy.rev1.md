@@ -10,7 +10,7 @@ Let's dissect a CRISP component like a biology class frog - except this one will
 <article class="card as-stack with-shadow" 
   role="article"
   aria-label="Featured content"
-  style="--bg: var(--color-primary);">
+  style="--card-bg: var(--color-primary-5);">
   <h2 class="heading">The Anatomy Lesson</h2>
   <p class="text">Every part has a purpose.</p>
 </article>
@@ -161,7 +161,7 @@ CRISP enforces consistent attribute order for scannability:
   role="article"                                <!-- 3. ARIA role -->
   aria-label="Featured content"                 <!-- 4. ARIA attributes -->
   data-component="enhanced-card"                <!-- 5. Data attributes -->
-  style="--bg: var(--color-primary);">         <!-- 6. Inline styles (custom properties only) -->
+  style="--card-bg: var(--color-primary-5);">  <!-- 6. Inline styles (custom properties only) -->
   Content
 </article>
 ```
@@ -179,7 +179,7 @@ CRISP enforces consistent attribute order for scannability:
 ## The Customisation: Custom Properties
 
 ```html
-<article class="card" style="--bg: var(--color-primary); --padding: var(--space-2-0);">
+<article class="card" style="--card-bg: var(--color-primary-5); --card-padding: var(--space-2-0);">
 ```
 
 Custom properties handle variations without modifier classes.
@@ -187,40 +187,28 @@ Custom properties handle variations without modifier classes.
 ### Property Naming Convention
 
 ```css
-/* Component properties follow the new pattern */
+/* Component properties are namespaced */
 .card {
-  /* 1. Define defaults */
-  --bg: var(--color-white);
-  --padding: var(--space-1-5);
-  --radius: var(--radius-md);
-  
-  /* 2. Use the tokens */
-  background: var(--bg);
-  padding: var(--padding);
-  border-radius: var(--radius);
+  background: var(--card-bg, white);
+  padding: var(--card-padding, var(--space-1-5));
+  border-radius: var(--card-radius, var(--radius-md));
 }
 
 .button {
-  /* 1. Define defaults */
-  --bg: var(--color-neutral);
-  --size: 1rem;
-  --weight: 500;
-  
-  /* 2. Use the tokens */
-  background: var(--bg);
-  font-size: var(--size);
-  font-weight: var(--weight);
+  background: var(--button-bg, var(--color-neutral-90));
+  font-size: var(--button-size, 1rem);
+  font-weight: var(--button-weight, 500);
 }
 ```
 
 ### Contextual Overrides
 
 ```html
-<!-- Global context via data attributes -->
-<main data-theme="neutral">
-  <article class="card">Inherits theme styling</article>
-  <article class="card">Also themed</article>
-  <article class="card" style="--bg: var(--color-white);">Override to white</article>
+<!-- Global context -->
+<main style="--card-bg: var(--color-neutral-5);">
+  <article class="card">Inherits gray background</article>
+  <article class="card">Also gray</article>
+  <article class="card" style="--card-bg: white;">Override to white</article>
 </main>
 
 <!-- Component context -->
@@ -255,12 +243,12 @@ Let's build a complete component step by step:
 <article class="card as-stack with-shadow"
   role="article"
   aria-label="Product feature"
-  style="--bg: var(--color-primary); --stack-gap: var(--space-2-0);">
+  style="--card-bg: var(--color-primary-5); --stack-gap: var(--space-2-0);">
   
   <!-- 7. Add content with same principles -->
-  <h2 class="heading" style="--size: 1.5rem;">Feature Title</h2>
+  <h2 class="heading" style="--heading-size: 1.5rem;">Feature Title</h2>
   <p class="text">Feature description with default styling.</p>
-  <button class="button with-interaction" style="--bg: var(--color-primary);">
+  <button class="button with-interaction" style="--button-variant: primary;">
     Learn More
   </button>
 </article>
@@ -273,13 +261,13 @@ The same anatomy works across all three CRISP levels:
 ```html
 <!-- CRISP (Pure CSS) -->
 <button class="button with-interaction" 
-  style="--size: large;">
+  style="--button-size: large;">
   Click Me
 </button>
 
 <!-- CRISP Theme (Adds theme switching) -->
 <button class="button with-interaction" 
-  style="--size: large;">
+  style="--button-size: large;">
   Click Me <!-- Automatically themed -->
 </button>
 
@@ -287,7 +275,7 @@ The same anatomy works across all three CRISP levels:
 <button class="button with-interaction" 
   data-component="button"
   data-i18n="actions.submit"
-  style="--size: large;">
+  style="--button-size: large;">
   Click Me <!-- Type-safe & translatable -->
 </button>
 ```
@@ -303,7 +291,7 @@ When something looks wrong, check in order:
 3. **Is the layout appropriate?** - Does `as-stack` make sense here?
 4. **Are properties within limits?** - Maximum 3 `with-` classes
 5. **Are attributes ordered?** - Consistency aids debugging
-6. **Are custom properties correct?** - No prefixes for element tokens
+6. **Are custom properties namespaced?** - `--card-*` for cards
 
 ## The Beauty of Anatomy
 
