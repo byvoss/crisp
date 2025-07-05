@@ -29,17 +29,13 @@
 
 ```html
 <element class="[component] [as-layout] [with-property]" 
-  style="--token: value;"
-  data-variant="variant"
-  data-state="state">
+  style="--custom: value;">
 ```
 
 **Rules**:
 - 1 component class (what it is)
-- 1 layout class (how it's arranged)  
+- 1 layout class (how it's arranged)
 - Up to 3 property classes (special features)
-- Custom properties WITHOUT prefixes for elements
-- Data attributes for variants and states
 
 ## Core Components
 
@@ -92,7 +88,7 @@
 </div>
 
 <!-- Custom gap -->
-<div class="as-stack" style="--gap: var(--space-2-0);">
+<div class="as-stack" style="--stack-gap: var(--space-2-0);">
 ```
 
 ### Horizontal Cluster  
@@ -103,7 +99,7 @@
 </div>
 
 <!-- Custom alignment -->
-<div class="as-cluster" style="--align: space-between;">
+<div class="as-cluster" style="--cluster-align: space-between;">
 ```
 
 ### Grid
@@ -114,7 +110,7 @@
 </div>
 
 <!-- Fixed columns -->
-<div class="as-grid" style="--columns: 3;">
+<div class="as-grid" style="--grid-columns: 3;">
 ```
 
 ### Center
@@ -124,18 +120,15 @@
 </div>
 
 <!-- Custom height -->
-<div class="as-center" style="--height: 50vh;">
+<div class="as-center" style="--center-height: 50vh;">
 ```
 
-### Split Layout
+### Sidebar
 ```html
-<div class="as-split">
-  <aside>Fixed width</aside>
-  <main>Flexible</main>
+<div class="as-sidebar">
+  <aside>Sidebar</aside>
+  <main>Content</main>
 </div>
-
-<!-- Custom split width -->
-<div class="as-split" style="--split: 300px;">
 ```
 
 ### Container
@@ -177,26 +170,19 @@
 --color-text
 --color-border
 
-/* Core colors (no numeric suffix) */
---color-primary
---color-neutral
---color-success
---color-warning
---color-danger
-
-/* Light/dark variants */
---color-primary-light
---color-primary-dark
---color-neutral-light
---color-neutral-dark
+/* Scales (10-90) */
+--color-primary-50
+--color-neutral-50
+--color-success-50
+--color-warning-50
+--color-danger-50
 ```
 
 ### Typography
 ```css
 /* Sizes */
---text-size-sm     /* 0.875rem */
---text-size-base   /* 1rem */
---text-size-lg     /* 1.125rem */
+--text-size-0-75   /* 0.75rem */
+--text-size-1-0    /* 1rem */
 --text-size-1-25   /* 1.25rem */
 --text-size-1-5    /* 1.5rem */
 --text-size-2-0    /* 2rem */
@@ -207,15 +193,16 @@
 --text-weight-medium    /* 500 */
 --text-weight-semibold  /* 600 */
 --text-weight-bold      /* 700 */
+--text-weight-massiv    /* 900 */
 ```
 
 ### Effects
 ```css
 /* Radius */
---radius-sm    /* 0.25rem */
---radius-md    /* 0.5rem */
---radius-lg    /* 0.75rem */
---radius-xl    /* 1rem */
+--radius-0-25  /* 0.25rem */
+--radius-0-5   /* 0.5rem */
+--radius-0-75  /* 0.75rem */
+--radius-1-0   /* 1rem */
 --radius-full  /* 9999px */
 
 /* Shadows */
@@ -259,7 +246,7 @@
 
 ### Navigation Bar
 ```html
-<nav class="navigation as-cluster" style="--align: space-between;">
+<nav class="navigation as-cluster" style="--cluster-align: space-between;">
   <a class="link" href="/">Logo</a>
   <div class="as-cluster">
     <a class="link" href="/about">About</a>
@@ -270,9 +257,9 @@
 
 ### Hero Section
 ```html
-<section class="hero as-center" style="--height: 80vh;">
+<section class="hero as-center" style="--center-height: 80vh;">
   <div class="as-stack">
-    <h1 class="heading" style="--size: var(--text-size-3-0);">
+    <h1 class="heading" style="--heading-size: var(--text-size-3-0);">
       Big Title
     </h1>
     <p class="text">Subtitle text</p>
@@ -296,34 +283,6 @@ document.getElementById('modal').showModal();
 </script>
 ```
 
-## Data Attributes
-
-### Variants
-```html
-<!-- Visual variations -->
-<button class="button" data-variant="primary">Primary</button>
-<aside class="alert" data-variant="success">Success!</aside>
-<span class="badge" data-variant="warning">3</span>
-<nav class="navigation" data-variant="tabs">Tab nav</nav>
-```
-
-### States
-```html
-<!-- Element states -->
-<button class="button" data-state="loading">Loading...</button>
-<input class="input" data-state="invalid">
-<form class="form" data-state="error">
-<div class="card" data-state="expanded">
-```
-
-### Context
-```html
-<!-- Environmental context -->
-<main data-context="admin">Admin area</main>
-<section data-context="premium">Premium content</section>
-<form data-context="checkout">Checkout form</form>
-```
-
 ## Theme Switching
 
 ```html
@@ -331,9 +290,9 @@ document.getElementById('modal').showModal();
 <script src="crisp-theme.min.js"></script>
 
 <!-- Theme controls -->
-<button data-function="theme" data-theme="light">Light</button>
-<button data-function="theme" data-theme="dark">Dark</button>
-<button data-function="theme" data-theme="auto">Auto</button>
+<button onclick="setTheme('light')">Light</button>
+<button onclick="setTheme('dark')">Dark</button>
+<button onclick="setTheme('auto')">Auto</button>
 ```
 
 ## Accessibility Checklist
@@ -351,14 +310,12 @@ document.getElementById('modal').showModal();
 
 | Old Way | CRISP Way |
 |---------|-----------|
-| `.btn .btn-primary .btn-lg` | `.button` + `style="--bg: var(--color-primary); --size: var(--text-size-lg);"` |
+| `.btn .btn-primary .btn-lg` | `.button` + `style="--button-bg: var(--color-primary-50); --button-size: large;"` |
 | `.card-header` + `.card-body` | `.card.as-stack` |
 | `.row` + `.col-md-4` | `.as-grid` |
 | `.text-center` | `style="text-align: center;"` |
 | `.mt-3 .mb-3` | `style="margin-block: var(--space-1-5);"` |
 | `.d-none` | `hidden` attribute |
-| `.btn-success` | `.button` + `data-variant="success"` |
-| `.alert-warning` | `.alert` + `data-variant="warning"` |
 
 ## Component + Layout Combinations
 
@@ -389,30 +346,8 @@ document.getElementById('modal').showModal();
 <button class="button">Works + themes</button>
 
 <!-- Level 3: CRISP Enterprise (+ TypeScript) -->
-<button class="button" data-function="submit">
+<button class="button" data-component="button">
   Works + themes + TypeScript
-</button>
-```
-
-## Define/Use Pattern
-
-```css
-/* Every element defines its defaults */
-.button {
-  /* 1. Define */
-  --bg: var(--color-neutral);
-  --color: white;
-  --size: var(--text-size-base);
-  
-  /* 2. Use */
-  background: var(--bg);
-  color: var(--color);
-  font-size: var(--size);
-}
-
-/* Customize only what you need */
-<button class="button" style="--bg: var(--color-primary);">
-  Primary Button
 </button>
 ```
 
@@ -421,17 +356,8 @@ document.getElementById('modal').showModal();
 1. **Semantic HTML first** - Use real elements
 2. **One component class** - Be clear what it is
 3. **Custom properties for variants** - Not modifier classes
-4. **Data attributes for state** - Not state classes
+4. **Maximum 3 properties** - Or create new component
 5. **Progressive enhancement** - Works without JS
-6. **Define/Use pattern** - Define defaults, then use them
-7. **Layout tokens describe pattern** - Not content
-
-## Token Naming Rules
-
-- **Element classes**: No prefix (`--bg`, `--color`, `--size`)
-- **Property classes**: With prefix (`--shadow-color`, `--border-width`)
-- **Layout classes**: Pattern-specific (`--gap`, `--split`, `--columns`)
-- **All other tokens**: Need identification (`--space-1-0`, `--color-primary`)
 
 ## Need Help?
 
