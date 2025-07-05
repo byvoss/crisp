@@ -47,6 +47,66 @@ Always use proper HTML elements. IDs only for accessibility.
 - **CRISP Theme** (~60KB): + Theme switching
 - **CRISP Enterprise** (~150KB): + TypeScript & i18n
 
+#### 6. Custom Property Pattern
+```css
+.component {
+  /* 1. Define defaults */
+  --bg: var(--color-neutral);
+  --size: 1rem;
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  font-size: var(--size);
+}
+```
+
+**Token Naming Rules**:
+- **Element classes** (`.button`, `.card`): Element tokens WITHOUT prefix (`--bg`, `--size`, `--color`)
+- **Property classes** (`.with-shadow`, `.with-border`): Property tokens WITH prefix (`--shadow-blur`, `--border-width`)
+- **All other tokens**: Need prefixes for identification (`--space-1-0`, `--color-primary`, `--radius-small`)
+
+The logic: Element tokens are unambiguous within their element's context. Everything else needs identification.
+
+#### 7. Component Naming Discipline
+```css
+/* ✅ Good - max one hyphen */
+.card { }
+.feature-card { }
+.pricing-card { }
+
+/* ❌ Bad - overqualified */
+.pricing-card-professional { }
+.feature-card-with-shadow { }
+.pricing-card-monthly-special { }
+```
+One hyphen = one concept. Multiple hyphens = you're smuggling in modifiers. Use custom properties instead.
+
+#### 8. Context via Data Attributes
+```html
+<!-- ✅ Contexts use data attributes -->
+<section data-context="danger">
+  <button class="button">Delete</button>
+</section>
+
+<main data-context="admin">
+  <article class="card">Admin only</article>
+</main>
+```
+
+```css
+/* Context-specific overrides */
+[data-context="danger"] .button {
+  --bg: var(--color-danger);
+}
+
+[data-context="admin"] .card {
+  --border-color: var(--color-warning);
+}
+```
+Keeps class namespace clean. Contexts are data, not components.
+
+**The Principle**: CSS is for layout and presentation only - never for context. Context is semantic information that belongs in HTML via data attributes. This maintains proper separation of concerns.
+
 ### Documentation Writing Principles
 
 1. **British Humour with Bite** - Use sarcasm to highlight absurdities, but never be malicious. Think "cricket analogies" and "mint-flavoured dental floss", not personal attacks.
@@ -65,6 +125,10 @@ Always use proper HTML elements. IDs only for accessibility.
 
 8. **No Redundancy** - Examples should demonstrate concepts without redundant attributes or unnecessary complexity.
 
+9. **Aha Moments** - When showing examples, include **The "Aha!":** sections that highlight the key insight or benefit. These moments help readers grasp why CRISP's approach is better.
+
+10. **Simplest Examples First** - Always show the simplest possible CRISP solution in examples. Remove any unnecessary complexity while keeping the message clear. Psychologically, shorter examples are more convincing. Only add complexity when absolutely necessary to demonstrate a specific point.
+
 Remember: Be honest, practical, respectfully sarcastic, and always focus on genuine simplification rather than creating new abstraction layers.
 
 ## ⚠️ IMPORTANT RULES (Must follow)
@@ -82,7 +146,7 @@ Remember: Be honest, practical, respectfully sarcastic, and always focus on genu
 **Workflow for EVERY task:**
 1. Complete the implementation
 2. Commit and push changes
-3. Check CI with `gh run list --limit=1`
+3. Check CI with `gh run list --limit=1` (skip for documentation-only changes: *.md files)
 4. If CI fails: Fix issues and repeat
 5. When CI passes:
    - For TODO tasks: Check off in TODO.md

@@ -86,6 +86,29 @@ If you need more than 3 properties, you're not enhancing - you're creating a new
 
 **The "Aha!"**: Constraints breed creativity. When you can't solve problems by adding classes, you write better CSS.
 
+### Component Naming Discipline
+
+```css
+/* ✅ Good - maximum one hyphen */
+.card { }              /* Base component */
+.feature-card { }      /* Specific type */
+.pricing-card { }      /* Another type */
+
+/* ❌ Bad - overqualified names */
+.pricing-card-professional { }      /* Too specific */
+.feature-card-with-shadow { }       /* Property in the name */
+.pricing-card-monthly-special { }   /* Way too specific */
+```
+
+**The Rule**: One hyphen = one concept. Multiple hyphens = you're creating modifiers in disguise.
+
+If you need more specificity, use:
+- Custom properties for variations
+- Property classes for features  
+- Or question if the component is too specific
+
+**The Warning**: Without discipline, you can create 80 components and end up with more chaos than BEM ever gave you. Create components for genuine patterns, not one-off cases.
+
 ## 3. Thou Shalt Separate Identity from Appearance
 
 ### The Commandment
@@ -111,12 +134,12 @@ Classes define **what** something is. Custom properties define **how** it looks.
 <!-- Identity (class) says "I am a button" -->
 <!-- Appearance (properties) says "I look like this" -->
 <button class="button" 
-  style="--button-bg: var(--color-primary-50); --button-size: 1.25rem;">
+  style="--button-bg: var(--color-primary-50); --size: 1.25rem;">
   Primary Large Button
 </button>
 
 <button class="button" 
-  style="--button-bg: var(--color-danger-50); --button-size: 0.75rem;">
+  style="--button-bg: var(--color-danger-50); --size: 0.75rem;">
   Danger Small Button
 </button>
 ```
@@ -183,23 +206,27 @@ Stop fighting CSS. The cascade is your friend.
 
 /* ✅ Flowing with the cascade */
 .button {
-  background: var(--button-bg, var(--color-primary-50));
+  /* 1. Define defaults */
+  --bg: var(--color-primary);
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
 }
 
-/* Context naturally overrides */
-.dark-theme {
-  --color-primary-50: var(--color-primary-40);
+/* Context naturally overrides via data attributes */
+[data-theme="dark"] {
+  --color-primary: var(--color-primary-40);
 }
 
-.danger-zone {
-  --button-bg: var(--color-danger-50);
+[data-context="danger"] .button {
+  --bg: var(--color-danger);
 }
 ```
 
 ### The Inheritance
 ```html
-<!-- Parent sets context -->
-<main class="dark-theme">
+<!-- Parent sets context via data attribute -->
+<main data-theme="dark">
   <!-- Children inherit automatically -->
   <article class="card">
     Dark themed card
@@ -208,10 +235,18 @@ Stop fighting CSS. The cascade is your friend.
     Dark themed button
   </button>
 </main>
+
+<!-- Danger context -->
+<section data-context="danger">
+  <button class="button">Delete Account</button>
+  <p class="text">This action cannot be undone</p>
+</section>
 ```
 
 ### The Simplicity
 No theme-specific classes. No dark mode modifiers. Just CSS custom properties cascading as Håkon Wium Lie intended.
+
+**The Principle**: CSS is for layout and presentation only - never for context. Context is semantic information that belongs in HTML via data attributes. Don't pollute your styling with meaning.
 
 **The "Aha!"**: When you stop fighting the cascade and start using it, your CSS becomes dramatically simpler. Theme switching? One attribute. Responsive design? Container queries. Component variants? Custom properties.
 

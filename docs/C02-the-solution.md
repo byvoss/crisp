@@ -12,7 +12,7 @@ So why are we still writing CSS like it's 2009?
 
 CRISP (Code Rules for Intuitive Semantic Projects) is what happens when you stop fighting the web platform and start using it.
 
-It's not a framework. It's not a methodology. It's permission to write code that makes sense.
+It starts as pure CSS. It can become a framework in enterprise tier - but only if you need it. But the core philosophy remains: semantic HTML and simple patterns.
 
 ## The Five Minutes to "Aha!"
 
@@ -55,27 +55,59 @@ That's it. No `.card__header`, no `.card-body-wrapper-inner`. Just `card`.
 Remember creating 15 button variants? Watch this:
 
 ```html
-<!-- BEM way (15 classes in your CSS) -->
-<button class="btn btn--primary btn--large">Old Way</button>
-<button class="btn btn--secondary btn--small">Another Class</button>
-<button class="btn btn--danger btn--medium">More Classes</button>
+<!-- BEM way: Define every combination upfront -->
+<button class="btn btn--primary btn--large">Primary Large</button>
+<button class="btn btn--secondary btn--small">Secondary Small</button>
+<button class="btn btn--danger btn--medium">Danger Medium</button>
 
-<!-- CRISP way (1 class in your CSS) -->
-<button class="button" style="--button-bg: var(--color-primary-50); --button-size: large;">Primary Large</button>
-<button class="button" style="--button-bg: var(--color-neutral-50); --button-size: small;">Secondary Small</button>
-<button class="button" style="--button-bg: var(--color-danger-50);">Danger Default</button>
+<!-- CRISP way: Mix and match on demand -->
+<button class="button" style="--bg: var(--color-primary); --size: large;">Primary Large</button>
+<button class="button" style="--bg: #003faa; --size: small;">Secondary Small</button>
+<button class="button" style="--bg: red;">Danger Default</button>
 ```
 
 ```css
-/* The entire button CSS */
+/* BEM: 15+ button classes */
+.btn { }
+.btn--primary { }
+.btn--secondary { }
+.btn--danger { }
+.btn--small { }
+.btn--medium { }
+.btn--large { }
+/* Plus all combinations... */
+
+/* CRISP: 1 button class */
 .button {
-  background: var(--button-bg, var(--color-neutral-90));
-  font-size: var(--button-size, 1rem);
-  /* That's it. No variants. No modifiers. */
+  /* 1. Define defaults */
+  --bg: var(--color-neutral);
+  --size: 1rem;
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  font-size: var(--size);
 }
 ```
 
-**The "Aha!"**: Custom properties eliminate modifier classes. One button class handles infinite variations.
+**The "Aha!"**: Yes, the HTML is longer. But your CSS file went from 15+ classes to 1. Your brain remembers one pattern instead of a matrix of modifiers.
+
+Now let's push this further with shadows:
+
+```html
+<!-- BEM: Predefined shadow steps -->
+<div class="card card--shadow-sm">Small</div>
+<div class="card card--shadow-md">Medium</div>
+<div class="card card--shadow-lg">Large</div>
+<!-- Need shadow-xs? Time to edit CSS! -->
+
+<!-- CRISP: Any shadow you can imagine -->
+<article class="card with-shadow" style="--shadow-blur: 5px;">Subtle</article>
+<article class="card with-shadow" style="--shadow-blur: 20px;">Dramatic</article>
+<article class="card with-shadow" style="--shadow-blur: 8px; --shadow-color: var(--color-primary);">Brand colored</article>
+<!-- Need a new shadow? Just change the number! -->
+```
+
+**The deeper "Aha!"**: BEM locks you into predefined steps. CRISP gives you infinite flexibility without touching your CSS. Designer wants 7px shadow? With BEM, that's a CSS update. With CRISP, it's just `--shadow-blur: 7px;`.
 
 ### Minute 4: The Sacred Rule of Three
 
@@ -102,17 +134,17 @@ The same HTML works at three levels:
 
 ```html
 <!-- Level 1: CRISP (Pure CSS ~50KB) -->
-<button class="button" style="--button-size: large;">
+<button class="button" style="--size: large;">
   Works perfectly
 </button>
 
 <!-- Level 2: CRISP Theme (+ Theme System ~60KB) -->
-<button class="button" style="--button-size: large;">
+<button class="button" style="--size: large;">
   Now with dark mode
 </button>
 
 <!-- Level 3: CRISP Enterprise (+ TypeScript/i18n ~150KB) -->
-<button class="button" data-component="button" style="--button-size: large;">
+<button class="button" data-component="button" style="--size: large;">
   Now with type safety and translations
 </button>
 ```
@@ -141,7 +173,7 @@ HTML elements have meaning. Use them.
 <article class="card">
 
 <!-- Properties say HOW it looks -->
-<article class="card" style="--card-bg: var(--color-primary-10);">
+<article class="card" style="--bg: var(--color-primary);">
 ```
 
 ### 3. Prefixes That Make Sense
@@ -188,14 +220,14 @@ Modern CSS is incredible. CRISP embraces it:
 Let's build a pricing card without crying:
 
 ```html
-<article class="card as-stack with-shadow" style="--card-bg: var(--color-primary-5);">
+<article class="card as-stack with-shadow" style="--bg: yellow;">
   <header class="as-stack">
-    <h2 class="heading" style="--heading-size: 1.5rem;">Professional</h2>
-    <p class="text" style="--text-color: var(--color-neutral-60);">For growing teams</p>
+    <h2 class="heading" style="--size: 1.5rem;">Professional</h2>
+    <p class="text" style="--color: var(--color-neutral-60);">For growing teams</p>
   </header>
   
-  <div class="as-stack" style="--stack-gap: var(--space-2-0);">
-    <p class="text" style="--text-size: 2rem; --text-weight: bold;">
+  <div class="as-stack" style="--gap: var(--space-2-0);">
+    <p class="text" style="--size: 2rem; --weight: bold;">
       £99/month
     </p>
     
@@ -206,7 +238,7 @@ Let's build a pricing card without crying:
     </ul>
   </div>
   
-  <button class="button with-interaction" style="--button-variant: primary; --button-size: large;">
+  <button class="button with-interaction" style="--variant: primary; --size: large;">
     Start Free Trial
   </button>
 </article>

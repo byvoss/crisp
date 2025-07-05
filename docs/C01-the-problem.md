@@ -189,6 +189,8 @@ The bitter truth? We've spent two decades overengineering solutions to problems 
 
 Real engineering is about making things simpler, not more complex. But we've done the opposite – building layer upon layer, like an onion of abstractions. The deeper you go, the more mysterious the bugs become. When your CSS breaks, you're not just debugging styles anymore – you're archaeological digging through build processes, preprocessors, and naming conventions, trying to figure out which layer is crying.
 
+Remember: KISS (Keep It Simple, Stupid) isn't about writing fewer characters – it's about reducing cognitive load. A longer, explicit solution that's immediately understandable beats a clever abbreviation that requires a decoder ring. Simplicity lives in your brain, not in your character count.
+
 ## Enter CRISP
 
 What if we just... stopped?
