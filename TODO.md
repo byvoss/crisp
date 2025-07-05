@@ -25,7 +25,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C12-progressive.md
   - [x] C13-patterns.md
   - [x] C14-migration.md
-  - [ ] C15-component-reference.md
+  - [x] C15-component-reference.md
   - [ ] C16-cheatsheet.md
 
 ## Medium Priority

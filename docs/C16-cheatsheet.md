@@ -113,14 +113,14 @@
 <div class="as-grid" style="--grid-columns: 3;">
 ```
 
-### Centre
+### Center
 ```html
-<div class="as-centre">
-  <p>Perfectly centred</p>
+<div class="as-center">
+  <p>Perfectly centered</p>
 </div>
 
 <!-- Custom height -->
-<div class="as-centre" style="--centre-height: 50vh;">
+<div class="as-center" style="--center-height: 50vh;">
 ```
 
 ### Sidebar
@@ -163,19 +163,19 @@
 --space-4-0   /* 4rem    - 64px */
 ```
 
-### Colours
+### Colors
 ```css
 /* Semantic */
---colour-background
---colour-text
---colour-border
+--color-background
+--color-text
+--color-border
 
 /* Scales (10-90) */
---colour-primary-50
---colour-neutral-50
---colour-success-50
---colour-warning-50
---colour-danger-50
+--color-primary-50
+--color-neutral-50
+--color-success-50
+--color-warning-50
+--color-danger-50
 ```
 
 ### Typography
@@ -257,7 +257,7 @@
 
 ### Hero Section
 ```html
-<section class="hero as-centre" style="--centre-height: 80vh;">
+<section class="hero as-center" style="--center-height: 80vh;">
   <div class="as-stack">
     <h1 class="heading" style="--heading-size: var(--text-size-3-0);">
       Big Title
@@ -310,7 +310,7 @@ document.getElementById('modal').showModal();
 
 | Old Way | CRISP Way |
 |---------|-----------|
-| `.btn .btn-primary .btn-lg` | `.button` + `style="--button-bg: var(--colour-primary-50); --button-size: large;"` |
+| `.btn .btn-primary .btn-lg` | `.button` + `style="--button-bg: var(--color-primary-50); --button-size: large;"` |
 | `.card-header` + `.card-body` | `.card.as-stack` |
 | `.row` + `.col-md-4` | `.as-grid` |
 | `.text-center` | `style="text-align: center;"` |
@@ -323,7 +323,7 @@ document.getElementById('modal').showModal();
 <!-- Card layouts -->
 <article class="card as-stack">Vertical card</article>
 <article class="card as-cluster">Horizontal card</article>
-<article class="card as-centre">Centred content card</article>
+<article class="card as-center">Centered content card</article>
 
 <!-- Form layouts -->
 <form class="form as-stack">Vertical form</form>
