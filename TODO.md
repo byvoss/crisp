@@ -17,7 +17,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C04-anatomy.md
   - [x] C05-tokens.md
   - [x] C06-layouts.md
-  - [ ] C07-elements.md
+  - [x] C07-elements.md
   - [ ] C08-containers.md
   - [ ] C09-navigation.md
   - [ ] C10-forms.md

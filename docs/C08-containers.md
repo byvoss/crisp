@@ -10,7 +10,7 @@ Remember this nightmare?
 /* The old way: Special class for every container variant */
 .card { }
 .card-white { }
-.card-grey { }
+.card-gray { }
 .card-bordered { }
 .card-shadow { }
 .card-rounded { }
@@ -56,7 +56,7 @@ The card is CRISP's Swiss Army knife. It contains things. That's it.
 
 <!-- Card with enhancements -->
 <article class="card as-stack with-shadow" 
-  style="--card-bg: var(--colour-primary-5);">
+  style="--card-bg: var(--color-primary-5);">
   <h2>Enhanced Card</h2>
   <p>Shadow and custom background.</p>
 </article>
@@ -74,7 +74,7 @@ The card is CRISP's Swiss Army knife. It contains things. That's it.
 CSS that powers it all:
 ```css
 .card {
-  background: var(--card-bg, var(--colour-background));
+  background: var(--card-bg, var(--color-background));
   padding: var(--card-padding, var(--space-1-5));
   border-radius: var(--card-radius, var(--radius-lg));
   border: var(--card-border, none);
@@ -100,7 +100,7 @@ When your content is self-contained and distributable:
 <article class="article as-stack">
   <header class="as-stack" style="--stack-gap: var(--space-0-5);">
     <h1 class="heading">Article Title</h1>
-    <time class="text" style="--text-colour: var(--colour-neutral-60);">
+    <time class="text" style="--text-color: var(--color-neutral-60);">
       2025-01-04
     </time>
   </header>
@@ -134,7 +134,7 @@ For grouping related content:
 ```html
 <!-- Feature section -->
 <section class="section as-stack" style="--stack-gap: var(--space-2-0);">
-  <header class="as-centre">
+  <header class="as-center">
     <h2 class="heading" style="--heading-size: var(--text-size-2-0);">
       Our Features
     </h2>
@@ -151,8 +151,8 @@ For grouping related content:
 
 <!-- Testimonials section -->
 <section class="section as-container" 
-  style="--section-bg: var(--colour-neutral-5);">
-  <h2 class="heading as-centre">What Our Users Say</h2>
+  style="--section-bg: var(--color-neutral-5);">
+  <h2 class="heading as-center">What Our Users Say</h2>
   
   <div class="as-grid">
     <blockquote class="quote card">
@@ -178,7 +178,7 @@ For overlays and modals:
       Cancel
     </button>
     <button class="button" type="button" 
-      style="--button-bg: var(--colour-danger-50);"
+      style="--button-bg: var(--color-danger-50);"
       onclick="confirmAction()">
       Delete
     </button>
@@ -186,7 +186,7 @@ For overlays and modals:
 </dialog>
 
 <!-- Full-screen dialog -->
-<dialog class="dialog as-centre" style="--dialog-width: 100vw; --dialog-height: 100vh;">
+<dialog class="dialog as-center" style="--dialog-width: 100vw; --dialog-height: 100vh;">
   <div class="card as-stack" style="--card-width: min(90vw, 600px);">
     <h1>Welcome</h1>
     <p>Full-screen modal content</p>
@@ -257,14 +257,14 @@ document.getElementById('confirm-dialog').close();
     <cite class="text" style="--text-weight: var(--text-weight-semibold);">
       Jane Smith
     </cite>
-    <small class="text" style="--text-colour: var(--colour-neutral-60);">
+    <small class="text" style="--text-color: var(--color-neutral-60);">
       CTO, TechCorp
     </small>
   </footer>
 </blockquote>
 
 <!-- Pull quote -->
-<blockquote class="quote" style="--quote-size: var(--text-size-1-5); --quote-colour: var(--colour-primary-60);">
+<blockquote class="quote" style="--quote-size: var(--text-size-1-5); --quote-color: var(--color-primary-60);">
   <p>"The best container is the one you don't have to think about."</p>
 </blockquote>
 ```
@@ -289,10 +289,10 @@ document.getElementById('confirm-dialog').close();
 ### Pricing Card
 ```html
 <article class="card as-stack with-border" 
-  style="--stack-gap: var(--space-1-5); --card-border: 2px solid var(--colour-primary-30);">
+  style="--stack-gap: var(--space-1-5); --card-border: 2px solid var(--color-primary-30);">
   <header class="as-stack" style="--stack-gap: var(--space-0-5);">
     <h3 class="heading">Professional</h3>
-    <p class="text" style="--text-colour: var(--colour-neutral-60);">
+    <p class="text" style="--text-color: var(--color-neutral-60);">
       Perfect for growing teams
     </p>
   </header>
@@ -301,7 +301,7 @@ document.getElementById('confirm-dialog').close();
     <span class="text" style="--text-size: var(--text-size-2-0); --text-weight: var(--text-weight-bold);">
       £49
     </span>
-    <span class="text" style="--text-colour: var(--colour-neutral-60);">
+    <span class="text" style="--text-color: var(--color-neutral-60);">
       /month
     </span>
   </div>
@@ -313,7 +313,7 @@ document.getElementById('confirm-dialog').close();
   </ul>
   
   <button class="button with-interaction" 
-    style="--button-bg: var(--colour-primary-50); --button-size: var(--text-size-1-25);">
+    style="--button-bg: var(--color-primary-50); --button-size: var(--text-size-1-25);">
     Start Free Trial
   </button>
 </article>
@@ -385,7 +385,7 @@ document.getElementById('confirm-dialog').close();
 
 <!-- ✅ CRISP way: Custom properties -->
 <article class="card" 
-  style="--card-bg: var(--colour-neutral-90); 
+  style="--card-bg: var(--color-neutral-90); 
          --card-padding: var(--space-2-0); 
          --card-radius: var(--radius-xl);">
 ```
