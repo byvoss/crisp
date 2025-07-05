@@ -18,7 +18,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C05-tokens.md
   - [x] C06-layouts.md
   - [x] C07-elements.md
-  - [ ] C08-containers.md
+  - [x] C08-containers.md
   - [ ] C09-navigation.md
   - [ ] C10-forms.md
   - [ ] C11-feedback.md

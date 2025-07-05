@@ -162,7 +162,7 @@ Show users where they are:
 </nav>
 
 <!-- Load more pattern -->
-<nav class="pagination as-centre" aria-label="Load more">
+<nav class="pagination as-center" aria-label="Load more">
   <button class="button with-interaction" 
     aria-label="Load more articles"
     onclick="loadMore()">
@@ -245,7 +245,7 @@ CSS magic:
 #tab-1:checked ~ nav .tab:nth-of-type(1),
 #tab-2:checked ~ nav .tab:nth-of-type(2),
 #tab-3:checked ~ nav .tab:nth-of-type(3) {
-  border-bottom-color: var(--colour-primary-50);
+  border-bottom-color: var(--color-primary-50);
 }
 ```
 
@@ -327,7 +327,7 @@ CSS magic:
   .mobile-nav {
     position: fixed;
     inset: 0;
-    background: var(--colour-background);
+    background: var(--color-background);
     padding: var(--space-2-0);
     z-index: 100;
   }
@@ -365,7 +365,7 @@ CSS:
   position: sticky;
   top: var(--header-top, 0);
   z-index: 50;
-  background: var(--colour-background);
+  background: var(--color-background);
   box-shadow: var(--shadow-subtle);
 }
 ```
@@ -386,7 +386,7 @@ CSS:
 CSS:
 ```css
 .link[aria-current="page"] {
-  color: var(--colour-primary-60);
+  color: var(--color-primary-60);
   font-weight: var(--text-weight-semibold);
   text-decoration: underline;
   text-underline-offset: 0.25em;
