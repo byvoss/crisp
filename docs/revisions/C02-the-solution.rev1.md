@@ -62,8 +62,8 @@ Remember creating 15 button variants? Watch this:
 
 <!-- CRISP way: Mix and match on demand -->
 <button class="button" style="--bg: var(--color-primary); --size: large;">Primary Large</button>
-<button class="button" style="--bg: var(--color-neutral); --size: small;">Secondary Small</button>
-<button class="button" style="--bg: var(--color-danger);">Danger Default</button>
+<button class="button" style="--bg: #003faa; --size: small;">Secondary Small</button>
+<button class="button" style="--bg: red;">Danger Default</button>
 ```
 
 ```css
@@ -151,39 +151,6 @@ The same HTML works at three levels:
 
 **The "Aha!"**: Your HTML structure never changes. You can start simple and enhance without refactoring.
 
-### Bonus: Context Without Class Pollution
-
-Need different styling in different contexts? Use data attributes:
-
-```html
-<!-- Admin area with special styling -->
-<main data-context="admin">
-  <article class="card">
-    Automatically styled for admin context
-  </article>
-  <button class="button">Admin actions</button>
-</main>
-
-<!-- Danger zone with warnings -->
-<section data-context="danger">
-  <p class="text">This action cannot be undone</p>
-  <button class="button">Delete Forever</button>
-</section>
-```
-
-```css
-/* Context-specific styling */
-[data-context="admin"] .card {
-  --border-color: var(--color-warning);
-}
-
-[data-context="danger"] .button {
-  --bg: var(--color-danger);
-}
-```
-
-**The "Aha!"**: No `.admin-card` or `.danger-button` classes. Context is data, not CSS.
-
 ## The Core Philosophy
 
 ### 1. Semantic First
@@ -237,7 +204,7 @@ Modern CSS is incredible. CRISP embraces it:
 /* Nesting? Naturally */
 .button {
   &:hover {
-    --bg: var(--color-primary-60);
+    --button-bg: var(--color-primary-60);
   }
 }
 
@@ -253,10 +220,10 @@ Modern CSS is incredible. CRISP embraces it:
 Let's build a pricing card without crying:
 
 ```html
-<article class="card as-stack with-shadow" style="--bg: var(--color-accent);">
+<article class="card as-stack with-shadow" style="--bg: yellow;">
   <header class="as-stack">
     <h2 class="heading" style="--size: 1.5rem;">Professional</h2>
-    <p class="text" style="--color: var(--color-neutral);">For growing teams</p>
+    <p class="text" style="--color: var(--color-neutral-60);">For growing teams</p>
   </header>
   
   <div class="as-stack" style="--gap: var(--space-2-0);">
@@ -271,7 +238,7 @@ Let's build a pricing card without crying:
     </ul>
   </div>
   
-  <button class="button with-interaction" style="--bg: var(--color-primary); --size: large;">
+  <button class="button with-interaction" style="--variant: primary; --size: large;">
     Start Free Trial
   </button>
 </article>
@@ -294,20 +261,12 @@ You can start using CRISP today. Right now. In your current project:
 ```css
 /* Add one component */
 .card {
-  /* 1. Define defaults */
-  --bg: var(--color-white);
-  --padding: var(--space-1-0);
-  --radius: var(--radius-0-5);
-  
-  /* 2. Use the tokens */
-  background: var(--bg);
-  padding: var(--padding);
-  border-radius: var(--radius);
+  background: var(--card-bg, white);
+  padding: var(--card-padding, 1rem);
+  border-radius: var(--card-radius, 0.5rem);
 }
-```
 
-```html
-<!-- Use it -->
+/* Use it */
 <article class="card">
   Your content
 </article>
