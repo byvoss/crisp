@@ -10,7 +10,7 @@ Let's dissect a CRISP component like a biology class frog - except this one will
 <article class="card as-stack with-shadow" 
   role="article"
   aria-label="Featured content"
-  style="--card-bg: var(--colour-primary-5);">
+  style="--card-bg: var(--color-primary-5);">
   <h2 class="heading">The Anatomy Lesson</h2>
   <p class="text">Every part has a purpose.</p>
 </article>
@@ -99,7 +99,7 @@ The layout class defines how content is arranged. Always prefixed with `as-`.
 </section>
 
 <!-- Perfect centring -->
-<div class="hero as-centre">
+<div class="hero as-center">
   <h1>Centred Content</h1>
 </div>
 ```
@@ -161,7 +161,7 @@ CRISP enforces consistent attribute order for scannability:
   role="article"                                <!-- 3. ARIA role -->
   aria-label="Featured content"                 <!-- 4. ARIA attributes -->
   data-component="enhanced-card"                <!-- 5. Data attributes -->
-  style="--card-bg: var(--colour-primary-5);">  <!-- 6. Inline styles (custom properties only) -->
+  style="--card-bg: var(--color-primary-5);">  <!-- 6. Inline styles (custom properties only) -->
   Content
 </article>
 ```
@@ -179,7 +179,7 @@ CRISP enforces consistent attribute order for scannability:
 ## The Customisation: Custom Properties
 
 ```html
-<article class="card" style="--card-bg: var(--colour-primary-5); --card-padding: var(--space-2-0);">
+<article class="card" style="--card-bg: var(--color-primary-5); --card-padding: var(--space-2-0);">
 ```
 
 Custom properties handle variations without modifier classes.
@@ -195,7 +195,7 @@ Custom properties handle variations without modifier classes.
 }
 
 .button {
-  background: var(--button-bg, var(--colour-neutral-90));
+  background: var(--button-bg, var(--color-neutral-90));
   font-size: var(--button-size, 1rem);
   font-weight: var(--button-weight, 500);
 }
@@ -205,9 +205,9 @@ Custom properties handle variations without modifier classes.
 
 ```html
 <!-- Global context -->
-<main style="--card-bg: var(--colour-neutral-5);">
-  <article class="card">Inherits grey background</article>
-  <article class="card">Also grey</article>
+<main style="--card-bg: var(--color-neutral-5);">
+  <article class="card">Inherits gray background</article>
+  <article class="card">Also gray</article>
   <article class="card" style="--card-bg: white;">Override to white</article>
 </main>
 
@@ -243,7 +243,7 @@ Let's build a complete component step by step:
 <article class="card as-stack with-shadow"
   role="article"
   aria-label="Product feature"
-  style="--card-bg: var(--colour-primary-5); --stack-gap: var(--space-2-0);">
+  style="--card-bg: var(--color-primary-5); --stack-gap: var(--space-2-0);">
   
   <!-- 7. Add content with same principles -->
   <h2 class="heading" style="--heading-size: 1.5rem;">Feature Title</h2>
