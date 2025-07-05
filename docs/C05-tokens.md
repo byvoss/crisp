@@ -74,31 +74,31 @@ Usage becomes self-documenting:
 </article>
 ```
 
-### Colour Tokens - The Palette That Scales
+### Color Tokens - The Palette That Scales
 
 CRISP uses HSL with an alpha channel for ultimate flexibility:
 
 ```css
 :root {
   /* Primary colour scale */
-  --colour-primary-10: hsla(220, 80%, 95%, 1);   /* Lightest */
-  --colour-primary-20: hsla(220, 80%, 90%, 1);
-  --colour-primary-30: hsla(220, 80%, 80%, 1);
-  --colour-primary-40: hsla(220, 80%, 70%, 1);
-  --colour-primary-50: hsla(220, 80%, 60%, 1);   /* Base */
-  --colour-primary-60: hsla(220, 80%, 50%, 1);
-  --colour-primary-70: hsla(220, 80%, 40%, 1);
-  --colour-primary-80: hsla(220, 80%, 30%, 1);
-  --colour-primary-90: hsla(220, 80%, 20%, 1);   /* Darkest */
+  --color-primary-10: hsla(220, 80%, 95%, 1);   /* Lightest */
+  --color-primary-20: hsla(220, 80%, 90%, 1);
+  --color-primary-30: hsla(220, 80%, 80%, 1);
+  --color-primary-40: hsla(220, 80%, 70%, 1);
+  --color-primary-50: hsla(220, 80%, 60%, 1);   /* Base */
+  --color-primary-60: hsla(220, 80%, 50%, 1);
+  --color-primary-70: hsla(220, 80%, 40%, 1);
+  --color-primary-80: hsla(220, 80%, 30%, 1);
+  --color-primary-90: hsla(220, 80%, 20%, 1);   /* Darkest */
   
   /* Semantic colours */
-  --colour-background: var(--colour-neutral-5);
-  --colour-text: var(--colour-neutral-90);
-  --colour-border: var(--colour-neutral-20);
+  --color-background: var(--color-neutral-5);
+  --color-text: var(--color-neutral-90);
+  --color-border: var(--color-neutral-20);
 }
 ```
 
-**The "Aha!"**: HSL makes colour relationships obvious. Need a darker primary? Decrease the lightness. Need it more muted? Decrease the saturation.
+**The "Aha!"**: HSL makes color relationships obvious. Need a darker primary? Decrease the lightness. Need it more muted? Decrease the saturation.
 
 ### Typography Tokens - Consistent Text Everywhere
 
@@ -165,8 +165,8 @@ Tokens make components predictable:
   padding: var(--space-0-75) var(--space-1-5);
   
   /* Colour tokens for theme */
-  background: var(--button-bg, var(--colour-primary-50));
-  color: var(--button-colour, white);
+  background: var(--button-bg, var(--color-primary-50));
+  color: var(--button-color, white);
   
   /* Typography tokens for text */
   font-family: var(--font-sans);
@@ -183,8 +183,8 @@ Tokens make components predictable:
   padding: var(--card-padding, var(--space-1-5));
   
   /* Semantic colours */
-  background: var(--card-bg, var(--colour-background));
-  border: 1px solid var(--colour-border);
+  background: var(--card-bg, var(--color-background));
+  border: 1px solid var(--color-border);
   
   /* Standard effects */
   border-radius: var(--card-radius, var(--radius-lg));
@@ -198,23 +198,23 @@ This is where tokens shine:
 ```css
 /* Light theme (default) */
 :root {
-  --colour-background: hsla(0, 0%, 100%, 1);
-  --colour-text: hsla(0, 0%, 10%, 1);
-  --colour-border: hsla(0, 0%, 90%, 1);
+  --color-background: hsla(0, 0%, 100%, 1);
+  --color-text: hsla(0, 0%, 10%, 1);
+  --color-border: hsla(0, 0%, 90%, 1);
 }
 
 /* Dark theme */
 [data-theme="dark"] {
-  --colour-background: hsla(0, 0%, 10%, 1);
-  --colour-text: hsla(0, 0%, 90%, 1);
-  --colour-border: hsla(0, 0%, 20%, 1);
+  --color-background: hsla(0, 0%, 10%, 1);
+  --color-text: hsla(0, 0%, 90%, 1);
+  --color-border: hsla(0, 0%, 20%, 1);
 }
 
 /* System preference */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --colour-background: hsla(0, 0%, 10%, 1);
-    --colour-text: hsla(0, 0%, 90%, 1);
+    --color-background: hsla(0, 0%, 10%, 1);
+    --color-text: hsla(0, 0%, 90%, 1);
   }
 }
 ```
@@ -254,13 +254,13 @@ For different brands or contexts:
 ```css
 /* Default brand */
 .brand-default {
-  --colour-primary-50: hsla(220, 80%, 60%, 1);
+  --color-primary-50: hsla(220, 80%, 60%, 1);
   --font-sans: system-ui, sans-serif;
 }
 
 /* Premium brand */
 .brand-premium {
-  --colour-primary-50: hsla(280, 60%, 50%, 1);
+  --color-primary-50: hsla(280, 60%, 50%, 1);
   --font-sans: 'Elegant Font', serif;
   --space-1-0: 1.25rem; /* More spacious */
 }
@@ -281,7 +281,7 @@ For different brands or contexts:
 --spacing-16: 16px;
 
 /* ✅ Good: Describes purpose */
---colour-primary-50: hsla(220, 80%, 60%, 1);
+--color-primary-50: hsla(220, 80%, 60%, 1);
 --space-1-0: 1rem;
 ```
 
@@ -302,12 +302,12 @@ For different brands or contexts:
 ```css
 :root {
   /* Base values */
-  --colour-primary-50: hsla(220, 80%, 60%, 1);
+  --color-primary-50: hsla(220, 80%, 60%, 1);
   
   /* Derived values */
-  --colour-primary-hover: var(--colour-primary-60);
-  --colour-primary-active: var(--colour-primary-70);
-  --colour-primary-disabled: hsla(220, 80%, 60%, 0.5);
+  --color-primary-hover: var(--color-primary-60);
+  --color-primary-active: var(--color-primary-70);
+  --color-primary-disabled: hsla(220, 80%, 60%, 0.5);
 }
 ```
 
@@ -323,7 +323,7 @@ Design tokens create a contract:
 
 Start small:
 1. Define spacing tokens
-2. Add colour tokens
+2. Add color tokens
 3. Include typography tokens
 4. Add effect tokens as needed
 
