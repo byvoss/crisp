@@ -1,0 +1,17 @@
+{
+  "extends": ["stylelint-config-standard"],
+  "plugins": ["stylelint-a11y"],
+  "rules": {
+    "a11y/media-prefers-reduced-motion": null,
+    "a11y/selector-pseudo-class-focus": null,
+    "declaration-property-value-allowed-list": null,
+    "no-descending-specificity": null,
+    "color-function-notation": null,
+    "hue-degree-notation": null,
+    "alpha-value-notation": null,
+    "no-duplicate-selectors": null,
+    "media-feature-range-notation": null,
+    "selector-class-pattern": null,
+    "custom-property-pattern": null
+  }
+}
