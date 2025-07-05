@@ -127,7 +127,7 @@ For items that should wrap naturally, like navigation links or tags.
 <!-- Button cluster with custom alignment -->
 <div class="as-cluster" style="--cluster-align: stretch;">
   <button class="button">Cancel</button>
-  <button class="button" style="--bg: var(--color-primary);">Save</button>
+  <button class="button" style="--button-variant: primary;">Save</button>
 </div>
 ```
 
@@ -286,7 +286,7 @@ For readable line lengths and consistent padding.
 </article>
 
 <!-- Full-width with contained content -->
-<section class="hero" style="background: var(--color-primary);">
+<section class="hero" style="background: var(--color-primary-50);">
   <div class="as-container as-center" style="--center-height: 40vh;">
     <h1>Full-width background, contained content</h1>
   </div>
@@ -371,31 +371,6 @@ Each layout accepts customisation:
 2. **Composition over configuration** - Combine simple layouts for complex designs
 3. **Custom properties over classes** - Adjust spacing without new CSS
 4. **Semantic HTML still matters** - Use the right elements inside layouts
-5. **Context affects layouts** - Use data attributes for contextual changes
-
-### Context-Aware Layouts
-
-```html
-<!-- Compact context reduces spacing -->
-<main data-context="compact">
-  <div class="as-stack">
-    <!-- Inherits compact spacing from context -->
-    <h1>Compact Layout</h1>
-    <p>Less spacing throughout</p>
-  </div>
-</main>
-
-<!-- Dashboard context might change grid behavior -->
-<section data-context="dashboard">
-  <div class="as-grid">
-    <!-- Context can override grid settings -->
-    <widget class="card">Widget 1</widget>
-    <widget class="card">Widget 2</widget>
-  </div>
-</section>
-```
-
-**The "Aha!"**: Layout properties have prefixes because they belong to the layout utility classes, not the components themselves.
 
 ## Common Patterns
 
