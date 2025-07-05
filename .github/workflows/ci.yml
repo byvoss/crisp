@@ -34,5 +34,4 @@ jobs:
     - name: Check dist files exist
       run: |
         test -f dist/crisp.css
-        test -f dist/crisp.min.css
-        test -f dist/crisp-bundle.css
+        test -f dist/crisp-lite.css
