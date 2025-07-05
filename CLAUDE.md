@@ -138,6 +138,39 @@ Keeps class namespace clean. Contexts are data, not components.
 - Semantic naming, not visual (`data-tier="premium"`, not `data-color="gold"`)
 - Keep the list minimal - these core keys cover most use cases
 
+#### 10. Complete Default Values Required
+
+**Every element MUST define ALL its tokens with working defaults:**
+
+```css
+.button {
+  /* 1. Define ALL defaults - element works immediately */
+  --bg: var(--color-neutral);
+  --color: white;
+  --size: var(--text-size-base);
+  --weight: var(--text-weight-medium);
+  --padding: var(--space-0-75) var(--space-1-5);
+  --radius: var(--radius-md);
+  --border: none;
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  color: var(--color);
+  font-size: var(--size);
+  /* etc. */
+}
+```
+
+**The Principle**: Elements must work out-of-the-box in Tier 1 (pure CSS) without any custom properties. Users customize only what they need to change. This is fundamental CRISP functionality - not a nice-to-have.
+
+```html
+<!-- Must work immediately -->
+<button class="button">Click me</button>
+
+<!-- Customize only what's needed -->
+<button class="button" style="--bg: var(--color-primary);">Primary</button>
+```
+
 ### Documentation Writing Principles
 
 1. **British Humour with Bite** - Use sarcasm to highlight absurdities, but never be malicious. Think "cricket analogies" and "mint-flavoured dental floss", not personal attacks.
