@@ -72,23 +72,23 @@ CSS for variants:
 .alert {
   padding: var(--alert-padding, var(--space-1-0) var(--space-1-5));
   border-radius: var(--radius-md);
-  background: var(--alert-bg, var(--colour-info-10));
-  border-left: 4px solid var(--alert-border, var(--colour-info-50));
+  background: var(--alert-bg, var(--color-info-10));
+  border-left: 4px solid var(--alert-border, var(--color-info-50));
 }
 
 .alert.with-success {
-  --alert-bg: var(--colour-success-10);
-  --alert-border: var(--colour-success-50);
+  --alert-bg: var(--color-success-10);
+  --alert-border: var(--color-success-50);
 }
 
 .alert.with-warning {
-  --alert-bg: var(--colour-warning-10);
-  --alert-border: var(--colour-warning-50);
+  --alert-bg: var(--color-warning-10);
+  --alert-border: var(--color-warning-50);
 }
 
 .alert.with-error {
-  --alert-bg: var(--colour-danger-10);
-  --alert-border: var(--colour-danger-50);
+  --alert-bg: var(--color-danger-10);
+  --alert-border: var(--color-danger-50);
 }
 ```
 
@@ -106,7 +106,7 @@ CSS for variants:
 <!-- In context -->
 <button class="button">
   Messages 
-  <span class="badge" style="--badge-bg: var(--colour-danger-50);">3</span>
+  <span class="badge" style="--badge-bg: var(--color-danger-50);">3</span>
 </button>
 
 <!-- With labels -->
@@ -146,8 +146,8 @@ CSS for variants:
   <span class="tag">UI/UX</span>
 </div>
 
-<!-- Coloured tags -->
-<span class="tag" style="--tag-bg: var(--colour-primary-20); --tag-colour: var(--colour-primary-80);">
+<!-- Colored tags -->
+<span class="tag" style="--tag-bg: var(--color-primary-20); --tag-color: var(--color-primary-80);">
   Featured
 </span>
 ```
@@ -185,7 +185,7 @@ CSS for positioning:
 }
 
 .toast {
-  background: var(--colour-neutral-90);
+  background: var(--color-neutral-90);
   color: white;
   padding: var(--space-1-0) var(--space-1-5);
   border-radius: var(--radius-md);
@@ -303,7 +303,7 @@ showToast('Network error, retrying...', 'error', 0); // No auto-dismiss
 </article>
 
 <!-- Loading overlay -->
-<div class="loading-overlay as-centre">
+<div class="loading-overlay as-center">
   <div class="spinner" role="status" aria-label="Loading">
     <span class="sr-only">Loading...</span>
   </div>
@@ -324,9 +324,9 @@ CSS for loading states:
   width: var(--skeleton-width, 100%);
   background: linear-gradient(
     90deg,
-    var(--colour-neutral-20) 25%,
-    var(--colour-neutral-10) 50%,
-    var(--colour-neutral-20) 75%
+    var(--color-neutral-20) 25%,
+    var(--color-neutral-10) 50%,
+    var(--color-neutral-20) 75%
   );
   background-size: 200% 100%;
   animation: skeleton-loading 1.5s ease-in-out infinite;
@@ -342,8 +342,8 @@ CSS for loading states:
 .spinner {
   width: var(--spinner-size, 2rem);
   height: var(--spinner-size, 2rem);
-  border: 2px solid var(--colour-neutral-30);
-  border-top-color: var(--colour-primary-50);
+  border: 2px solid var(--color-neutral-30);
+  border-top-color: var(--color-primary-50);
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -375,7 +375,7 @@ CSS for loading states:
   <input class="input" id="password" type="password" 
     aria-describedby="password-strength">
   <div class="strength-indicator" id="password-strength">
-    <div class="strength-bar" style="--strength: 60%; --strength-colour: var(--colour-warning-50);"></div>
+    <div class="strength-bar" style="--strength: 60%; --strength-color: var(--color-warning-50);"></div>
     <small class="text">Medium strength</small>
   </div>
 </div>

@@ -20,7 +20,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C07-elements.md
   - [x] C08-containers.md
   - [x] C09-navigation.md
-  - [ ] C10-forms.md
+  - [x] C10-forms.md
   - [ ] C11-feedback.md
   - [ ] C12-progressive.md
   - [ ] C13-patterns.md
