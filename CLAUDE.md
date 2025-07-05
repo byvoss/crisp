@@ -86,6 +86,42 @@ Please read these files in order to understand the complete project:
 
 ## Development Workflow
 
+### GitHub Repository
+
+- **Repository**: `github.com:byvoss/crisp.git`
+- **Default Branch**: `main`
+- **CI/CD**: GitHub Actions (must pass before merging)
+
+### Essential Git Commands
+
+```bash
+# Check status
+git status
+
+# Commit with proper message format
+git commit -m "type: Short description
+
+- Detailed change 1
+- Detailed change 2
+
+🤖 Generated with [Claude Code](https://claude.ai/code)
+
+Co-Authored-By: Claude <noreply@anthropic.com>"
+
+# Push to remote
+git push origin main
+
+# ALWAYS check CI status after push
+gh run list --limit=1
+# If failed, investigate:
+gh run view [RUN_ID] --log-failed
+```
+
+### Common Issues
+
+- **CI Failures**: Check for missing `package-lock.json`
+- **Dependency Conflicts**: Use `npm install --legacy-peer-deps`
+
 ### License Headers
 
 All source files (.css, .ts, .js) must include this header:
