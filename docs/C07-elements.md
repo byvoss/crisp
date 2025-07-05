@@ -36,8 +36,8 @@ Remember when we had 47 different button classes?
   padding: var(--button-padding, var(--space-0-75) var(--space-1-5));
   
   /* Customisable appearance */
-  background: var(--button-bg, var(--colour-neutral-90));
-  color: var(--button-colour, white);
+  background: var(--button-bg, var(--color-neutral-90));
+  color: var(--button-color, white);
   
   /* Customisable typography */
   font-family: var(--font-sans);
@@ -68,19 +68,19 @@ That's it. One class handles every button you'll ever need.
 
 <!-- Primary button -->
 <button class="button" type="button" 
-  style="--button-bg: var(--colour-primary-50);">
+  style="--button-bg: var(--color-primary-50);">
   Primary Button
 </button>
 
 <!-- Large danger button -->
 <button class="button" type="button"
-  style="--button-bg: var(--colour-danger-50); --button-size: var(--text-size-lg);">
+  style="--button-bg: var(--color-danger-50); --button-size: var(--text-size-lg);">
   Delete Everything
 </button>
 
 <!-- Ghost button -->
 <button class="button" type="button"
-  style="--button-bg: transparent; --button-colour: var(--colour-primary-60); --button-border: 2px solid currentColor;">
+  style="--button-bg: transparent; --button-color: var(--color-primary-60); --button-border: 2px solid currentColor;">
   Ghost Button
 </button>
 
@@ -140,7 +140,7 @@ CSS for link-as-button:
 <input class="input with-validation" type="password" 
   aria-invalid="true"
   aria-describedby="password-error">
-<p id="password-error" class="text" style="--text-colour: var(--colour-danger-60);">
+<p id="password-error" class="text" style="--text-color: var(--color-danger-60);">
   Password must be at least 8 characters
 </p>
 
@@ -234,10 +234,10 @@ CSS for link-as-button:
   <span>Dark mode</span>
 </label>
 
-<!-- Switch with custom colours -->
+<!-- Switch with custom colors -->
 <label class="label">
   <input class="switch" type="checkbox" 
-    style="--switch-on-bg: var(--colour-success-50);">
+    style="--switch-on-bg: var(--color-success-50);">
   <span>Available for hire</span>
 </label>
 
@@ -254,7 +254,7 @@ CSS-only implementation:
   appearance: none;
   width: 3rem;
   height: 1.5rem;
-  background: var(--switch-off-bg, var(--colour-neutral-30));
+  background: var(--switch-off-bg, var(--color-neutral-30));
   border-radius: var(--radius-full);
   position: relative;
   cursor: pointer;
@@ -274,7 +274,7 @@ CSS-only implementation:
 }
 
 .switch:checked {
-  background: var(--switch-on-bg, var(--colour-primary-50));
+  background: var(--switch-on-bg, var(--color-primary-50));
 }
 
 .switch:checked::before {
@@ -322,7 +322,7 @@ Bringing it all together:
   <div class="as-cluster" style="--cluster-align: flex-end;">
     <button class="button" type="button">Cancel</button>
     <button class="button" type="submit" 
-      style="--button-bg: var(--colour-primary-50);">
+      style="--button-bg: var(--color-primary-50);">
       Create Account
     </button>
   </div>
@@ -365,7 +365,7 @@ Bringing it all together:
 
 <!-- ✅ CRISP way -->
 <button class="button" 
-  style="--button-size: var(--text-size-lg); --button-bg: var(--colour-primary-50);">
+  style="--button-size: var(--text-size-lg); --button-bg: var(--color-primary-50);">
 ```
 
 ### 4. Enhance Progressively
