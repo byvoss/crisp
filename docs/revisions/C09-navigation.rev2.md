@@ -38,7 +38,7 @@ Navigation is about wayfinding. Make it obvious.
 
 ```html
 <!-- Basic navigation -->
-<nav class="navigation" data-entries="4" aria-label="Main navigation">
+<nav class="navigation" aria-label="Main navigation">
   <a class="link" href="/" aria-current="page">Home</a>
   <a class="link" href="/about">About</a>
   <a class="link" href="/services">Services</a>
@@ -46,7 +46,7 @@ Navigation is about wayfinding. Make it obvious.
 </nav>
 
 <!-- Navigation with layout -->
-<nav class="navigation as-cluster" data-entries="4" aria-label="Main navigation">
+<nav class="navigation as-cluster" aria-label="Main navigation">
   <a class="link" href="/">Home</a>
   <a class="link" href="/about">About</a>
   <a class="link" href="/services">Services</a>
@@ -54,14 +54,14 @@ Navigation is about wayfinding. Make it obvious.
 </nav>
 
 <!-- Vertical navigation -->
-<nav class="navigation as-stack" data-entries="3" aria-label="Sidebar navigation">
+<nav class="navigation as-stack" aria-label="Sidebar navigation">
   <a class="link" href="/dashboard">Dashboard</a>
   <a class="link" href="/projects">Projects</a>
   <a class="link" href="/settings">Settings</a>
 </nav>
 
 <!-- Navigation with sections -->
-<nav class="navigation as-stack" data-entries="2" aria-label="Documentation">
+<nav class="navigation as-stack" aria-label="Documentation">
   <section class="as-stack">
     <h3 class="heading" style="--size: var(--text-size-0-875);">
       Getting Started
@@ -80,7 +80,7 @@ Navigation is about wayfinding. Make it obvious.
 </nav>
 
 <!-- Context-aware navigation -->
-<nav class="navigation" data-entries="3" data-context="authenticated" aria-label="User menu">
+<nav class="navigation" aria-label="User menu" data-context="authenticated">
   <a class="link" href="/profile">Profile</a>
   <a class="link" href="/settings">Settings</a>
   <a class="link" href="/logout">Sign Out</a>
@@ -110,7 +110,7 @@ Show users where they are:
 
 ```html
 <!-- Basic breadcrumb -->
-<nav class="breadcrumb" data-entries="3" aria-label="Breadcrumb">
+<nav class="breadcrumb" aria-label="Breadcrumb">
   <ol class="list as-cluster">
     <li><a class="link" href="/">Home</a></li>
     <li><a class="link" href="/products">Products</a></li>
@@ -119,7 +119,7 @@ Show users where they are:
 </nav>
 
 <!-- With separators -->
-<nav class="breadcrumb" data-entries="3" aria-label="Breadcrumb">
+<nav class="breadcrumb" aria-label="Breadcrumb">
   <ol class="list as-cluster" style="--cluster-gap: var(--space-0-5);">
     <li>
       <a class="link" href="/">Home</a>
@@ -136,7 +136,7 @@ Show users where they are:
 </nav>
 
 <!-- Schema.org friendly -->
-<nav class="breadcrumb" data-entries="1" aria-label="Breadcrumb">
+<nav class="breadcrumb" aria-label="Breadcrumb">
   <ol class="list as-cluster" itemscope itemtype="https://schema.org/BreadcrumbList">
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
       <a class="link" itemprop="item" href="/">
@@ -149,7 +149,7 @@ Show users where they are:
 </nav>
 
 <!-- Context-aware breadcrumb -->
-<nav class="breadcrumb" data-entries="2" data-theme="dark" aria-label="Breadcrumb">
+<nav class="breadcrumb" aria-label="Breadcrumb" data-theme="dark">
   <ol class="list as-cluster">
     <li><a class="link" href="/">Home</a></li>
     <li><span aria-current="page">Current</span></li>
@@ -161,7 +161,7 @@ Show users where they are:
 
 ```html
 <!-- Basic pagination -->
-<nav class="pagination" data-entries="5" aria-label="Pagination">
+<nav class="pagination" aria-label="Pagination">
   <ol class="list as-cluster">
     <li>
       <a class="link" href="?page=1" aria-label="Previous page">
@@ -186,7 +186,7 @@ Show users where they are:
 </nav>
 
 <!-- Compact pagination -->
-<nav class="pagination as-cluster" data-entries="3" aria-label="Pagination" 
+<nav class="pagination as-cluster" aria-label="Pagination" 
   style="--cluster-align: space-between;">
   <a class="link" href="?page=1" rel="prev">← Previous</a>
   <span class="text">Page 2 of 10</span>
@@ -194,7 +194,7 @@ Show users where they are:
 </nav>
 
 <!-- Load more pattern -->
-<nav class="pagination as-center" data-entries="1" aria-label="Load more">
+<nav class="pagination as-center" aria-label="Load more">
   <button class="button with-interaction" 
     aria-label="Load more articles"
     onclick="loadMore()">
@@ -203,7 +203,7 @@ Show users where they are:
 </nav>
 
 <!-- Pagination with context -->
-<nav class="pagination" data-entries="3" data-context="search-results" aria-label="Search results pagination">
+<nav class="pagination" aria-label="Search results pagination" data-context="search-results">
   <ol class="list as-cluster">
     <li><a class="link" href="?page=1">1</a></li>
     <li><a class="link" href="?page=2" aria-current="page">2</a></li>
@@ -218,14 +218,14 @@ CSS-only tabs using radio buttons:
 
 ```html
 <!-- Tab navigation -->
-<div class="tabs" data-entries="3" data-orientation="horizontal">
+<div class="tabs" data-orientation="horizontal">
   <!-- Hidden radio buttons -->
   <input class="radio" id="tab-1" type="radio" name="tabs" checked>
   <input class="radio" id="tab-2" type="radio" name="tabs">
   <input class="radio" id="tab-3" type="radio" name="tabs">
   
   <!-- Tab labels -->
-  <nav class="navigation as-cluster" data-entries="3" role="tablist">
+  <nav class="navigation as-cluster" role="tablist">
     <label class="tab" for="tab-1" role="tab" aria-selected="true">
       Overview
     </label>
@@ -530,7 +530,7 @@ CSS:
 ### 1. Always Label Navigation
 ```html
 <!-- ❌ Unlabelled -->
-<nav class="navigation" data-entries="0">
+<nav>
 
 <!-- ✅ Labelled -->
 <nav aria-label="Main navigation">

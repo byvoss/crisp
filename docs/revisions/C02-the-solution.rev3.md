@@ -194,7 +194,7 @@ Need different styling in different contexts? Use data attributes:
     <div class="nav-list">
 
 <!-- ✅ Semantic HTML -->
-<nav class="navigation" data-entries="1">
+<nav class="navigation">
   <ul class="list">
 ```
 

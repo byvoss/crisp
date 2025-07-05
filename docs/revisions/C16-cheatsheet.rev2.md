@@ -11,7 +11,7 @@
 <!-- Basic structure -->
 <body class="as-stack">
   <header class="header as-container">
-    <nav class="navigation as-cluster" data-entries="1">
+    <nav class="navigation as-cluster">
       <a class="link" href="/">Home</a>
     </nav>
   </header>
@@ -67,10 +67,10 @@
 
 ### Navigation
 ```html
-<nav class="navigation" data-entries="0">Nav</nav>
-<nav class="breadcrumb" data-entries="0">Breadcrumb</nav>
-<nav class="pagination" data-entries="0">Pages</nav>
-<div class="tabs" data-entries="0">Tabs</div>
+<nav class="navigation">Nav</nav>
+<nav class="breadcrumb">Breadcrumb</nav>
+<nav class="pagination">Pages</nav>
+<div class="tabs">Tabs</div>
 ```
 
 ### Feedback
@@ -259,7 +259,7 @@
 
 ### Navigation Bar
 ```html
-<nav class="navigation as-cluster" data-entries="2" style="--align: space-between;">
+<nav class="navigation as-cluster" style="--align: space-between;">
   <a class="link" href="/">Logo</a>
   <div class="as-cluster">
     <a class="link" href="/about">About</a>
@@ -304,7 +304,7 @@ document.getElementById('modal').showModal();
 <button class="button" data-variant="primary">Primary</button>
 <aside class="alert" data-variant="success">Success!</aside>
 <span class="badge" data-variant="warning">3</span>
-<nav class="navigation" data-entries="0" data-variant="tabs">Tab nav</nav>
+<nav class="navigation" data-variant="tabs">Tab nav</nav>
 ```
 
 ### States
@@ -374,9 +374,9 @@ document.getElementById('modal').showModal();
 <form class="form as-grid">Grid form</form>
 
 <!-- Navigation layouts -->
-<nav class="navigation as-cluster" data-entries="0">Horizontal nav</nav>
-<nav class="navigation as-stack" data-entries="0">Vertical nav</nav>
-<nav class="navigation as-grid" data-entries="0">Grid nav</nav>
+<nav class="navigation as-cluster">Horizontal nav</nav>
+<nav class="navigation as-stack">Vertical nav</nav>
+<nav class="navigation as-grid">Grid nav</nav>
 ```
 
 ## Progressive Enhancement Path

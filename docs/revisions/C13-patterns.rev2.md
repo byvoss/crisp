@@ -14,7 +14,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 <body class="as-stack" style="--gap: 0;">
   <!-- Sticky header -->
   <header class="header with-sticky as-container">
-    <nav class="navigation as-cluster" data-entries="2" style="--align: space-between;">
+    <nav class="navigation as-cluster" style="--align: space-between;">
       <a class="link logo" href="/">Logo</a>
       <div class="as-cluster">
         <a class="link" href="/about">About</a>
@@ -28,7 +28,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
     <main class="as-split" style="--split: 250px;">
       <!-- Left sidebar -->
       <aside class="aside as-stack with-sticky" style="--top: 5rem;">
-        <nav class="navigation as-stack" data-entries="4">
+        <nav class="navigation as-stack">
           <h3 class="heading">Categories</h3>
           <a class="link" href="#" aria-current="page">All Posts</a>
           <a class="link" href="#">Technology</a>
@@ -68,7 +68,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 <!-- Modern app layout -->
 <div class="app as-grid" style="--template: 'nav main' / 250px 1fr; height: 100vh;">
   <!-- Sidebar navigation -->
-  <nav class="navigation app-nav as-stack" data-entries="2" data-context="app" style="grid-area: nav;">
+  <nav class="navigation app-nav as-stack" style="grid-area: nav;" data-context="app">
     <div class="as-stack" style="--gap: var(--space-2-0);">
       <!-- Logo -->
       <a class="link logo" href="/">

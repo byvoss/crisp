@@ -38,7 +38,7 @@ The semantic HTML element is your component's skeleton. It provides:
 <!-- ✅ Correct bone structure -->
 <article class="article">
 <button class="button">
-<nav class="navigation" data-entries="0">
+<nav class="navigation">
 ```
 
 **The "Aha!"**: The right HTML element eliminates half your CSS and all your accessibility hacks.
@@ -66,7 +66,7 @@ The component class is your element's identity. It defines what something **is**
 <!-- ✅ Clear identity -->
 <article class="card">
 <button class="button">
-<nav class="navigation" data-entries="0">
+<nav class="navigation">
 ```
 
 ## The Posture: Layout Class
@@ -87,7 +87,7 @@ The layout class defines how content is arranged. Always prefixed with `as-`.
 </article>
 
 <!-- Horizontal grouping -->
-<nav class="navigation as-cluster" data-entries="2">
+<nav class="navigation as-cluster">
   <a href="/">Home</a>
   <a href="/about">About</a>
 </nav>

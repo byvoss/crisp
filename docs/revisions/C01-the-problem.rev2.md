@@ -210,7 +210,7 @@ What if we wrote CSS that reads like English, HTML that's actually semantic, and
     No decoder ring required. No methodology manual needed.
     Just semantic HTML with descriptive classes.
   </p>
-  <details class="disclosure" data-entries="1">
+  <details class="disclosure">
     <summary>See the difference?</summary>
     <p class="text">This Actually Makes Sense</p>
   </details>

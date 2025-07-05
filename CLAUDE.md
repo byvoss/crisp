@@ -212,6 +212,73 @@ Keeps class namespace clean. Contexts are data, not components.
 </div>
 ```
 
+#### 12. Semantic Data Attributes for Enhanced Meaning
+
+**Components with countable child elements MUST include `data-entries`:**
+
+```html
+<!-- Navigation with entry count -->
+<nav class="navigation" data-entries="5" aria-label="Main">
+  <a class="link" href="/">Home</a>
+  <a class="link" href="/about">About</a>
+  <a class="link" href="/products">Products</a>
+  <a class="link" href="/services">Services</a>
+  <a class="link" href="/contact">Contact</a>
+</nav>
+
+<!-- Accordion with panels -->
+<div class="accordion" data-entries="3" data-state="expanded">
+  <section class="panel">Content 1</section>
+  <section class="panel">Content 2</section>
+  <section class="panel">Content 3</section>
+</div>
+
+<!-- Tabs with count -->
+<div class="tabs" data-entries="4" data-state="active:1">
+  <nav class="navigation" data-variant="tabs">
+    <button class="tab">Tab 1</button>
+    <button class="tab">Tab 2</button>
+    <button class="tab">Tab 3</button>
+    <button class="tab">Tab 4</button>
+  </nav>
+</div>
+
+<!-- Pagination -->
+<nav class="pagination" data-entries="10" data-state="active:3">
+  <a class="link">Previous</a>
+  <span>Page 3 of 10</span>
+  <a class="link">Next</a>
+</nav>
+```
+
+**The Principle**: Fixed semantic data attributes enhance HTML readability and JavaScript integration. They make the DOM self-documenting and enable:
+
+1. **Dynamic updates**: JavaScript can maintain accurate counts
+2. **CSS reactions**: Different layouts based on item count
+3. **Accessibility**: Screen readers can announce totals
+4. **Semantic clarity**: Instantly understand structure
+
+```javascript
+// Easy dynamic maintenance
+const updateNavCount = (nav) => {
+  nav.dataset.entries = nav.querySelectorAll('.link').length;
+};
+```
+
+```css
+/* Responsive based on count */
+.navigation[data-entries="2"] { --align: space-between; }
+.navigation[data-entries="10"] { /* Switch to overflow menu */ }
+```
+
+**Components requiring `data-entries`:**
+- Navigation menus
+- Tab interfaces
+- Accordions
+- Sliders/Carousels
+- Pagination
+- Any container where count matters for UX
+
 ### Documentation Writing Principles
 
 1. **British Humour with Bite** - Use sarcasm to highlight absurdities, but never be malicious. Think "cricket analogies" and "mint-flavoured dental floss", not personal attacks.

@@ -323,7 +323,7 @@ document.getElementById('modal').showModal();
 **Purpose**: Navigation links container
 
 ```html
-<nav class="navigation" data-entries="2" aria-label="Main">
+<nav class="navigation" aria-label="Main">
   <a class="link" href="/">Home</a>
   <a class="link" href="/about">About</a>
 </nav>
@@ -333,7 +333,7 @@ document.getElementById('modal').showModal();
 **Purpose**: Hierarchical navigation trail
 
 ```html
-<nav class="breadcrumb" data-entries="3" aria-label="Breadcrumb">
+<nav class="breadcrumb" aria-label="Breadcrumb">
   <ol class="list as-cluster">
     <li><a class="link" href="/">Home</a></li>
     <li><a class="link" href="/products">Products</a></li>
@@ -346,7 +346,7 @@ document.getElementById('modal').showModal();
 **Purpose**: Page navigation
 
 ```html
-<nav class="pagination" data-entries="3" aria-label="Pagination">
+<nav class="pagination" aria-label="Pagination">
   <a class="link" href="?page=1">Previous</a>
   <span>Page 2 of 5</span>
   <a class="link" href="?page=3">Next</a>
@@ -357,11 +357,11 @@ document.getElementById('modal').showModal();
 **Purpose**: Content panel switching
 
 ```html
-<div class="tabs" data-entries="2">
+<div class="tabs">
   <input class="radio" id="tab1" type="radio" name="tabs" checked>
   <input class="radio" id="tab2" type="radio" name="tabs">
   
-  <nav class="navigation as-cluster" data-entries="2" data-variant="tabs">
+  <nav class="navigation as-cluster" data-variant="tabs">
     <label class="tab" for="tab1">Tab 1</label>
     <label class="tab" for="tab2">Tab 2</label>
   </nav>

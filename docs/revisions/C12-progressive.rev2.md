@@ -67,11 +67,11 @@ One HTML structure. Three capability levels. Zero rewrites.
   </section>
   
   <!-- Pure CSS tabs -->
-  <div class="tabs" data-entries="2">
+  <div class="tabs">
     <input class="radio" id="tab-1" type="radio" name="tabs" checked>
     <input class="radio" id="tab-2" type="radio" name="tabs">
     
-    <nav class="navigation as-cluster" data-entries="2" data-variant="tabs">
+    <nav class="navigation as-cluster" data-variant="tabs">
       <label class="tab" for="tab-1">Tab 1</label>
       <label class="tab" for="tab-2">Tab 2</label>
     </nav>

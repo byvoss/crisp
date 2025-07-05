@@ -37,7 +37,7 @@ HTML elements aren't just generic containers. They have meaning, behaviour, and 
 ### The Practice
 ```html
 <!-- A real navigation, not a div pretending -->
-<nav class="navigation" data-entries="1" aria-label="Main navigation">
+<nav class="navigation" aria-label="Main navigation">
   <ul class="list as-cluster">
     <li><a class="link" href="/" aria-current="page">Home</a></li>
     <li><a class="link" href="/about">About</a></li>
@@ -163,7 +163,7 @@ Three prefixes. Clear purposes. No ambiguity.
 <!-- Component (no prefix): The thing itself -->
 <article class="card">
 <button class="button">
-<nav class="navigation" data-entries="0">
+<nav class="navigation">
 
 <!-- Layout (as-): How things arrange -->
 <section class="as-grid">
@@ -183,7 +183,7 @@ CRISP classes read like English:
 <article class="card as-stack with-shadow">
 <!-- "Article card displayed as stack with shadow" -->
 
-<nav class="navigation as-cluster with-sticky" data-entries="0">
+<nav class="navigation as-cluster with-sticky">
 <!-- "Navigation displayed as cluster with sticky" -->
 
 <section class="gallery as-grid with-gap">
