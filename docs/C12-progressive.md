@@ -27,7 +27,7 @@ One HTML structure. Three capability levels. Zero rewrites.
 ```html
 <!-- This HTML works at ALL levels -->
 <button class="button with-interaction" 
-  style="--button-bg: var(--colour-primary-50);">
+  style="--button-bg: var(--color-primary-50);">
   Click Me
 </button>
 ```
@@ -113,7 +113,7 @@ One HTML structure. Three capability levels. Zero rewrites.
 <body>
   <!-- Exact same HTML -->
   <button class="button with-interaction" 
-    style="--button-bg: var(--colour-primary-50);">
+    style="--button-bg: var(--color-primary-50);">
     Click Me
   </button>
   
@@ -197,7 +197,7 @@ One HTML structure. Three capability levels. Zero rewrites.
   <button class="button with-interaction" 
     data-component="button"
     data-i18n="actions.submit"
-    style="--button-bg: var(--colour-primary-50);">
+    style="--button-bg: var(--color-primary-50);">
     Click Me
   </button>
   
@@ -344,7 +344,7 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 ```html
 <!-- This button works in all three levels -->
 <button class="button with-interaction" 
-  style="--button-bg: var(--colour-primary-50);">
+  style="--button-bg: var(--color-primary-50);">
   Always Works
 </button>
 
@@ -353,7 +353,7 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
   data-component="button"           <!-- Enterprise only -->
   data-haptic="true"                <!-- Enterprise only -->
   data-analytics="cta-primary"      <!-- Enterprise only -->
-  style="--button-bg: var(--colour-primary-50);">
+  style="--button-bg: var(--color-primary-50);">
   Enhanced When Available
 </button>
 ```
@@ -375,7 +375,7 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
   <button class="button with-interaction" 
     data-component="buy-button"
     data-product-id="123"
-    style="--button-bg: var(--colour-primary-50);">
+    style="--button-bg: var(--color-primary-50);">
     Add to Cart
   </button>
 </article>
