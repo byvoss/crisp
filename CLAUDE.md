@@ -119,6 +119,25 @@ Keeps class namespace clean. Contexts are data, not components.
 </div>
 ```
 
+#### 9. Data Attribute Guidelines
+
+**Core Keys for Styling:**
+- **`data-state`**: Element state (`active`, `loading`, `error`, `expanded`, `collapsed`, `open`, `closed`)
+- **`data-context`**: Environmental context (`admin`, `authenticated`, `danger`, `checkout`, `premium`)
+- **`data-variant`**: Visual variations (`primary`, `pills`, `compact`, `ghost`, `minimal`, `horizontal`, `vertical`)
+- **`data-theme`**: Color scheme (`light`, `dark`, `high-contrast`)
+
+**JavaScript-specific Keys:**
+- **`data-function`**: JavaScript behavior hooks (`toggle`, `trigger`, `target`, `container`)
+- **`data-action`**: User actions (`submit`, `close`, `expand`)
+- **`data-target`**: Element references (`#element-id`)
+
+**Rules:**
+- One value per data attribute (no space-separated lists)
+- Use kebab-case for custom keys (`data-user-role`)
+- Semantic naming, not visual (`data-tier="premium"`, not `data-color="gold"`)
+- Keep the list minimal - these core keys cover most use cases
+
 ### Documentation Writing Principles
 
 1. **British Humour with Bite** - Use sarcasm to highlight absurdities, but never be malicious. Think "cricket analogies" and "mint-flavoured dental floss", not personal attacks.
