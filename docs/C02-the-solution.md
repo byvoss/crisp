@@ -281,7 +281,7 @@ Count the concepts you had to learn: `card`, `as-stack`, `with-shadow`. That's i
 
 No utility classes. No modifier chains. No BEM hieroglyphics. Just descriptive classes and custom properties.
 
-**The "Aha!"**: Notice the `data-plan="professional"` directly on the card? No wrapper needed. Components can have both classes AND data attributes.
+**The "Aha!"**: Notice the `data-plan="professional"` directly on the card? No wrapper needed. Components can have both classes AND data attributes. Classes define what it is, data attributes provide context that changes how it looks. One element, multiple concerns, zero wrapper divs.
 
 ## The Revelation, Revisited
 
