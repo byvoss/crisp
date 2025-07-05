@@ -54,6 +54,7 @@ Please read these files in order to understand the complete project:
 - [ ] `LICENSE` - MIT License details
 - [ ] `CONTRIBUTING.md` - Contribution guidelines
 - [ ] `docs/README.md` - **Complete documentation overview with all chapters**
+- [ ] `TODO.md` - **Current tasks and technical debt**
 
 ### Quick Reference
 - [ ] `docs/C16-cheatsheet.md` - Everything on one page (for quick lookup)
@@ -85,6 +86,14 @@ Please read these files in order to understand the complete project:
 - Descriptive (`navigation`, not `nav` for the class)
 
 ## Development Workflow
+
+### Task Management
+
+**ALWAYS check TODO.md for:**
+- Current tasks that need completion
+- Known issues and technical debt
+- Tasks to add when discovering problems
+- Tasks to check off when completed
 
 ### GitHub Repository
 
