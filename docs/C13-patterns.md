@@ -57,7 +57,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
   </div>
   
   <!-- Footer -->
-  <footer class="footer as-centre" style="--centre-height: 200px;">
+  <footer class="footer as-center" style="--center-height: 200px;">
     <p class="text">&copy; 2025</p>
   </footer>
 </body>
@@ -154,7 +154,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
   <p class="stat" style="--stat-size: var(--text-size-3-0); --stat-weight: var(--text-weight-bold);">
     1,234
   </p>
-  <p class="text" style="--text-colour: var(--colour-neutral-60);">
+  <p class="text" style="--text-color: var(--color-neutral-60);">
     Active users
   </p>
 </article>
@@ -171,7 +171,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
     <div class="as-cluster" style="--cluster-align: flex-end;">
       <button class="button" value="cancel">Cancel</button>
       <button class="button" value="confirm" 
-        style="--button-bg: var(--colour-danger-50);">
+        style="--button-bg: var(--color-danger-50);">
         Delete
       </button>
     </div>
@@ -398,7 +398,7 @@ document.querySelector('[type="search"]').addEventListener('input', (e) => {
   .table tr {
     display: block;
     margin-bottom: var(--space-1-0);
-    border: 1px solid var(--colour-border);
+    border: 1px solid var(--color-border);
     border-radius: var(--radius-md);
   }
   
@@ -580,7 +580,7 @@ document.querySelector('[data-optimistic]').addEventListener('submit', async (e)
 ```css
 /* Style based on form validity */
 .form:valid .button[type="submit"] {
-  --button-bg: var(--colour-success-50);
+  --button-bg: var(--color-success-50);
 }
 
 /* Style based on empty state */
@@ -589,12 +589,12 @@ document.querySelector('[data-optimistic]').addEventListener('submit', async (e)
   display: block;
   text-align: center;
   padding: var(--space-2-0);
-  color: var(--colour-neutral-60);
+  color: var(--color-neutral-60);
 }
 
 /* Style based on sibling state */
 .input:invalid ~ .helper {
-  color: var(--colour-danger-60);
+  color: var(--color-danger-60);
 }
 ```
 

@@ -22,7 +22,7 @@ Track all pending tasks here. Check off when completed.
   - [x] C09-navigation.md
   - [x] C10-forms.md
   - [x] C11-feedback.md
-  - [ ] C12-progressive.md
+  - [x] C12-progressive.md
   - [ ] C13-patterns.md
   - [ ] C14-migration.md
   - [ ] C15-component-reference.md
