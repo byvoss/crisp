@@ -100,11 +100,11 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Single package with different builds?  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 12. ❓ CDN Distribution
+### 12. ✅ CDN Distribution
 **Issue**: Examples show same CSS file for all editions  
 **Question**: How to serve different tier files?  
 **Decision needed**: Different filenames or same file?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 13. ❓ TypeScript Configuration
 **Issue**: TODO mentions TypeScript not configured  
@@ -314,6 +314,44 @@ npm install @byvoss/crisp @byvoss/crisp-theme @byvoss/crisp-enterprise
 ```
 
 **Build**: Three separate build processes for three packages
+
+### ✅ [2025-01-06] CDN Distribution Strategy (#12)
+**Decision**: State-of-the-art CDN setup with all modern features  
+**Implementation**:
+```html
+<!-- Tier 1: CSS only -->
+<link rel="preload" as="style" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css">
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+
+<!-- Tier 2: + Theme (zusätzlich zu Tier 1) -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@1.0.0/dist/theme.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+<!-- Fallback für ältere Browser -->
+<script nomodule 
+  src="https://unpkg.com/@byvoss/crisp-theme@1.0.0/dist/theme.min.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+
+<!-- Tier 3: + Components (zusätzlich zu Tier 1 & 2) -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-enterprise@1.0.0/dist/components.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+```
+
+**Features**:
+- Separate packages via unpkg
+- ESM modules for modern browsers
+- Fallback for legacy (nomodule)
+- SRI for security (integrity)
+- Preload for performance
+- Proper versioning
 
 ---
 

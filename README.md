@@ -63,15 +63,34 @@ npm install @byvoss/crisp-enterprise   # Full Platform
 
 ```html
 <!-- CRISP (Pure CSS) -->
-<link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css">
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
 
 <!-- CRISP Theme (CSS + Theme JS) -->
-<link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css">
-<script src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.min.js"></script>
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
 
 <!-- CRISP Enterprise (Full Platform) -->
-<link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css">
-<script type="module" src="https://unpkg.com/@byvoss/crisp-enterprise@latest/dist/enterprise.min.js"></script>
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-enterprise@latest/dist/components.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
 ```
 
 ### IDE Support
