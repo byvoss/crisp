@@ -4,26 +4,27 @@
 
 ## The Layout Liberation
 
-Remember spending hours on this?
+Remember the dark times?
 
 ```css
-/* The old way: Custom layout for everything */
-.header { display: flex; justify-content: space-between; align-items: center; padding: 20px; }
+/* Monday: "I'll use flexbox for everything!" */
+.header { display: flex; justify-content: space-between; align-items: center; }
 .header__nav { display: flex; gap: 16px; }
-.header__nav-item { margin-right: 16px; }
-.header__nav-item:last-child { margin-right: 0; }
+.header__nav-item { margin-right: 16px; } /* Wait, I have gap... */
+.header__nav-item:last-child { margin-right: 0; } /* ...why am I doing this? */
 
+/* Tuesday: "Actually, let's try floats for the sidebar" */
 .sidebar { float: left; width: 300px; margin-right: 20px; }
-.main { margin-left: 320px; }
-.clearfix::after { content: ""; display: table; clear: both; }
+.main { margin-left: 320px; } /* Hope nobody has a 299px screen */
+.clearfix::after { content: ""; display: table; clear: both; } /* I hate my life */
 
-/* Don't forget the responsive nightmare */
-@media (max-width: 768px) {
-  .sidebar { float: none; width: 100%; margin-right: 0; }
-  .main { margin-left: 0; }
-  /* 50 more lines... */
-}
+/* Wednesday: "Grid will save me!" */
+.container { display: grid; grid-template-columns: 300px 1fr; }
+/* Thursday: "Why doesn't it work in Safari?" */
+/* Friday: *drinks heavily* */
 ```
+
+**The "Aha!"**: What if layouts were just... utility classes? What if they worked on EVERYTHING?
 
 ## The CRISP Way: Layout as a Utility
 
@@ -54,13 +55,23 @@ One layout pattern. Infinite uses. Zero custom CSS.
 
 ### 1. The Stack - Vertical Rhythm
 
-The most common layout need: things flowing downward with consistent spacing.
+*Or: How humanity learned to stop worrying and love vertical spacing*
+
+The most common layout need: things flowing downward with consistent spacing. Revolutionary, I know.
 
 ```css
-.as-stack {
-  display: flex;
-  flex-direction: column;
-  gap: var(--stack-gap, var(--space-1-0));
+@property --stack-gap {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: var(--space-1-0);
+}
+
+@layer crisp {
+  .as-stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--stack-gap);
+  }
 }
 ```
 
@@ -94,22 +105,34 @@ The most common layout need: things flowing downward with consistent spacing.
 
 **Use for**: Articles, forms, card contents, any vertical flow
 
+**Secret sauce**: The gap is consistent. Always. No more "wait, was that margin-top or margin-bottom?" debugging sessions.
+
 ### 2. The Cluster - Flexible Grouping
 
-For items that should wrap naturally, like navigation links or tags.
+*Because sometimes things need to huddle together for warmth*
+
+For items that should wrap naturally, like navigation links or tags. Think of it as flexbox that actually makes sense.
 
 ```css
-.as-cluster {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--cluster-gap, var(--space-1-0));
-  align-items: var(--cluster-align, center);
+@property --cluster-gap {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: var(--space-1-0);
+}
+
+@layer crisp {
+  .as-cluster {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--cluster-gap);
+    align-items: var(--cluster-align, center);
+  }
 }
 ```
 
 ```html
 <!-- Navigation cluster -->
-<nav class="as-cluster">
+<nav class="as-cluster" data-entries="4" aria-label="Main navigation">
   <a class="link" href="/">Home</a>
   <a class="link" href="/about">About</a>
   <a class="link" href="/services">Services</a>
@@ -125,32 +148,50 @@ For items that should wrap naturally, like navigation links or tags.
 </div>
 
 <!-- Button cluster with custom alignment -->
-<div class="as-cluster" style="--cluster-align: stretch;">
-  <button class="button">Cancel</button>
-  <button class="button" style="--bg: var(--color-primary);">Save</button>
+<div class="as-cluster" style="--cluster-align: stretch;" data-entries="2">
+  <button class="button" type="button">Cancel</button>
+  <button class="button" type="button" style="--bg: var(--color-primary);">Save</button>
 </div>
 ```
 
 **Use for**: Navigation, tags, button groups, any horizontal grouping
 
+**The "Aha!"**: No more `display: inline-block` with negative margins. The cluster knows how to wrap without your help.
+
 ### 3. The Grid - Two-Dimensional Layout
 
-When you need rows AND columns.
+*Grid: Because life isn't always one-dimensional (unlike your ex)*
+
+When you need rows AND columns. Auto-responsive by default because we're not savages.
 
 ```css
-.as-grid {
-  display: grid;
-  gap: var(--grid-gap, var(--space-1-0));
-  grid-template-columns: repeat(
-    var(--grid-columns, auto-fit),
-    minmax(var(--grid-min, 250px), 1fr)
-  );
+@property --grid-gap {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: var(--space-1-0);
+}
+
+@property --grid-columns {
+  syntax: "<integer> | <custom-ident>";
+  inherits: false;
+  initial-value: auto-fit;
+}
+
+@layer crisp {
+  .as-grid {
+    display: grid;
+    gap: var(--grid-gap);
+    grid-template-columns: repeat(
+      var(--grid-columns),
+      minmax(var(--grid-min, 250px), 1fr)
+    );
+  }
 }
 ```
 
 ```html
 <!-- Auto-responsive grid -->
-<section class="as-grid">
+<section class="as-grid" data-entries="4">
   <article class="card">Auto-sizes to fit</article>
   <article class="card">Minimum 250px</article>
   <article class="card">Maximum 1fr</article>
@@ -158,7 +199,7 @@ When you need rows AND columns.
 </section>
 
 <!-- Fixed column grid -->
-<div class="as-grid" style="--grid-columns: 3;">
+<div class="as-grid" style="--grid-columns: 3;" data-entries="3">
   <div class="card">Always</div>
   <div class="card">Three</div>
   <div class="card">Columns</div>
@@ -173,15 +214,27 @@ When you need rows AND columns.
 
 **Use for**: Card grids, image galleries, any multi-column layout
 
+**Mind = Blown**: It's responsive WITHOUT media queries. The grid just... knows. `minmax()` is witchcraft, I tell you.
+
 ### 4. The Center - Perfect Centering
 
-The holy grail of CSS, solved.
+*Finally, the answer to "How do I center a div?" (Spoiler: It's one class)*
+
+The holy grail of CSS, solved. Your ancestors would weep with joy.
 
 ```css
-.as-center {
-  display: grid;
-  place-items: center;
-  min-height: var(--center-height, 100vh);
+@property --center-height {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100vh;
+}
+
+@layer crisp {
+  .as-center {
+    display: grid;
+    place-items: center;
+    min-height: var(--center-height);
+  }
 }
 ```
 
@@ -206,26 +259,44 @@ The holy grail of CSS, solved.
 
 **Use for**: Hero sections, modals, loading states, any centered content
 
+**The "Aha!"**: `place-items: center` is all you needed. All those Stack Overflow answers with `position: absolute` and `transform`? Delete them.
+
 ### 5. The Sidebar - Content with Aside
 
-For main content with a sidebar that behaves intelligently.
+*The sidebar that knows when to get out of the way*
+
+For main content with a sidebar that behaves intelligently. No JavaScript required - just pure CSS brilliance.
 
 ```css
-.as-sidebar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--sidebar-gap, var(--space-1-0));
+@property --sidebar-gap {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: var(--space-1-0);
 }
 
-.as-sidebar > :first-child {
-  flex-basis: var(--sidebar-width, 300px);
-  flex-grow: 1;
+@property --sidebar-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 300px;
 }
 
-.as-sidebar > :last-child {
-  flex-basis: 0;
-  flex-grow: 999;
-  min-inline-size: var(--sidebar-content-min, 50%);
+@layer crisp {
+  .as-sidebar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--sidebar-gap);
+  }
+
+  .as-sidebar > :first-child {
+    flex-basis: var(--sidebar-width);
+    flex-grow: 1;
+  }
+
+  .as-sidebar > :last-child {
+    flex-basis: 0;
+    flex-grow: 999;
+    min-inline-size: var(--sidebar-content-min, 50%);
+  }
 }
 ```
 
@@ -234,9 +305,9 @@ For main content with a sidebar that behaves intelligently.
 <div class="as-sidebar">
   <aside class="card as-stack">
     <h2>Sidebar</h2>
-    <nav class="as-stack">
-      <a class="link">Link 1</a>
-      <a class="link">Link 2</a>
+    <nav class="as-stack" data-entries="2" aria-label="Sidebar navigation">
+      <a class="link" href="#">Link 1</a>
+      <a class="link" href="#">Link 2</a>
     </nav>
   </aside>
   
@@ -260,15 +331,27 @@ For main content with a sidebar that behaves intelligently.
 
 **Use for**: Documentation, dashboards, any content+sidebar layout
 
+**Magic trick**: The `flex-grow: 999` on the main content means it always wins. The sidebar knows its place. As it should.
+
 ### 6. The Container - Constrained Width
 
-For readable line lengths and consistent padding.
+*Because nobody wants to read a 4000px wide paragraph on their ultrawide monitor*
+
+For readable line lengths and consistent padding. Your eyes will thank you.
 
 ```css
-.as-container {
-  max-inline-size: var(--container-max, 1200px);
-  margin-inline: auto;
-  padding-inline: var(--container-padding, var(--space-1-0));
+@property --container-max {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1200px;
+}
+
+@layer crisp {
+  .as-container {
+    max-inline-size: var(--container-max);
+    margin-inline: auto;
+    padding-inline: var(--container-padding, var(--space-1-0));
+  }
 }
 ```
 
@@ -295,18 +378,22 @@ For readable line lengths and consistent padding.
 
 **Use for**: Page wrappers, article content, any width-constrained layout
 
+**Pro tip**: `max-inline-size` instead of `max-width` because we're international now. RTL languages rejoice!
+
 ## Composing Layouts
 
-The real power comes from composition:
+*Like LEGO, but for web layouts (and less painful to step on)*
+
+The real power comes from composition. Watch this magic:
 
 ```html
 <!-- A complete page layout -->
 <body class="as-stack" style="--stack-gap: 0;">
   <!-- Header -->
   <header class="as-container">
-    <nav class="as-cluster" style="--cluster-align: space-between;">
+    <nav class="as-cluster" style="--cluster-align: space-between;" data-entries="3" aria-label="Site navigation">
       <a class="link" href="/">Logo</a>
-      <div class="as-cluster">
+      <div class="as-cluster" data-entries="2">
         <a class="link" href="/about">About</a>
         <a class="link" href="/contact">Contact</a>
       </div>
@@ -318,9 +405,9 @@ The real power comes from composition:
     <!-- Sidebar -->
     <aside class="card as-stack">
       <h2>Categories</h2>
-      <nav class="as-stack" style="--stack-gap: var(--space-0-5);">
-        <a class="link">Category 1</a>
-        <a class="link">Category 2</a>
+      <nav class="as-stack" style="--stack-gap: var(--space-0-5);" data-entries="2" aria-label="Categories">
+        <a class="link" href="#">Category 1</a>
+        <a class="link" href="#">Category 2</a>
       </nav>
     </aside>
     
@@ -329,17 +416,17 @@ The real power comes from composition:
       <h1>Page Title</h1>
       
       <!-- Card grid -->
-      <div class="as-grid">
+      <div class="as-grid" data-entries="2">
         <article class="card as-stack">
-          <h2>Card 1</h2>
-          <p>Card content</p>
-          <button class="button">Action</button>
+          <h2 class="heading">Card 1</h2>
+          <p class="text">Card content</p>
+          <button class="button" type="button">Action</button>
         </article>
         
         <article class="card as-stack">
-          <h2>Card 2</h2>
-          <p>Card content</p>
-          <button class="button">Action</button>
+          <h2 class="heading">Card 2</h2>
+          <p class="text">Card content</p>
+          <button class="button" type="button">Action</button>
         </article>
       </div>
     </section>
@@ -367,11 +454,15 @@ Each layout accepts customisation:
 
 ## The Layout Philosophy
 
-1. **Layouts are utilities** - They work on any component
-2. **Composition over configuration** - Combine simple layouts for complex designs
-3. **Custom properties over classes** - Adjust spacing without new CSS
-4. **Semantic HTML still matters** - Use the right elements inside layouts
-5. **Context affects layouts** - Use data attributes for contextual changes
+*Or: The Seven Commandments of Not Hating CSS*
+
+1. **Layouts are utilities** - They work on ANY component (yes, even that weird one)
+2. **Composition over configuration** - Stack your stacks in grids in containers. It's stacks all the way down
+3. **Custom properties over classes** - Because `--stack-gap: 2rem` is cleaner than `stack-gap-8`
+4. **Semantic HTML still matters** - A `<div>` soup is still soup, even with nice layouts
+5. **Context affects layouts** - Your card knows it's in a dashboard. Spooky
+6. **Type-safe properties** - @property catches your `--columns: "twelve"` mistakes
+7. **Layer isolation** - @layer crisp means we play nice with others
 
 ### Context-Aware Layouts
 
@@ -402,8 +493,8 @@ Each layout accepts customisation:
 ### Card Grid
 ```html
 <section class="as-container as-stack">
-  <h2>Our Services</h2>
-  <div class="as-grid" style="--grid-columns: 3;">
+  <h2 class="heading">Our Services</h2>
+  <div class="as-grid" style="--grid-columns: 3;" data-entries="3">
     <article class="card as-stack">...</article>
     <article class="card as-stack">...</article>
     <article class="card as-stack">...</article>
@@ -415,11 +506,11 @@ Each layout accepts customisation:
 ```html
 <section class="hero as-center" style="--center-height: 80vh;">
   <div class="as-stack" style="--stack-gap: var(--space-2-0);">
-    <h1>Big Hero Title</h1>
-    <p>Compelling subtitle</p>
-    <div class="as-cluster">
-      <button class="button">Primary CTA</button>
-      <button class="button">Secondary CTA</button>
+    <h1 class="heading">Big Hero Title</h1>
+    <p class="text">Compelling subtitle</p>
+    <div class="as-cluster" data-entries="2">
+      <button class="button" type="button">Primary CTA</button>
+      <button class="button" type="button">Secondary CTA</button>
     </div>
   </div>
 </section>
@@ -442,14 +533,216 @@ Each layout accepts customisation:
 </div>
 ```
 
+## The Global Raster System - Bootstrap Killer!
+
+*Warning: May cause Bootstrap developers to question their life choices*
+
+### Priority 1: Global Layout with data-raster/data-position
+
+**THIS IS THE PRIMARY CRISP LAYOUT SYSTEM** - Forget Bootstrap's class soup! 
+
+Remember `col-xs-12 col-sm-6 col-md-4 col-lg-3 col-xl-2`? Yeah, we don't do that here.
+
+```html
+<!-- The ONLY way to do global layouts in CRISP -->
+<body data-raster="12">
+  <!-- Position elements using data-position="start-end" -->
+  <header class="header" data-position="1-12">Full width header</header>
+  
+  <nav class="navigation" data-position="1-3" aria-label="Main navigation">
+    Sidebar navigation
+  </nav>
+  
+  <main class="content" data-position="4-9">
+    Main content area
+  </main>
+  
+  <aside class="widgets" data-position="10-12">
+    Widget sidebar
+  </aside>
+  
+  <footer class="footer" data-position="1-12">Full width footer</footer>
+</body>
+```
+
+**The "Aha!"**: No more `col-xs-12 col-md-6 col-lg-4` class soup! Just `data-position="1-6"` and you're done.
+
+**Brain explosion moment**: The positions are human-readable. `data-position="4-9"` means "from column 4 to column 9". Even your PM can understand it!
+
+```css
+@layer crisp {
+  /* Global raster implementation */
+  [data-raster] {
+    display: grid;
+    gap: var(--grid-gap, var(--space-1-0));
+  }
+  
+  [data-raster="12"] {
+    grid-template-columns: repeat(12, 1fr);
+  }
+  
+  /* Position elements */
+  [data-position] {
+    grid-column: var(--grid-position);
+  }
+  
+  /* Core position mappings */
+  [data-position="1-3"] { --grid-position: 1 / 4; }
+  [data-position="1-4"] { --grid-position: 1 / 5; }
+  [data-position="1-6"] { --grid-position: 1 / 7; }
+  [data-position="1-8"] { --grid-position: 1 / 9; }
+  [data-position="1-12"] { --grid-position: 1 / 13; }
+  
+  [data-position="4-9"] { --grid-position: 4 / 10; }
+  [data-position="4-12"] { --grid-position: 4 / 13; }
+  
+  [data-position="7-12"] { --grid-position: 7 / 13; }
+  [data-position="10-12"] { --grid-position: 10 / 13; }
+  
+  /* Responsive: Everything goes full-width on mobile */
+  @media (max-width: 768px) {
+    [data-position] {
+      grid-column: 1 / -1;
+    }
+  }
+}
+```
+
+### Common Layout Patterns
+
+```html
+<!-- Holy Grail Layout -->
+<body data-raster="12">
+  <header data-position="1-12">Header</header>
+  <nav data-position="1-2" aria-label="Main navigation">Nav</nav>
+  <main data-position="3-10">Content</main>
+  <aside data-position="11-12">Sidebar</aside>
+  <footer data-position="1-12">Footer</footer>
+</body>
+
+<!-- Two Column Layout -->
+<body data-raster="12">
+  <header data-position="1-12">Header</header>
+  <main data-position="1-8">Main Content</main>
+  <aside data-position="9-12">Sidebar</aside>
+  <footer data-position="1-12">Footer</footer>
+</body>
+
+<!-- Centered Content -->
+<body data-raster="12">
+  <main data-position="3-10">Centered with margins</main>
+</body>
+```
+
+### Priority 2: Component Subdivision with as-grid-X
+
+*For when your components need their own little grid party*
+
+For subdividing components (NOT for page layouts), use fixed grid classes. This is for the interior decorating, not the architecture:
+
+```css
+@layer crisp {
+  /* Component subdivision grids ONLY */
+  .as-grid-2 { grid-template-columns: repeat(2, 1fr); }
+  .as-grid-3 { grid-template-columns: repeat(3, 1fr); }
+  .as-grid-4 { grid-template-columns: repeat(4, 1fr); }
+  .as-grid-6 { grid-template-columns: repeat(6, 1fr); }
+}
+```
+
+```html
+<!-- ✅ CORRECT: Subdividing a component -->
+<main data-position="4-9">
+  <div class="as-grid-3" data-entries="3">
+    <article class="card">Card 1</article>
+    <article class="card">Card 2</article>
+    <article class="card">Card 3</article>
+  </div>
+</main>
+
+<!-- ❌ WRONG: Don't use for page layout -->
+<div class="as-grid-12">
+  <header style="grid-column: span 12;">Don't do this!</header>
+</div>
+```
+
+**The Golden Rule**: 
+- **Page layout** → `data-raster` + `data-position` (The big picture)
+- **Component subdivision** → `.as-grid-X` or `.as-grid` with `--grid-columns` (The details)
+
+Think of it like architecture vs interior design. You don't use kitchen tiles to build the foundation.
+
+## Modern Layout Enhancements
+
+### CSS Subgrid Support
+
+```css
+/* Enable subgrid for perfect alignment */
+.as-grid.with-subgrid > * {
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+/* Raster with subgrid */
+[data-raster].with-subgrid > * {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1;
+}
+```
+
+### Container Queries
+
+```css
+/* Layouts can respond to container size */
+.card {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .card .as-stack {
+    --stack-gap: var(--space-2-0);
+  }
+}
+```
+
+### Smart Grid with :has()
+
+```css
+/* Grid adapts to content count */
+.as-grid:has(> :nth-child(5)) {
+  --grid-columns: 3;
+}
+
+.as-grid:has(> :nth-child(9)) {
+  --grid-columns: 4;
+}
+
+/* Raster adapts to viewport */
+@media (min-width: 1200px) {
+  [data-raster]:has([data-position*="10"]) {
+    grid-template-columns: repeat(12, 1fr);
+  }
+}
+```
+
 ## The Layout Liberation
 
+*Achievement Unlocked: CSS Mastery*
+
 With CRISP layouts:
-- No more custom CSS for every component
-- No more fighting with flexbox
-- No more clearfix hacks
-- No more responsive nightmares
+- **No more custom CSS for every component** - One pattern to rule them all
+- **No more fighting with flexbox** - It works WITH you now, not against you
+- **No more clearfix hacks** - What year is this, 2010?
+- **No more responsive nightmares** - It just... works
+- **Type-safe custom properties** - The browser is your spell-checker
+- **Automatic content adaptation** - Like magic, but real
+- **Zero conflicts with @layer** - Play nice with every framework
 
 Just pick a layout, apply it, customise if needed. Done.
+
+**The Ultimate "Aha!"**: You just built an entire site layout system in less code than one Bootstrap component. Your CSS file lost 80% of its weight. Your build time is instant. Your users' phones don't catch fire. 
+
+Welcome to the future. It's rather nice here.
 
 → Continue to [Chapter 7: The Building Blocks](./C07-elements.md)
