@@ -71,6 +71,22 @@ Track all pending tasks here. Check off when completed.
   - [x] C15-component-reference.md
   - [x] C16-cheatsheet.md
 
+- [ ] Convert color system to OKLCH (CLARIFICATIONS #19) 🎨 HIGH PRIORITY
+  - [ ] Convert all 59 HSL base colors to OKLCH manually
+    - [ ] Primary scale (10 shades)
+    - [ ] Neutral scale (14 shades)
+    - [ ] Secondary scale (10 shades)
+    - [ ] Error scale (5 shades)
+    - [ ] Warning scale (5 shades)
+    - [ ] Success scale (5 shades)
+    - [ ] Info scale (5 shades)
+  - [ ] Convert shadow definitions with alpha
+  - [ ] Update ALL documentation examples
+  - [ ] Test perceptual uniformity of gradients
+  - [ ] Update src/crisp-tokens.css
+  - [ ] Update src/crisp-themes.css
+  - [ ] No fallbacks - modern browsers only
+
 ## Medium Priority
 
 - [ ] Configure TypeScript properly (CLARIFICATIONS #13)
@@ -91,12 +107,6 @@ Track all pending tasks here. Check off when completed.
   - Install clean-css
   - Update build scripts
   - Generate .min.css files
-
-- [ ] Convert color system to OKLCH (CLARIFICATIONS #19)
-  - Convert all HSL color definitions to OKLCH
-  - Update color token system
-  - Test browser support (Safari 15.4+, Chrome 111+, Firefox 113+)
-  - Implement fallback strategy
 
 - [ ] Implement Vitest + Playwright tests (CLARIFICATIONS #15)
   - Write unit tests for tokens and utilities

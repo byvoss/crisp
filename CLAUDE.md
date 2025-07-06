@@ -716,8 +716,10 @@ Please read these files in order to understand the complete project:
 - **OKLCH-based** color system (perceptually uniform)
 - Scales from light to dark with consistent perceived lightness
 - Semantic names: `--color-primary`, `--color-neutral`
-- Format: `oklch(lightness chroma hue / alpha)`
+- Format: `oklch(lightness chroma hue)` or `oklch(lightness chroma hue / alpha)`
 - Benefits: Better color mixing, consistent brightness, wider gamut
+- **IMPORTANT**: ALL colors must be in OKLCH format - no HSL, RGB, or HEX
+- Manual conversion required for perceptual uniformity control
 
 #### Component Naming
 - Full words only (`button`, not `btn`)
