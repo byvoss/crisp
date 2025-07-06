@@ -493,6 +493,19 @@ Remember: Be honest, practical, respectfully sarcastic, and always focus on genu
 4. **Don't nest selectors** - Keep specificity low
 5. **Don't abbreviate** - Clarity over brevity
 
+### Package & Build Strategy
+
+**Three separate NPM packages** (not a monolith):
+1. **@byvoss/crisp** - Pure CSS (~50KB)
+2. **@byvoss/crisp-theme** - Theme JS only (~10KB)
+3. **@byvoss/crisp-enterprise** - Web Components only (~90KB)
+
+**Build Process**:
+- Three separate build pipelines
+- Each package has its own dependencies
+- Users only install what they need
+- No Bootstrap-style bloat
+
 ### GitHub Repository
 
 - **Repository**: `github.com:byvoss/crisp.git`
