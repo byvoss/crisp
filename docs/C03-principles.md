@@ -248,6 +248,29 @@ Stop fighting CSS. The cascade is your friend.
 </section>
 ```
 
+### The Critical Distinction: Theme vs Variant
+
+**data-theme**: ONLY for colour schemes (light, dark, high-contrast)
+- Goes on containers (body, main, section)
+- Cascades to all children
+- Controls colour perception
+
+**data-variant**: EVERYTHING else (states, styles, contexts)
+- Goes on individual components
+- Does not cascade
+- Controls purpose and behaviour
+
+```html
+<!-- ✅ Correct usage -->
+<body data-theme="dark">
+  <button class="button" data-variant="primary">Primary in Dark Mode</button>
+</body>
+
+<!-- ❌ Wrong - mixing purposes -->
+<button class="button" data-theme="primary">Wrong!</button>
+<main data-variant="dark">Also Wrong!</main>
+```
+
 ### The Simplicity
 No theme-specific classes. No dark mode modifiers. Just CSS custom properties cascading as Håkon Wium Lie intended.
 
@@ -257,7 +280,7 @@ No theme-specific classes. No dark mode modifiers. Just CSS custom properties ca
 ```html
 <!-- ✅ Component AND variant on same element -->
 <button class="button" data-variant="danger">Delete Account</button>
-<article class="card" data-theme="dark">Dark Card</article>
+<article class="card" data-variant="premium">Premium Card</article>
 
 <!-- ❌ Unnecessary nesting -->
 <div data-variant="danger">

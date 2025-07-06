@@ -81,7 +81,66 @@ The logic: Element tokens are unambiguous within their element's context. Everyt
 ```
 One hyphen = one concept. Multiple hyphens = you're smuggling in modifiers. Use custom properties instead.
 
-#### 8. Variants via Data Attributes
+#### 8. The Critical Distinction: data-theme vs data-variant
+
+**IMPORTANT**: These serve completely different purposes and must never be confused:
+
+##### data-theme: ONLY for Colour Schemes
+- **Purpose**: Controls colour scheme variations (light, dark, high-contrast)
+- **Placement**: High-level containers (body, main, section)
+- **Values**: `light`, `dark`, `high-contrast`
+- **Inheritance**: Cascades to all children
+- **Usage**: Theme switching, accessibility preferences
+
+```html
+<!-- ✅ Correct data-theme usage -->
+<body data-theme="dark">
+  <!-- Everything inherits dark theme -->
+</body>
+
+<main data-theme="light">
+  <!-- Override for specific section -->
+</main>
+
+<!-- ❌ Wrong - don't use data-theme on components -->
+<button data-theme="dark">Wrong!</button>
+```
+
+##### data-variant: EVERYTHING Else
+- **Purpose**: ALL other variations (states, contexts, styles, behaviours)
+- **Placement**: Individual components and elements
+- **Values**: Any semantic descriptor
+- **Inheritance**: Does not cascade by default
+- **Usage**: Component variations, states, contexts
+
+```html
+<!-- ✅ Correct data-variant usage -->
+<button class="button" data-variant="primary">Primary Button</button>
+<button class="button" data-variant="loading">Loading...</button>
+<article class="card" data-variant="danger">Error Card</article>
+<nav class="navigation" data-variant="admin">Admin Nav</nav>
+<form class="form" data-variant="disabled">Disabled Form</form>
+```
+
+##### The Key Principle
+```html
+<!-- ✅ Theme on container, variant on component -->
+<main data-theme="dark">
+  <button class="button" data-variant="primary">Correct!</button>
+  <article class="card" data-variant="featured">Also Correct!</article>
+</main>
+
+<!-- ❌ Never mix their purposes -->
+<button data-theme="primary">Wrong - themes aren't styles!</button>
+<body data-variant="dark">Wrong - dark is a theme!</body>
+```
+
+##### Why This Matters
+1. **Clarity**: No confusion about what controls what
+2. **Cascade**: Themes cascade, variants don't
+3. **Semantics**: Themes are about perception, variants are about purpose
+4. **Maintenance**: Easy to find and change either system
+
 ```html
 <!-- ✅ All variations use data-variant -->
 <section data-variant="danger">
@@ -129,7 +188,7 @@ Keeps class namespace clean. All variations are data, not classes.
 </div>
 ```
 
-#### 9. Data Attribute Guidelines
+#### 10. Data Attribute Guidelines
 
 **Core Keys for Styling:**
 - **`data-variant`**: ALL variations, states, and contexts
@@ -159,7 +218,7 @@ Keeps class namespace clean. All variations are data, not classes.
 - Only use attributes that make sense without JavaScript (CSS-only first)
 - **Use `data-variant` for everything except theme and semantic info**
 
-#### 10. Complete Default Values Required
+#### 11. Complete Default Values Required
 
 **Every element MUST define ALL its tokens with working defaults:**
 
@@ -192,7 +251,7 @@ Keeps class namespace clean. All variations are data, not classes.
 <button class="button" style="--bg: var(--color-primary);">Primary</button>
 ```
 
-#### 11. Layout Classes Must Use Pattern-Specific Tokens
+#### 12. Layout Classes Must Use Pattern-Specific Tokens
 
 **Layout classes (`as-*`) MUST use tokens that describe the PATTERN, not the content:**
 
@@ -233,7 +292,7 @@ Keeps class namespace clean. All variations are data, not classes.
 </div>
 ```
 
-#### 12. Semantic Data Attributes for Enhanced Meaning
+#### 13. Semantic Data Attributes for Enhanced Meaning
 
 **Components with countable child elements MUST include `data-entries`:**
 
