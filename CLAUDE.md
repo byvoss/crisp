@@ -19,6 +19,14 @@
 
 ### Essential CRISP Rules
 
+#### 🚨 ACCESSIBILITY IS NON-NEGOTIABLE
+**CRISP is 100% WCAG 2.2 AA compliant. No exceptions. No excuses.**
+- If it's not accessible, it's not CRISP
+- Every example must include proper ARIA
+- Every component must pass automated a11y tests
+- Keyboard navigation is mandatory
+- Screen reader support is mandatory
+
 #### 1. The Sacred Formula
 Every element follows: **1 component + 1 layout + max 3 properties**
 ```html
@@ -48,8 +56,13 @@ Every element follows: **1 component + 1 layout + max 3 properties**
 <button class="button" style="--button-bg: var(--color-primary-50); --button-size: large;">
 ```
 
-#### 4. Semantic HTML First
-Always use proper HTML elements. IDs only for accessibility.
+#### 4. Semantic HTML First + WCAG 2.2 AA Conformance
+**MANDATORY**: ALL CRISP components MUST be WCAG 2.2 AA compliant.
+- Always use proper HTML elements
+- IDs only for accessibility (labels, ARIA relationships)
+- Every interactive element must be keyboard accessible
+- Every component must work with screen readers
+- Test with axe DevTools and screen readers before marking complete
 
 #### 5. Progressive Enhancement Path
 - **CRISP** (~50KB): Pure CSS
@@ -186,6 +199,25 @@ One hyphen = one concept. Multiple hyphens = you're smuggling in modifiers. Use 
   opacity: 0.7;
   cursor: wait;
 }
+
+/* ARIA state styling - no data-variant needed! */
+.button[aria-pressed="true"] {
+  --bg: var(--color-primary-dark);
+}
+
+.accordion[aria-expanded="true"] {
+  --icon-rotate: 180deg;
+}
+
+.tab[aria-selected="true"] {
+  --border-color: var(--color-primary);
+  --color: var(--color-primary);
+}
+
+.navigation [aria-current="page"] {
+  --weight: var(--text-weight-bold);
+  --color: var(--color-primary);
+}
 ```
 Keeps class namespace clean. All variations are data, not classes.
 
@@ -208,13 +240,21 @@ Keeps class namespace clean. All variations are data, not classes.
 #### 10. Data Attribute Guidelines
 
 **Core Keys for Styling:**
-- **`data-variant`**: ALL variations, states, and contexts
+- **`data-variant`**: Visual variations and contexts ONLY (NOT states)
   - Visual styles: `primary`, `secondary`, `ghost`, `minimal`
-  - States: `loading`, `error`, `success`, `disabled`
-  - Behaviors: `expanded`, `collapsed`, `active`, `selected`
+  - Visual states: `loading`, `error`, `success`
   - Contexts: `admin`, `danger`, `premium`, `authenticated`
   - Layouts: `horizontal`, `vertical`, `compact`, `pills`
 - **`data-theme`**: Color scheme only (`light`, `dark`, `high-contrast`)
+
+**KISS Principle - Use ARIA for states, not data-variant:**
+- ❌ `data-variant="expanded"` → ✅ `aria-expanded="true"`
+- ❌ `data-variant="selected"` → ✅ `aria-selected="true"`
+- ❌ `data-variant="disabled"` → ✅ `aria-disabled="true"` or `disabled`
+- ❌ `data-variant="active"` → ✅ `aria-current="page"` or `aria-pressed="true"`
+- ❌ `data-variant="collapsed"` → ✅ `aria-expanded="false"`
+
+**Why**: ARIA already provides semantic state information. Don't duplicate!
 
 **Semantic Information Keys (CSS-friendly):**
 - **`data-entries`**: Count of child elements (required for countable containers)
@@ -233,7 +273,7 @@ Keeps class namespace clean. All variations are data, not classes.
 - Semantic naming, not visual (`data-variant="premium"`, not `data-variant="gold"`)
 - Keep the list minimal - these core keys cover most use cases
 - Only use attributes that make sense without JavaScript (CSS-only first)
-- **Use `data-variant` for everything except theme and semantic info**
+- **Use `data-variant` for visual variations only, use ARIA for states**
 
 #### 11. Complete Default Values Required
 

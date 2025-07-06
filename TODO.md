@@ -4,6 +4,15 @@ Track all pending tasks here. Check off when completed.
 
 ## High Priority
 
+- [ ] 🚨 WCAG 2.2 AA Compliance Audit (CLARIFICATIONS #17)
+  - [ ] Review ALL documentation examples for proper ARIA
+  - [ ] Add missing ARIA labels and relationships
+  - [ ] Ensure all interactive elements are keyboard accessible
+  - [ ] Test each component with screen readers
+  - [ ] Run axe DevTools on all examples
+  - [ ] Document ARIA patterns per component type
+  - [ ] Create accessibility testing checklist
+
 - [x] Apply new CRISP patterns to all documentation chapters
   - [x] C04-anatomy.md - Update custom property pattern (--button-bg → --bg)
   - [x] C05-tokens.md - Ensure token naming rules are consistent

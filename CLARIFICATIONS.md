@@ -126,17 +126,17 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Testing framework or manual for v1?  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 16. ❓ Browser Fallbacks
+### 16. ✅ Browser Fallbacks
 **Issue**: Browser support defined but no fallback strategy  
 **Question**: Progressive enhancement examples?  
 **Decision needed**: Document fallbacks or not?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
-### 17. ❓ ARIA Requirements
+### 17. ✅ ARIA Requirements
 **Issue**: Inconsistent ARIA usage in examples  
 **Question**: Minimum ARIA per component?  
 **Decision needed**: Create ARIA guidelines?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 18. ❓ ID Usage Guidelines
 **Issue**: "IDs only for accessibility" but when required?  
@@ -423,6 +423,43 @@ tests/
   - No deep nesting
   - Semantic class patterns
 **Action**: Create CRISP-specific stylelint config and fix issues
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] Browser Fallbacks (#16)
+**Decision**: No fallbacks needed - target modern browsers only  
+**Rationale**: 
+- CSS Grid & Custom Properties: Supported since 2017 in all modern browsers
+- OKLCH: Supported since 2023 in all modern browsers
+- Modern browsers auto-update - users on 2+ year old browsers are edge cases
+- CRISP philosophy: Simplicity over backwards compatibility
+**Browser Requirements**:
+- Chrome 57+ (March 2017)
+- Firefox 52+ (March 2017)
+- Safari 10.1+ (March 2017)
+- Edge 16+ (October 2017)
+- No Internet Explorer support
+**Action**: Document minimum browser requirements, no fallback code needed
+**Note**: If someone really needs OKLCH fallbacks, they can add them project-specific
+
+### ✅ [2025-01-06] ARIA Requirements (#17)
+**Decision**: Full WCAG 2.2 AA conformance required  
+**Rationale**: CRISP is accessibility-first, not accessibility-maybe  
+**Requirements**:
+1. **Semantic HTML first**: Use proper elements (<nav>, <main>, <button>, etc.)
+2. **ARIA only when needed**: To enhance, not replace semantics
+3. **Required ARIA patterns**:
+   - Navigation: aria-label or aria-labelledby for all <nav>
+   - Forms: Labels for ALL inputs (visible or aria-label)
+   - Buttons: Descriptive text or aria-label
+   - Images: alt text (empty for decorative)
+   - Dynamic content: aria-live regions
+   - States: aria-expanded, aria-selected, aria-current
+   - Modals: Full ARIA pattern (role, aria-modal, focus trap)
+4. **Testing**: Every component must pass:
+   - Keyboard navigation
+   - Screen reader announcement
+   - WCAG 2.2 AA automated tests
+**Action**: Create ARIA patterns documentation with required attributes per component
 **Status**: ⚠️ NOT IMPLEMENTED YET
 
 ---
