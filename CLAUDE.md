@@ -53,8 +53,15 @@ Always use proper HTML elements. IDs only for accessibility.
 
 #### 5. Progressive Enhancement Path
 - **CRISP** (~50KB): Pure CSS
-- **CRISP Theme** (~60KB): + Theme switching
-- **CRISP Enterprise** (~150KB): + TypeScript & i18n
+- **CRISP Theme** (~60KB): + Theme switching  
+- **CRISP Enterprise** (~150KB): + Web Components & i18n
+
+**Web Component Philosophy**: 
+- WCs are CRISP Pattern Generators - convenience wrappers only
+- They generate 100% pure CRISP HTML internally
+- Free with Tier 3, so everyone can use pre-built patterns
+- Examples: `<crisp-search-box>`, `<crisp-product-card>`, `<crisp-data-table>`
+- The component is just the container - content remains pure CRISP
 
 #### 6. Custom Property Pattern
 ```css

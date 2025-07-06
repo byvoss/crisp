@@ -61,17 +61,17 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Full docs or different structure?  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 9. ❓ Theme System Implementation
+### 9. ✅ Theme System Implementation
 **Issue**: 10KB theme system mentioned but not explained  
 **Questions**: What's included? How does it work?  
 **Decision needed**: Document or implement first?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision #6 (already covered in Progressive Enhancement)  
 
-### 10. ❓ Web Components (Enterprise)
+### 10. ✅ Web Components (Enterprise)
 **Issue**: Mentioned but never demonstrated  
 **Questions**: How do they enhance HTML? Examples?  
 **Decision needed**: Create examples or remove mention?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 19. ❓ Convert Color System to OKLCH
 **Issue**: Current system uses HSL, should use OKLCH  
@@ -248,6 +248,42 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 - Token inheritance patterns
 - Advanced customization examples
 - Accessibility deep-dives
+
+### ✅ [2025-01-06] Web Components Strategy (#10)
+**Decision**: WCs as intelligent containers that generate CRISP HTML  
+**Philosophy**: Web Components are CRISP Pattern Generators  
+**Key Principle**: WC is only the container - content is 100% pure CRISP HTML  
+
+**Concept**:
+```html
+<!-- Web Component = Container only -->
+<crisp-search-box 
+  placeholder="Search..." 
+  api-endpoint="/api/search">
+  <!-- Generates 100% CRISP HTML inside -->
+</crisp-search-box>
+
+<!-- Renders to: -->
+<div class="search-box as-cluster">
+  <input class="input" type="search" placeholder="Search...">
+  <button class="button" data-variant="primary">Search</button>
+  <div class="dropdown" data-variant="loading">...</div>
+</div>
+```
+
+**Benefits**:
+- Free with Tier 3 - everyone can use from start
+- Pre-built patterns save typing
+- Output is always pure CRISP HTML
+- Type-safe attributes
+- Handles complex interactions
+- But philosophy stays intact
+
+**Examples**:
+- `<crisp-search-box>` - Search with suggestions
+- `<crisp-product-card>` - Complete product display
+- `<crisp-media-object>` - Text with image patterns
+- `<crisp-data-table>` - Sortable, filterable tables
 
 ---
 
