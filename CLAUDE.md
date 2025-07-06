@@ -512,9 +512,11 @@ Please read these files in order to understand the complete project:
 ```
 
 #### Color System
-- HSL-based with alpha channel
-- Scales from 10 (lightest) to 90 (darkest)
-- Semantic names: `--color-primary-50`, `--color-neutral-50`
+- **OKLCH-based** color system (perceptually uniform)
+- Scales from light to dark with consistent perceived lightness
+- Semantic names: `--color-primary`, `--color-neutral`
+- Format: `oklch(lightness chroma hue / alpha)`
+- Benefits: Better color mixing, consistent brightness, wider gamut
 
 #### Component Naming
 - Full words only (`button`, not `btn`)
@@ -537,4 +539,4 @@ CRISP is part of the byvoss.tech ecosystem, created by Vivian Burkhard Voss (ByV
 
 ---
 
-*Last updated: 2025-01-05*
+*Last updated: 2025-01-06*

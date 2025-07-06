@@ -73,6 +73,22 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Create examples or remove mention?  
 **Status**: ⏳ PENDING  
 
+### 19. ❓ Convert Color System to OKLCH
+**Issue**: Current system uses HSL, should use OKLCH  
+**Current**: HSL-based colors throughout all CSS files  
+**Target**: OKLCH for perceptually uniform colors  
+**Benefits**: 
+- Perceptually uniform color space
+- Better color interpolation
+- Consistent perceived brightness
+- Wider color gamut support
+**Work needed**:
+- Convert all color definitions in CSS files
+- Update color token system
+- Test browser support (Safari 15.4+, Chrome 111+, Firefox 113+)
+**Decision needed**: Migration strategy and fallbacks?  
+**Status**: ⏳ PENDING  
+
 ## 🔵 Technical Questions
 
 ### 11. ❓ NPM Package Strategy
