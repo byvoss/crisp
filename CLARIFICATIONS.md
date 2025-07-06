@@ -11,12 +11,12 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Standardize all to `color`?  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 2. ❓ Custom Property Prefix Pattern
+### 2. ✅ Custom Property Prefix Pattern
 **Issue**: Documentation shows unprefixed tokens but examples vary  
 **Examples**: `--bg` vs `--button-bg`  
 **Rule**: Element tokens should have NO prefix per new patterns  
 **Decision needed**: Update all examples to unprefixed pattern?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 3. ❓ Missing adoption-guide.md
 **Issue**: README links to non-existent file  
@@ -156,6 +156,15 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 - All CSS files (260+ instances fixed)
 - HTML examples
 **Note**: British English remains in prose/documentation text
+
+### ✅ [2025-01-06] Custom Property Prefix Pattern (#2)
+**Decision**: Apply unprefixed pattern for element tokens  
+**Rationale**: CLAUDE.md Rule 6 clearly states element tokens have NO prefix  
+**Action**: Updated all component documentation:
+- button.md: Changed `--button-*` to unprefixed (`--bg`, `--color`, etc.)
+- link.md: Changed `--link-*` to unprefixed (`--color`, `--weight`, etc.)
+- carousel.md: Already correct
+**Rule**: Element tokens unprefixed, only property classes have prefixes
 
 ---
 

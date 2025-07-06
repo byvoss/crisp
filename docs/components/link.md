@@ -16,7 +16,7 @@ Styled navigation elements that maintain semantic integrity.
 </a>
 
 <!-- Link with properties -->
-<a href="/contact" class="link with-interaction" style="--link-weight: bold;">
+<a href="/contact" class="link with-interaction" style="--weight: bold;">
   Contact Us
 </a>
 
@@ -28,10 +28,10 @@ Styled navigation elements that maintain semantic integrity.
 
 ## Custom Properties
 
-- `--link-color`: Text color (default: primary-60)
-- `--link-decoration`: Text decoration style
-- `--link-weight`: Font weight
-- `--link-opacity`: Hover/focus opacity
+- `--color`: Text color (default: primary-60)
+- `--decoration`: Text decoration style
+- `--weight`: Font weight
+- `--opacity`: Hover/focus opacity
 
 ## States
 

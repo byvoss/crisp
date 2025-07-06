@@ -11,7 +11,7 @@ The fundamental interactive element.
 </button>
 
 <!-- With properties -->
-<button class="button with-interaction with-shadow" style="--button-size: large;">
+<button class="button with-interaction with-shadow" style="--size: large;">
   Important Action
 </button>
 ```
@@ -44,15 +44,15 @@ CRISP maintains semantic integrity - links navigate, buttons perform actions:
 .button,
 [role="button"] {
   /* All button styling */
-  padding: var(--button-padding, var(--space-1-0));
-  background: var(--button-bg, var(--color-neutral-90));
-  border-radius: var(--button-radius, var(--radius-sm));
+  padding: var(--padding, var(--space-1-0));
+  background: var(--bg, var(--color-neutral-90));
+  border-radius: var(--radius, var(--radius-sm));
   /* ... */
 }
 
 /* Links keep their semantic behaviour */
 .link {
-  color: var(--link-color, var(--color-primary-60));
+  color: var(--color, var(--color-primary-60));
   text-decoration: underline;
 }
 
@@ -65,11 +65,11 @@ CRISP maintains semantic integrity - links navigate, buttons perform actions:
 
 ## Custom Properties
 
-- `--button-bg`: Background color
-- `--button-color`: Text color  
-- `--button-size`: Font size
-- `--button-padding`: Internal spacing
-- `--button-radius`: Corner radius
+- `--bg`: Background color
+- `--color`: Text color  
+- `--size`: Font size
+- `--padding`: Internal spacing
+- `--radius`: Corner radius
 
 ## States
 
