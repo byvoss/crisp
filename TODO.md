@@ -37,11 +37,12 @@ Track all pending tasks here. Check off when completed.
   - [x] C15-component-reference.md - Check completeness
   - [x] C16-cheatsheet.md - Verify accuracy of quick reference
 
-- [ ] Fix CSS files to pass stylelint rules
-  - Re-enable linting in package.json
+- [ ] Fix CSS files to pass stylelint rules (CLARIFICATIONS #14)
+  - Configure CRISP-specific stylelint rules
   - Fix a11y warnings (focus states, reduced motion)
   - Fix color notation (modern syntax)
   - Remove duplicate selectors
+  - Re-enable linting in package.json
 
 - [x] Update British English to US English in code
   - [x] C01-the-problem.md
@@ -63,20 +64,37 @@ Track all pending tasks here. Check off when completed.
 
 ## Medium Priority
 
-- [ ] Configure TypeScript properly
-  - Create tsconfig.json
-  - Add TypeScript source files
+- [ ] Configure TypeScript properly (CLARIFICATIONS #13)
+  - Create tsconfig.json for Web Component development
+  - Build pipeline for @byvoss/crisp-enterprise
+  - Type definitions for component APIs
+  - Proper ESM module output
   - Update build:types script
 
-- [ ] Set up proper testing
-  - Configure Jest
-  - Add unit tests
-  - Add integration tests
+- [x] Set up proper testing
+  - [x] Configure Vitest for unit/integration tests
+  - [x] Configure Playwright for E2E/visual tests
+  - [x] Add sample test files
+  - [x] Create test utilities
+  - [x] Document testing approach
 
 - [ ] Implement proper CSS minification
   - Install clean-css
   - Update build scripts
   - Generate .min.css files
+
+- [ ] Convert color system to OKLCH (CLARIFICATIONS #19)
+  - Convert all HSL color definitions to OKLCH
+  - Update color token system
+  - Test browser support (Safari 15.4+, Chrome 111+, Firefox 113+)
+  - Implement fallback strategy
+
+- [ ] Implement Vitest + Playwright tests (CLARIFICATIONS #15)
+  - Write unit tests for tokens and utilities
+  - Write integration tests for CSS compilation
+  - Write E2E tests for visual regression
+  - Set up accessibility testing
+  - Configure CI/CD integration
 
 ## Low Priority
 
@@ -84,6 +102,9 @@ Track all pending tasks here. Check off when completed.
 - [ ] Create examples directory
 - [ ] Set up documentation site
 - [ ] Add changelog
+- [ ] Document browser fallback strategies (CLARIFICATIONS #16)
+- [ ] Create ARIA usage guidelines (CLARIFICATIONS #17)
+- [ ] Document required ID patterns for accessibility (CLARIFICATIONS #18)
 
 ## Completed
 
@@ -94,7 +115,7 @@ Track all pending tasks here. Check off when completed.
 
 ---
 
-*Last updated: 2025-01-05*
+*Last updated: 2025-01-06*
 
 ## Documentation Update Summary
 

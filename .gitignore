@@ -19,6 +19,14 @@ Thumbs.db
 # Test coverage
 coverage/
 
+# Testing artifacts
+test-results/
+playwright-report/
+playwright/.cache/
+tests/**/*.png
+tests/**/*.jpg
+.vitest/
+
 # Temporary files
 *.tmp
 *.temp

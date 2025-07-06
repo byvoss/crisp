@@ -120,11 +120,11 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 
 ## 🟢 Enhancement Questions
 
-### 15. ❓ Testing Strategy
+### 15. ✅ Testing Strategy
 **Issue**: No testing approach documented  
 **Options**: Cypress, Jest, Playwright, none?  
 **Decision needed**: Testing framework or manual for v1?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 16. ❓ Browser Fallbacks
 **Issue**: Browser support defined but no fallback strategy  
@@ -314,6 +314,52 @@ npm install @byvoss/crisp @byvoss/crisp-theme @byvoss/crisp-enterprise
 ```
 
 **Build**: Three separate build processes for three packages
+
+### ✅ [2025-01-06] Testing Strategy (#15)
+**Decision**: Vitest + Playwright for modern testing  
+**Rationale**: Based on 2024/2025 developer satisfaction data  
+**Testing Stack**:
+1. **Unit/Integration Testing**: Vitest
+   - Fastest test runner in 2024 benchmarks
+   - Native ESM support
+   - Compatible with Jest API
+   - Built-in TypeScript support
+   - Excellent DX with instant feedback
+
+2. **E2E/Visual Testing**: Playwright
+   - Cross-browser testing (Chrome, Firefox, Safari, Edge)
+   - Visual regression testing
+   - Accessibility testing built-in
+   - Component testing for Web Components
+   - Parallel execution
+
+**Test Structure**:
+```
+tests/
+├── unit/          # Vitest unit tests
+│   ├── tokens/    # Design token validation
+│   ├── utils/     # Utility function tests
+│   └── build/     # Build process tests
+├── integration/   # Vitest integration tests
+│   ├── css/       # CSS compilation tests
+│   ├── themes/    # Theme switching tests
+│   └── components/# Component integration
+└── e2e/          # Playwright tests
+    ├── visual/    # Visual regression
+    ├── a11y/      # Accessibility
+    ├── browser/   # Cross-browser
+    └── components/# Web Component behavior
+```
+
+**Why this stack**:
+- Both tools consistently top developer satisfaction surveys
+- Fast execution and great debugging experience
+- Modern ESM-first approach
+- Strong TypeScript support
+- Active development and community
+
+**Action**: Configure Vitest and Playwright for comprehensive testing
+**Status**: ⚠️ NOT IMPLEMENTED YET
 
 ### ✅ [2025-01-06] CDN Distribution Strategy (#12)
 **Decision**: State-of-the-art CDN setup with all modern features  

@@ -29,8 +29,13 @@
     "watch": "concurrently \"npm:watch:*\"",
     "watch:css": "chokidar 'src/**/*.css' -c 'npm run build:css'",
     "watch:ts": "tsc --watch",
-    "test": "npm run lint",
-    "test:unit": "echo 'Tests coming soon'",
+    "test": "npm run test:unit && npm run test:integration && npm run test:e2e",
+    "test:unit": "vitest run --dir tests/unit",
+    "test:unit:watch": "vitest --dir tests/unit",
+    "test:integration": "vitest run --dir tests/integration",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui",
+    "test:coverage": "vitest run --coverage",
     "lint": "echo 'Linting temporarily disabled - TODO: Fix CSS and re-enable'",
     "docs": "typedoc",
     "prepublishOnly": "npm run build && npm run test"
@@ -56,6 +61,12 @@
     "url": "https://github.com/byvoss/crisp/issues"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.8.0",
+    "@playwright/test": "^1.40.0",
+    "@vitest/coverage-v8": "^1.1.0",
+    "@vitest/ui": "^1.1.0",
+    "jsdom": "^23.0.0",
+    "vitest": "^1.1.0",
     "@types/jest": "^29.5.0",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
