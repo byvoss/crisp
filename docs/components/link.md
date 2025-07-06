@@ -1,3 +1,10 @@
+# ⚠️ DRAFT - Not Final - IGNORE FOR MODIFICATIONS
+
+This component documentation is experimental and will be replaced after MVP.
+See C15-component-reference.md for current documentation.
+
+---
+
 # Link Component
 
 Styled navigation elements that maintain semantic integrity.

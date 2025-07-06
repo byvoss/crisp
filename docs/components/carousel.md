@@ -1,3 +1,10 @@
+# ⚠️ DRAFT - Not Final - IGNORE FOR MODIFICATIONS
+
+This component documentation is experimental and will be replaced after MVP.
+See C15-component-reference.md for current documentation.
+
+---
+
 # Carousel Component
 
 CSS-only content slider following CRISP patterns.

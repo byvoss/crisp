@@ -55,11 +55,11 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 
 ## 🟠 Missing Documentation
 
-### 8. ❓ Component Documentation
+### 8. ✅ Component Documentation
 **Issue**: Only 3 of ~20 components documented  
 **Missing**: card, navigation, form, alert, etc.  
 **Decision needed**: Full docs or different structure?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 9. ❓ Theme System Implementation
 **Issue**: 10KB theme system mentioned but not explained  
@@ -234,6 +234,20 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 - `as-center` uses `--center-height`
 - `as-container` uses `--container-max` and `--container-padding`
 **Rule**: Element tokens unprefixed, everything else shows its type
+
+### ✅ [2025-01-06] Component Documentation Strategy (#8)
+**Decision**: Defer individual component docs until after MVP  
+**Rationale**:  
+- Each element deserves detailed documentation of its scoped tokens
+- But not now - too many files to maintain during rule changes
+- C15-component-reference.md serves as complete reference for now
+- The 3 existing docs (button, carousel, link) were experiments
+**Action**: Keep only C15 as central reference until documentation stabilizes
+**Future**: Create individual component docs showing:
+- All scoped CSS variables
+- Token inheritance patterns
+- Advanced customization examples
+- Accessibility deep-dives
 
 ---
 
