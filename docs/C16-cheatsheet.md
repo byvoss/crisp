@@ -323,6 +323,32 @@ document.getElementById('modal').showModal();
 <form data-variant="checkout">Checkout form</form>
 ```
 
+## 💡 Critical: data-theme vs data-variant
+
+**Never mix these two!**
+
+### data-theme = Color Schemes ONLY
+```html
+<!-- ✅ Correct: Theme on high-level containers -->
+<body data-theme="dark">
+<main data-theme="light">
+<section data-theme="high-contrast">
+
+<!-- ❌ Wrong: Never on components -->
+<button data-theme="primary">  <!-- NO! -->
+```
+
+### data-variant = Everything Else
+```html
+<!-- ✅ All variations use data-variant -->
+<button class="button" data-variant="primary">Primary</button>
+<button class="button" data-variant="loading">Loading...</button>
+<article class="card" data-variant="danger">Error</article>
+<nav class="navigation" data-variant="admin">Admin Nav</nav>
+```
+
+**Remember**: Themes cascade and control colors. Variants don't cascade and control purpose.
+
 ## Theme Switching
 
 ```html
