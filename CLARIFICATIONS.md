@@ -91,14 +91,14 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 
 ## 🔵 Technical Questions
 
-### 11. ❓ NPM Package Strategy
+### 11. ✅ NPM Package Strategy
 **Issue**: 3 packages mentioned but only one exists  
 **Packages**: 
 - `@byvoss/crisp` ✓ Exists
 - `@byvoss/crisp-theme` ❌ Missing
 - `@byvoss/crisp-enterprise` ❌ Missing
 **Decision needed**: Single package with different builds?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 12. ❓ CDN Distribution
 **Issue**: Examples show same CSS file for all editions  
@@ -284,6 +284,36 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 - `<crisp-product-card>` - Complete product display
 - `<crisp-media-object>` - Text with image patterns
 - `<crisp-data-table>` - Sortable, filterable tables
+
+### ✅ [2025-01-06] NPM Package Strategy (#11)
+**Decision**: Three separate packages, not one monolith  
+**Rationale**: Pay only for what you use - avoid Bootstrap bloat  
+**Structure**:
+1. **@byvoss/crisp** (~50KB)
+   - Pure CSS only
+   - Zero dependencies
+   
+2. **@byvoss/crisp-theme** (~10KB)
+   - Theme switching JS only
+   - Dependency: @byvoss/crisp
+   
+3. **@byvoss/crisp-enterprise** (~90KB)
+   - Web Components only
+   - Dependencies: @byvoss/crisp, @byvoss/crisp-theme
+
+**Usage**:
+```bash
+# Tier 1: CSS only
+npm install @byvoss/crisp
+
+# Tier 2: + Themes
+npm install @byvoss/crisp @byvoss/crisp-theme
+
+# Tier 3: + Web Components
+npm install @byvoss/crisp @byvoss/crisp-theme @byvoss/crisp-enterprise
+```
+
+**Build**: Three separate build processes for three packages
 
 ---
 
