@@ -81,40 +81,50 @@ The logic: Element tokens are unambiguous within their element's context. Everyt
 ```
 One hyphen = one concept. Multiple hyphens = you're smuggling in modifiers. Use custom properties instead.
 
-#### 8. Context via Data Attributes
+#### 8. Variants via Data Attributes
 ```html
-<!-- ✅ Contexts use data attributes -->
-<section data-context="danger">
+<!-- ✅ All variations use data-variant -->
+<section data-variant="danger">
   <button class="button">Delete</button>
 </section>
 
-<main data-context="admin">
+<main data-variant="admin">
   <article class="card">Admin only</article>
 </main>
+
+<button class="button" data-variant="loading">Saving...</button>
+<alert class="alert" data-variant="success">Saved!</alert>
 ```
 
 ```css
-/* Context-specific overrides */
-[data-context="danger"] .button {
+/* Variant-specific styling */
+[data-variant="danger"] .button {
   --bg: var(--color-danger);
 }
 
-[data-context="admin"] .card {
+[data-variant="admin"] .card {
   --border-color: var(--color-warning);
 }
+
+.button[data-variant="loading"] {
+  opacity: 0.7;
+  cursor: wait;
+}
 ```
-Keeps class namespace clean. Contexts are data, not components.
+Keeps class namespace clean. All variations are data, not classes.
 
 **The Principle**: CSS is for layout and presentation only - never for context. Context is semantic information that belongs in HTML via data attributes. This maintains proper separation of concerns.
 
 **Important**: Elements can have BOTH component classes AND data attributes to avoid unnecessary nesting:
 ```html
 <!-- ✅ Good - direct application -->
-<button class="button" data-brand="premium">Premium Button</button>
-<article class="card" data-context="danger">Warning Card</article>
+<button class="button" data-variant="primary">Primary Button</button>
+<article class="card" data-variant="danger">Warning Card</article>
+<form class="form" data-variant="loading">Loading Form</form>
+<nav class="navigation" data-variant="admin">Admin Navigation</nav>
 
 <!-- ❌ Bad - unnecessary wrapper -->
-<div data-brand="premium">
+<div data-variant="premium">
   <button class="button">Premium Button</button>
 </div>
 ```
@@ -122,10 +132,13 @@ Keeps class namespace clean. Contexts are data, not components.
 #### 9. Data Attribute Guidelines
 
 **Core Keys for Styling:**
-- **`data-state`**: Element state (`active`, `loading`, `error`, `expanded`, `collapsed`, `open`, `closed`)
-- **`data-context`**: Environmental context (`admin`, `authenticated`, `danger`, `checkout`, `premium`)
-- **`data-variant`**: Visual variations (`primary`, `pills`, `compact`, `ghost`, `minimal`, `horizontal`, `vertical`)
-- **`data-theme`**: Color scheme (`light`, `dark`, `high-contrast`)
+- **`data-variant`**: ALL variations, states, and contexts
+  - Visual styles: `primary`, `secondary`, `ghost`, `minimal`
+  - States: `loading`, `error`, `success`, `disabled`
+  - Behaviors: `expanded`, `collapsed`, `active`, `selected`
+  - Contexts: `admin`, `danger`, `premium`, `authenticated`
+  - Layouts: `horizontal`, `vertical`, `compact`, `pills`
+- **`data-theme`**: Color scheme only (`light`, `dark`, `high-contrast`)
 
 **Semantic Information Keys (CSS-friendly):**
 - **`data-entries`**: Count of child elements (required for countable containers)
@@ -141,9 +154,10 @@ Keeps class namespace clean. Contexts are data, not components.
 **Rules:**
 - One value per data attribute (no space-separated lists)
 - Use kebab-case for custom keys (`data-user-role`)
-- Semantic naming, not visual (`data-tier="premium"`, not `data-color="gold"`)
+- Semantic naming, not visual (`data-variant="premium"`, not `data-variant="gold"`)
 - Keep the list minimal - these core keys cover most use cases
 - Only use attributes that make sense without JavaScript (CSS-only first)
+- **Use `data-variant` for everything except theme and semantic info**
 
 #### 10. Complete Default Values Required
 

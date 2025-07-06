@@ -26,13 +26,13 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 
 ## 🟡 Important Clarifications
 
-### 4. ❓ Data Attribute Hierarchy
+### 4. ✅ Data Attribute Hierarchy
 **Issue**: Unclear when to use which data attribute  
 **Overlaps**: 
 - `data-state` vs `data-variant` - When to use which?
 - `data-context` vs `data-theme` vs `data-brand` - Different purposes?
 **Decision needed**: Create clear usage matrix  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 5. ❓ The "1+1+3" Rule Clarification
 **Issue**: Do data attributes count toward the class limit?  
@@ -171,6 +171,16 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Rationale**: No need for separate adoption guide at this stage  
 **Action**: Changed link to plain text: "Apply CRISP principles to any framework"  
 **Future**: Can create guide later if demand exists
+
+### ✅ [2025-01-06] Data Attribute Simplification (#4)
+**Decision**: Use only `data-variant` for all variations/states/contexts  
+**Rationale**: Simpler is better - one attribute for all variations reduces cognitive load  
+**Changes**:
+- Merge `data-state` → `data-variant` (loading, error, expanded, etc.)
+- Merge `data-context` → `data-variant` (admin, danger, premium, etc.)
+- Keep `data-variant` as is (primary, compact, horizontal, etc.)
+- Keep separate: `data-theme` (color schemes), semantic info, JS hooks
+**Action**: Update CLAUDE.md Rule 9 to reflect this simplification
 
 ---
 
