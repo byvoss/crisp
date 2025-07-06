@@ -4,12 +4,12 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 
 ## 🔴 Critical Issues (Block Release)
 
-### 1. ❓ Color vs Colour Inconsistency
+### 1. ✅ Color vs Colour Inconsistency
 **Issue**: Mixed usage of US/UK English in property names  
 **Found in**: `components/button.md` uses `--button-colour`  
 **Conflict**: CLAUDE.md mandates US English for code  
 **Decision needed**: Standardize all to `color`?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 2. ❓ Custom Property Prefix Pattern
 **Issue**: Documentation shows unprefixed tokens but examples vary  
@@ -131,15 +131,15 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 ## 📝 Decision Log
 
 ### ✅ Decided Items
-<!-- Move items here once decided, with date and decision -->
 
-### Example Format:
-```
-### ✅ [2025-01-06] Color Spelling
-**Decision**: Use US English "color" everywhere
-**Rationale**: Consistency with CSS specifications
-**Action**: Update all instances of "colour" to "color"
-```
+### ✅ [2025-01-06] Color vs Colour (#1)
+**Decision**: Use US English "color" in all code  
+**Rationale**: Consistency with CSS specifications and CLAUDE.md rules  
+**Action**: Updated all instances of "colour" to "color" in:
+- Component documentation (button.md, link.md)
+- All CSS files (260+ instances fixed)
+- HTML examples
+**Note**: British English remains in prose/documentation text
 
 ---
 

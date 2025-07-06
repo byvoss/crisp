@@ -16,71 +16,71 @@
   --space-6-0: 6rem;
   --space-8-0: 8rem;
 
-  /* Colour System - HSL without lightness for flexibility */
+  /* Color System - HSL without lightness for flexibility */
   /* Primary */
-  --colour-primary-10: hsla(220, 70%, 10%, 1);
-  --colour-primary-20: hsla(220, 70%, 20%, 1);
-  --colour-primary-30: hsla(220, 70%, 30%, 1);
-  --colour-primary-40: hsla(220, 70%, 40%, 1);
-  --colour-primary-50: hsla(220, 70%, 50%, 1);
-  --colour-primary-60: hsla(220, 70%, 60%, 1);
-  --colour-primary-70: hsla(220, 70%, 70%, 1);
-  --colour-primary-80: hsla(220, 70%, 80%, 1);
-  --colour-primary-90: hsla(220, 70%, 90%, 1);
-  --colour-primary-95: hsla(220, 70%, 95%, 1);
+  --color-primary-10: hsla(220, 70%, 10%, 1);
+  --color-primary-20: hsla(220, 70%, 20%, 1);
+  --color-primary-30: hsla(220, 70%, 30%, 1);
+  --color-primary-40: hsla(220, 70%, 40%, 1);
+  --color-primary-50: hsla(220, 70%, 50%, 1);
+  --color-primary-60: hsla(220, 70%, 60%, 1);
+  --color-primary-70: hsla(220, 70%, 70%, 1);
+  --color-primary-80: hsla(220, 70%, 80%, 1);
+  --color-primary-90: hsla(220, 70%, 90%, 1);
+  --color-primary-95: hsla(220, 70%, 95%, 1);
 
   /* Neutral */
-  --colour-neutral-10: hsla(220, 10%, 10%, 1);
-  --colour-neutral-15: hsla(220, 10%, 15%, 1);
-  --colour-neutral-20: hsla(220, 10%, 20%, 1);
-  --colour-neutral-25: hsla(220, 10%, 25%, 1);
-  --colour-neutral-30: hsla(220, 10%, 30%, 1);
-  --colour-neutral-40: hsla(220, 10%, 40%, 1);
-  --colour-neutral-50: hsla(220, 10%, 50%, 1);
-  --colour-neutral-60: hsla(220, 10%, 60%, 1);
-  --colour-neutral-70: hsla(220, 10%, 70%, 1);
-  --colour-neutral-80: hsla(220, 10%, 80%, 1);
-  --colour-neutral-90: hsla(220, 10%, 90%, 1);
-  --colour-neutral-95: hsla(220, 10%, 95%, 1);
-  --colour-neutral-98: hsla(220, 10%, 98%, 1);
-  --colour-neutral-100: hsla(220, 10%, 100%, 1);
+  --color-neutral-10: hsla(220, 10%, 10%, 1);
+  --color-neutral-15: hsla(220, 10%, 15%, 1);
+  --color-neutral-20: hsla(220, 10%, 20%, 1);
+  --color-neutral-25: hsla(220, 10%, 25%, 1);
+  --color-neutral-30: hsla(220, 10%, 30%, 1);
+  --color-neutral-40: hsla(220, 10%, 40%, 1);
+  --color-neutral-50: hsla(220, 10%, 50%, 1);
+  --color-neutral-60: hsla(220, 10%, 60%, 1);
+  --color-neutral-70: hsla(220, 10%, 70%, 1);
+  --color-neutral-80: hsla(220, 10%, 80%, 1);
+  --color-neutral-90: hsla(220, 10%, 90%, 1);
+  --color-neutral-95: hsla(220, 10%, 95%, 1);
+  --color-neutral-98: hsla(220, 10%, 98%, 1);
+  --color-neutral-100: hsla(220, 10%, 100%, 1);
 
   /* Secondary */
-  --colour-secondary-10: hsla(280, 60%, 10%, 1);
-  --colour-secondary-20: hsla(280, 60%, 20%, 1);
-  --colour-secondary-30: hsla(280, 60%, 30%, 1);
-  --colour-secondary-40: hsla(280, 60%, 40%, 1);
-  --colour-secondary-50: hsla(280, 60%, 50%, 1);
-  --colour-secondary-60: hsla(280, 60%, 60%, 1);
-  --colour-secondary-70: hsla(280, 60%, 70%, 1);
-  --colour-secondary-80: hsla(280, 60%, 80%, 1);
-  --colour-secondary-90: hsla(280, 60%, 90%, 1);
-  --colour-secondary-95: hsla(280, 60%, 95%, 1);
+  --color-secondary-10: hsla(280, 60%, 10%, 1);
+  --color-secondary-20: hsla(280, 60%, 20%, 1);
+  --color-secondary-30: hsla(280, 60%, 30%, 1);
+  --color-secondary-40: hsla(280, 60%, 40%, 1);
+  --color-secondary-50: hsla(280, 60%, 50%, 1);
+  --color-secondary-60: hsla(280, 60%, 60%, 1);
+  --color-secondary-70: hsla(280, 60%, 70%, 1);
+  --color-secondary-80: hsla(280, 60%, 80%, 1);
+  --color-secondary-90: hsla(280, 60%, 90%, 1);
+  --color-secondary-95: hsla(280, 60%, 95%, 1);
 
-  /* Semantic Colours */
-  --colour-error-10: hsla(0, 85%, 10%, 1);
-  --colour-error-30: hsla(0, 85%, 30%, 1);
-  --colour-error-50: hsla(0, 85%, 50%, 1);
-  --colour-error-60: hsla(0, 85%, 60%, 1);
-  --colour-error-90: hsla(0, 85%, 90%, 1);
+  /* Semantic Colors */
+  --color-error-10: hsla(0, 85%, 10%, 1);
+  --color-error-30: hsla(0, 85%, 30%, 1);
+  --color-error-50: hsla(0, 85%, 50%, 1);
+  --color-error-60: hsla(0, 85%, 60%, 1);
+  --color-error-90: hsla(0, 85%, 90%, 1);
   
-  --colour-warning-10: hsla(45, 90%, 10%, 1);
-  --colour-warning-30: hsla(45, 90%, 30%, 1);
-  --colour-warning-50: hsla(45, 90%, 50%, 1);
-  --colour-warning-60: hsla(45, 90%, 60%, 1);
-  --colour-warning-90: hsla(45, 90%, 90%, 1);
+  --color-warning-10: hsla(45, 90%, 10%, 1);
+  --color-warning-30: hsla(45, 90%, 30%, 1);
+  --color-warning-50: hsla(45, 90%, 50%, 1);
+  --color-warning-60: hsla(45, 90%, 60%, 1);
+  --color-warning-90: hsla(45, 90%, 90%, 1);
   
-  --colour-success-10: hsla(120, 70%, 10%, 1);
-  --colour-success-30: hsla(120, 70%, 30%, 1);
-  --colour-success-50: hsla(120, 70%, 50%, 1);
-  --colour-success-60: hsla(120, 70%, 60%, 1);
-  --colour-success-90: hsla(120, 70%, 90%, 1);
+  --color-success-10: hsla(120, 70%, 10%, 1);
+  --color-success-30: hsla(120, 70%, 30%, 1);
+  --color-success-50: hsla(120, 70%, 50%, 1);
+  --color-success-60: hsla(120, 70%, 60%, 1);
+  --color-success-90: hsla(120, 70%, 90%, 1);
   
-  --colour-info-10: hsla(210, 70%, 10%, 1);
-  --colour-info-30: hsla(210, 70%, 30%, 1);
-  --colour-info-50: hsla(210, 70%, 50%, 1);
-  --colour-info-60: hsla(210, 70%, 60%, 1);
-  --colour-info-90: hsla(210, 70%, 90%, 1);
+  --color-info-10: hsla(210, 70%, 10%, 1);
+  --color-info-30: hsla(210, 70%, 30%, 1);
+  --color-info-50: hsla(210, 70%, 50%, 1);
+  --color-info-60: hsla(210, 70%, 60%, 1);
+  --color-info-90: hsla(210, 70%, 90%, 1);
 
   /* Typography */
   --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;

@@ -28,7 +28,7 @@ Styled navigation elements that maintain semantic integrity.
 
 ## Custom Properties
 
-- `--link-colour`: Text colour (default: primary-60)
+- `--link-color`: Text color (default: primary-60)
 - `--link-decoration`: Text decoration style
 - `--link-weight`: Font weight
 - `--link-opacity`: Hover/focus opacity
@@ -37,7 +37,7 @@ Styled navigation elements that maintain semantic integrity.
 
 - `:hover` - Hover state (opacity change)
 - `:focus` - Keyboard focus (outline)
-- `:visited` - Visited links (colour shift)
+- `:visited` - Visited links (color shift)
 - `:active` - Active/pressed state
 
 ## Accessibility

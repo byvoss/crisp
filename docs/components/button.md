@@ -45,14 +45,14 @@ CRISP maintains semantic integrity - links navigate, buttons perform actions:
 [role="button"] {
   /* All button styling */
   padding: var(--button-padding, var(--space-1-0));
-  background: var(--button-bg, var(--colour-neutral-90));
+  background: var(--button-bg, var(--color-neutral-90));
   border-radius: var(--button-radius, var(--radius-sm));
   /* ... */
 }
 
 /* Links keep their semantic behaviour */
 .link {
-  color: var(--link-colour, var(--colour-primary-60));
+  color: var(--link-color, var(--color-primary-60));
   text-decoration: underline;
 }
 
@@ -65,8 +65,8 @@ CRISP maintains semantic integrity - links navigate, buttons perform actions:
 
 ## Custom Properties
 
-- `--button-bg`: Background colour
-- `--button-colour`: Text colour  
+- `--button-bg`: Background color
+- `--button-color`: Text color  
 - `--button-size`: Font size
 - `--button-padding`: Internal spacing
 - `--button-radius`: Corner radius

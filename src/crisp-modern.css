@@ -73,7 +73,7 @@
   }
   
   .error {
-    color: var(--colour-error-50);
+    color: var(--color-error-50);
   }
   
   /* Nested scoping */
@@ -83,7 +83,7 @@
     }
     
     input:invalid {
-      border-color: var(--colour-error-50);
+      border-color: var(--color-error-50);
     }
   }
 }
@@ -111,7 +111,7 @@
 .with-shadow::before {
   background: color-mix(
     in srgb,
-    var(--shadow-colour, black) 15%,
+    var(--shadow-color, black) 15%,
     transparent
   );
 }
@@ -183,14 +183,14 @@
 @media (prefers-contrast: high) {
   .with-border {
     --border-width: 2px;
-    --border-colour: currentColor;
+    --border-color: currentColor;
   }
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --colour-background: var(--colour-neutral-10);
-    --colour-text: var(--colour-neutral-90);
+    --color-background: var(--color-neutral-10);
+    --color-text: var(--color-neutral-90);
   }
 }
 

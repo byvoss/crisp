@@ -181,7 +181,7 @@
 }
 
 [data-viewport="print"] {
-  --colour-background: white;
-  --colour-text: black;
+  --color-background: white;
+  --color-text: black;
   --page-break: auto;
 }

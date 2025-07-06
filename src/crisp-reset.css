@@ -46,14 +46,14 @@ body {
   line-height: var(--text-height-base, 1.5);
   font-family: var(--font-sans);
   font-size: var(--text-size-1-0);
-  color: var(--colour-text, var(--colour-neutral-10));
-  background: var(--colour-background, var(--colour-neutral-98));
+  color: var(--color-text, var(--color-neutral-10));
+  background: var(--color-background, var(--color-neutral-98));
 }
 
 /* A elements that don't have a class get default styles */
 a:not([class]) {
   text-decoration-skip-ink: auto;
-  color: var(--colour-primary-50);
+  color: var(--color-primary-50);
 }
 
 /* Make images easier to work with */
@@ -93,7 +93,7 @@ select {
 
 /* Focus styles */
 :focus-visible {
-  outline: 2px solid var(--colour-primary-50);
+  outline: 2px solid var(--color-primary-50);
   outline-offset: 2px;
 }
 
