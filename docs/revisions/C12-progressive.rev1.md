@@ -27,7 +27,7 @@ One HTML structure. Three capability levels. Zero rewrites.
 ```html
 <!-- This HTML works at ALL levels -->
 <button class="button with-interaction" 
-  style="--button-bg: var(--color-primary-50);">
+  style="--bg: var(--color-primary);">
   Click Me
 </button>
 ```
@@ -40,6 +40,21 @@ One HTML structure. Three capability levels. Zero rewrites.
 - Custom properties for customisation
 - Zero JavaScript
 - Works everywhere
+
+### Modern CDN Loading
+```html
+<!-- State-of-the-art CDN with SRI integrity -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+
+<!-- Alternative CDN providers -->
+<link rel="stylesheet" 
+  href="https://cdn.jsdelivr.net/npm/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+```
 
 ### Example Implementation
 ```html
@@ -67,11 +82,11 @@ One HTML structure. Three capability levels. Zero rewrites.
   </section>
   
   <!-- Pure CSS tabs -->
-  <div class="tabs">
+  <div class="tabs" data-entries="2">
     <input class="radio" id="tab-1" type="radio" name="tabs" checked>
     <input class="radio" id="tab-2" type="radio" name="tabs">
     
-    <nav class="navigation as-cluster">
+    <nav class="navigation as-cluster" data-entries="2" data-variant="tabs">
       <label class="tab" for="tab-1">Tab 1</label>
       <label class="tab" for="tab-2">Tab 2</label>
     </nav>
@@ -83,6 +98,43 @@ One HTML structure. Three capability levels. Zero rewrites.
   </div>
 </body>
 </html>
+```
+
+CSS for tabs (Define/Use pattern):
+```css
+.tabs {
+  /* 1. Define defaults */
+  --stack-gap: var(--space-1-0);
+  --radius: var(--radius-md);
+  
+  /* 2. Use the tokens */
+  display: grid;
+  gap: var(--stack-gap);
+}
+
+.tab {
+  /* 1. Define defaults */
+  --bg: transparent;
+  --color: var(--color-neutral);
+  --padding: var(--space-0-75) var(--space-1-5);
+  --border-width: 2px;
+  --border-color: transparent;
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  color: var(--color);
+  padding: var(--padding);
+  border-bottom: var(--border-width) solid var(--border-color);
+  cursor: pointer;
+  transition: all 250ms ease;
+}
+
+/* Active state */
+input[type="radio"]:checked + .navigation .tab:nth-of-type(1),
+input[type="radio"]:nth-of-type(2):checked ~ .navigation .tab:nth-of-type(2) {
+  --border-color: var(--color-primary);
+  --color: var(--color-primary);
+}
 ```
 
 ### When to Use CRISP
@@ -102,6 +154,27 @@ One HTML structure. Three capability levels. Zero rewrites.
 - System preference sync
 - Still works without JS
 
+### Modern CDN Loading
+```html
+<!-- Progressive enhancement: CSS first, then theme JS -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+
+<!-- Modern ESM module for theme switching -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+
+<!-- Fallback for older browsers (optional) -->
+<script nomodule 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.min.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+```
+
 ### Same HTML, More Features
 ```html
 <!DOCTYPE html>
@@ -113,15 +186,15 @@ One HTML structure. Three capability levels. Zero rewrites.
 <body>
   <!-- Exact same HTML -->
   <button class="button with-interaction" 
-    style="--button-bg: var(--color-primary-50);">
+    style="--bg: var(--color-primary);">
     Click Me
   </button>
   
   <!-- Theme switcher (optional) -->
   <div class="theme-switcher as-cluster">
-    <button class="button" data-theme="light">Light</button>
-    <button class="button" data-theme="dark">Dark</button>
-    <button class="button" data-theme="auto">Auto</button>
+    <button class="button" data-function="theme" data-theme="light">Light</button>
+    <button class="button" data-function="theme" data-theme="dark">Dark</button>
+    <button class="button" data-function="theme" data-theme="auto">Auto</button>
   </div>
 </body>
 </html>
@@ -151,7 +224,7 @@ One HTML structure. Three capability levels. Zero rewrites.
   });
   
   // Theme switcher
-  document.querySelectorAll('[data-theme]').forEach(button => {
+  document.querySelectorAll('[data-function="theme"]').forEach(button => {
     button.addEventListener('click', () => {
       const theme = button.getAttribute('data-theme');
       localStorage.setItem('theme', theme);
@@ -184,6 +257,32 @@ One HTML structure. Three capability levels. Zero rewrites.
 - Advanced interactions
 - Still progressive enhancement
 
+### Modern CDN Loading
+```html
+<!-- Full progressive stack: CSS → Theme → Components -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+
+<!-- Theme system (required for Enterprise) -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+
+<!-- Web Components and full framework -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-enterprise@latest/dist/components.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+
+<!-- Optional: Preload for better performance -->
+<link rel="modulepreload" 
+  href="https://unpkg.com/@byvoss/crisp-enterprise@latest/dist/components.esm.js"
+  as="script">
+```
+
 ### Same HTML, Maximum Power
 ```html
 <!DOCTYPE html>
@@ -195,22 +294,22 @@ One HTML structure. Three capability levels. Zero rewrites.
 <body data-lang="en-GB">
   <!-- EXACT same HTML, now with superpowers -->
   <button class="button with-interaction" 
-    data-component="button"
+    data-function="submit"
     data-i18n="actions.submit"
-    style="--button-bg: var(--color-primary-50);">
+    style="--bg: var(--color-primary);">
     Click Me
   </button>
   
   <!-- Reactive form -->
   <form class="form as-stack" 
-    data-component="form"
+    data-function="form"
     data-validate="true"
     data-submit="async">
     
     <input class="input" 
       type="email" 
       name="email"
-      data-component="input"
+      data-function="input"
       data-validate="email"
       required>
     
@@ -245,7 +344,7 @@ export class Button extends CRISPComponent {
     // Track analytics
     this.track('button_click', {
       label: this.textContent,
-      variant: this.style.getPropertyValue('--button-bg')
+      variant: this.style.getPropertyValue('--bg')
     });
   }
   
@@ -258,13 +357,13 @@ export class Button extends CRISPComponent {
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === 'loading') {
       this.ariaBusy = newValue === 'true' ? 'true' : 'false';
-      this.classList.toggle('is-loading', newValue === 'true');
+      this.setAttribute('data-variant', newValue === 'true' ? 'loading' : '');
     }
   }
 }
 
 // Auto-register components
-document.querySelectorAll('[data-component="button"]').forEach(el => {
+document.querySelectorAll('[data-function="submit"]').forEach(el => {
   new Button(el);
 });
 ```
@@ -319,11 +418,11 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 <!-- Step 1: Add enterprise script -->
 <script type="module" src="crisp-enterprise.min.js"></script>
 
-<!-- Step 2: Add data-component where needed (optional) -->
-<button class="button" data-component="button">
+<!-- Step 2: Add data-function where needed (optional) -->
+<button class="button" data-function="submit">
 
 <!-- Step 3: Add i18n keys (optional) -->
-<button class="button" data-component="button" data-i18n="actions.submit">
+<button class="button" data-function="submit" data-i18n="actions.submit">
 ```
 
 ## The Beautiful Truth
@@ -344,16 +443,16 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 ```html
 <!-- This button works in all three levels -->
 <button class="button with-interaction" 
-  style="--button-bg: var(--color-primary-50);">
+  style="--bg: var(--color-primary);">
   Always Works
 </button>
 
 <!-- Progressive enhancement in action -->
 <button class="button with-interaction" 
-  data-component="button"           <!-- Enterprise only -->
+  data-function="submit"             <!-- Enterprise only -->
   data-haptic="true"                <!-- Enterprise only -->
   data-analytics="cta-primary"      <!-- Enterprise only -->
-  style="--button-bg: var(--color-primary-50);">
+  style="--bg: var(--color-primary);">
   Enhanced When Available
 </button>
 ```
@@ -363,7 +462,7 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 ### E-commerce Product Card
 ```html
 <!-- Works at all levels -->
-<article class="card as-stack with-shadow">
+<article class="card as-stack with-shadow" data-variant="product">
   <img class="image" src="product.jpg" alt="Product">
   
   <div class="as-stack">
@@ -373,12 +472,32 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
   </div>
   
   <button class="button with-interaction" 
-    data-component="buy-button"
+    data-function="buy"
     data-product-id="123"
-    style="--button-bg: var(--color-primary-50);">
+    style="--bg: var(--color-primary);">
     Add to Cart
   </button>
 </article>
+```
+
+CSS for product context:
+```css
+[data-variant="product"] {
+  /* 1. Define context tokens */
+  --spacing: var(--space-1-5);
+  --highlight: var(--color-primary);
+  
+  /* 2. Apply to children */
+  .card {
+    --padding: var(--spacing);
+  }
+  
+  .price {
+    --color: var(--highlight);
+    --size: var(--text-size-1-25);
+    --weight: var(--text-weight-bold);
+  }
+}
 ```
 
 **Level 1 (CRISP)**: Beautiful static card
@@ -390,6 +509,81 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 - Inventory checking
 - Loading states
 
+## CDN Best Practices
+
+### Version Management
+```html
+<!-- Development: Use @latest for automatic updates -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css">
+
+<!-- Production: Lock to specific version -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css"
+  integrity="sha384-[specific-hash]" 
+  crossorigin="anonymous">
+
+<!-- Version ranges for controlled updates -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@^1.0.0/dist/crisp.min.css">
+```
+
+### Performance Optimisation
+```html
+<!-- Preconnect to CDN -->
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="dns-prefetch" href="https://unpkg.com">
+
+<!-- Preload critical resources -->
+<link rel="preload" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css" 
+  as="style">
+
+<!-- Module preloading for faster JS -->
+<link rel="modulepreload" 
+  href="https://unpkg.com/@byvoss/crisp-theme@1.0.0/dist/theme.esm.js">
+```
+
+### Security with Subresource Integrity (SRI)
+```html
+<!-- Always use SRI in production -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css"
+  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC" 
+  crossorigin="anonymous">
+
+<!-- Generate SRI hashes -->
+<!-- https://www.srihash.org/ -->
+<!-- Or use: openssl dgst -sha384 -binary crisp.min.css | openssl base64 -A -->
+```
+
+### Progressive Loading Strategy
+```html
+<!-- 1. Critical CSS inline (optional for fastest paint) -->
+<style>
+  /* Minimal above-fold styles */
+  .as-container { max-width: 1200px; margin: 0 auto; }
+</style>
+
+<!-- 2. Main CSS with high priority -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css"
+  media="all">
+
+<!-- 3. Theme JS deferred -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@1.0.0/dist/theme.esm.js"
+  defer></script>
+
+<!-- 4. Components lazy-loaded -->
+<script type="module">
+  // Load enterprise components when needed
+  if (document.querySelector('[data-function]')) {
+    import('https://unpkg.com/@byvoss/crisp-enterprise@1.0.0/dist/components.esm.js');
+  }
+</script>
+```
+
 ## The Progressive Promise
 
 With CRISP's progressive enhancement:
@@ -397,8 +591,11 @@ With CRISP's progressive enhancement:
 - Never rewrite HTML
 - Each level is production-ready
 - Graceful degradation built-in
+- Context-aware styling via data attributes
 - Your future self thanks you
 
 Your HTML is eternal. Your capabilities are progressive. Your users are happy.
+
+And when the PM asks for "enterprise features"? You don't rewrite your HTML. You add data attributes and progressive JavaScript. That's the power of true progressive enhancement.
 
 → Continue to [Chapter 13: Common Patterns & Clever Tricks](./C13-patterns.md)
