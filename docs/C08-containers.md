@@ -227,7 +227,7 @@ For overlays and modals:
 </dialog>
 
 <!-- Full-screen dialog -->
-<dialog class="dialog as-center" style="--width: 100vw; --height: 100vh;">
+<dialog class="dialog as-center" style="--width: 100vw; --center-height: 100vh;">
   <div class="card as-stack" style="--width: min(90vw, 600px);">
     <h1>Welcome</h1>
     <p>Full-screen modal content</p>
@@ -247,13 +247,13 @@ For overlays and modals:
   --bg: var(--color-background);
   --padding: var(--space-2-0);
   --width: auto;
-  --height: auto;
+  --dialog-height: auto;
   
   /* 2. Use the tokens */
   background: var(--bg);
   padding: var(--padding);
   width: var(--width);
-  height: var(--height);
+  height: var(--dialog-height);
 }
 
 [data-variant="danger"] .dialog {

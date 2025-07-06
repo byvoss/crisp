@@ -89,12 +89,12 @@ CSS for tabs (Define/Use pattern):
 ```css
 .tabs {
   /* 1. Define defaults */
-  --gap: var(--space-1-0);
+  --stack-gap: var(--space-1-0);
   --radius: var(--radius-md);
   
   /* 2. Use the tokens */
   display: grid;
-  gap: var(--gap);
+  gap: var(--stack-gap);
 }
 
 .tab {

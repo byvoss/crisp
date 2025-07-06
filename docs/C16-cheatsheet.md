@@ -91,7 +91,7 @@
 </div>
 
 <!-- Custom gap -->
-<div class="as-stack" style="--gap: var(--space-2-0);">
+<div class="as-stack" style="--stack-gap: var(--space-2-0);">
 ```
 
 ### Horizontal Cluster  
@@ -102,7 +102,7 @@
 </div>
 
 <!-- Custom alignment -->
-<div class="as-cluster" style="--align: space-between;">
+<div class="as-cluster" style="--cluster-align: space-between;">
 ```
 
 ### Grid
@@ -113,7 +113,7 @@
 </div>
 
 <!-- Fixed columns -->
-<div class="as-grid" style="--columns: 3;">
+<div class="as-grid" style="--grid-columns: 3;">
 ```
 
 ### Center
@@ -123,7 +123,7 @@
 </div>
 
 <!-- Custom height -->
-<div class="as-center" style="--height: 50vh;">
+<div class="as-center" style="--center-height: 50vh;">
 ```
 
 ### Split Layout
@@ -134,7 +134,7 @@
 </div>
 
 <!-- Custom split width -->
-<div class="as-split" style="--split: 300px;">
+<div class="as-split" style="--split-ratio: 300px;">
 ```
 
 ### Container
@@ -258,7 +258,7 @@
 
 ### Navigation Bar
 ```html
-<nav class="navigation as-cluster" data-entries="2" style="--align: space-between;">
+<nav class="navigation as-cluster" data-entries="2" style="--cluster-align: space-between;">
   <a class="link" href="/">Logo</a>
   <div class="as-cluster">
     <a class="link" href="/about">About</a>
@@ -269,7 +269,7 @@
 
 ### Hero Section
 ```html
-<section class="hero as-center" style="--height: 80vh;">
+<section class="hero as-center" style="--center-height: 80vh;">
   <div class="as-stack">
     <h1 class="heading" style="--size: var(--text-size-3-0);">
       Big Title

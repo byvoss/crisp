@@ -345,11 +345,11 @@ Use fieldsets for related inputs:
   /* 1. Define defaults */
   --bg: var(--color-neutral-light);
   --fill: var(--color-primary);
-  --height: 0.5rem;
+  --meter-height: 0.5rem;
   
   /* 2. Use the tokens */
   background: var(--bg);
-  height: var(--height);
+  height: var(--meter-height);
 }
 
 .progress::-webkit-progress-value {

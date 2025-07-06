@@ -203,7 +203,7 @@ Replace layout systems gradually:
 
 <!-- CRISP replacement -->
 <div class="as-container">
-  <div class="as-grid" style="--columns: 3;">
+  <div class="as-grid" style="--grid-columns: 3;">
     <div>Column 1</div>
     <div>Column 2</div>
     <div>Column 3</div>

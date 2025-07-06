@@ -90,11 +90,11 @@ Navigation is about wayfinding. Make it obvious.
 ```css
 .navigation {
   /* 1. Define defaults */
-  --gap: var(--space-1-0);
+  --nav-gap: var(--space-1-0);
   --bg: transparent;
   
   /* 2. Use the tokens */
-  gap: var(--gap);
+  gap: var(--nav-gap);
   background: var(--bg);
 }
 

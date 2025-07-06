@@ -259,7 +259,7 @@ Let's build a pricing card without crying:
     <p class="text" style="--color: var(--color-neutral);">For growing teams</p>
   </header>
   
-  <div class="as-stack" style="--gap: var(--space-2-0);">
+  <div class="as-stack" style="--stack-gap: var(--space-2-0);">
     <p class="text" style="--size: 2rem; --weight: bold;">
       £99/month
     </p>

@@ -11,10 +11,10 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 ### The Holy Grail Layout
 ```html
 <!-- The legendary 3-column layout, finally simple -->
-<body class="as-stack" style="--gap: 0;">
+<body class="as-stack" style="--stack-gap: 0;">
   <!-- Sticky header -->
   <header class="header with-sticky as-container">
-    <nav class="navigation as-cluster" data-entries="2" style="--align: space-between;">
+    <nav class="navigation as-cluster" data-entries="2" style="--cluster-align: space-between;">
       <a class="link logo" href="/">Logo</a>
       <div class="as-cluster">
         <a class="link" href="/about">About</a>
@@ -25,7 +25,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
   
   <!-- Main content with sidebars -->
   <div class="as-container">
-    <main class="as-split" style="--split: 250px;">
+    <main class="as-split" style="--split-ratio: 250px;">
       <!-- Left sidebar -->
       <aside class="aside as-stack with-sticky" style="--top: 5rem;">
         <nav class="navigation as-stack" data-entries="4">
@@ -37,7 +37,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
       </aside>
       
       <!-- Main + right sidebar wrapper -->
-      <div class="as-split" data-variant="reverse" style="--split: 300px;">
+      <div class="as-split" data-variant="reverse" style="--split-ratio: 300px;">
         <!-- Content -->
         <article class="article as-stack">
           <h1 class="heading">Article Title</h1>
@@ -57,7 +57,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
   </div>
   
   <!-- Footer -->
-  <footer class="footer as-center" style="--height: 200px;">
+  <footer class="footer as-center" style="--center-height: 200px;">
     <p class="text">&copy; 2025</p>
   </footer>
 </body>
@@ -69,7 +69,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 <div class="app as-grid" style="--template: 'nav main' / 250px 1fr; height: 100vh;">
   <!-- Sidebar navigation -->
   <nav class="navigation app-nav as-stack" data-entries="2" data-variant="app" style="grid-area: nav;">
-    <div class="as-stack" style="--gap: var(--space-2-0);">
+    <div class="as-stack" style="--stack-gap: var(--space-2-0);">
       <!-- Logo -->
       <a class="link logo" href="/">
         <img class="image" src="logo.svg" alt="App">
@@ -97,7 +97,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
   
   <!-- Main content -->
   <main class="app-main as-stack" style="grid-area: main; overflow-y: auto;">
-    <header class="app-header as-cluster" style="--align: space-between;">
+    <header class="app-header as-cluster" style="--cluster-align: space-between;">
       <h1 class="heading">Dashboard</h1>
       <button class="button">New Project</button>
     </header>
@@ -139,18 +139,18 @@ CSS for split layout:
 ```css
 .as-split {
   /* 1. Define split layout tokens */
-  --split: 300px;        /* Fixed width for first element */
-  --gap: var(--space-1-0);
-  --align: start;
+  --split-ratio: 300px;        /* Fixed width for first element */
+  --split-gap: var(--space-1-0);
+  --split-align: start;
   
   /* 2. Use the tokens */
   display: flex;
-  gap: var(--gap);
-  align-items: var(--align);
+  gap: var(--split-gap);
+  align-items: var(--split-align);
   
   /* First child gets fixed width */
   > :first-child {
-    flex-basis: var(--split);
+    flex-basis: var(--split-ratio);
     flex-shrink: 0;
   }
   
@@ -183,7 +183,7 @@ CSS for split layout:
 <!-- Card with CTA -->
 <article class="card as-stack">
   <img class="image" src="feature.jpg" alt="">
-  <div class="as-stack" style="--gap: var(--space-0-75);">
+  <div class="as-stack" style="--stack-gap: var(--space-0-75);">
     <h3 class="heading">Feature Card</h3>
     <p class="text">Description of the feature that explains its value.</p>
   </div>
@@ -193,7 +193,7 @@ CSS for split layout:
 </article>
 
 <!-- Horizontal card -->
-<article class="card as-cluster" style="--gap: var(--space-1-5);">
+<article class="card as-cluster" style="--cluster-gap: var(--space-1-5);">
   <img class="image" src="thumb.jpg" alt="" style="--width: 150px;">
   <div class="as-stack">
     <h3 class="heading">Side by Side</h3>
@@ -217,7 +217,7 @@ CSS for card variants:
 ```css
 .card[data-variant="stat"] {
   /* 1. Define stat card tokens */
-  --align: center;
+  --stat-align: center;
   --text-align: center;
   
   /* 2. Apply to children */
@@ -242,7 +242,7 @@ CSS for card variants:
     <h2 class="heading">Confirm Action</h2>
     <p class="text">Are you sure you want to proceed?</p>
     
-    <div class="as-cluster" style="--align: flex-end;">
+    <div class="as-cluster" style="--cluster-align: flex-end;">
       <button class="button" value="cancel">Cancel</button>
       <button class="button" value="confirm" 
         style="--bg: var(--color-danger);">
@@ -386,7 +386,7 @@ document.querySelectorAll('[data-function="infinite-scroll"]').forEach(el => {
   </div>
   
   <!-- Navigation -->
-  <div class="as-cluster" style="--align: space-between;">
+  <div class="as-cluster" style="--cluster-align: space-between;">
     <button class="button" type="button" data-function="previous" hidden>
       Previous
     </button>
@@ -564,18 +564,18 @@ CSS with container queries:
 ```css
 .product-card {
   /* 1. Define defaults */
-  --gap: var(--space-1-0);
+  --card-gap: var(--space-1-0);
   --direction: column;
   
   /* 2. Use the tokens */
   display: flex;
   flex-direction: var(--direction);
-  gap: var(--gap);
+  gap: var(--card-gap);
   
   /* Wide container: Horizontal layout */
   @container (min-width: 500px) {
     --direction: row;
-    --gap: var(--space-1-5);
+    --card-gap: var(--space-1-5);
     
     .image {
       --width: 200px;
@@ -666,22 +666,22 @@ document.querySelector('[data-function="optimistic"]').addEventListener('submit'
 /* Different layouts based on child count */
 .as-grid {
   /* 1. Define base tokens */
-  --columns: 1;
+  --grid-columns: 1;
   
   /* 2. Adjust based on children */
   /* 2 children: two columns */
   &:has(> :nth-child(2):last-child) {
-    --columns: 2;
+    --grid-columns: 2;
   }
   
   /* 3+ children: three columns */
   &:has(> :nth-child(3)) {
-    --columns: 3;
+    --grid-columns: 3;
   }
   
   /* 5+ children: four columns */
   &:has(> :nth-child(5)) {
-    --columns: 4;
+    --grid-columns: 4;
   }
 }
 ```

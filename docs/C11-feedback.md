@@ -262,7 +262,7 @@ CSS for positioning:
   --position-top: var(--space-1-0);
   --position-right: var(--space-1-0);
   --max-width: 400px;
-  --gap: var(--space-0-5);
+  --toast-gap: var(--space-0-5);
   
   /* 2. Use the tokens */
   position: fixed;
@@ -271,7 +271,7 @@ CSS for positioning:
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: var(--gap);
+  gap: var(--toast-gap);
   max-width: var(--max-width);
 }
 
@@ -407,13 +407,13 @@ showToast('Network error, retrying...', 'error', 0); // No auto-dismiss
   /* 1. Define defaults */
   --bg: var(--color-neutral-light);
   --fill: var(--color-primary);
-  --height: 0.5rem;
+  --progress-height: 0.5rem;
   --radius: var(--radius-full);
   
   /* 2. Use the tokens */
   appearance: none;
   width: 100%;
-  height: var(--height);
+  height: var(--progress-height);
   background: var(--bg);
   border-radius: var(--radius);
   overflow: hidden;
@@ -449,10 +449,10 @@ showToast('Network error, retrying...', 'error', 0); // No auto-dismiss
 ```html
 <!-- Skeleton loading -->
 <article class="card as-stack">
-  <div class="skeleton" style="--height: 2rem; --width: 60%;"></div>
-  <div class="skeleton" style="--height: 1rem;"></div>
-  <div class="skeleton" style="--height: 1rem;"></div>
-  <div class="skeleton" style="--height: 1rem; --width: 80%;"></div>
+  <div class="skeleton" style="--skeleton-height: 2rem; --width: 60%;"></div>
+  <div class="skeleton" style="--skeleton-height: 1rem;"></div>
+  <div class="skeleton" style="--skeleton-height: 1rem;"></div>
+  <div class="skeleton" style="--skeleton-height: 1rem; --width: 80%;"></div>
 </article>
 
 <!-- Loading overlay -->
@@ -474,7 +474,7 @@ CSS for loading states:
 /* Skeleton */
 .skeleton {
   /* 1. Define defaults */
-  --height: 1rem;
+  --skeleton-height: 1rem;
   --width: 100%;
   --radius: var(--radius-sm);
   --bg-gradient: linear-gradient(
@@ -485,7 +485,7 @@ CSS for loading states:
   );
   
   /* 2. Use the tokens */
-  height: var(--height);
+  height: var(--skeleton-height);
   width: var(--width);
   background: var(--bg-gradient);
   background-size: 200% 100%;
