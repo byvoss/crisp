@@ -138,11 +138,115 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Create ARIA guidelines?  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 18. ❓ ID Usage Guidelines
+### 18. ✅ ID Usage Guidelines
 **Issue**: "IDs only for accessibility" but when required?  
 **Examples**: Rarely show IDs even when needed  
 **Decision needed**: Document required ID patterns?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
+
+### 20. ✅ CSS Layers for Framework Isolation
+**Issue**: How to ensure CRISP never conflicts with user styles?  
+**Question**: Should we use CSS @layer for isolation?  
+**Benefits**:
+- Complete isolation from user styles
+- No specificity wars
+- Clean override pattern
+- Framework coexistence
+**Decision needed**: Implement @layer strategy?  
+**Status**: ✅ DECIDED - See Decision Log
+
+### 21. ✅ Relative Color Syntax for Automatic Variations
+**Issue**: How to generate consistent color variations?  
+**Question**: Use CSS relative colors for hover/active/border states?  
+**Benefits**:
+- Automatic color harmony
+- Less tokens to maintain
+- Dynamic relationships
+- Still overrideable
+**Decision needed**: Use oklch(from var(--bg) ...) pattern?  
+**Status**: ✅ DECIDED - See Decision Log
+
+### 22. ✅ CSS :has() for Smart Components
+**Issue**: How to make components context-aware without JavaScript?  
+**Question**: Use :has() selector for dynamic styling?  
+**Benefits**:
+- Pure CSS interactivity
+- Container awareness
+- Form validation styling
+- Dynamic layouts
+**Decision needed**: Embrace :has() for CSS-only solutions?  
+**Status**: ✅ DECIDED - See Decision Log
+
+### 23. ✅ @property for Type-Safe Custom Properties
+**Issue**: How to make custom properties robust and animatable?  
+**Question**: Use @property rule for all custom properties?  
+**Benefits**:
+- Type validation
+- Smooth animations
+- Real default values
+- Inheritance control
+**Decision needed**: Implement @property for all tokens?  
+**Status**: ✅ DECIDED - See Decision Log
+
+### 24. ✅ CSS Subgrid for Advanced Layouts
+**Issue**: How to create perfectly aligned multi-level grids?  
+**Question**: Implement subgrid support with flexible column systems?  
+**Benefits**:
+- Perfect alignment across nested elements
+- Stripe-style layouts
+- No wrapper divs needed
+- Responsive by default
+**Grid systems needed**: 1/2, 1/3, 1/4, 1/6, 1/8, 1/10 with auto-gap
+**Decision needed**: Full subgrid implementation?  
+**Status**: ✅ DECIDED - See Decision Log
+
+### 25. 📝 Framework Integration Patterns
+**Issue**: How to integrate CRISP with component frameworks that force wrappers?  
+**Note**: `display: contents` can help React/Vue/etc components work with CRISP grids  
+**Category**: Integration guide, not core CRISP feature  
+**Example**:
+```jsx
+// React component that doesn't break the grid
+<div style={{ display: 'contents' }}>
+  <nav data-position="1-3">Nav</nav>
+  <main data-position="4-12">Main</main>
+</div>
+```
+**Action**: Document in integration/migration guide  
+**Status**: 📝 NOTED for documentation
+
+### 26. ✅ Native ::backdrop Instead of Wrapper Divs
+**Issue**: How to handle modal/dialog backdrops without extra DOM?  
+**Question**: Use ::backdrop pseudo-element for overlays?  
+**Benefits**:
+- No wrapper divs
+- Native browser feature
+- Automatic positioning
+- ESC key handling
+**Decision needed**: Standardize on ::backdrop?  
+**Status**: ✅ DECIDED - See Decision Log
+
+### 27. ✅ @starting-style for JavaScript-Free Animations
+**Issue**: How to animate element appearance without JavaScript?  
+**Question**: Use @starting-style for entry animations?  
+**Benefits**:
+- Pure CSS animations
+- No JavaScript needed
+- Works with display changes
+- Smooth transitions
+**Decision needed**: Implement @starting-style patterns?  
+**Status**: ✅ DECIDED - See Decision Log
+
+### 28. ✅ field-sizing: content for Auto-Growing Forms
+**Issue**: How to make form fields grow with content without JavaScript?  
+**Question**: Use field-sizing: content as progressive enhancement?  
+**Benefits**:
+- No JavaScript needed
+- Native browser behavior
+- Doesn't break in older browsers
+- Better UX
+**Decision needed**: Add as progressive enhancement?  
+**Status**: ✅ DECIDED - See Decision Log
 
 ## 📝 Decision Log
 
@@ -466,6 +570,419 @@ tests/
 - Test gradients between shades
 - Ensure consistent perceived brightness across scales
 **Action**: Convert entire color system to OKLCH
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] ID Usage Guidelines (#18)
+**Decision**: IDs are purely functional - NEVER for styling  
+**Rationale**: Clean separation of concerns - IDs for functionality, classes for components, data-variant for styling  
+**Rules**:
+1. **IDs are ONLY for**:
+   - Form label associations: `<label for="email-input">`
+   - Anchor targets: `<section class="section" id="features">`
+   - ARIA relationships: `aria-labelledby`, `aria-describedby`, `aria-controls`
+   - Skip links: `<main class="main" id="main-content">`
+2. **NEVER use IDs in CSS**: No `#header { }` selectors ever
+3. **Attribute order**: `class` ALWAYS before `id`
+   - ✅ `<section class="section" id="features" data-variant="highlight">`
+   - ❌ `<section id="features" class="section" data-variant="highlight">`
+4. **Naming**: Kebab-case, descriptive, suffix with element type when helpful
+   - Form fields: `email-input`, `password-field`
+   - Sections: `features`, `pricing`, `testimonials`
+   - ARIA: `modal-title`, `help-text-password`
+**Action**: Update all examples to show proper ID usage
+
+### ✅ [2025-01-06] CSS Layers for Framework Isolation (#20)
+**Decision**: Implement CSS @layer for complete framework isolation  
+**Rationale**: THE killer feature - users can override ANYTHING without specificity wars  
+**Implementation**:
+```css
+/* CRISP defines layer order */
+@layer crisp, overrides;
+
+/* All CRISP styles in isolated layer */
+@layer crisp {
+  @layer tokens, base, layouts, elements, properties, states, themes;
+  /* All CRISP CSS goes here */
+}
+
+/* Users have ONE clear override point */
+@layer overrides {
+  /* User styles ALWAYS win - no !important needed */
+  .button { background: hotpink; }
+}
+```
+**Benefits**:
+1. **Zero conflicts**: CRISP never breaks existing styles
+2. **No !important needed**: Layer order handles precedence
+3. **Framework friendly**: Works alongside Bootstrap, Tailwind, etc.
+4. **Migration path**: Drop CRISP into any project safely
+5. **Predictable**: CRISP always behaves the same
+**Browser Support**: All modern browsers (2022+) support @layer
+**Action**: Restructure all CSS to use @layer architecture
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] Relative Color Syntax for Automatic Variations (#21)
+**Decision**: Use CSS relative colors for automatic state variations  
+**Rationale**: Modern browsers (2023+) support it, creates elegant maintainable code  
+**Pattern**:
+```css
+.button {
+  /* Define base AND calculated variations */
+  --bg: var(--color-primary);
+  --bg-hover: oklch(from var(--bg) calc(l + 0.1) c h);
+  --bg-active: oklch(from var(--bg) calc(l - 0.1) c h);
+  --border-color: oklch(from var(--bg) calc(l - 0.15) c h);
+  
+  /* Use tokens as normal */
+  background: var(--bg);
+  border: 1px solid var(--border-color);
+}
+```
+**Benefits**:
+- Automatic color harmony across states
+- Single source of truth (base color)
+- Still fully overrideable by users
+- Less color tokens to maintain
+**Guidelines**:
+- Use for: hover, active, focus, borders, shadows
+- Always define as custom property first
+- Lightness adjustments: ±0.1 for states, -0.15 for borders
+- Keep calculations simple and predictable
+**Browser Support**: All desktop browsers since 2023
+**Philosophy**: "Modern patterns for modern browsers - legacy users shop elsewhere"
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] CSS :has() for Smart Components (#22)
+**Decision**: Maximize CSS-only interactivity with :has() selector  
+**Rationale**: CRISP is CSS-first - JavaScript only in Theme/Enterprise tiers  
+**Pattern Examples**:
+```css
+/* Form validation without JS */
+.form:has(.input:invalid:not(:placeholder-shown)) {
+  --border-color: var(--color-error);
+}
+
+/* Card adapts to content */
+.card:has(.image) {
+  --grid-template: "image content" / 1fr 2fr;
+}
+
+/* Navigation knows active state */
+.navigation:has([aria-current="page"]) {
+  --indicator-opacity: 1;
+}
+
+/* Accordion auto-closes others */
+.accordion:has(.panel:target) .panel:not(:target) {
+  --height: 0;
+}
+
+/* Grid responds to item count */
+.as-grid:has(> :nth-child(8)) {
+  --grid-columns: 4;
+}
+```
+**Use Cases**:
+1. **Form States**: Invalid fields, empty forms, completed sections
+2. **Layout Adaptation**: Content-aware layouts
+3. **Navigation**: Active states, submenu detection
+4. **Interactive Components**: Tabs, accordions, toggles
+5. **Smart Containers**: Item counting, empty states
+**Guidelines**:
+- Use for progressive enhancement
+- Always provide base styles (works without :has)
+- Keep selectors readable
+- Document the "magic" for users
+**Browser Support**: All modern browsers (2023+)
+**Philosophy**: "Maximum CSS, minimum JavaScript"
+**Battery Impact**: CSS-only = Zero JavaScript parsing, no re-renders, GPU-accelerated
+**Business Value**: 
+- Mobile apps with 30%+ better battery life
+- Perfect for WebView/PWA applications
+- Reduced server costs (less hydration)
+- Green tech: Lower carbon footprint
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] @property for Type-Safe Custom Properties (#23)
+**Decision**: Use @property for ALL custom properties - it's a game-changer!  
+**Rationale**: Type safety, animations, and real defaults make CSS robust  
+**Implementation Pattern**:
+```css
+/* Color properties */
+@property --bg {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: transparent;
+}
+
+/* Numeric properties */
+@property --columns {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 1;
+}
+
+/* Length properties */
+@property --size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1rem;
+}
+
+/* Percentage properties */
+@property --width {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+
+/* Complex properties */
+@property --shadow-blur {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0.5rem;
+}
+```
+**Benefits**:
+1. **Type Safety**: Browser validates values (no more "red" in --columns)
+2. **Smooth Animations**: Custom properties become animatable
+3. **Real Defaults**: initial-value works even without fallbacks
+4. **Better DevTools**: Browser shows property types
+5. **Performance**: Browser can optimize typed properties
+**Guidelines**:
+- Define @property BEFORE using the custom property
+- Group by type (colors, lengths, numbers)
+- Use semantic initial-values
+- Keep syntax as specific as possible
+- Document complex syntax patterns
+**Browser Support**: All modern browsers (Firefox 128+, July 2024)
+**Impact**: Makes CRISP the most robust CSS framework available
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] CSS Subgrid for Advanced Layouts (#24)
+**Decision**: Implement comprehensive subgrid system with flexible columns  
+**Rationale**: Essential for modern layouts, perfect alignment without complexity  
+**Grid Systems**:
+```css
+/* Base grid utilities */
+.as-grid-2 { grid-template-columns: repeat(2, 1fr); }
+.as-grid-3 { grid-template-columns: repeat(3, 1fr); }
+.as-grid-4 { grid-template-columns: repeat(4, 1fr); }
+.as-grid-6 { grid-template-columns: repeat(6, 1fr); }
+.as-grid-8 { grid-template-columns: repeat(8, 1fr); }
+.as-grid-10 { grid-template-columns: repeat(10, 1fr); }
+.as-grid-12 { grid-template-columns: repeat(12, 1fr); }
+
+/* Auto-gap system */
+.as-grid {
+  --grid-gap: clamp(1rem, 2vw, 2rem);
+  gap: var(--grid-gap);
+}
+
+/* Subgrid magic */
+.with-subgrid {
+  display: grid;
+  grid-template-columns: subgrid;
+  grid-column: 1 / -1; /* Span all columns */
+}
+```
+**Use Cases**:
+1. **Product Cards**: Price, title, description perfectly aligned
+2. **Feature Lists**: Icons and text in perfect columns
+3. **Form Sections**: Labels align across fieldsets
+4. **Dashboards**: Complex layouts stay organized
+5. **Stripe-style**: Marketing pages with perfect alignment
+**Pattern Example**:
+```html
+<div class="as-grid-3">
+  <article class="card with-subgrid">
+    <img class="icon" src="...">
+    <h3 class="title">Feature</h3>
+    <p class="text">Description</p>
+  </article>
+  <!-- All cards align perfectly -->
+</div>
+```
+
+**Global Grid System (Alternative Pattern)**:
+```html
+<!-- Define grid on container -->
+<body data-raster="12">
+  <header data-position="1-12">Full width header</header>
+  <nav data-position="1-3">Sidebar navigation</nav>
+  <main data-position="4-9">Main content</main>
+  <aside data-position="10-12">Widget area</aside>
+  <footer data-position="1-12">Full width footer</footer>
+</body>
+```
+```css
+/* CSS implementation */
+[data-raster] {
+  display: grid;
+  grid-template-columns: repeat(var(--columns), 1fr);
+  gap: var(--grid-gap);
+}
+[data-raster="6"] { --columns: 6; }
+[data-raster="8"] { --columns: 8; }
+[data-raster="10"] { --columns: 10; }
+[data-raster="12"] { --columns: 12; }
+
+/* Position mapping */
+[data-position="1-3"] { grid-column: 1 / 4; }
+[data-position="1-6"] { grid-column: 1 / 7; }
+[data-position="1-12"] { grid-column: 1 / 13; }
+/* Generate all needed combinations */
+```
+**Benefits**:
+- No wrapper divs
+- Automatic alignment
+- Responsive by design
+- Works with any column count
+- Global page grid without extra containers
+**Browser Support**: Firefox (2019), Safari (2022), Chrome (2023)
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] Native ::backdrop Instead of Wrapper Divs (#26)
+**Decision**: Always use ::backdrop pseudo-element for overlays  
+**Rationale**: Native browser features over custom DOM elements  
+**Implementation**:
+```css
+/* Dialog backdrop */
+dialog::backdrop {
+  background: oklch(from var(--color-neutral) l c h / 0.8);
+  backdrop-filter: blur(4px);
+}
+
+/* Fullscreen backdrop */
+.video:fullscreen::backdrop,
+.image:fullscreen::backdrop {
+  background: var(--color-black);
+}
+
+/* Popover backdrop (future) */
+[popover]::backdrop {
+  background: oklch(from var(--color-neutral) l c h / 0.5);
+}
+```
+**Benefits**:
+1. **No extra DOM**: Browser handles the backdrop
+2. **Proper stacking**: Always in correct z-index
+3. **Accessibility**: ESC key handling built-in
+4. **Performance**: No reflows from adding/removing elements
+5. **Simplicity**: Just CSS, no JavaScript needed
+**Use Cases**:
+- `<dialog>` modals
+- Fullscreen API elements
+- Future: Popover API
+**Browser Support**: All modern browsers (2022+)
+**Philosophy**: "Use the platform, not the framework"
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] @starting-style for JavaScript-Free Animations (#27)
+**Decision**: Use @starting-style for all entry animations  
+**Rationale**: Reduce JavaScript dependency, smooth native animations  
+**Implementation Pattern**:
+```css
+/* Dialog entry animation */
+dialog {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: all 0.3s ease-out;
+  
+  @starting-style {
+    opacity: 0;
+    transform: translateY(20px) scale(0.95);
+  }
+}
+
+/* Dropdown animation */
+.dropdown[open] {
+  height: auto;
+  opacity: 1;
+  transition: all 0.2s ease;
+  
+  @starting-style {
+    height: 0;
+    opacity: 0;
+  }
+}
+
+/* Toast notification */
+.toast {
+  transform: translateX(0);
+  transition: transform 0.3s ease;
+  
+  @starting-style {
+    transform: translateX(100%);
+  }
+}
+```
+**Use Cases**:
+1. **Modals/Dialogs**: Smooth fade and scale in
+2. **Dropdowns**: Height and opacity transitions
+3. **Tooltips**: Fade in from direction
+4. **Notifications**: Slide in animations
+5. **Tab panels**: Content transitions
+**Benefits**:
+- Zero JavaScript for animations
+- Works with display: none → block
+- Reduces bundle size
+- Better performance (CSS animations)
+- Accessibility-friendly (respects prefers-reduced-motion)
+**Browser Support**: Chrome 117+, Safari 17.5+, Firefox 129+ (2023/2024)
+**Philosophy**: "CSS does animations better than JavaScript"
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] field-sizing: content for Auto-Growing Forms (#28)
+**Decision**: Add field-sizing: content as progressive enhancement  
+**Rationale**: Zero-cost enhancement that improves UX when available  
+**Implementation**:
+```css
+/* Textarea that grows with content */
+.textarea {
+  /* Base styles - work everywhere */
+  min-height: 3rem;
+  max-height: 20rem;
+  resize: vertical;
+  
+  /* Progressive enhancement - ignored by old browsers */
+  field-sizing: content;
+}
+
+/* Input that adapts to content */
+.input[type="text"],
+.input[type="email"],
+.input[type="url"] {
+  /* Base styles */
+  width: 100%;
+  
+  /* Progressive enhancement */
+  field-sizing: content;
+  min-width: 20ch;
+  max-width: 50ch;
+}
+
+/* Perfect for */
+.comment-box {
+  field-sizing: content;
+  min-height: 2lh;    /* 2 lines minimum */
+  max-height: 10lh;   /* 10 lines maximum */
+}
+```
+**Benefits**:
+1. **No JavaScript**: Native auto-resize
+2. **No breakage**: Ignored by browsers that don't support it
+3. **Better UX**: Users see all their content
+4. **Performance**: No resize observers or JS calculations
+5. **Future-proof**: Add now, benefit later
+**Use Cases**:
+- Comment boxes
+- Chat inputs  
+- Address fields
+- Any dynamic content input
+**Browser Support**: Chrome 123+ (2024), Others coming
+**Philosophy**: "Progressive enhancement that costs nothing"
+**Note**: This is a true progressive enhancement - add it everywhere!
 **Status**: ⚠️ NOT IMPLEMENTED YET
 
 ### ✅ [2025-01-06] ARIA Requirements (#17)

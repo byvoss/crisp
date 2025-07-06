@@ -87,6 +87,14 @@ Track all pending tasks here. Check off when completed.
   - [ ] Update src/crisp-themes.css
   - [ ] No fallbacks - modern browsers only
 
+- [ ] Implement CSS @layer Architecture (CLARIFICATIONS #20) 🎯
+  - [ ] Restructure all CSS files to use @layer
+  - [ ] Define layer hierarchy: tokens, base, layouts, elements, properties, states, themes
+  - [ ] Wrap all CRISP styles in @layer crisp
+  - [ ] Document override pattern with @layer overrides
+  - [ ] Test with other frameworks (Bootstrap, Tailwind)
+  - [ ] Update documentation to explain layer usage
+
 ## Medium Priority
 
 - [ ] Configure TypeScript properly (CLARIFICATIONS #13)
