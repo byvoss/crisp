@@ -20,7 +20,7 @@ CRISP patterns work great with:
 - **Tailwind CSS** - Semantic classes over utilities
 - **Bootstrap** - Better component semantics  
 - **Material-UI** - Accessibility-first React components
-- **Your Framework** - [Adoption Guide](./docs/adoption-guide.md)
+- **Your Framework** - Apply CRISP principles to any framework
 
 ## Use as Framework
 

@@ -18,11 +18,11 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Update all examples to unprefixed pattern?  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 3. ❓ Missing adoption-guide.md
+### 3. ✅ Missing adoption-guide.md
 **Issue**: README links to non-existent file  
 **Location**: `README.md` line 23  
 **Decision needed**: Create guide or remove link?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ## 🟡 Important Clarifications
 
@@ -165,6 +165,12 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 - link.md: Changed `--link-*` to unprefixed (`--color`, `--weight`, etc.)
 - carousel.md: Already correct
 **Rule**: Element tokens unprefixed, only property classes have prefixes
+
+### ✅ [2025-01-06] Missing adoption-guide.md (#3)
+**Decision**: Remove broken link, keep simple text  
+**Rationale**: No need for separate adoption guide at this stage  
+**Action**: Changed link to plain text: "Apply CRISP principles to any framework"  
+**Future**: Can create guide later if demand exists
 
 ---
 
