@@ -21,8 +21,8 @@ It starts as pure CSS. It can become a framework in enterprise tier - but only i
 ```html
 <!-- This is a card -->
 <article class="card">
-  <h2 class="heading">Hello World</h2>
-  <p class="text">This is content.</p>
+  <h2>Hello World</h2>
+  <p>This is content.</p>
 </article>
 ```
 
@@ -35,13 +35,13 @@ That's it. No `.card__header`, no `.card-body-wrapper-inner`. Just `card`.
 ```html
 <!-- Stack things vertically -->
 <article class="card as-stack">
-  <h2 class="heading">Stacked Content</h2>
-  <p class="text">Everything flows downward.</p>
-  <button class="button" type="button">Click Me</button>
+  <h2>Stacked Content</h2>
+  <p>Everything flows downward.</p>
+  <button class="button">Click Me</button>
 </article>
 
 <!-- Arrange things in a grid -->
-<section class="as-grid" data-entries="3">
+<section class="as-grid">
   <article class="card">Card 1</article>
   <article class="card">Card 2</article>
   <article class="card">Card 3</article>
@@ -61,9 +61,9 @@ Remember creating 15 button variants? Watch this:
 <button class="btn btn--danger btn--medium">Danger Medium</button>
 
 <!-- CRISP way: Mix and match on demand -->
-<button class="button" type="button" style="--bg: var(--color-primary); --size: 1.25rem;">Primary Large</button>
-<button class="button" type="button" style="--bg: var(--color-neutral); --size: 0.875rem;">Secondary Small</button>
-<button class="button" type="button" style="--bg: var(--color-danger);">Danger Default</button>
+<button class="button" style="--bg: var(--color-primary); --size: large;">Primary Large</button>
+<button class="button" style="--bg: var(--color-neutral); --size: small;">Secondary Small</button>
+<button class="button" style="--bg: var(--color-danger);">Danger Default</button>
 ```
 
 ```css
@@ -77,28 +77,15 @@ Remember creating 15 button variants? Watch this:
 .btn--large { }
 /* Plus all combinations... */
 
-/* CRISP: 1 button class with @property */
-@property --bg {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: oklch(60% 0.01 250); /* neutral */
-}
-
-@property --size {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 1rem;
-}
-
+/* CRISP: 1 button class */
 .button {
-  /* Define/Use pattern */
+  /* 1. Define defaults */
+  --bg: var(--color-neutral);
+  --size: 1rem;
+  
+  /* 2. Use the tokens */
   background: var(--bg);
   font-size: var(--size);
-  
-  /* Automatic hover state with relative colors */
-  &:hover {
-    --bg: oklch(from var(--bg) calc(l + 0.1) c h);
-  }
 }
 ```
 
@@ -116,27 +103,8 @@ Now let's push this further with shadows:
 <!-- CRISP: Any shadow you can imagine -->
 <article class="card with-shadow" style="--shadow-blur: 5px;">Subtle</article>
 <article class="card with-shadow" style="--shadow-blur: 20px;">Dramatic</article>
-<article class="card with-shadow" style="--shadow-blur: 8px; --shadow-color: oklch(60% 0.15 250);">Brand colored</article>
+<article class="card with-shadow" style="--shadow-blur: 8px; --shadow-color: var(--color-primary);">Brand colored</article>
 <!-- Need a new shadow? Just change the number! -->
-```
-
-```css
-/* The with-shadow magic */
-@property --shadow-blur {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 10px;
-}
-
-@property --shadow-color {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: oklch(0% 0% 0 / 0.1);
-}
-
-.with-shadow {
-  box-shadow: 0 4px var(--shadow-blur) var(--shadow-color);
-}
 ```
 
 **The deeper "Aha!"**: BEM locks you into predefined steps. CRISP gives you infinite flexibility without touching your CSS. Designer wants 7px shadow? With BEM, that's a CSS update. With CRISP, it's just `--shadow-blur: 7px;`.
@@ -150,18 +118,12 @@ Every element follows one simple formula:
 ```html
 <!-- ✅ Perfect CRISP -->
 <article class="card as-stack with-shadow">
-  <!-- content -->
-</article>
 
 <!-- ✅ Still good -->
-<button class="button with-interaction with-shadow with-animate" type="button">
-  Click me
-</button>
+<button class="button with-interaction with-shadow with-animate">
 
 <!-- ❌ You've lost the plot -->
 <div class="card as-stack with-shadow with-border with-padding with-margin with-animate with-hover">
-  <!-- Too many properties! -->
-</div>
 ```
 
 **The "Aha!"**: Constraints create clarity. If you need more than 3 properties, you're probably creating a new component.
@@ -172,21 +134,19 @@ The same HTML works at three levels:
 
 ```html
 <!-- Level 1: CRISP (Pure CSS ~50KB) -->
-<button class="button" type="button" style="--size: 1.25rem;">
+<button class="button" style="--size: large;">
   Works perfectly
 </button>
 
 <!-- Level 2: CRISP Theme (+ Theme System ~60KB) -->
-<body data-theme="dark">
-  <button class="button" type="button" style="--size: 1.25rem;">
-    Now with dark mode
-  </button>
-</body>
+<button class="button" style="--size: large;">
+  Now with dark mode
+</button>
 
-<!-- Level 3: CRISP Enterprise (+ Web Components ~150KB) -->
-<crisp-button size="large">
-  Now with Web Components
-</crisp-button>
+<!-- Level 3: CRISP Enterprise (+ TypeScript/i18n ~150KB) -->
+<button class="button" data-component="button" style="--size: large;">
+  Now with type safety and translations
+</button>
 ```
 
 **The "Aha!"**: Your HTML structure never changes. You can start simple and enhance without refactoring.
@@ -197,38 +157,28 @@ Need different styling in different contexts? Use data-variant:
 
 ```html
 <!-- Admin area with special styling -->
-<main data-variant="admin" aria-label="Admin panel">
+<main data-variant="admin">
   <article class="card">
-    <p class="text">Automatically styled for admin variant</p>
+    Automatically styled for admin variant
   </article>
-  <button class="button" type="button">Admin actions</button>
+  <button class="button">Admin actions</button>
 </main>
 
 <!-- Danger zone with warnings -->
-<section data-variant="danger" role="alert">
+<section data-variant="danger">
   <p class="text">This action cannot be undone</p>
-  <button class="button" type="button" aria-describedby="danger-warning">
-    Delete Forever
-  </button>
+  <button class="button">Delete Forever</button>
 </section>
 ```
 
 ```css
-/* CSS @layer for perfect isolation */
-@layer crisp {
-  /* Variant-specific styling */
-  [data-variant="admin"] .card {
-    --border-color: oklch(70% 0.15 90); /* warning yellow */
-  }
+/* Variant-specific styling */
+[data-variant="admin"] .card {
+  --border-color: var(--color-warning);
+}
 
-  [data-variant="danger"] .button {
-    --bg: oklch(55% 0.22 25); /* danger red */
-    
-    /* Automatic hover state */
-    &:hover {
-      --bg: oklch(from var(--bg) calc(l - 0.1) c h);
-    }
-  }
+[data-variant="danger"] .button {
+  --bg: var(--color-danger);
 }
 ```
 
@@ -243,9 +193,9 @@ Need different styling in different contexts? Use data-variant:
   <div class="nav-inner">
     <div class="nav-list">
 
-<!-- ✅ Semantic HTML with ARIA -->
-<nav class="navigation" data-entries="5" aria-label="Main navigation">
-  <ul class="list" role="list">
+<!-- ✅ Semantic HTML -->
+<nav class="navigation" data-entries="1">
+  <ul class="list">
 ```
 
 HTML elements have meaning. Use them.
@@ -279,23 +229,22 @@ Only three prefixes, each with clear purpose:
 Modern CSS is incredible. CRISP embraces it:
 
 ```css
-/* CSS @layer for isolation */
-@layer crisp {
-  /* Container queries? Of course */
-  .card {
-    container-type: inline-size;
-  }
+/* Container queries? Of course */
+.card {
+  container-type: inline-size;
+}
 
-  /* :has() for parent selection */
-  .form:has(.input:invalid) {
-    --border-color: oklch(55% 0.22 25);
+/* Nesting? Naturally */
+.button {
+  &:hover {
+    --bg: var(--color-primary-60);
   }
+}
 
-  /* Logical properties? Obviously */
-  .card {
-    padding-inline: var(--space-1-0);
-    margin-block-end: var(--space-2-0);
-  }
+/* Logical properties? Obviously */
+.card {
+  padding-inline: var(--space-1-0);
+  margin-block-end: var(--space-2-0);
 }
 ```
 
@@ -304,25 +253,25 @@ Modern CSS is incredible. CRISP embraces it:
 Let's build a pricing card without crying:
 
 ```html
-<article class="card as-stack with-shadow" data-variant="professional" style="--bg: oklch(96% 0.05 250);">
+<article class="card as-stack with-shadow" data-plan="professional" style="--bg: var(--color-accent);">
   <header class="as-stack">
     <h2 class="heading" style="--size: 1.5rem;">Professional</h2>
-    <p class="text" style="--color: oklch(50% 0.01 250);">For growing teams</p>
+    <p class="text" style="--color: var(--color-neutral);">For growing teams</p>
   </header>
   
   <div class="as-stack" style="--stack-gap: var(--space-2-0);">
     <p class="text" style="--size: 2rem; --weight: bold;">
-      <span aria-label="99 pounds per month">£99/month</span>
+      £99/month
     </p>
     
-    <ul class="list as-stack" data-entries="3">
+    <ul class="list as-stack">
       <li>Unlimited projects</li>
       <li>Priority support</li>
       <li>Advanced analytics</li>
     </ul>
   </div>
   
-  <button class="button with-interaction" type="button" style="--bg: oklch(60% 0.15 250); --size: 1.25rem;">
+  <button class="button with-interaction" style="--bg: var(--color-primary); --size: large;">
     Start Free Trial
   </button>
 </article>
@@ -332,9 +281,7 @@ Count the concepts you had to learn: `card`, `as-stack`, `with-shadow`. That's i
 
 No utility classes. No modifier chains. No BEM hieroglyphics. Just descriptive classes and custom properties.
 
-**The "Aha!"**: Notice the `data-variant="professional"` directly on the card? No wrapper needed. Components can have both classes AND data attributes. Classes define what it is, data attributes provide context that changes how it looks. One element, multiple concerns, zero wrapper divs.
-
-**The deeper "Aha!"**: All colors are in OKLCH format. Why? Because it's 2025 and we have perceptually uniform color spaces. No more "why does this yellow look greenish?" OKLCH ensures your color adjustments actually look like you intended. The relative color functions (`calc(l + 0.1)`) give you perfect, predictable hover states without manual color picking.
+**The "Aha!"**: Notice the `data-plan="professional"` directly on the card? No wrapper needed. Components can have both classes AND data attributes. Classes define what it is, data attributes provide context that changes how it looks. One element, multiple concerns, zero wrapper divs.
 
 ## The Revelation, Revisited
 
@@ -347,23 +294,17 @@ We just spent 15 years making them complicated.
 You can start using CRISP today. Right now. In your current project:
 
 ```css
-/* Add one component with @property */
-@property --bg {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: oklch(100% 0% 0); /* white */
-}
-
-@layer crisp {
-  .card {
-    /* Define/Use pattern */
-    --padding: var(--space-1-0);
-    --radius: var(--radius-md);
-    
-    background: var(--bg);
-    padding: var(--padding);
-    border-radius: var(--radius);
-  }
+/* Add one component */
+.card {
+  /* 1. Define defaults */
+  --bg: var(--color-white);
+  --padding: var(--space-1-0);
+  --radius: var(--radius-0-5);
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  padding: var(--padding);
+  border-radius: var(--radius);
 }
 ```
 
