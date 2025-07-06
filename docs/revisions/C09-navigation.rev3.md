@@ -1,53 +1,36 @@
-# Chapter 9: Navigation - Finding Your Way
+# Chapter 9: Finding Your Way
 
-*Or: How to help users navigate without needing a GPS*
+*Or: Navigation that doesn't make users feel lost*
 
 ## The Navigation Nightmare
 
-Remember this labyrinth of classes?
+Remember building navigation like this?
 
-```css
-/* Monday: "Let's use Bootstrap's nav!" */
-.nav { }
-.navbar { }
-.navbar-nav { }
-.nav-item { }
-.nav-link { }
-.nav-link.active { }
-.navbar-expand-lg { }
-.navbar-toggler { }
-.navbar-collapse { }
-/* Plus 37 utility classes */
-
-/* Tuesday: "Actually, let's go BEM" */
+```scss
+// The old maze
 .nav { }
 .nav__list { }
 .nav__item { }
-.nav__item--active { }
 .nav__link { }
-.nav__link--current { }
+.nav__link--active { }
+.nav--horizontal { }
+.nav--vertical { }
+.nav--pills { }
+.nav--tabs { }
+.nav--breadcrumb { }
+.nav--pagination { }
+.nav--mobile { }
+.nav--desktop { }
+.nav__toggle { }
 .nav__dropdown { }
-.nav__dropdown-menu { }
-.nav__dropdown-item { }
-/* BEM hell achieved */
-
-/* Wednesday: "Material Design will save us!" */
-.mdc-navigation { }
-.mdc-navigation__list { }
-.mdc-navigation__item { }
-/* 200KB of JavaScript later... */
-
-/* Thursday: *Builds own nav system* */
-/* Friday: *Quits to become a shepherd* */
+.nav__dropdown__menu { }
+.nav__dropdown__item { }
+// And 47 media queries...
 ```
-
-**The "Aha!"**: What if navigation was just... semantic HTML with `data-entries`?
 
 ## The CRISP Way: Navigation That Makes Sense
 
-*Navigation is about wayfinding, not class-finding*
-
-One navigation class. Semantic HTML. Always include `data-entries`. Done.
+Navigation is about wayfinding. Make it obvious.
 
 ## Core Navigation
 
@@ -105,43 +88,25 @@ One navigation class. Semantic HTML. Always include `data-entries`. Done.
 ```
 
 ```css
-@layer crisp {
-  .navigation {
-    /* Type-safe properties */
-    @property --gap {
-      syntax: "<length>";
-      inherits: false;
-      initial-value: var(--space-1-0);
-    }
-    
-    @property --bg {
-      syntax: "<color>";
-      inherits: false;
-      initial-value: transparent;
-    }
-    
-    /* Use them */
-    gap: var(--gap);
-    background: var(--bg);
-    
-    /* Pro tip: data-entries helps with responsive design */
-    &[data-entries="10"] {
-      /* Maybe switch to hamburger menu? */
-    }
-  }
+.navigation {
+  /* 1. Define defaults */
+  --nav-gap: var(--space-1-0);
+  --bg: transparent;
   
-  /* Context wins */
-  [data-variant="authenticated"] .navigation {
-    --bg: oklch(95% 0.02 250);
-  }
+  /* 2. Use the tokens */
+  gap: var(--nav-gap);
+  background: var(--bg);
+}
+
+/* Context styling */
+[data-variant="authenticated"] .navigation {
+  --bg: var(--color-neutral-light);
 }
 ```
 
-**The "Aha!"**: `data-entries` isn't just semantic - it helps CSS make smart decisions!
-
 ### Breadcrumb - The Trail
 
-*Like Hansel and Gretel, but with better outcomes*
+Show users where they are:
 
 ```html
 <!-- Basic breadcrumb -->
@@ -170,8 +135,8 @@ One navigation class. Semantic HTML. Always include `data-entries`. Done.
   </ol>
 </nav>
 
-<!-- Schema.org friendly (Google loves this) -->
-<nav class="breadcrumb" data-entries="3" aria-label="Breadcrumb">
+<!-- Schema.org friendly -->
+<nav class="breadcrumb" data-entries="1" aria-label="Breadcrumb">
   <ol class="list as-cluster" itemscope itemtype="https://schema.org/BreadcrumbList">
     <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
       <a class="link" itemprop="item" href="/">
@@ -179,16 +144,7 @@ One navigation class. Semantic HTML. Always include `data-entries`. Done.
       </a>
       <meta itemprop="position" content="1">
     </li>
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <a class="link" itemprop="item" href="/products">
-        <span itemprop="name">Products</span>
-      </a>
-      <meta itemprop="position" content="2">
-    </li>
-    <li itemprop="itemListElement" itemscope itemtype="https://schema.org/ListItem">
-      <span itemprop="name">Current Product</span>
-      <meta itemprop="position" content="3">
-    </li>
+    <!-- More items... -->
   </ol>
 </nav>
 
@@ -202,8 +158,6 @@ One navigation class. Semantic HTML. Always include `data-entries`. Done.
 ```
 
 ### Pagination - Page Navigation
-
-*Because infinite scroll isn't always the answer*
 
 ```html
 <!-- Basic pagination -->
@@ -239,9 +193,9 @@ One navigation class. Semantic HTML. Always include `data-entries`. Done.
   <a class="link" href="?page=3" rel="next">Next →</a>
 </nav>
 
-<!-- Load more pattern (the lazy way) -->
+<!-- Load more pattern -->
 <nav class="pagination as-center" data-entries="1" aria-label="Load more">
-  <button class="button" type="button"
+  <button class="button with-interaction" 
     aria-label="Load more articles"
     onclick="loadMore()">
     Load More Articles
@@ -260,7 +214,7 @@ One navigation class. Semantic HTML. Always include `data-entries`. Done.
 
 ### Tabs - Content Switching
 
-*No JavaScript? No problem! Radio buttons to the rescue*
+CSS-only tabs using radio buttons:
 
 ```html
 <!-- Tab navigation -->
@@ -303,57 +257,38 @@ One navigation class. Semantic HTML. Always include `data-entries`. Done.
 </div>
 ```
 
-CSS magic (watch and learn):
+CSS magic:
 ```css
-@layer crisp {
-  /* Hide radio buttons (but keep them accessible) */
-  .tabs input[type="radio"] {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  /* Hide all panels by default */
-  .tabs .panel {
-    display: none;
-  }
-  
-  /* Show the chosen one */
-  #tab-1:checked ~ .panels .panel:nth-of-type(1),
-  #tab-2:checked ~ .panels .panel:nth-of-type(2),
-  #tab-3:checked ~ .panels .panel:nth-of-type(3) {
-    display: block;
-    animation: fadeIn 0.3s ease-in;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
+/* Hide radio buttons */
+.tabs input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
 
-  /* Tab styling (the pretty part) */
-  .tab {
-    /* Type-safe properties */
-    @property --border-color {
-      syntax: "<color>";
-      inherits: false;
-      initial-value: transparent;
-    }
-    
-    --padding: var(--space-0-75) var(--space-1-5);
-    --border-width: 2px;
-    --active-color: var(--color-primary);
-    
-    /* Apply them */
-    cursor: pointer;
-    padding: var(--padding);
-    border-bottom: var(--border-width) solid var(--border-color);
-    transition: all var(--transition-fast);
-    
-    &:hover {
-      --border-color: oklch(from var(--active-color) l c h / 0.3);
-    }
-  }
+/* Show active panel */
+.tabs .panel {
+  display: none;
+}
+
+#tab-1:checked ~ .panels .panel:nth-of-type(1),
+#tab-2:checked ~ .panels .panel:nth-of-type(2),
+#tab-3:checked ~ .panels .panel:nth-of-type(3) {
+  display: block;
+}
+
+/* Tab styling */
+.tab {
+  /* 1. Define defaults */
+  --padding: var(--space-0-75) var(--space-1-5);
+  --border-width: 2px;
+  --border-color: transparent;
+  --active-color: var(--color-primary);
+  
+  /* 2. Use the tokens */
+  cursor: pointer;
+  padding: var(--padding);
+  border-bottom: var(--border-width) solid var(--border-color);
+}
 
 /* Active tab styling */
 #tab-1:checked ~ nav .tab:nth-of-type(1),
@@ -371,14 +306,10 @@ CSS magic (watch and learn):
 
 ## Advanced Navigation Patterns
 
-*When simple navigation isn't enough to impress the CEO*
-
 ### Mega Menu
 
-*Because sometimes you need to show EVERYTHING*
-
 ```html
-<nav class="navigation" data-entries="3" aria-label="Main navigation" data-type="mega">
+<nav class="navigation" aria-label="Main navigation" data-type="mega">
   <div class="as-cluster">
     <!-- Regular links -->
     <a class="link" href="/">Home</a>
@@ -390,15 +321,15 @@ CSS magic (watch and learn):
       </button>
       
       <div class="dropdown-menu as-grid" id="products-menu" hidden
-        style="--grid-columns: 3; --grid-gap: var(--space-2-0);" data-entries="3">
-        <section class="as-stack" data-entries="4">
+        style="--grid-columns: 3; --grid-gap: var(--space-2-0);">
+        <section class="as-stack">
           <h3 class="heading">Hardware</h3>
           <a class="link" href="/laptops">Laptops</a>
           <a class="link" href="/desktops">Desktops</a>
           <a class="link" href="/accessories">Accessories</a>
         </section>
         
-        <section class="as-stack" data-entries="4">
+        <section class="as-stack">
           <h3 class="heading">Software</h3>
           <a class="link" href="/os">Operating Systems</a>
           <a class="link" href="/apps">Applications</a>
@@ -420,48 +351,26 @@ CSS magic (watch and learn):
 ```
 
 ```css
-@layer crisp {
-  .dropdown-menu {
-    /* Type-safe all the things */
-    @property --bg {
-      syntax: "<color>";
-      inherits: false;
-      initial-value: var(--color-background);
-    }
-    
-    --shadow: var(--shadow-elevated);
-    --padding: var(--space-2-0);
-    
-    /* Make it float */
-    position: absolute;
-    background: var(--bg);
-    box-shadow: var(--shadow);
-    padding: var(--padding);
-    z-index: 100;
-    
-    /* Smooth entry */
-    opacity: 0;
-    transform: translateY(-10px);
-    transition: all 0.2s ease-out;
-    
-    &:not([hidden]) {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
+.dropdown-menu {
+  /* 1. Define defaults */
+  --bg: var(--color-background);
+  --shadow: var(--shadow-elevated);
+  --padding: var(--space-2-0);
   
-  /* Featured section (because marketing) */
-  [data-featured="true"] {
-    --bg: oklch(95% 0.05 50); /* Subtle gold */
-  }
+  /* 2. Use the tokens */
+  position: absolute;
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  padding: var(--padding);
+  z-index: 100;
+}
+
+[data-featured="true"] {
+  --bg: var(--color-accent-light);
 }
 ```
 
-**The "Aha!"**: Mega menus don't need mega JavaScript. Just semantic HTML and CSS.
-
 ### Mobile Navigation
-
-*The hamburger icon: Not just for restaurants anymore*
 
 ```html
 <!-- Mobile nav toggle -->
@@ -473,12 +382,11 @@ CSS magic (watch and learn):
   <span class="hamburger"></span>
 </button>
 
-<!-- Mobile navigation (the slide-in kind) -->
+<!-- Mobile navigation -->
 <nav class="navigation mobile-nav as-stack" 
   id="mobile-nav"
-  data-entries="4"
   aria-label="Mobile navigation"
-  data-state="closed"
+  data-variant="closed"
   hidden>
   <a class="link" href="/">Home</a>
   <a class="link" href="/about">About</a>
@@ -487,95 +395,43 @@ CSS magic (watch and learn):
 </nav>
 ```
 
-CSS for mobile (responsive without tears):
+CSS for mobile:
 ```css
-@layer crisp {
-  /* Hide desktop nav on mobile */
-  @media (max-width: 768px) {
-    .navigation:not(.mobile-nav) {
-      display: none;
-    }
+@media (max-width: 768px) {
+  .navigation:not(.mobile-nav) {
+    display: none;
   }
   
   .mobile-nav {
-    /* Type-safe mobile menu */
-    @property --bg {
-      syntax: "<color>";
-      inherits: false;
-      initial-value: var(--color-background);
-    }
-    
+    /* 1. Define defaults */
+    --bg: var(--color-background);
     --padding: var(--space-2-0);
     
-    /* Full screen takeover */
+    /* 2. Use the tokens */
     position: fixed;
     inset: 0;
     background: var(--bg);
     padding: var(--padding);
     z-index: 100;
-    
-    /* Slide in from the right */
-    transform: translateX(100%);
-    transition: transform 0.3s ease-out;
-    
-    &[data-state="open"] {
-      transform: translateX(0);
-    }
   }
   
-  /* Hamburger animation (because why not) */
-  .hamburger {
-    display: block;
-    width: 24px;
-    height: 2px;
-    background: currentColor;
-    position: relative;
-    transition: all 0.3s ease;
-    
-    &::before,
-    &::after {
-      content: '';
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      background: currentColor;
-      transition: all 0.3s ease;
-    }
-    
-    &::before { top: -8px; }
-    &::after { top: 8px; }
-    
-    /* X marks the spot */
-    [aria-expanded="true"] & {
-      background: transparent;
-      
-      &::before {
-        top: 0;
-        transform: rotate(45deg);
-      }
-      
-      &::after {
-        top: 0;
-        transform: rotate(-45deg);
-      }
-    }
+  .mobile-nav[data-variant="closed"] {
+    display: none;
   }
 }
 ```
 
 ### Sticky Navigation
 
-*Like a loyal dog, but for headers*
-
 ```html
 <header class="header with-sticky" style="--top: 0;">
-  <nav class="navigation as-container" data-entries="2" aria-label="Main navigation">
-    <div class="as-cluster" style="--cluster-align: space-between;" data-entries="2">
+  <nav class="navigation as-container">
+    <div class="as-cluster" style="--cluster-align: space-between;">
       <a class="link logo" href="/">
-        <img class="image" src="logo.svg" alt="CRISP Company">
+        <img class="image" src="logo.svg" alt="Company">
       </a>
       
-      <div class="as-cluster" data-entries="3">
+      <div class="as-cluster">
         <a class="link" href="/about">About</a>
         <a class="link" href="/services">Services</a>
         <a class="link" href="/contact">Contact</a>
@@ -604,72 +460,53 @@ CSS:
 
 ## Navigation States
 
-*Because navigation needs emotions too*
-
 ### Current Page
 
-*"You are here" - The most important words in navigation*
-
 ```html
-<!-- Using aria-current (semantic and accessible) -->
-<nav class="navigation" data-entries="3" aria-label="Main navigation">
+<!-- Using aria-current -->
+<nav class="navigation">
   <a class="link" href="/">Home</a>
   <a class="link" href="/about" aria-current="page">About</a>
   <a class="link" href="/contact">Contact</a>
 </nav>
 
-<!-- Pills variant (for that Web 2.0 nostalgia) -->
-<nav class="navigation" data-variant="pills" data-entries="3" aria-label="Main navigation">
+<!-- With data attribute for variant context -->
+<nav class="navigation" data-variant="pills">
   <a class="link" href="/">Home</a>
   <a class="link" href="/about" aria-current="page">About</a>
   <a class="link" href="/contact">Contact</a>
 </nav>
 ```
 
-CSS (making current states obvious):
+CSS:
 ```css
-@layer crisp {
-  .link[aria-current="page"] {
-    /* Type-safe current state */
-    @property --color {
-      syntax: "<color>";
-      inherits: false;
-      initial-value: var(--color-primary);
-    }
-    
-    --weight: var(--text-weight-semibold);
-    --decoration: underline;
-    --underline-offset: 0.25em;
-    
-    /* Apply the current state */
-    color: var(--color);
-    font-weight: var(--weight);
-    text-decoration: var(--decoration);
-    text-underline-offset: var(--underline-offset);
-  }
+.link[aria-current="page"] {
+  /* 1. Define defaults */
+  --color: var(--color-primary);
+  --weight: var(--text-weight-semibold);
+  --decoration: underline;
+  --underline-offset: 0.25em;
+  
+  /* 2. Use the tokens */
+  color: var(--color);
+  font-weight: var(--weight);
+  text-decoration: var(--decoration);
+  text-underline-offset: var(--underline-offset);
+}
 
-  /* Pills variant (rounded and proud) */
-  [data-variant="pills"] .link[aria-current="page"] {
-    --bg: var(--color-primary);
-    --color: var(--color-on-primary);
-    --padding: var(--space-0-5) var(--space-1-0);
-    --decoration: none; /* No underline needed */
-    
-    background: var(--bg);
-    padding: var(--padding);
-    border-radius: var(--radius-full);
-    
-    /* Subtle shadow for depth */
-    box-shadow: 0 2px 4px oklch(from var(--bg) l c h / 0.2);
-  }
+/* Variant-specific current styles */
+[data-variant="pills"] .link[aria-current="page"] {
+  --bg: var(--color-primary);
+  --color: white;
+  --padding: var(--space-0-5) var(--space-1-0);
+  
+  background: var(--bg);
+  padding: var(--padding);
+  border-radius: var(--radius-full);
 }
 ```
 
-**The "Aha!"**: `aria-current` isn't just for screen readers. It's a styling hook too!
-
 ### Active States
-
-*When navigation elements need to show they're working*
 
 ```html
 <!-- Dropdown expanded -->
@@ -683,29 +520,23 @@ CSS (making current states obvious):
 </button>
 
 <!-- Navigation expanded -->
-<nav class="navigation" data-state="expanded" data-entries="5" aria-label="Expanded menu">
+<nav class="navigation" data-variant="expanded">
   <!-- Navigation items -->
 </nav>
 ```
 
 ## Accessible Navigation Tips
 
-*Because everyone deserves to find their way*
-
 ### 1. Always Label Navigation
 ```html
-<!-- ❌ Unlabelled (screen readers cry) -->
-<nav class="navigation" data-entries="3">
-  <!-- Mystery navigation -->
-</nav>
+<!-- ❌ Unlabelled -->
+<nav class="navigation" data-entries="0">
 
-<!-- ✅ Labelled (screen readers rejoice) -->
-<nav class="navigation" data-entries="3" aria-label="Main navigation">
-<nav class="navigation" data-entries="5" aria-label="Footer links">
-<nav class="navigation" data-entries="4" aria-label="Social media">
+<!-- ✅ Labelled -->
+<nav aria-label="Main navigation">
+<nav aria-label="Breadcrumb">
+<nav aria-label="Social links">
 ```
-
-**Pro tip**: Be specific! "Navigation" alone is like labeling a door "Door".
 
 ### 2. Mark Current Location
 ```html
@@ -719,50 +550,43 @@ CSS (making current states obvious):
 <a class="link" href="/step-2" aria-current="step">Step 2</a>
 ```
 
-### 3. Use Semantic Structure
+### 3. Use Semantic Lists
 ```html
-<!-- ❌ DIV soup (semantic sadness) -->
-<nav data-entries="2" aria-label="Main navigation">
+<!-- ❌ Divs -->
+<nav>
   <div><a href="/">Home</a></div>
   <div><a href="/about">About</a></div>
 </nav>
 
-<!-- ✅ Lists for many items (screen readers count them!) -->
-<nav data-entries="5" aria-label="Main navigation">
+<!-- ✅ Lists for multiple items -->
+<nav>
   <ul class="list as-cluster">
     <li><a class="link" href="/">Home</a></li>
     <li><a class="link" href="/about">About</a></li>
-    <li><a class="link" href="/services">Services</a></li>
-    <li><a class="link" href="/blog">Blog</a></li>
-    <li><a class="link" href="/contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- ✅ Direct links for few items (keep it simple) -->
-<nav class="navigation as-cluster" data-entries="3" aria-label="User menu">
-  <a class="link" href="/profile">Profile</a>
-  <a class="link" href="/settings">Settings</a>
-  <a class="link" href="/logout">Logout</a>
+<!-- ✅ Direct links for few items -->
+<nav class="as-cluster">
+  <a class="link" href="/">Home</a>
+  <a class="link" href="/about">About</a>
 </nav>
 ```
 
 ### 4. Keyboard Navigation
-
-*Because not everyone has a mouse (shocking, I know)*
 ```javascript
-// Minimal JavaScript for maximum accessibility
+// Ensure keyboard access
 document.querySelectorAll('.dropdown').forEach(dropdown => {
   const button = dropdown.querySelector('button');
   const menu = dropdown.querySelector('.dropdown-menu');
   
-  // Toggle on click/Enter/Space
   button.addEventListener('click', () => {
     const expanded = button.getAttribute('aria-expanded') === 'true';
     button.setAttribute('aria-expanded', !expanded);
     menu.hidden = expanded;
   });
   
-  // Close on Escape (the universal "nope" key)
+  // Close on Escape
   dropdown.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
       button.setAttribute('aria-expanded', 'false');
@@ -770,35 +594,21 @@ document.querySelectorAll('.dropdown').forEach(dropdown => {
       button.focus();
     }
   });
-  
-  // Close when clicking outside (because users)
-  document.addEventListener('click', (e) => {
-    if (!dropdown.contains(e.target)) {
-      button.setAttribute('aria-expanded', 'false');
-      menu.hidden = true;
-    }
-  });
 });
 ```
 
-**The "Aha!"**: Good keyboard navigation is just good UX. Everyone benefits.
+## The Navigation Liberation
 
-## The Navigation Manifesto
+With CRISP navigation:
+- Semantic HTML that search engines love
+- Accessible by default
+- No framework-specific markup
+- Works without JavaScript
+- Responsive without media query hell
+- Variants via data attributes, not modifier classes
 
-1. **Always use `data-entries`** - It's not optional, it's essential
-2. **Semantic HTML** - `<nav>` with proper ARIA labels
-3. **One navigation class** - Not 47 variants
-4. **Current states via ARIA** - `aria-current="page"` not `.active`
-5. **Context via data attributes** - `data-variant="pills"` not `.nav-pills`
-6. **Keyboard accessible** - Tab, Enter, Escape should just work
-7. **CSS-only when possible** - Tabs without JavaScript? Yes!
+Your users can find their way. Your code stays maintainable. Everyone wins.
 
-**The Ultimate "Aha!"**: Navigation isn't about clever class names or JavaScript gymnastics. It's about helping users find their way with semantic HTML and smart CSS.
-
-Your navigation is predictable. Your users don't get lost. Your code doesn't need a map.
-
-And when the PM asks for "premium authenticated navigation with hover effects and a subtle glow"? You add `data-variant="premium" data-state="authenticated"` and write 5 lines of CSS. Not 50. Not 500. Just 5.
-
-Welcome to navigation that actually navigates.
+And when the designer asks for "authenticated user navigation with a premium feel"? You don't create `.nav--authenticated-premium`. You add `data-variant="authenticated" data-tier="premium"` and style once. That's the power of semantic variants.
 
 → Continue to [Chapter 10: Forms That Users Actually Complete](./C10-forms.md)

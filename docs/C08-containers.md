@@ -233,7 +233,6 @@ CSS that powers it all:
 </div>
 
 <!-- ✅ Container + Layout in harmony -->
-
 <article class="card as-stack">
   <h2>Title</h2>
   <p>Content</p>
