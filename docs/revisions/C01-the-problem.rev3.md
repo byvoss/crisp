@@ -125,8 +125,6 @@ The newest kid on the block threw semantics out the window entirely:
 </div>
 ```
 
-**The "Aha!":** Quick quiz - is this a nav, header, or toolbar? Without reading the 32 utility classes, you'll never know. Also, good luck finding this component when debugging. "Just search for sticky top-0 z-50" said no one ever. Oh, and where's the `<nav>` element? The `aria-label`? Semantic HTML died so we could write inline styles with extra steps.
-
 "Find the navbar" is now a game of Where's Waldo in your codebase. Your components are indistinguishable walls of utilities. But hey, at least you never have to write CSS again! (You're just writing it inline with extra steps.)
 
 ## In Defence of Good Intentions
@@ -162,8 +160,6 @@ It's a delivery mechanism for CSS classes. The actual content? Buried under an a
 <button style="background: blue !important">
 ```
 
-**The "Aha!":** CSS @layer (available since 2022) solved this forever, but most developers are still fighting 2010's wars with !important. CRISP embraces @layer from day one – your overrides always win, no specificity gymnastics required.
-
 ### 3. **The Refactoring Nightmare**
 Need to change a component? Hope you enjoy:
 - Finding all 47 variations across your codebase
@@ -188,18 +184,6 @@ They focus on "How do we organize our CSS?" when they should ask "How do we writ
 They create naming conventions instead of using the web platform's built-in semantics.
 
 They build abstraction layers over HTML/CSS instead of embracing what these technologies do brilliantly.
-
-### The Platform Already Solved This
-
-While we were inventing BEM, browsers gave us:
-- **Custom Properties** (2017) - Goodbye modifier classes
-- **CSS Grid** (2017) - Goodbye layout frameworks  
-- **:has() selector** (2023) - Goodbye JavaScript for UI state
-- **@layer** (2022) - Goodbye specificity wars
-- **OKLCH colours** (2023) - Goodbye colour math libraries
-- **Container Queries** (2023) - Goodbye JavaScript breakpoints
-
-But we're still writing CSS like it's 2010. It's like using a smartphone to hammer nails – technically possible, deeply wrong.
 
 The bitter truth? We've spent two decades overengineering solutions to problems that didn't exist until we created them. We built cathedrals of complexity to avoid writing simple CSS. And now we're drowning in our own cleverness.
 
@@ -233,8 +217,6 @@ What if we wrote CSS that reads like English, HTML that's actually semantic, and
 </article>
 ```
 
-**The "Aha!":** Notice something? Readable HTML. Clear intent. Zero mental gymnastics. Your junior developer just understood the entire component structure in 3 seconds. Try that with utility classes.
-
 Underwhelmed? Perfect. The best solutions always look obvious in hindsight. But watch how this simplicity scales without spawning a single modifier class:
 
 Want to customise it? Use CSS custom properties - you know, that feature that's been in browsers since 2017:
@@ -246,35 +228,17 @@ Want to customise it? Use CSS custom properties - you know, that feature that's 
 </article>
 ```
 
-```css
-/* Behind the scenes: Modern CSS at work */
-.with-shadow {
-  /* Define with @property for type safety (2023+) */
-  @property --shadow-blur {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: 10px;
-  }
-  
-  /* OKLCH colours for perceptual uniformity */
-  --shadow-color: oklch(0% 0% 0 / 0.1);
-  box-shadow: 0 4px var(--shadow-blur) var(--shadow-color);
-}
-```
-
 Need variants? Use data attributes, not CSS classes:
 
 ```html
 <!-- No .danger-zone .warning-context .theme-dark nonsense -->
-<section data-variant="checkout" aria-label="Checkout section">
+<section data-variant="checkout">
   <article class="card">
     <p class="text">Context without class pollution</p>
-    <button class="button" type="button">Inherits checkout styling</button>
+    <button class="button">Inherits checkout styling</button>
   </article>
 </section>
 ```
-
-**The "Aha!":** data-variant for visual variations, ARIA for states and accessibility. No more `class="button button-pressed button-active"`. Just `<button aria-pressed="true">`. The platform already solved this – we just ignored it for 15 years.
 
 ## The Relief
 
