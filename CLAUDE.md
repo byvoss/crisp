@@ -25,6 +25,15 @@ Every element follows: **1 component + 1 layout + max 3 properties**
 <article class="card as-stack with-shadow">
 ```
 
+**Important**: Data attributes do NOT count toward this limit. They are data carriers for logic, not layout controls.
+```html
+<!-- ✅ Correct: Classes follow 1+1+3, unlimited data attributes -->
+<article class="card as-stack with-shadow with-border" 
+  data-variant="featured"
+  data-entries="5"
+  data-level="2">
+```
+
 #### 2. Class Prefixes
 - **No prefix**: Components (`card`, `button`, `navigation`)
 - **`as-`**: Layout modes (`as-stack`, `as-grid`, `as-center`)

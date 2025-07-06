@@ -34,11 +34,11 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Create clear usage matrix  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 5. ❓ The "1+1+3" Rule Clarification
+### 5. ✅ The "1+1+3" Rule Clarification
 **Issue**: Do data attributes count toward the class limit?  
 **Examples**: Some show many data attributes  
 **Decision needed**: Clarify that data attributes don't count?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 6. ❓ Progressive Enhancement Details
 **Issue**: What exactly changes between tiers?  
@@ -181,6 +181,23 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 - Keep `data-variant` as is (primary, compact, horizontal, etc.)
 - Keep separate: `data-theme` (color schemes), semantic info, JS hooks
 **Action**: Update CLAUDE.md Rule 9 to reflect this simplification
+
+### ✅ [2025-01-06] The "1+1+3" Rule and Data Attributes (#5)
+**Decision**: Data attributes do NOT count toward the class limit  
+**Rationale**:  
+- Data attributes are data carriers for logic (if statements, functions)
+- Classes are pure layout control elements
+- The rule applies only to CSS classes, not HTML attributes
+**Clarification**: You can have multiple data attributes alongside the 1+1+3 classes
+**Example**:
+```html
+<!-- ✅ Correct: 1 component + 1 layout + 2 properties + unlimited data -->
+<article class="card as-stack with-shadow with-border" 
+  data-variant="featured"
+  data-entries="5"
+  data-level="2"
+  data-id="post-123">
+```
 
 ---
 
