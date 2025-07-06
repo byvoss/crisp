@@ -67,7 +67,7 @@ Start with semantic HTML:
 </form>
 
 <!-- Context-aware form -->
-<form class="form as-stack" data-context="checkout">
+<form class="form as-stack" data-variant="checkout">
   <input class="input" type="text" name="card" placeholder="Card number">
   <button class="button" type="submit">Complete Purchase</button>
 </form>
@@ -158,7 +158,7 @@ Use fieldsets for related inputs:
 ### Multi-Step Form
 
 ```html
-<form class="form as-stack" data-state="step-1">
+<form class="form as-stack" data-variant="step-1">
   <!-- Progress indicator -->
   <nav class="progress as-cluster" aria-label="Form progress">
     <span class="step" aria-current="step">1. Account</span>
@@ -273,7 +273,7 @@ Use fieldsets for related inputs:
       required 
       pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
       aria-describedby="email-error"
-      data-state="invalid">
+      data-variant="invalid">
     <small class="error" id="email-error" hidden>
       Please enter a valid email address
     </small>
@@ -310,7 +310,7 @@ Use fieldsets for related inputs:
   --border-color: var(--color-danger);
 }
 
-.input[data-state="invalid"] {
+.input[data-variant="invalid"] {
   --border-color: var(--color-danger);
 }
 
@@ -319,7 +319,7 @@ Use fieldsets for related inputs:
   --border-color: var(--color-success);
 }
 
-.input[data-state="valid"] {
+.input[data-variant="valid"] {
   --border-color: var(--color-success);
 }
 
@@ -335,7 +335,7 @@ Use fieldsets for related inputs:
 }
 
 /* Loading state */
-.form[data-state="loading"] .button[type="submit"] {
+.form[data-variant="loading"] .button[type="submit"] {
   opacity: 0.6;
   cursor: wait;
 }
@@ -345,7 +345,7 @@ Use fieldsets for related inputs:
   /* 1. Define defaults */
   --bg: var(--color-neutral-light);
   --fill: var(--color-primary);
-  --height: 0.5rem;
+  --meter-height: 0.5rem;
   
   /* 2. Use the tokens */
   background: var(--bg);
@@ -376,12 +376,12 @@ document.querySelectorAll('.input').forEach(input => {
         error.textContent = input.validationMessage;
       }
       input.setAttribute('aria-invalid', 'true');
-      input.setAttribute('data-state', 'invalid');
+      input.setAttribute('data-variant', 'invalid');
     } else {
       const error = input.parentElement.querySelector('.error');
       if (error) error.hidden = true;
       input.setAttribute('aria-invalid', 'false');
-      input.setAttribute('data-state', 'valid');
+      input.setAttribute('data-variant', 'valid');
     }
   });
 });
@@ -427,7 +427,7 @@ document.getElementById('password').addEventListener('input', (e) => {
   <input class="input" id="email" type="email" 
     aria-invalid="true"
     aria-describedby="email-error email-hint"
-    data-state="invalid">
+    data-variant="invalid">
   <small class="helper" id="email-hint">We'll never share your email</small>
   <small class="error" id="email-error">Email is required</small>
 </div>
@@ -454,7 +454,7 @@ document.getElementById('password').addEventListener('input', (e) => {
 ### Checkout Forms
 
 ```html
-<form class="form as-stack" data-context="checkout">
+<form class="form as-stack" data-variant="checkout">
   <h2 class="heading">Secure Checkout</h2>
   
   <fieldset class="fieldset as-stack" data-variant="payment">
@@ -467,7 +467,7 @@ document.getElementById('password').addEventListener('input', (e) => {
 ### Admin Forms
 
 ```html
-<form class="form as-stack" data-context="admin">
+<form class="form as-stack" data-variant="admin">
   <h2 class="heading">Admin Settings</h2>
   <!-- Form fields get admin-specific styling -->
 </form>
@@ -475,17 +475,17 @@ document.getElementById('password').addEventListener('input', (e) => {
 
 ```css
 /* Context styling */
-[data-context="checkout"] {
+[data-variant="checkout"] {
   --bg: var(--color-neutral-light);
   --padding: var(--space-2-0);
 }
 
-[data-context="checkout"] .button[type="submit"] {
+[data-variant="checkout"] .button[type="submit"] {
   --bg: var(--color-success);
   --size: var(--text-size-lg);
 }
 
-[data-context="admin"] .input {
+[data-variant="admin"] .input {
   --border-color: var(--color-warning);
 }
 ```
@@ -504,7 +504,7 @@ document.getElementById('password').addEventListener('input', (e) => {
 // Enhance with JavaScript if available
 document.querySelector('.form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  e.target.setAttribute('data-state', 'loading');
+  e.target.setAttribute('data-variant', 'loading');
   // AJAX submission
 });
 </script>
@@ -554,10 +554,10 @@ With CRISP forms:
 - Accessible by default
 - Mobile-friendly automatically
 - No framework dependencies
-- Context via data attributes, not classes
+- Variants via data attributes, not classes
 
 Your users complete forms. Your conversion rates improve. Everyone's happy.
 
-And when the PM asks for "checkout forms that feel more secure"? You don't create `.form--checkout-secure`. You add `data-context="checkout"` and style once. That's the power of semantic context.
+And when the PM asks for "checkout forms that feel more secure"? You don't create `.form--checkout-secure`. You add `data-variant="checkout"` and style once. That's the power of semantic variants.
 
 → Continue to [Chapter 11: Talking Back to Users](./C11-feedback.md)
