@@ -413,11 +413,41 @@ document.getElementById('modal').showModal();
 <!-- Level 2: CRISP Theme (+ themes) -->
 <button class="button">Works + themes</button>
 
-<!-- Level 3: CRISP Enterprise (+ TypeScript) -->
+<!-- Level 3: CRISP Enterprise (+ Web Components) -->
 <button class="button" data-function="submit">
   Works + themes + TypeScript
 </button>
 ```
+
+### Enterprise Web Components (Free!)
+
+```html
+<!-- Use pre-built Web Component -->
+<crisp-search-box placeholder="Search products...">
+  <!-- Generates this CRISP HTML automatically: -->
+  <div class="search as-cluster">
+    <input class="input" type="search" placeholder="Search products...">
+    <button class="button" data-variant="primary">
+      <span class="icon">🔍</span>
+    </button>
+  </div>
+</crisp-search-box>
+
+<!-- Simple product card component -->
+<crisp-product-card 
+  name="CRISP Framework"
+  price="0.00"
+  currency="EUR">
+  <!-- Generates this CRISP HTML: -->
+  <article class="card as-stack" data-variant="product">
+    <h3 class="heading">CRISP Framework</h3>
+    <p class="price">€ 0,00</p>
+    <button class="button" data-variant="primary">Get it free</button>
+  </article>
+</crisp-product-card>
+```
+
+**Remember**: Web Components are just containers - they output 100% CRISP HTML!
 
 ## Define/Use Pattern
 

@@ -817,4 +817,45 @@ Use data attributes for variants:
 - `data-variant="checkout"` - Checkout flow
 - `data-variant="authenticated"` - Logged-in users
 
+## Enterprise Web Components
+
+**Available in Tier 3 (Free!)** - Web Components that generate CRISP HTML:
+
+### Pattern Generators
+```html
+<!-- Search with auto-complete -->
+<crisp-search-box 
+  placeholder="Search..."
+  api="/api/search"
+  min-chars="2">
+  <!-- Generates complete CRISP search pattern -->
+</crisp-search-box>
+
+<!-- Product display -->
+<crisp-product-card
+  name="Product Name"
+  price="99.99"
+  currency="USD"
+  image="/path/to/image.jpg">
+  <!-- Generates formatted CRISP product card -->
+</crisp-product-card>
+
+<!-- Data table with sorting -->
+<crisp-data-table
+  source="/api/data"
+  sortable="true"
+  paginate="10">
+  <!-- Generates responsive CRISP table -->
+</crisp-data-table>
+```
+
+### Key Concept
+Web Components are **containers only** - they:
+- Accept typed attributes
+- Handle business logic
+- Generate 100% pure CRISP HTML
+- Save typing, not philosophy
+
+The output is always standard CRISP components that work in all tiers!
+
 → Continue to [Chapter 16: CRISP Cheatsheet](./C16-cheatsheet.md)
