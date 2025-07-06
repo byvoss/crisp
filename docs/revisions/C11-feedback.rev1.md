@@ -67,7 +67,7 @@ Feedback should be helpful, not intrusive. Inform, don't interrupt.
 </aside>
 
 <!-- Context-aware alert -->
-<aside class="alert" role="alert" data-context="admin" data-variant="info">
+<aside class="alert" role="alert" data-variant="admin info">
   <strong>Admin Notice:</strong> System maintenance scheduled for tonight.
 </aside>
 ```
@@ -106,7 +106,7 @@ CSS for alerts:
 }
 
 /* Context modifications */
-[data-context="admin"] .alert {
+[data-variant="admin"] .alert {
   --border-color: var(--color-admin);
   --bg: var(--color-admin-light);
 }
@@ -142,7 +142,7 @@ CSS for alerts:
 </nav>
 
 <!-- Context-aware badges -->
-<span class="badge" data-context="premium">PRO</span>
+<span class="badge" data-variant="premium">PRO</span>
 ```
 
 ```css
@@ -170,7 +170,7 @@ CSS for alerts:
 [data-variant="warning"] { --bg: var(--color-warning); }
 [data-variant="error"] { --bg: var(--color-danger); }
 
-[data-context="premium"] {
+[data-variant="premium"] {
   --bg: var(--color-gold);
   --color: var(--color-neutral-dark);
 }
@@ -206,7 +206,7 @@ CSS for alerts:
 </span>
 
 <!-- Context tags -->
-<span class="tag" data-context="premium">Premium</span>
+<span class="tag" data-variant="premium">Premium</span>
 <span class="tag" data-variant="primary">Important</span>
 ```
 
@@ -250,7 +250,7 @@ CSS for alerts:
 </template>
 
 <!-- Context-aware toasts -->
-<div class="toasts" data-context="admin">
+<div class="toasts" data-variant="admin">
   <!-- Admin-styled toasts appear here -->
 </div>
 ```
@@ -262,7 +262,7 @@ CSS for positioning:
   --position-top: var(--space-1-0);
   --position-right: var(--space-1-0);
   --max-width: 400px;
-  --gap: var(--space-0-5);
+  --toast-gap: var(--space-0-5);
   
   /* 2. Use the tokens */
   position: fixed;
@@ -271,7 +271,7 @@ CSS for positioning:
   z-index: 1000;
   display: flex;
   flex-direction: column;
-  gap: var(--gap);
+  gap: var(--toast-gap);
   max-width: var(--max-width);
 }
 
@@ -308,7 +308,7 @@ CSS for positioning:
   }
 }
 
-.toast[data-state="removing"] {
+.toast[data-variant="removing"] {
   animation: slide-out 250ms ease-in forwards;
 }
 
@@ -354,7 +354,7 @@ function showToast(message, variant = 'info', duration = 5000) {
 }
 
 function removeToast(toast) {
-  toast.setAttribute('data-state', 'removing');
+  toast.setAttribute('data-variant', 'removing');
   toast.addEventListener('animationend', () => toast.remove());
 }
 
@@ -384,7 +384,7 @@ showToast('Network error, retrying...', 'error', 0); // No auto-dismiss
 <progress class="progress">Loading...</progress>
 
 <!-- Context-aware progress -->
-<progress class="progress" value="50" max="100" data-context="danger">
+<progress class="progress" value="50" max="100" data-variant="danger">
   Critical operation in progress
 </progress>
 
@@ -395,9 +395,9 @@ showToast('Network error, retrying...', 'error', 0); // No auto-dismiss
 
 <!-- Step progress -->
 <div class="progress-steps as-cluster" role="progressbar" aria-valuenow="2" aria-valuemin="1" aria-valuemax="4">
-  <span class="step" data-state="completed">1</span>
-  <span class="step" data-state="completed">2</span>
-  <span class="step" data-state="current">3</span>
+  <span class="step" data-variant="completed">1</span>
+  <span class="step" data-variant="completed">2</span>
+  <span class="step" data-variant="current">3</span>
   <span class="step">4</span>
 </div>
 ```
@@ -428,17 +428,17 @@ showToast('Network error, retrying...', 'error', 0); // No auto-dismiss
 }
 
 /* Context modifications */
-[data-context="danger"] {
+[data-variant="danger"] {
   --fill: var(--color-danger);
 }
 
 /* Step states */
-.step[data-state="completed"] {
+.step[data-variant="completed"] {
   --bg: var(--color-success);
   --color: white;
 }
 
-.step[data-state="current"] {
+.step[data-variant="current"] {
   --bg: var(--color-primary);
   --color: white;
 }
@@ -456,14 +456,14 @@ showToast('Network error, retrying...', 'error', 0); // No auto-dismiss
 </article>
 
 <!-- Loading overlay -->
-<div class="loading-overlay as-center" data-state="active">
+<div class="loading-overlay as-center" data-variant="active">
   <div class="spinner" role="status" aria-label="Loading">
     <span class="sr-only">Loading...</span>
   </div>
 </div>
 
 <!-- Inline loading -->
-<button class="button" disabled aria-busy="true" data-state="loading">
+<button class="button" disabled aria-busy="true" data-variant="loading">
   <span class="spinner" style="--size: 1em;"></span>
   Saving...
 </button>
@@ -531,7 +531,7 @@ CSS for loading states:
   <input class="input" id="username" type="text" 
     aria-invalid="false"
     aria-describedby="username-feedback"
-    data-state="valid">
+    data-variant="valid">
   <small class="feedback" id="username-feedback" data-variant="success">
     ✓ Username is available
   </small>
@@ -549,7 +549,7 @@ CSS for loading states:
 </div>
 
 <!-- Form-level feedback -->
-<form class="form as-stack" data-state="error">
+<form class="form as-stack" data-variant="error">
   <div class="alert" role="alert" data-variant="error">
     <strong>Please fix the following errors:</strong>
     <ul class="list">
@@ -565,7 +565,7 @@ CSS for loading states:
 ```css
 .strength-indicator {
   /* 1. Define defaults */
-  --bar-height: 4px;
+  --height: 4px;
   --bar-bg: var(--color-neutral-light);
   --bar-fill: var(--color-neutral);
   
@@ -574,7 +574,7 @@ CSS for loading states:
 }
 
 .strength-bar {
-  height: var(--bar-height);
+  height: var(--height);
   background: var(--bar-bg);
   border-radius: var(--radius-full);
   overflow: hidden;
@@ -640,14 +640,14 @@ newContent.focus();
 
 ```html
 <!-- Admin context feedback -->
-<div data-context="admin">
+<div data-variant="admin">
   <aside class="alert" role="alert">
     Admin-specific styling automatically applied
   </aside>
 </div>
 
 <!-- Checkout context -->
-<div data-context="checkout">
+<div data-variant="checkout">
   <div class="toasts">
     <!-- Success messages styled for checkout -->
   </div>
@@ -656,12 +656,12 @@ newContent.focus();
 
 ```css
 /* Context modifications */
-[data-context="admin"] .alert {
+[data-variant="admin"] .alert {
   --border-color: var(--color-admin);
   --bg: var(--color-admin-light);
 }
 
-[data-context="checkout"] .toast[data-variant="success"] {
+[data-variant="checkout"] .toast[data-variant="success"] {
   --bg: var(--color-success);
   --size: var(--text-size-lg);
 }
@@ -744,11 +744,11 @@ With CRISP feedback:
 - Accessible by default
 - No dependency on toast libraries
 - Consistent visual language
-- Context-aware styling
+- Variant-aware styling
 - Users stay informed, not annoyed
 
 Your app communicates clearly. Users feel confident. Trust is built.
 
-And when the PM asks for "admin notifications that feel more authoritative"? You don't create `.alert--admin-authoritative`. You add `data-context="admin"` and style once. That's the power of semantic feedback.
+And when the PM asks for "admin notifications that feel more authoritative"? You don't create `.alert--admin-authoritative`. You add `data-variant="admin"` and style once. That's the power of semantic feedback.
 
 → Continue to [Chapter 12: From CSS to Enterprise Without Changing HTML](./C12-progressive.md)
