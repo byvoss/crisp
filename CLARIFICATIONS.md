@@ -40,11 +40,11 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Clarify that data attributes don't count?  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 6. ❓ Progressive Enhancement Details
+### 6. ✅ Progressive Enhancement Details
 **Issue**: What exactly changes between tiers?  
 **Current info**: Only file sizes mentioned  
 **Decision needed**: Document feature matrix for each tier  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ### 7. ❓ Layout Token Naming Convention
 **Issue**: Inconsistent layout token patterns  
@@ -198,6 +198,30 @@ This document tracks open questions, inconsistencies, and decisions needed for C
   data-level="2"
   data-id="post-123">
 ```
+
+### ✅ [2025-01-06] Progressive Enhancement Tiers (#6)
+**Decision**: Three tiers with clear feature separation  
+**Tier 1 - CRISP (~50KB)**: Pure CSS
+- All components and layouts
+- Complete design system
+- Zero JavaScript
+- Works everywhere
+
+**Tier 2 - CRISP Theme (~60KB)**: CSS + Theme System
+- Everything from Tier 1
+- 10KB JavaScript for theme switching
+- Dark/light/auto modes
+- Smooth transitions
+- LocalStorage persistence
+
+**Tier 3 - CRISP Enterprise (~150KB)**: Full Platform
+- Everything from Tier 2
+- TypeScript Web Components
+- i18n system for internationalization
+- Type-safe development
+- Enhanced interactivity
+
+**Key Principle**: Same HTML works across all tiers
 
 ---
 
