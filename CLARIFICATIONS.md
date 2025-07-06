@@ -46,12 +46,12 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Document feature matrix for each tier  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 7. ❓ Layout Token Naming Convention
+### 7. ✅ Layout Token Naming Convention
 **Issue**: Inconsistent layout token patterns  
 **Examples**: `--gap` vs `--stack-gap` vs `--cluster-gap`  
 **Rule**: Layout tokens should describe the pattern  
 **Decision needed**: Standardize on pattern-specific tokens?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ## 🟠 Missing Documentation
 
@@ -222,6 +222,18 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 - Enhanced interactivity
 
 **Key Principle**: Same HTML works across all tiers
+
+### ✅ [2025-01-06] Layout Token Naming Convention (#7)
+**Decision**: Layout tokens MUST have type prefix to avoid confusion  
+**Rationale**: Only element tokens are unprefixed - ALL others need type identification  
+**Examples**:
+- `as-stack` uses `--stack-gap`
+- `as-cluster` uses `--cluster-gap` and `--cluster-align`
+- `as-grid` uses `--grid-columns`, `--grid-gap`, `--grid-min`
+- `as-split` uses `--split-ratio` and `--split-gap`
+- `as-center` uses `--center-height`
+- `as-container` uses `--container-max` and `--container-padding`
+**Rule**: Element tokens unprefixed, everything else shows its type
 
 ---
 

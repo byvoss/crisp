@@ -71,10 +71,11 @@ Always use proper HTML elements. IDs only for accessibility.
 
 **Token Naming Rules**:
 - **Element classes** (`.button`, `.card`): Element tokens WITHOUT prefix (`--bg`, `--size`, `--color`)
+- **Layout classes** (`.as-stack`, `.as-grid`): Layout tokens WITH prefix (`--stack-gap`, `--grid-columns`)
 - **Property classes** (`.with-shadow`, `.with-border`): Property tokens WITH prefix (`--shadow-blur`, `--border-width`)
-- **All other tokens**: Need prefixes for identification (`--space-1-0`, `--color-primary`, `--radius-small`)
+- **Global tokens**: Always prefixed (`--space-1-0`, `--color-primary`, `--radius-small`)
 
-The logic: Element tokens are unambiguous within their element's context. Everything else needs identification.
+The logic: Only element tokens are unprefixed because they're unambiguous within their element's context. ALL other tokens need type identification.
 
 #### 7. Component Naming Discipline
 ```css
@@ -265,19 +266,34 @@ Keeps class namespace clean. All variations are data, not classes.
 **Layout classes (`as-*`) MUST use tokens that describe the PATTERN, not the content:**
 
 ```css
-/* ✅ CORRECT: Token describes the layout pattern */
+/* ✅ CORRECT: Layout tokens with type prefix */
 .as-split {
-  --split: 300px;      /* How much space for fixed element */
-  --gap: 1rem;         /* Space between elements */
+  --split-ratio: 300px;    /* How much space for fixed element */
+  --split-gap: 1rem;       /* Space between elements */
 }
 
-.as-columns {
-  --columns: 1fr 2fr;  /* Column ratios */
+.as-stack {
+  --stack-gap: 1rem;       /* Space between stacked items */
+}
+
+.as-cluster {
+  --cluster-gap: 1rem;     /* Space between clustered items */
+  --cluster-align: center; /* Alignment of items */
 }
 
 .as-grid {
-  --columns: 3;        /* Number of columns */
-  --min-width: 250px;  /* Minimum item width */
+  --grid-columns: 3;       /* Number of columns */
+  --grid-gap: 1rem;        /* Space between grid cells */
+  --grid-min: 250px;       /* Minimum item width */
+}
+
+.as-center {
+  --center-height: 100vh;  /* Container height */
+}
+
+.as-container {
+  --container-max: 1200px; /* Maximum width */
+  --container-padding: 1rem; /* Horizontal padding */
 }
 
 /* ❌ WRONG: Token suggests content */
