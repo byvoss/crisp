@@ -1,44 +1,88 @@
-# Chapter 8: Boxes That Contain Things
+# Chapter 8: Containers - Boxes That Contain Things
 
-*Or: How to contain content without containing your rage*
+*Or: The art of putting stuff inside other stuff without losing your mind*
 
 ## The Container Conundrum
 
-Remember this nightmare?
+Remember this architectural nightmare?
 
 ```css
-/* The old way: Special class for every container variant */
-.card { }
-.card-white { }
-.card-gray { }
-.card-bordered { }
-.card-shadow { }
-.card-rounded { }
-.card-flat { }
-.card-interactive { }
-.card-clickable { }
-.card-compact { }
-.card-spacious { }
-.card-horizontal { }
-.card-vertical { }
-.card-featured { }
-.card-minimal { }
-/* 50 more variants... */
+/* Monday: "Let's use Bootstrap!" */
+.container { }
+.container-fluid { }
+.container-sm { }
+.container-md { }
+.container-lg { }
+.container-xl { }
+.container-xxl { }
+/* Plus 47 breakpoint variations */
 
-/* And then the combinations */
-.card-white-bordered-shadow-rounded-interactive-compact { }
-/* Just kidding. But you wanted to, didn't you? */
+/* Tuesday: "Actually, let's go custom" */
+.card-container { }
+.card-container-with-shadow { }
+.card-container-with-shadow-large { }
+.modal-container { }
+.modal-container-centered { }
+.sidebar-container { }
+/* Death by container proliferation */
+
+/* Wednesday: "Maybe BEM will save us?" */
+.container { }
+.container--card { }
+.container--modal { }
+.container__header { }
+.container__body { }
+.container__footer { }
+/* Spoiler: It didn't */
+
+/* Thursday: *Discovers CSS-in-JS* */
+const Container = styled.div`
+  ${props => props.card && 'padding: 20px;'}
+  ${props => props.modal && 'position: fixed;'}
+  /* My component is now 500 lines */
+`;
+
+/* Friday: *Quits development, opens bakery* */
 ```
+
+**The "Aha!"**: What if containers were just... semantic HTML with sensible defaults?
 
 ## The CRISP Container Philosophy
 
-One container class. Custom properties for variations. Your sanity intact.
+*One container class. Infinite possibilities. Zero therapy bills.*
+
+```html
+<!-- It's just a card -->
+<article class="card">
+  <h2>I'm content in a box</h2>
+  <p>That's it. That's the tweet.</p>
+</article>
+
+<!-- Need spacing? Use layouts -->
+<article class="card as-stack">
+  <h2>Now I have rhythm</h2>
+  <p>Spacing handled by layout utilities</p>
+  <button class="button">Click me</button>
+</article>
+
+<!-- Need variations? Use properties -->
+<article class="card" style="--padding: var(--space-2-0);">
+  <h2>Custom padding without new classes</h2>
+</article>
+
+<!-- Need context? Use data attributes -->
+<article class="card" data-variant="premium">
+  <h2>Context-aware styling</h2>
+</article>
+```
+
+**Mind = Blown**: No `.card-lg`, no `.card-primary`, no `.card-with-spacing-2`. Just a card.
 
 ## Content Containers
 
 ### Card - The Universal Container
 
-The card is CRISP's Swiss Army knife. It contains things. That's it.
+*If containers were superheroes, Card would be Superman (boring but reliable)*
 
 ```html
 <!-- Basic card -->
@@ -79,40 +123,136 @@ The card is CRISP's Swiss Army knife. It contains things. That's it.
 
 CSS that powers it all:
 ```css
-.card {
-  /* 1. Define defaults */
-  --bg: var(--color-background);
-  --padding: var(--space-1-5);
-  --radius: var(--radius-lg);
-  --border: none;
+@layer crisp {
+  .card {
+    /* Type-safe properties with @property */
+    @property --bg {
+      syntax: "<color>";
+      inherits: false;
+      initial-value: var(--color-surface);
+    }
+    
+    @property --padding {
+      syntax: "<length>";
+      inherits: false;
+      initial-value: var(--space-1-5);
+    }
+    
+    @property --radius {
+      syntax: "<length>";
+      inherits: false;
+      initial-value: var(--radius-lg);
+    }
+    
+    /* Define ALL defaults */
+    --border: 1px solid var(--color-border);
+    --shadow: var(--shadow-default);
+    
+    /* Use them */
+    background: var(--bg);
+    padding: var(--padding);
+    border: var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    
+    /* Contain the floats (yes, people still use floats) */
+    overflow: hidden;
+    
+    /* Stacking context */
+    isolation: isolate;
+  }
   
-  /* 2. Use the tokens */
-  background: var(--bg);
-  padding: var(--padding);
-  border-radius: var(--radius);
-  border: var(--border);
-}
-
-.card.with-interaction {
-  cursor: pointer;
-  transition: all var(--transition-fast);
-}
-
-.card.with-interaction:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-elevated);
-}
-
-/* Context-aware styling */
-[data-variant="premium"] .card {
-  --bg: var(--color-accent);
-  --border: 2px solid var(--color-gold);
+  /* Hover states for interactive cards */
+  .card.with-interaction {
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-elevated);
+    }
+    
+    &:active {
+      transform: translateY(0);
+    }
+  }
+  
+  /* Context wins */
+  [data-variant="premium"] .card {
+    --bg: oklch(50% 0.15 50); /* Gold-ish */
+    --border: 2px solid oklch(60% 0.20 50);
+  }
+  
+  /* Dark theme adjustments */
+  [data-theme="dark"] .card {
+    --bg: oklch(20% 0.01 250);
+    --border: 1px solid oklch(30% 0.02 250);
+  }
 }
 ```
 
+**Pro tip**: The browser validates your properties. `--padding: "lots"` won't fly!
+
+### Container Rules That Rule
+
+#### Rule 1: Containers Are Semantic
+
+```html
+<!-- ❌ DIV soup -->
+<div class="card">
+  <div class="card-header">Title</div>
+  <div class="card-body">Content</div>
+  <div class="card-footer">Footer</div>
+</div>
+
+<!-- ✅ Semantic HTML -->
+<article class="card">
+  <header>Title</header>
+  <p>Content</p>
+  <footer>Footer</footer>
+</article>
+
+<!-- Even better with proper elements -->
+<article class="card as-stack">
+  <h2 class="heading">Article Title</h2>
+  <p class="text">Article content that makes sense</p>
+  <footer class="meta">Published today</footer>
+</article>
+```
+
+**The "Aha!"**: The browser already knows what these elements are. Why fight it?
+
+#### Rule 2: Containers Can BE Layouts
+
+*Mix and match like LEGO blocks*
+
+```html
+<!-- ❌ Container trying to do too much -->
+<div class="card card-grid-3-columns card-with-gap-20">
+  <!-- Class soup alert! -->
+</div>
+
+<!-- ✅ Container + Layout in harmony -->
+
+<article class="card as-stack">
+  <h2>Title</h2>
+  <p>Content</p>
+  <button class="button">Action</button>
+</article>
+
+<!-- Or a bit more specific -->
+<article class="card as-grid" style="--grid-columns: 3;" data-entries="3">
+  <div>Clean</div>
+  <div>Simple</div>
+  <div>Direct</div>
+</article>
+```
+
+**The "Aha!"**: Containers and layouts can live on the same element. No extra wrapper needed!
+
 ### Article - Semantic Content
 
-When your content is self-contained and distributable:
+*When your content is self-contained and ready to travel the web*
 
 ```html
 <!-- Blog post -->
@@ -135,12 +275,12 @@ When your content is self-contained and distributable:
   </footer>
 </article>
 
-<!-- News item -->
+<!-- News item (with actual news) -->
 <article class="article card as-stack with-shadow">
-  <img class="image" src="news.jpg" alt="News image">
+  <img class="image" src="news.jpg" alt="CSS finally makes sense">
   <div class="as-stack" style="--stack-gap: var(--space-0-75);">
-    <h2 class="heading">Breaking News</h2>
-    <p class="text">Something important happened...</p>
+    <h2 class="heading">Breaking: Developer Actually Enjoys CSS</h2>
+    <p class="text">Witnesses report seeing a smile. Investigation ongoing...</p>
     <a class="link" href="/full-story">Read more →</a>
   </div>
 </article>
@@ -154,7 +294,7 @@ When your content is self-contained and distributable:
 
 ### Section - Thematic Grouping
 
-For grouping related content:
+*Like a chapter in a book, but for websites*
 
 ```html
 <!-- Feature section -->
@@ -206,25 +346,36 @@ For grouping related content:
 
 ### Dialog - Modal Containers
 
-For overlays and modals:
+*Because sometimes content needs to interrupt rudely*
 
 ```html
-<!-- Native dialog -->
-<dialog class="dialog card as-stack" id="confirm-dialog">
-  <h2 class="heading">Confirm Action</h2>
-  <p class="text">Are you sure you want to proceed?</p>
-  
-  <div class="as-cluster" style="--cluster-align: flex-end;">
-    <button class="button" type="button" onclick="closeDialog()">
-      Cancel
-    </button>
-    <button class="button" type="button" 
-      style="--bg: var(--color-danger);"
-      onclick="confirmAction()">
-      Delete
-    </button>
-  </div>
+<!-- Native dialog (yes, it's built into HTML!) -->
+<dialog class="modal" id="confirm-dialog">
+  <article class="card as-stack">
+    <header class="as-cluster" style="--cluster-align: space-between;">
+      <h2 class="heading">Confirm Action</h2>
+      <button class="button" type="button" onclick="this.closest('dialog').close()" aria-label="Close dialog">
+        ×
+      </button>
+    </header>
+    
+    <p class="text">Are you absolutely, positively sure?</p>
+    
+    <footer class="as-cluster" style="--cluster-align: flex-end;" data-entries="2">
+      <button class="button" type="button" onclick="this.closest('dialog').close()">
+        Cancel
+      </button>
+      <button class="button" type="button" style="--bg: var(--color-error);">
+        Yes, Delete Everything
+      </button>
+    </footer>
+  </article>
 </dialog>
+
+<!-- Open it with showModal() -->
+<button class="button" onclick="document.getElementById('confirm-dialog').showModal()">
+  Open Modal
+</button>
 
 <!-- Full-screen dialog -->
 <dialog class="dialog as-center" style="--width: 100vw; --center-height: 100vh;">
@@ -242,32 +393,54 @@ For overlays and modals:
 ```
 
 ```css
-.dialog {
-  /* 1. Define defaults */
-  --bg: var(--color-background);
-  --padding: var(--space-2-0);
-  --width: auto;
-  --height: auto;
-  
-  /* 2. Use the tokens */
-  background: var(--bg);
-  padding: var(--padding);
-  width: var(--width);
-  height: var(--height);
-}
-
-[data-variant="danger"] .dialog {
-  --bg: var(--color-danger-light);
+@layer crisp {
+  .modal {
+    /* Reset dialog styles */
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-width: min(90vw, 600px);
+    max-height: min(90vh, 800px);
+    margin: auto;
+    
+    /* The backdrop (pure CSS magic!) */
+    &::backdrop {
+      background: oklch(0% 0 0 / 0.5);
+      backdrop-filter: blur(4px);
+    }
+    
+    /* Smooth entry with @starting-style */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.3s ease-out;
+    
+    &[open] {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    
+    @starting-style {
+      &[open] {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+    }
+  }
 }
 ```
 
+**The "Aha!"**: Native `<dialog>` has backdrop, focus trapping, and ESC key handling. For free!
+
 JavaScript for modern dialog:
 ```javascript
-// Open
+// Open (it's this simple)
 document.getElementById('confirm-dialog').showModal();
 
-// Close
+// Close (even simpler)
 document.getElementById('confirm-dialog').close();
+
+// No focus trap library needed. No backdrop div. No z-index wars.
+// Just... working.
 ```
 
 ## Semantic Containers
@@ -314,6 +487,8 @@ document.getElementById('confirm-dialog').close();
 
 ### Blockquote - Quoted Content
 
+*For when you need to borrow someone else's wisdom*
+
 ```html
 <!-- Simple quote -->
 <blockquote class="quote">
@@ -334,9 +509,10 @@ document.getElementById('confirm-dialog').close();
   </footer>
 </blockquote>
 
-<!-- Pull quote -->
+<!-- Pull quote (for dramatic effect) -->
 <blockquote class="quote" style="--size: var(--text-size-1-5); --color: var(--color-primary);">
   <p>"The best container is the one you don't have to think about."</p>
+  <cite>- Ancient CSS Proverb</cite>
 </blockquote>
 ```
 
@@ -355,24 +531,113 @@ document.getElementById('confirm-dialog').close();
 }
 ```
 
-## Container Patterns
+## Advanced Container Patterns
+
+*When basic boxes aren't enough to impress your PM*
+
+### Accordion - The Space Saver
+
+*Details/Summary: The unsung heroes of semantic HTML*
+
+```html
+<!-- Single accordion (no JS required!) -->
+<details class="accordion">
+  <summary class="accordion-trigger">
+    <h3 class="heading">What is CRISP?</h3>
+  </summary>
+  <div class="accordion-content">
+    <p class="text">A CSS methodology that actually makes sense.</p>
+  </div>
+</details>
+
+<!-- Accordion group -->
+<div class="as-stack" data-entries="3" role="region" aria-label="FAQ">
+  <details class="accordion">
+    <summary>Why no JavaScript?</summary>
+    <div class="as-stack">
+      <p>Because browsers are smarter than we give them credit for.</p>
+    </div>
+  </details>
+  
+  <details class="accordion">
+    <summary>Is this magic?</summary>
+    <div class="as-stack">
+      <p>No, just semantic HTML doing its job.</p>
+    </div>
+  </details>
+  
+  <details class="accordion" open>
+    <summary>Can I style it?</summary>
+    <div class="as-stack">
+      <p>Of course! Check the CSS below.</p>
+    </div>
+  </details>
+</div>
+```
+
+```css
+@layer crisp {
+  .accordion {
+    --border: 1px solid var(--color-border);
+    --radius: var(--radius-md);
+    
+    border: var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    
+    /* The trigger */
+    summary {
+      padding: var(--space-1-0) var(--space-1-5);
+      background: var(--color-surface);
+      cursor: pointer;
+      user-select: none;
+      
+      /* Remove default arrow */
+      list-style: none;
+      
+      /* Custom arrow */
+      &::after {
+        content: "▼";
+        float: right;
+        transition: transform 0.3s ease;
+      }
+      
+      &:hover {
+        background: oklch(from var(--color-surface) calc(l - 0.02) c h);
+      }
+    }
+    
+    /* Rotate arrow when open */
+    &[open] summary::after {
+      transform: rotate(180deg);
+    }
+    
+    /* Content padding */
+    & > :not(summary) {
+      padding: var(--space-1-5);
+    }
+  }
+}
+```
 
 ### Feature Card
 ```html
 <article class="card as-stack with-shadow with-interaction" 
   style="--padding: var(--space-2-0);">
   <div class="icon" style="--size: 3rem;">
-    <svg><!-- Icon --></svg>
+    🚀
   </div>
-  <h3 class="heading">Feature Title</h3>
-  <p class="text">Feature description that explains the benefit.</p>
-  <a class="link" href="/learn-more" role="button">
+  <h3 class="heading">Lightning Fast</h3>
+  <p class="text">Because CSS is faster than your JavaScript framework.</p>
+  <a class="link" href="/learn-more">
     Learn more →
   </a>
 </article>
 ```
 
 ### Pricing Card
+
+*Where dreams meet credit card limits*
 ```html
 <article class="card as-stack with-border" 
   data-plan="professional"
@@ -399,8 +664,8 @@ document.getElementById('confirm-dialog').close();
     <li>Advanced analytics</li>
   </ul>
   
-  <button class="button with-interaction" 
-    style="--bg: var(--color-primary); --size: var(--text-size-1-25);">
+  <button class="button" type="button"
+    style="--bg: var(--color-primary); --size: 1.125rem;">
     Start Free Trial
   </button>
 </article>
@@ -442,6 +707,8 @@ document.getElementById('confirm-dialog').close();
 
 ## Container Composition Rules
 
+*The commandments of container contentment*
+
 ### 1. Semantic First
 ```html
 <!-- ❌ Wrong: Generic container -->
@@ -478,6 +745,8 @@ document.getElementById('confirm-dialog').close();
 ```
 
 ### 3. Properties Over Variants
+
+*Because `.card-dark-large-rounded-shadow-interactive` is not a class name, it's a cry for help*
 ```html
 <!-- ❌ Old way: Class variants -->
 <article class="card card-dark card-large card-rounded">
@@ -506,18 +775,22 @@ document.getElementById('confirm-dialog').close();
 <article class="card card--featured">
 ```
 
-## The Container Liberation
+## The Container Manifesto
 
-With CRISP containers:
-- One class per container type
-- Infinite variations via properties
-- Semantic HTML preserved
-- Consistent spacing with layouts
-- No variant explosion
-- Context via data attributes, not classes
+1. **Semantic HTML** - `<article>` for cards, `<section>` for sections
+2. **One class per container** - No modifiers, no variants  
+3. **Properties for customization** - `--padding`, `--bg`, not new classes
+4. **Layouts are separate** - Containers contain, layouts lay out
+5. **Context via data attributes** - `data-variant="premium"` not `.card-premium`
+6. **Native elements when possible** - `<dialog>`, `<details>`, not divs
+7. **Type safety with @property** - Let the browser validate
 
-Your content has a home. Your code stays clean. Your future self thanks you.
+**The Ultimate "Aha!"**: You just learned every container pattern. No memorizing component variations. No checking if it's `.card-lg` or `.card-large`. 
 
-And when the product manager asks for "premium cards with a golden glow"? You don't create `.card-premium-golden-glow`. You add `data-tier="premium"` and define the styles once. That's the beauty of separation of concerns.
+Your containers are predictable. Your HTML is semantic. Your CSS is 80% smaller.
+
+And when the PM asks for "premium cards with a golden glow and a subtle pulse animation"? You add `data-variant="premium"` and write 3 lines of CSS. Not 30. Not 300. Just 3.
+
+Welcome to containers that contain joy, not complexity.
 
 → Continue to [Chapter 9: Finding Your Way](./C09-navigation.md)
