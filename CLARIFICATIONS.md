@@ -106,17 +106,17 @@ This document tracks open questions, inconsistencies, and decisions needed for C
 **Decision needed**: Different filenames or same file?  
 **Status**: ✅ DECIDED - See Decision Log  
 
-### 13. ❓ TypeScript Configuration
+### 13. ✅ TypeScript Configuration
 **Issue**: TODO mentions TypeScript not configured  
 **Question**: Needed for v1.0 or later?  
 **Decision needed**: Configure now or postpone?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
-### 14. ❓ Stylelint Issues
+### 14. ✅ Stylelint Issues
 **Issue**: Linting disabled due to failures  
 **Location**: `TODO.md` mentions this  
 **Decision needed**: Fix rules or adjust config?  
-**Status**: ⏳ PENDING  
+**Status**: ✅ DECIDED - See Decision Log  
 
 ## 🟢 Enhancement Questions
 
@@ -352,6 +352,32 @@ npm install @byvoss/crisp @byvoss/crisp-theme @byvoss/crisp-enterprise
 - SRI for security (integrity)
 - Preload for performance
 - Proper versioning
+
+### ✅ [2025-01-06] TypeScript Configuration (#13)
+**Decision**: Configure TypeScript now - all tiers are MVP  
+**Rationale**: If all 3 tiers belong to MVP, we need TS for Web Components  
+**Required**:
+- tsconfig.json for Web Component development
+- Build pipeline for @byvoss/crisp-enterprise
+- Type definitions for component APIs
+- Proper ESM module output
+**Action**: Set up TypeScript configuration for Enterprise tier
+**Status**: ⚠️ NOT IMPLEMENTED YET
+
+### ✅ [2025-01-06] Stylelint Configuration (#14)
+**Decision**: Configure rules to enforce CRISP conformity  
+**Principle**: Linting should enforce CRISP patterns  
+**Approach**:
+- Fix accessibility issues (focus states, reduced motion) - these are important
+- Allow modern color syntax for future OKLCH migration
+- Clean up duplicate selectors
+- Configure rules that enforce:
+  - Token naming conventions
+  - Proper use of custom properties
+  - No deep nesting
+  - Semantic class patterns
+**Action**: Create CRISP-specific stylelint config and fix issues
+**Status**: ⚠️ NOT IMPLEMENTED YET
 
 ---
 
