@@ -116,7 +116,7 @@ Now let's push this further with shadows:
 <!-- CRISP: Any shadow you can imagine -->
 <article class="card with-shadow" style="--shadow-blur: 5px;">Subtle</article>
 <article class="card with-shadow" style="--shadow-blur: 20px;">Dramatic</article>
-<article class="card with-shadow" style="--shadow-blur: 8px; --shadow-color: oklch(60% 0.15 250);">Brand colored</article>
+<article class="card with-shadow" style="--shadow-blur: 8px; --shadow-color: var(--color-primary);">Brand colored</article>
 <!-- Need a new shadow? Just change the number! -->
 ```
 
@@ -218,11 +218,11 @@ Need different styling in different contexts? Use data-variant:
 @layer crisp {
   /* Variant-specific styling */
   [data-variant="admin"] .card {
-    --border-color: oklch(70% 0.15 90); /* warning yellow */
+    --border-color: var(--color-warning);
   }
 
   [data-variant="danger"] .button {
-    --bg: oklch(55% 0.22 25); /* danger red */
+    --bg: var(--color-danger);
     
     /* Automatic hover state */
     &:hover {
@@ -288,7 +288,7 @@ Modern CSS is incredible. CRISP embraces it:
 
   /* :has() for parent selection */
   .form:has(.input:invalid) {
-    --border-color: oklch(55% 0.22 25);
+    --border-color: var(--color-error);
   }
 
   /* Logical properties? Obviously */
@@ -304,10 +304,10 @@ Modern CSS is incredible. CRISP embraces it:
 Let's build a pricing card without crying:
 
 ```html
-<article class="card as-stack with-shadow" data-variant="professional" style="--bg: oklch(96% 0.05 250);">
+<article class="card as-stack with-shadow" data-variant="professional" style="--bg: var(--color-accent);">
   <header class="as-stack">
     <h2 class="heading" style="--size: 1.5rem;">Professional</h2>
-    <p class="text" style="--color: oklch(50% 0.01 250);">For growing teams</p>
+    <p class="text" style="--color: var(--color-neutral);">For growing teams</p>
   </header>
   
   <div class="as-stack" style="--stack-gap: var(--space-2-0);">
@@ -322,7 +322,7 @@ Let's build a pricing card without crying:
     </ul>
   </div>
   
-  <button class="button with-interaction" type="button" style="--bg: oklch(60% 0.15 250); --size: 1.25rem;">
+  <button class="button with-interaction" type="button" style="--bg: var(--color-primary); --size: 1.25rem;">
     Start Free Trial
   </button>
 </article>

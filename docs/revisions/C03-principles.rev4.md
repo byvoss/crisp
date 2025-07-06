@@ -37,8 +37,8 @@ HTML elements aren't just generic containers. They have meaning, behaviour, and 
 ### The Practice
 ```html
 <!-- A real navigation, not a div pretending -->
-<nav class="navigation" data-entries="3" aria-label="Main navigation">
-  <ul class="list as-cluster" role="list">
+<nav class="navigation" data-entries="1" aria-label="Main navigation">
+  <ul class="list as-cluster">
     <li><a class="link" href="/" aria-current="page">Home</a></li>
     <li><a class="link" href="/about">About</a></li>
     <li><a class="link" href="/contact">Contact</a></li>
@@ -61,7 +61,7 @@ Every element may have:
   1 + 1 + 1 = 3 classes ✓
 </article>
 
-<button class="button with-interaction with-shadow with-animate" type="button">
+<button class="button with-interaction with-shadow with-animate">
   1 + 0 + 3 = 4 classes ✓
 </button>
 
@@ -69,19 +69,6 @@ Every element may have:
 <div class="card as-stack with-shadow with-border with-padding with-margin with-animate">
   1 + 1 + 5 = 7 classes ✗ (Straight to CSS hell)
 </div>
-```
-
-**The "Aha!"**: Data attributes don't count! They're semantic data, not layout instructions:
-
-```html
-<!-- ✅ Still only 3 layout classes -->
-<article class="card as-stack with-shadow" 
-  data-variant="featured"
-  data-entries="5"
-  data-level="2"
-  aria-label="Featured articles">
-  Classes: 3 ✓ | Data attributes: ∞ ✓
-</article>
 ```
 
 ### The Wisdom
@@ -135,30 +122,15 @@ Classes define **what** something is. Custom properties define **how** it looks.
 .button-small { font-size: 0.875rem; }
 /* 20 more variants... */
 
-/* ✅ The New Covenant with @property */
-@property --bg {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: oklch(60% 0.01 250);
-}
-
-@property --size {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 1rem;
-}
-
-@layer crisp {
-  .button {
-    /* Define/Use pattern */
-    background: var(--bg);
-    font-size: var(--size);
-    
-    /* Automatic hover with relative colors */
-    &:hover {
-      --bg: oklch(from var(--bg) calc(l + 0.1) c h);
-    }
-  }
+/* ✅ The New Covenant */
+.button {
+  /* 1. Define defaults */
+  --bg: var(--color-neutral);
+  --size: 1rem;
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  font-size: var(--size);
 }
 ```
 
@@ -166,12 +138,12 @@ Classes define **what** something is. Custom properties define **how** it looks.
 ```html
 <!-- Identity (class) says "I am a button" -->
 <!-- Appearance (properties) says "I look like this" -->
-<button class="button" type="button"
+<button class="button" 
   style="--bg: var(--color-primary); --size: 1.25rem;">
   Primary Large Button
 </button>
 
-<button class="button" type="button"
+<button class="button" 
   style="--bg: var(--color-danger); --size: 0.75rem;">
   Danger Small Button
 </button>
@@ -189,19 +161,19 @@ Three prefixes. Clear purposes. No ambiguity.
 
 ```html
 <!-- Component (no prefix): The thing itself -->
-<article class="card">Content</article>
-<button class="button" type="button">Click</button>
-<nav class="navigation" data-entries="5" aria-label="Main">Links</nav>
+<article class="card">
+<button class="button">
+<nav class="navigation" data-entries="0">
 
 <!-- Layout (as-): How things arrange -->
-<section class="as-grid" data-entries="3">Items</section>
-<div class="as-stack">Stacked items</div>
-<nav class="as-cluster">Clustered items</nav>
+<section class="as-grid">
+<div class="as-stack">
+<nav class="as-cluster">
 
 <!-- Property (with-): Special features -->
-<article class="card with-shadow">Shadowed card</article>
-<button class="button with-interaction" type="button">Interactive</button>
-<section class="hero with-overlay">Hero with overlay</section>
+<article class="card with-shadow">
+<button class="button with-interaction">
+<section class="hero with-overlay">
 ```
 
 ### The Language
@@ -211,11 +183,11 @@ CRISP classes read like English:
 <article class="card as-stack with-shadow">
 <!-- "Article card displayed as stack with shadow" -->
 
-<nav class="navigation as-cluster with-sticky" data-entries="5" aria-label="Main">
-<!-- "Navigation displayed as cluster with sticky positioning" -->
+<nav class="navigation as-cluster with-sticky" data-entries="0">
+<!-- "Navigation displayed as cluster with sticky" -->
 
-<section class="gallery as-grid with-gap" data-entries="12">
-<!-- "Gallery displayed as grid with gap between items" -->
+<section class="gallery as-grid with-gap">
+<!-- "Gallery displayed as grid with gap" -->
 ```
 
 ### The Clarity
@@ -237,32 +209,24 @@ Stop fighting CSS. The cascade is your friend.
 .wrapper .button { background: red !important; }
 #page .wrapper .button { background: green !important; }
 
-/* ✅ Flowing with the cascade + @layer */
-@layer crisp {
-  .button {
-    /* Define with @property */
-    --bg: var(--color-primary);
-    background: var(--bg);
-  }
-
-  /* Theme changes colors globally */
-  [data-theme="dark"] {
-    --color-primary: var(--color-primary-light);
-  }
-
-  /* Variants change component appearance */
-  [data-variant="danger"] .button {
-    --bg: var(--color-danger);
-  }
+/* ✅ Flowing with the cascade */
+.button {
+  /* 1. Define defaults */
+  --bg: var(--color-primary);
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
 }
 
-/* User overrides always win */
-@layer overrides {
-  .button { --bg: hotpink; } /* No !important needed */
+/* Variants naturally override via data attributes */
+[data-theme="dark"] {
+  --color-primary: var(--color-primary-dark);
+}
+
+[data-variant="danger"] .button {
+  --bg: var(--color-danger);
 }
 ```
-
-**The "Aha!"**: CSS @layer solved specificity wars forever. CRISP embraces it from day one. Your overrides always win, zero fights.
 
 ### The Inheritance
 ```html
@@ -270,19 +234,17 @@ Stop fighting CSS. The cascade is your friend.
 <main data-theme="dark">
   <!-- Children inherit automatically -->
   <article class="card">
-    <p class="text">Dark themed card</p>
+    Dark themed card
   </article>
-  <button class="button" type="button">
+  <button class="button">
     Dark themed button
   </button>
 </main>
 
-<!-- Danger variant with ARIA -->
-<section data-variant="danger" role="alert">
-  <button class="button" type="button" aria-describedby="danger-warning">
-    Delete Account
-  </button>
-  <p class="text" id="danger-warning">This action cannot be undone</p>
+<!-- Danger variant -->
+<section data-variant="danger">
+  <button class="button">Delete Account</button>
+  <p class="text">This action cannot be undone</p>
 </section>
 ```
 
@@ -301,26 +263,12 @@ Stop fighting CSS. The cascade is your friend.
 ```html
 <!-- ✅ Correct usage -->
 <body data-theme="dark">
-  <button class="button" type="button" data-variant="primary">
-    Primary in Dark Mode
-  </button>
+  <button class="button" data-variant="primary">Primary in Dark Mode</button>
 </body>
 
 <!-- ❌ Wrong - mixing purposes -->
-<button class="button" type="button" data-theme="primary">Wrong!</button>
+<button class="button" data-theme="primary">Wrong!</button>
 <main data-variant="dark">Also Wrong!</main>
-```
-
-**The deeper "Aha!"**: Use ARIA for states, not data-variant:
-```html
-<!-- ✅ ARIA for states -->
-<button aria-pressed="true">Active</button>
-<div aria-expanded="true">Open</div>
-<li aria-current="page">Current</li>
-
-<!-- ❌ Don't duplicate with data-variant -->
-<button data-variant="pressed">Wrong!</button>
-<div data-variant="expanded">Wrong!</div>
 ```
 
 ### The Simplicity
@@ -331,16 +279,12 @@ No theme-specific classes. No dark mode modifiers. Just CSS custom properties ca
 ### Direct Application
 ```html
 <!-- ✅ Component AND variant on same element -->
-<button class="button" type="button" data-variant="danger">
-  Delete Account
-</button>
-<article class="card" data-variant="premium">
-  <h2 class="heading">Premium Features</h2>
-</article>
+<button class="button" data-variant="danger">Delete Account</button>
+<article class="card" data-variant="premium">Premium Card</article>
 
 <!-- ❌ Unnecessary nesting -->
 <div data-variant="danger">
-  <button class="button" type="button">Delete Account</button>
+  <button class="button">Delete Account</button>
 </div>
 ```
 
@@ -353,63 +297,6 @@ No theme-specific classes. No dark mode modifiers. Just CSS custom properties ca
 3. **Identity vs Appearance** - Classes for what, properties for how
 4. **Meaningful Prefixes** - None, `as-`, or `with-`
 5. **Embrace the Cascade** - Work with CSS, not against it
-
-## The Bonus Commandments (2025 Edition)
-
-### Thou Shalt Use Modern CSS Features
-
-**@property for Type Safety**:
-```css
-@property --columns {
-  syntax: "<integer>";
-  inherits: false;
-  initial-value: 3;
-}
-
-/* Browser validates this! */
-.as-grid {
-  --columns: 4; /* ✅ Valid */
-  --columns: "four"; /* ❌ Browser ignores */
-}
-```
-
-**:has() for Parent Selection**:
-```css
-/* Form knows when it has errors */
-.form:has(.input:invalid) {
-  --border-color: var(--color-error);
-}
-
-/* Card adapts to content */
-.card:has(> .image) {
-  --layout: "image-left";
-}
-```
-
-**Container Queries for True Responsiveness**:
-```css
-.card {
-  container-type: inline-size;
-}
-
-@container (min-width: 400px) {
-  .card {
-    --layout: "horizontal";
-  }
-}
-```
-
-### Thou Shalt Count Thy Children
-
-Every container with countable items MUST declare data-entries:
-```html
-<nav class="navigation" data-entries="5" aria-label="Main">
-<ul class="list" data-entries="10">
-<div class="accordion" data-entries="3">
-<section class="gallery" data-entries="24">
-```
-
-**The "Aha!"**: CSS can react to counts, JavaScript stays in sync, screen readers announce totals. One attribute, multiple benefits.
 
 ## The Promise
 
