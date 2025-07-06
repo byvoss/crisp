@@ -37,8 +37,8 @@ The semantic HTML element is your component's skeleton. It provides:
 
 <!-- ✅ Correct bone structure -->
 <article class="article">
-<button class="button" type="button">
-<nav class="navigation" data-entries="5" aria-label="Main navigation">
+<button class="button">
+<nav class="navigation" data-entries="0">
 ```
 
 **The "Aha!"**: The right HTML element eliminates half your CSS and all your accessibility hacks.
@@ -65,8 +65,8 @@ The component class is your element's identity. It defines what something **is**
 
 <!-- ✅ Clear identity -->
 <article class="card">
-<button class="button" type="button">
-<nav class="navigation" data-entries="5" aria-label="Main navigation">
+<button class="button">
+<nav class="navigation" data-entries="0">
 ```
 
 ## The Posture: Layout Class
@@ -87,15 +87,15 @@ The layout class defines how content is arranged. Always prefixed with `as-`.
 </article>
 
 <!-- Horizontal grouping -->
-<nav class="navigation as-cluster" data-entries="2" aria-label="Site navigation">
-  <a class="link" href="/">Home</a>
-  <a class="link" href="/about">About</a>
+<nav class="navigation as-cluster" data-entries="2">
+  <a href="/">Home</a>
+  <a href="/about">About</a>
 </nav>
 
 <!-- Two-dimensional grid -->
-<section class="gallery as-grid" data-entries="2">
-  <img class="image" src="1.jpg" alt="Gallery image 1">
-  <img class="image" src="2.jpg" alt="Gallery image 2">
+<section class="gallery as-grid">
+  <img src="1.jpg" alt="">
+  <img src="2.jpg" alt="">
 </section>
 
 <!-- Perfect centring -->
@@ -123,9 +123,9 @@ Property classes add special features. Always prefixed with `with-`. Maximum of 
 <figure class="image with-rounded">
 
 <!-- Behaviour -->
-<button class="button with-interaction" type="button">Click me</button>
-<nav class="navigation with-sticky" data-entries="5" aria-label="Sticky nav">Links</nav>
-<dialog class="modal with-animate" aria-label="Modal dialog">Content</dialog>
+<button class="button with-interaction">
+<nav class="nav with-sticky">
+<div class="modal with-animate">
 
 <!-- Spacing -->
 <article class="card with-padding">
@@ -170,41 +170,9 @@ CRISP enforces consistent attribute order for scannability:
 
 1. **Class first** - Most important information (what is this?)
 2. **ID second** - Only when accessibility requires it
-3. **Role attributes** - role (if needed)
-4. **ARIA attributes** - aria-label, aria-describedby, etc.
-5. **Data attributes** - data-variant, data-entries, etc.
-6. **Style last** - Visual customisation
-
-**The Rule**: `class` → `id` → `role` → `aria-*` → `data-*` → `style`
-
-### ARIA Label Requirements
-
-**Be descriptive, not minimal**:
-
-```html
-<!-- ❌ Too vague -->
-<nav aria-label="Main">
-<nav aria-label="Nav">
-<section aria-label="Content">
-
-<!-- ✅ Descriptive and helpful -->
-<nav aria-label="Main navigation">
-<nav aria-label="Product categories">
-<section aria-label="Featured products">
-```
-
-**The Rule**: ARIA labels should describe the PURPOSE, not just the element type. Screen reader users hear "navigation" already - tell them WHICH navigation.
-
-```html
-<!-- Complete example -->
-<nav class="navigation" data-entries="5" aria-label="Main navigation">
-  <!-- Screen reader: "Main navigation, navigation landmark" -->
-</nav>
-
-<nav class="navigation" data-entries="3" aria-label="User account menu">
-  <!-- Screen reader: "User account menu, navigation landmark" -->
-</nav>
-```
+3. **Semantic attributes** - role, aria-*, etc.
+4. **Data attributes** - For JavaScript hooks
+5. **Style last** - Visual customisation
 
 **The "Aha!"**: Consistent ordering makes HTML scannable. Your eyes know exactly where to look for each piece of information.
 
@@ -219,44 +187,29 @@ Custom properties handle variations without modifier classes.
 ### Property Naming Convention
 
 ```css
-/* Component properties with @property */
-@property --bg {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: var(--color-white);
-}
-
-@layer crisp {
-  .card {
-    /* Define/Use pattern */
-    --padding: var(--space-1-5);
-    --radius: var(--radius-md);
-    
-    background: var(--bg);
-    padding: var(--padding);
-    border-radius: var(--radius);
-  }
-}
-
-@property --size {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 1rem;
+/* Component properties follow the new pattern */
+.card {
+  /* 1. Define defaults */
+  --bg: var(--color-white);
+  --padding: var(--space-1-5);
+  --radius: var(--radius-md);
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  padding: var(--padding);
+  border-radius: var(--radius);
 }
 
 .button {
-  /* Define/Use pattern */
+  /* 1. Define defaults */
   --bg: var(--color-neutral);
+  --size: 1rem;
   --weight: 500;
   
+  /* 2. Use the tokens */
   background: var(--bg);
   font-size: var(--size);
   font-weight: var(--weight);
-  
-  /* Automatic hover state */
-  &:hover {
-    --bg: oklch(from var(--bg) calc(l + 0.1) c h);
-  }
 }
 ```
 
@@ -307,7 +260,7 @@ Let's build a complete component step by step:
   <!-- 7. Add content with same principles -->
   <h2 class="heading" style="--size: 1.5rem;">Feature Title</h2>
   <p class="text">Feature description with default styling.</p>
-  <button class="button with-interaction" type="button" style="--bg: var(--color-primary);">
+  <button class="button with-interaction" style="--bg: var(--color-primary);">
     Learn More
   </button>
 </article>
@@ -319,23 +272,24 @@ The same anatomy works across all three CRISP levels:
 
 ```html
 <!-- CRISP (Pure CSS) -->
-<button class="button with-interaction" type="button"
-  style="--size: 1.25rem;">
+<button class="button with-interaction" 
+  style="--size: large;">
   Click Me
 </button>
 
 <!-- CRISP Theme (Adds theme switching) -->
-<body data-theme="dark">
-  <button class="button with-interaction" type="button"
-    style="--size: 1.25rem;">
-    Click Me <!-- Automatically themed -->
-  </button>
-</body>
+<button class="button with-interaction" 
+  style="--size: large;">
+  Click Me <!-- Automatically themed -->
+</button>
 
-<!-- CRISP Enterprise (Adds Web Components) -->
-<crisp-button variant="primary" size="large">
-  Click Me <!-- Web Component generates CRISP HTML -->
-</crisp-button>
+<!-- CRISP Enterprise (Adds TypeScript & i18n) -->
+<button class="button with-interaction" 
+  data-component="button"
+  data-i18n="actions.submit"
+  style="--size: large;">
+  Click Me <!-- Type-safe & translatable -->
+</button>
 ```
 
 **The "Aha!"**: The HTML structure never changes. You can upgrade from CRISP to Enterprise without touching your markup.
@@ -350,41 +304,6 @@ When something looks wrong, check in order:
 4. **Are properties within limits?** - Maximum 3 `with-` classes
 5. **Are attributes ordered?** - Consistency aids debugging
 6. **Are custom properties correct?** - No prefixes for element tokens
-7. **Is accessibility complete?** - ARIA labels, roles, proper semantic HTML
-
-## The Modern CSS Enhancements
-
-### Type-Safe Custom Properties
-
-```css
-@property --shadow-blur {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 10px;
-}
-
-.with-shadow {
-  box-shadow: 0 4px var(--shadow-blur) var(--shadow-color);
-}
-```
-
-**The "Aha!"**: Browser validates your custom properties. Pass a color to --shadow-blur? Browser ignores it. Type safety without TypeScript.
-
-### Smart Components with :has()
-
-```css
-/* Card knows when it has an image */
-.card:has(> .image) {
-  --layout: "horizontal";
-  display: grid;
-  grid-template-columns: 200px 1fr;
-}
-
-/* Form knows when it has errors */
-.form:has(.input:invalid:not(:placeholder-shown)) {
-  --border-color: var(--color-error);
-}
-```
 
 ## The Beauty of Anatomy
 

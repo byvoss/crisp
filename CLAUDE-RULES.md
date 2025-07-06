@@ -91,13 +91,24 @@ CRISP is 100% WCAG 2.2 AA compliant. No exceptions. No excuses.
 - Test with axe DevTools before marking complete
 
 ### Required ARIA Patterns:
-- Navigation: `aria-label` or `aria-labelledby` for all `<nav>`
+- Navigation: `aria-label` or `aria-labelledby` for all `<nav>` - MUST be descriptive (e.g. "Main navigation" not just "Main")
 - Forms: Labels for ALL inputs (visible or `aria-label`)
 - Buttons: Descriptive text or `aria-label`
 - Images: `alt` text (empty for decorative)
 - Dynamic content: `aria-live` regions
 - States: `aria-expanded`, `aria-selected`, `aria-current`
 - Modals: Full ARIA pattern (`role`, `aria-modal`, focus trap)
+
+### ARIA Label Quality:
+```html
+<!-- ❌ WRONG - Too vague -->
+<nav aria-label="Nav">
+<section aria-label="Section">
+
+<!-- ✅ RIGHT - Descriptive -->
+<nav aria-label="Main navigation">
+<section aria-label="Product features">
+```
 
 ### Testing Requirements:
 - Keyboard navigation must work
