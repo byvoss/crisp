@@ -349,7 +349,7 @@ Use fieldsets for related inputs:
   
   /* 2. Use the tokens */
   background: var(--bg);
-  height: var(--meter-height);
+  height: var(--height);
 }
 
 .progress::-webkit-progress-value {

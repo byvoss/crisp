@@ -407,13 +407,13 @@ showToast('Network error, retrying...', 'error', 0); // No auto-dismiss
   /* 1. Define defaults */
   --bg: var(--color-neutral-light);
   --fill: var(--color-primary);
-  --progress-height: 0.5rem;
+  --height: 0.5rem;
   --radius: var(--radius-full);
   
   /* 2. Use the tokens */
   appearance: none;
   width: 100%;
-  height: var(--progress-height);
+  height: var(--height);
   background: var(--bg);
   border-radius: var(--radius);
   overflow: hidden;
@@ -449,10 +449,10 @@ showToast('Network error, retrying...', 'error', 0); // No auto-dismiss
 ```html
 <!-- Skeleton loading -->
 <article class="card as-stack">
-  <div class="skeleton" style="--skeleton-height: 2rem; --width: 60%;"></div>
-  <div class="skeleton" style="--skeleton-height: 1rem;"></div>
-  <div class="skeleton" style="--skeleton-height: 1rem;"></div>
-  <div class="skeleton" style="--skeleton-height: 1rem; --width: 80%;"></div>
+  <div class="skeleton" style="--height: 2rem; --width: 60%;"></div>
+  <div class="skeleton" style="--height: 1rem;"></div>
+  <div class="skeleton" style="--height: 1rem;"></div>
+  <div class="skeleton" style="--height: 1rem; --width: 80%;"></div>
 </article>
 
 <!-- Loading overlay -->
@@ -474,7 +474,7 @@ CSS for loading states:
 /* Skeleton */
 .skeleton {
   /* 1. Define defaults */
-  --skeleton-height: 1rem;
+  --height: 1rem;
   --width: 100%;
   --radius: var(--radius-sm);
   --bg-gradient: linear-gradient(
@@ -485,7 +485,7 @@ CSS for loading states:
   );
   
   /* 2. Use the tokens */
-  height: var(--skeleton-height);
+  height: var(--height);
   width: var(--width);
   background: var(--bg-gradient);
   background-size: 200% 100%;
@@ -565,7 +565,7 @@ CSS for loading states:
 ```css
 .strength-indicator {
   /* 1. Define defaults */
-  --bar-height: 4px;
+  --height: 4px;
   --bar-bg: var(--color-neutral-light);
   --bar-fill: var(--color-neutral);
   
@@ -574,7 +574,7 @@ CSS for loading states:
 }
 
 .strength-bar {
-  height: var(--bar-height);
+  height: var(--height);
   background: var(--bar-bg);
   border-radius: var(--radius-full);
   overflow: hidden;

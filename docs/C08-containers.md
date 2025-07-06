@@ -247,13 +247,13 @@ For overlays and modals:
   --bg: var(--color-background);
   --padding: var(--space-2-0);
   --width: auto;
-  --dialog-height: auto;
+  --height: auto;
   
   /* 2. Use the tokens */
   background: var(--bg);
   padding: var(--padding);
   width: var(--width);
-  height: var(--dialog-height);
+  height: var(--height);
 }
 
 [data-variant="danger"] .dialog {
