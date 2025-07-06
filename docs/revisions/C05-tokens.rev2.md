@@ -25,8 +25,6 @@ Remember this nightmare?
 
 Design tokens are your single source of truth. Change them once, update everywhere.
 
-**🚨 IMPORTANT**: CRISP uses OKLCH colors exclusively. No HSL, RGB, or HEX. Why? Because it's 2025 and we have perceptually uniform color spaces that actually work.
-
 ```css
 /* Define once */
 :root {
@@ -78,63 +76,29 @@ Usage becomes self-documenting:
 
 ### Color Tokens - The Palette That Scales
 
-CRISP uses OKLCH for perceptually uniform colors:
+CRISP uses HSL with an alpha channel for ultimate flexibility:
 
 ```css
 :root {
-  /* Primary colour scale - OKLCH(lightness chroma hue) */
-  --color-primary-10: oklch(95% 0.04 250);   /* Lightest */
-  --color-primary-20: oklch(90% 0.08 250);
-  --color-primary-30: oklch(80% 0.12 250);
-  --color-primary-40: oklch(70% 0.16 250);
-  --color-primary-50: oklch(60% 0.20 250);   /* Base */
-  --color-primary-60: oklch(50% 0.20 250);
-  --color-primary-70: oklch(40% 0.16 250);
-  --color-primary-80: oklch(30% 0.12 250);
-  --color-primary-90: oklch(20% 0.08 250);   /* Darkest */
-  
-  /* Neutral scale */
-  --color-neutral-5:  oklch(98% 0 0);       /* Background */
-  --color-neutral-10: oklch(95% 0.01 250);
-  --color-neutral-20: oklch(90% 0.01 250);  /* Border */
-  --color-neutral-50: oklch(50% 0.01 250);
-  --color-neutral-90: oklch(10% 0.01 250);  /* Text */
+  /* Primary colour scale */
+  --color-primary-10: hsla(220, 80%, 95%, 1);   /* Lightest */
+  --color-primary-20: hsla(220, 80%, 90%, 1);
+  --color-primary-30: hsla(220, 80%, 80%, 1);
+  --color-primary-40: hsla(220, 80%, 70%, 1);
+  --color-primary-50: hsla(220, 80%, 60%, 1);   /* Base */
+  --color-primary-60: hsla(220, 80%, 50%, 1);
+  --color-primary-70: hsla(220, 80%, 40%, 1);
+  --color-primary-80: hsla(220, 80%, 30%, 1);
+  --color-primary-90: hsla(220, 80%, 20%, 1);   /* Darkest */
   
   /* Semantic colours */
   --color-background: var(--color-neutral-5);
   --color-text: var(--color-neutral-90);
   --color-border: var(--color-neutral-20);
-  
-  /* Status colors */
-  --color-error: oklch(55% 0.22 25);     /* Red */
-  --color-warning: oklch(70% 0.15 90);   /* Yellow */
-  --color-success: oklch(60% 0.18 145);  /* Green */
-  --color-info: oklch(60% 0.15 220);     /* Blue */
 }
 ```
 
-**The "Aha!"**: OKLCH provides perceptually uniform colors. A lightness of 60% looks equally bright whether it's blue, red, or yellow. HSL can't do that!
-
-### Why OKLCH?
-
-```css
-/* Automatic color variations with relative colors */
-.button {
-  --bg: var(--color-primary);
-  
-  /* Hover: 10% lighter */
-  &:hover {
-    --bg: oklch(from var(--bg) calc(l + 0.1) c h);
-  }
-  
-  /* Active: 10% darker */
-  &:active {
-    --bg: oklch(from var(--bg) calc(l - 0.1) c h);
-  }
-}
-```
-
-**The deeper "Aha!"**: Relative color functions let you create consistent variations without defining every state. The browser does the math!
+**The "Aha!"**: HSL makes color relationships obvious. Need a darker primary? Decrease the lightness. Need it more muted? Decrease the saturation.
 
 ### Typography Tokens - Consistent Text Everywhere
 
@@ -180,10 +144,10 @@ CRISP uses OKLCH for perceptually uniform colors:
   --radius-full: 9999px;
   
   /* Shadows (GPU-optimised) */
-  --shadow-subtle: 0 1px 2px oklch(0% 0 0 / 0.05);
-  --shadow-default: 0 4px 6px oklch(0% 0 0 / 0.1);
-  --shadow-elevated: 0 10px 15px oklch(0% 0 0 / 0.1);
-  --shadow-floating: 0 20px 25px oklch(0% 0 0 / 0.1);
+  --shadow-subtle: 0 1px 2px hsla(0, 0%, 0%, 0.05);
+  --shadow-default: 0 4px 6px hsla(0, 0%, 0%, 0.1);
+  --shadow-elevated: 0 10px 15px hsla(0, 0%, 0%, 0.1);
+  --shadow-floating: 0 20px 25px hsla(0, 0%, 0%, 0.1);
   
   /* Transitions */
   --transition-fast: 150ms ease;
@@ -197,24 +161,14 @@ CRISP uses OKLCH for perceptually uniform colors:
 Tokens make components predictable:
 
 ```css
-/* Type-safe with @property */
-@property --bg {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: var(--color-primary);
-}
-
-@property --size {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 1rem;
-}
-
 .button {
-  /* Define/Use pattern */
+  /* 1. Define defaults using tokens */
+  --bg: var(--color-primary);
   --color: var(--color-white);
+  --size: var(--text-size-1-0);
   --radius: var(--radius-md);
   
+  /* 2. Use the tokens */
   padding: var(--space-0-75) var(--space-1-5);
   background: var(--bg);
   color: var(--color);
@@ -248,30 +202,23 @@ This is where tokens shine:
 ```css
 /* Light theme (default) */
 :root {
-  --color-background: oklch(100% 0 0);     /* Pure white */
-  --color-text: oklch(10% 0 0);            /* Near black */
-  --color-border: oklch(90% 0 0);          /* Light gray */
+  --color-background: hsla(0, 0%, 100%, 1);
+  --color-text: hsla(0, 0%, 10%, 1);
+  --color-border: hsla(0, 0%, 90%, 1);
 }
 
 /* Dark theme */
 [data-theme="dark"] {
-  --color-background: oklch(10% 0 0);      /* Near black */
-  --color-text: oklch(90% 0 0);            /* Light gray */
-  --color-border: oklch(20% 0 0);          /* Dark gray */
-}
-
-/* High contrast theme */
-[data-theme="high-contrast"] {
-  --color-background: oklch(0% 0 0);       /* Pure black */
-  --color-text: oklch(100% 0 0);           /* Pure white */
-  --color-border: oklch(100% 0 0);         /* Pure white */
+  --color-background: hsla(0, 0%, 10%, 1);
+  --color-text: hsla(0, 0%, 90%, 1);
+  --color-border: hsla(0, 0%, 20%, 1);
 }
 
 /* System preference */
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --color-background: oklch(10% 0 0);
-    --color-text: oklch(90% 0 0);
+    --color-background: hsla(0, 0%, 10%, 1);
+    --color-text: hsla(0, 0%, 90%, 1);
   }
 }
 ```
@@ -311,13 +258,13 @@ For different brands or contexts:
 ```css
 /* Default brand */
 [data-brand="default"] {
-  --color-primary: oklch(60% 0.20 250);    /* Blue */
+  --color-primary: hsla(220, 80%, 60%, 1);
   --font-sans: system-ui, sans-serif;
 }
 
 /* Premium brand */
 [data-brand="premium"] {
-  --color-primary: oklch(50% 0.18 280);    /* Purple */
+  --color-primary: hsla(280, 60%, 50%, 1);
   --font-sans: 'Elegant Font', serif;
   --space-1-0: 1.25rem; /* More spacious */
 }
@@ -338,7 +285,7 @@ For different brands or contexts:
 --spacing-16: 16px;
 
 /* ✅ Good: Describes purpose */
---color-primary: oklch(60% 0.20 250);
+--color-primary: hsla(220, 80%, 60%, 1);
 --space-1-0: 1rem;
 ```
 
@@ -361,16 +308,14 @@ For different brands or contexts:
 ```css
 :root {
   /* Base values */
-  --color-primary: oklch(60% 0.20 250);
+  --color-primary: hsla(220, 80%, 60%, 1);
   
-  /* Derived values - use relative colors! */
-  --color-primary-hover: oklch(from var(--color-primary) calc(l + 0.1) c h);
-  --color-primary-active: oklch(from var(--color-primary) calc(l - 0.1) c h);
-  --color-primary-disabled: oklch(from var(--color-primary) l c h / 0.5);
+  /* Derived values */
+  --color-primary-hover: hsla(220, 80%, 50%, 1);
+  --color-primary-active: hsla(220, 80%, 40%, 1);
+  --color-primary-disabled: hsla(220, 80%, 60%, 0.5);
 }
 ```
-
-**The "Aha!"**: No more manually calculating hover states. The browser does it for you!
 
 ## Token Naming Rules
 
@@ -381,55 +326,6 @@ Remember the hierarchy:
 
 **The "Aha!"**: Element tokens are unambiguous within their element's context. Everything else needs identification.
 
-## Modern Token Features
-
-### Type-Safe Tokens with @property
-
-```css
-@property --columns {
-  syntax: "<integer>";
-  inherits: false;
-  initial-value: 3;
-}
-
-@property --gap {
-  syntax: "<length>";
-  inherits: false;
-  initial-value: 1rem;
-}
-
-/* Browser validates these! */
-.as-grid {
-  --columns: 4;          /* ✅ Valid */
-  --columns: "four";     /* ❌ Ignored */
-  
-  grid-template-columns: repeat(var(--columns), 1fr);
-  gap: var(--gap);
-}
-```
-
-### CSS Layers for Token Organization
-
-```css
-@layer tokens, base, components;
-
-@layer tokens {
-  :root {
-    /* All tokens defined here */
-    --color-primary: oklch(60% 0.20 250);
-    --space-1-0: 1rem;
-  }
-}
-
-@layer components {
-  .button {
-    /* Components use tokens */
-    background: var(--color-primary);
-    padding: var(--space-1-0);
-  }
-}
-```
-
 ## The Token Contract
 
 Design tokens create a contract:
@@ -437,8 +333,6 @@ Design tokens create a contract:
 - **Developers** use the tokens
 - **Changes** happen in one place
 - **Consistency** is automatic
-- **Type safety** is built-in (with @property)
-- **Perceptual uniformity** is guaranteed (with OKLCH)
 
 ## Your Token Journey
 
