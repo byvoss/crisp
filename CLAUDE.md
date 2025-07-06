@@ -506,6 +506,49 @@ Remember: Be honest, practical, respectfully sarcastic, and always focus on genu
 - Users only install what they need
 - No Bootstrap-style bloat
 
+### State-of-the-Art CDN Distribution
+
+**Modern ESM modules with SRI integrity for security and performance:**
+
+```html
+<!-- Tier 1: CRISP (Pure CSS) -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+
+<!-- Tier 2: CRISP Theme (CSS + Theme JS) -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+
+<!-- Tier 3: CRISP Enterprise (Full Platform) -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-enterprise@latest/dist/components.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+```
+
+**CDN Best Practices:**
+- Modern ESM modules for tree-shaking
+- SRI (Subresource Integrity) for security
+- Crossorigin anonymous for proper CORS
+- Progressive loading (CSS first, then JS enhancements)
+- Version locking available (`@1.0.0` instead of `@latest`)
+
 ### GitHub Repository
 
 - **Repository**: `github.com:byvoss/crisp.git`

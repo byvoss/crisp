@@ -41,6 +41,21 @@ One HTML structure. Three capability levels. Zero rewrites.
 - Zero JavaScript
 - Works everywhere
 
+### Modern CDN Loading
+```html
+<!-- State-of-the-art CDN with SRI integrity -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+
+<!-- Alternative CDN providers -->
+<link rel="stylesheet" 
+  href="https://cdn.jsdelivr.net/npm/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+```
+
 ### Example Implementation
 ```html
 <!DOCTYPE html>
@@ -139,6 +154,27 @@ input[type="radio"]:nth-of-type(2):checked ~ .navigation .tab:nth-of-type(2) {
 - System preference sync
 - Still works without JS
 
+### Modern CDN Loading
+```html
+<!-- Progressive enhancement: CSS first, then theme JS -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+
+<!-- Modern ESM module for theme switching -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+
+<!-- Fallback for older browsers (optional) -->
+<script nomodule 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.min.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+```
+
 ### Same HTML, More Features
 ```html
 <!DOCTYPE html>
@@ -220,6 +256,32 @@ input[type="radio"]:nth-of-type(2):checked ~ .navigation .tab:nth-of-type(2) {
 - Reactive attributes
 - Advanced interactions
 - Still progressive enhancement
+
+### Modern CDN Loading
+```html
+<!-- Full progressive stack: CSS → Theme → Components -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  integrity="sha384-..." 
+  crossorigin="anonymous">
+
+<!-- Theme system (required for Enterprise) -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+
+<!-- Web Components and full framework -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-enterprise@latest/dist/components.esm.js"
+  integrity="sha384-..." 
+  crossorigin="anonymous"></script>
+
+<!-- Optional: Preload for better performance -->
+<link rel="modulepreload" 
+  href="https://unpkg.com/@byvoss/crisp-enterprise@latest/dist/components.esm.js"
+  as="script">
+```
 
 ### Same HTML, Maximum Power
 ```html
@@ -446,6 +508,81 @@ CSS for product context:
 - Analytics tracking
 - Inventory checking
 - Loading states
+
+## CDN Best Practices
+
+### Version Management
+```html
+<!-- Development: Use @latest for automatic updates -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css">
+
+<!-- Production: Lock to specific version -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css"
+  integrity="sha384-[specific-hash]" 
+  crossorigin="anonymous">
+
+<!-- Version ranges for controlled updates -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@^1.0.0/dist/crisp.min.css">
+```
+
+### Performance Optimisation
+```html
+<!-- Preconnect to CDN -->
+<link rel="preconnect" href="https://unpkg.com">
+<link rel="dns-prefetch" href="https://unpkg.com">
+
+<!-- Preload critical resources -->
+<link rel="preload" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css" 
+  as="style">
+
+<!-- Module preloading for faster JS -->
+<link rel="modulepreload" 
+  href="https://unpkg.com/@byvoss/crisp-theme@1.0.0/dist/theme.esm.js">
+```
+
+### Security with Subresource Integrity (SRI)
+```html
+<!-- Always use SRI in production -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css"
+  integrity="sha384-oqVuAfXRKap7fdgcCY5uykM6+R9GqQ8K/uxy9rx7HNQlGYl1kPzQho1wx4JwY8wC" 
+  crossorigin="anonymous">
+
+<!-- Generate SRI hashes -->
+<!-- https://www.srihash.org/ -->
+<!-- Or use: openssl dgst -sha384 -binary crisp.min.css | openssl base64 -A -->
+```
+
+### Progressive Loading Strategy
+```html
+<!-- 1. Critical CSS inline (optional for fastest paint) -->
+<style>
+  /* Minimal above-fold styles */
+  .as-container { max-width: 1200px; margin: 0 auto; }
+</style>
+
+<!-- 2. Main CSS with high priority -->
+<link rel="stylesheet" 
+  href="https://unpkg.com/@byvoss/crisp@1.0.0/dist/crisp.min.css"
+  media="all">
+
+<!-- 3. Theme JS deferred -->
+<script type="module" 
+  src="https://unpkg.com/@byvoss/crisp-theme@1.0.0/dist/theme.esm.js"
+  defer></script>
+
+<!-- 4. Components lazy-loaded -->
+<script type="module">
+  // Load enterprise components when needed
+  if (document.querySelector('[data-function]')) {
+    import('https://unpkg.com/@byvoss/crisp-enterprise@1.0.0/dist/components.esm.js');
+  }
+</script>
+```
 
 ## The Progressive Promise
 
