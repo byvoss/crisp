@@ -80,7 +80,7 @@ Navigation is about wayfinding. Make it obvious.
 </nav>
 
 <!-- Context-aware navigation -->
-<nav class="navigation" data-entries="3" data-context="authenticated" aria-label="User menu">
+<nav class="navigation" data-entries="3" data-variant="authenticated" aria-label="User menu">
   <a class="link" href="/profile">Profile</a>
   <a class="link" href="/settings">Settings</a>
   <a class="link" href="/logout">Sign Out</a>
@@ -99,7 +99,7 @@ Navigation is about wayfinding. Make it obvious.
 }
 
 /* Context styling */
-[data-context="authenticated"] .navigation {
+[data-variant="authenticated"] .navigation {
   --bg: var(--color-neutral-light);
 }
 ```
@@ -203,7 +203,7 @@ Show users where they are:
 </nav>
 
 <!-- Pagination with context -->
-<nav class="pagination" data-entries="3" data-context="search-results" aria-label="Search results pagination">
+<nav class="pagination" data-entries="3" data-variant="search-results" aria-label="Search results pagination">
   <ol class="list as-cluster">
     <li><a class="link" href="?page=1">1</a></li>
     <li><a class="link" href="?page=2" aria-current="page">2</a></li>
@@ -386,7 +386,7 @@ CSS magic:
 <nav class="navigation mobile-nav as-stack" 
   id="mobile-nav"
   aria-label="Mobile navigation"
-  data-state="closed"
+  data-variant="closed"
   hidden>
   <a class="link" href="/">Home</a>
   <a class="link" href="/about">About</a>
@@ -415,7 +415,7 @@ CSS for mobile:
     z-index: 100;
   }
   
-  .mobile-nav[data-state="closed"] {
+  .mobile-nav[data-variant="closed"] {
     display: none;
   }
 }
@@ -510,7 +510,7 @@ CSS:
 
 ```html
 <!-- Dropdown expanded -->
-<button class="button" aria-expanded="true" data-state="active">
+<button class="button" aria-expanded="true" data-variant="active">
   Menu ▼
 </button>
 
@@ -520,7 +520,7 @@ CSS:
 </button>
 
 <!-- Navigation expanded -->
-<nav class="navigation" data-state="expanded">
+<nav class="navigation" data-variant="expanded">
   <!-- Navigation items -->
 </nav>
 ```
@@ -605,10 +605,10 @@ With CRISP navigation:
 - No framework-specific markup
 - Works without JavaScript
 - Responsive without media query hell
-- Context via data attributes, not modifier classes
+- Variants via data attributes, not modifier classes
 
 Your users can find their way. Your code stays maintainable. Everyone wins.
 
-And when the designer asks for "authenticated user navigation with a premium feel"? You don't create `.nav--authenticated-premium`. You add `data-context="authenticated" data-tier="premium"` and style once. That's the power of semantic context.
+And when the designer asks for "authenticated user navigation with a premium feel"? You don't create `.nav--authenticated-premium`. You add `data-variant="authenticated" data-tier="premium"` and style once. That's the power of semantic variants.
 
 → Continue to [Chapter 10: Forms That Users Actually Complete](./C10-forms.md)

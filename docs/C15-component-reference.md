@@ -72,7 +72,7 @@ Each component includes:
 </button>
 
 <!-- Loading state -->
-<button class="button" type="button" disabled data-state="loading">
+<button class="button" type="button" disabled data-variant="loading">
   <span class="spinner"></span> Loading...
 </button>
 ```
@@ -132,7 +132,7 @@ Each component includes:
 <input class="input" type="search" style="width: 100%;">
 
 <!-- With validation state -->
-<input class="input" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" data-state="invalid">
+<input class="input" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" data-variant="invalid">
 ```
 
 ### select
@@ -257,7 +257,7 @@ Each component includes:
 </article>
 
 <!-- Context-specific card -->
-<article class="card" data-context="premium">
+<article class="card" data-variant="premium">
   <h3 class="heading">Premium Feature</h3>
 </article>
 ```
@@ -803,18 +803,18 @@ function example() {
 
 ## State Management
 
-Use data attributes for states:
-- `data-state="loading"` - Loading state
-- `data-state="error"` - Error state
-- `data-state="success"` - Success state
-- `data-state="disabled"` - Disabled state
+Use data attributes for variants:
+- `data-variant="loading"` - Loading variant
+- `data-variant="error"` - Error variant
+- `data-variant="success"` - Success variant
+- `data-variant="disabled"` - Disabled variant
 
-## Context Management
+## Variant Management
 
-Use data attributes for context:
-- `data-context="admin"` - Admin interface
-- `data-context="premium"` - Premium features
-- `data-context="checkout"` - Checkout flow
-- `data-context="authenticated"` - Logged-in users
+Use data attributes for variants:
+- `data-variant="admin"` - Admin interface
+- `data-variant="premium"` - Premium features
+- `data-variant="checkout"` - Checkout flow
+- `data-variant="authenticated"` - Logged-in users
 
 → Continue to [Chapter 16: CRISP Cheatsheet](./C16-cheatsheet.md)

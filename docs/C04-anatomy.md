@@ -160,7 +160,7 @@ CRISP enforces consistent attribute order for scannability:
   id="featured-article"                         <!-- 2. ID (only for accessibility) -->
   role="article"                                <!-- 3. ARIA role -->
   aria-label="Featured content"                 <!-- 4. ARIA attributes -->
-  data-context="featured"                       <!-- 5. Data attributes (can be on same element!) -->
+  data-variant="featured"                       <!-- 5. Data attributes (can be on same element!) -->
   style="--bg: var(--color-primary);">         <!-- 6. Inline styles (custom properties only) -->
   Content
 </article>

@@ -115,12 +115,12 @@ Chapters 5-11 cover all components in detail
 }
 ```
 
-**Context via Data Attributes**:
+**Variants via Data Attributes**:
 ```html
-<!-- Variants and states use data attributes -->
+<!-- All variants use data attributes -->
 <button class="button" data-variant="primary">Primary</button>
-<article class="card" data-context="danger">Warning Card</article>
-<form class="form" data-state="loading">Loading...</form>
+<article class="card" data-variant="danger">Warning Card</article>
+<form class="form" data-variant="loading">Loading...</form>
 ```
 
 ## Three Levels of CRISP

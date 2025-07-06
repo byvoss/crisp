@@ -93,7 +93,7 @@ That's it. One class handles every button you'll ever need.
 </button>
 
 <!-- Context-aware button -->
-<button class="button" type="button" data-context="premium">
+<button class="button" type="button" data-variant="premium">
   Premium Action
 </button>
 ```
@@ -394,13 +394,13 @@ Forms can respond to their context without changing their structure:
 
 ```html
 <!-- Admin context changes appearance automatically -->
-<form class="form as-stack" data-context="admin">
+<form class="form as-stack" data-variant="admin">
   <input class="input" type="text" placeholder="Admin only field">
   <button class="button" type="submit">Admin Action</button>
 </form>
 
 <!-- Checkout context with special styling -->
-<form class="form as-stack" data-context="checkout">
+<form class="form as-stack" data-variant="checkout">
   <input class="input" type="text" placeholder="Card number">
   <button class="button" type="submit">Complete Purchase</button>
 </form>
@@ -408,11 +408,11 @@ Forms can respond to their context without changing their structure:
 
 ```css
 /* Context-specific styling */
-[data-context="admin"] .input {
+[data-variant="admin"] .input {
   --border-color: var(--color-warning);
 }
 
-[data-context="checkout"] .button {
+[data-variant="checkout"] .button {
   --bg: var(--color-success);
   --size: var(--text-size-lg);
 }
@@ -474,7 +474,7 @@ Forms can respond to their context without changing their structure:
 ```html
 <!-- ✅ Component with direct context -->
 <button class="button" data-brand="premium">Premium Feature</button>
-<input class="input" data-state="error" aria-invalid="true">
+<input class="input" data-variant="error" aria-invalid="true">
 
 <!-- ❌ Avoid context classes -->
 <button class="button button--premium">Premium Feature</button>

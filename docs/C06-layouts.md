@@ -377,7 +377,7 @@ Each layout accepts customisation:
 
 ```html
 <!-- Compact context reduces spacing -->
-<main data-context="compact">
+<main data-variant="compact">
   <div class="as-stack">
     <!-- Inherits compact spacing from context -->
     <h1>Compact Layout</h1>
@@ -386,7 +386,7 @@ Each layout accepts customisation:
 </main>
 
 <!-- Dashboard context might change grid behavior -->
-<section data-context="dashboard">
+<section data-variant="dashboard">
   <div class="as-grid">
     <!-- Context can override grid settings -->
     <widget class="card">Widget 1</widget>

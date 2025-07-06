@@ -151,38 +151,38 @@ The same HTML works at three levels:
 
 **The "Aha!"**: Your HTML structure never changes. You can start simple and enhance without refactoring.
 
-### Bonus: Context Without Class Pollution
+### Bonus: Variants Without Class Pollution
 
-Need different styling in different contexts? Use data attributes:
+Need different styling in different contexts? Use data-variant:
 
 ```html
 <!-- Admin area with special styling -->
-<main data-context="admin">
+<main data-variant="admin">
   <article class="card">
-    Automatically styled for admin context
+    Automatically styled for admin variant
   </article>
   <button class="button">Admin actions</button>
 </main>
 
 <!-- Danger zone with warnings -->
-<section data-context="danger">
+<section data-variant="danger">
   <p class="text">This action cannot be undone</p>
   <button class="button">Delete Forever</button>
 </section>
 ```
 
 ```css
-/* Context-specific styling */
-[data-context="admin"] .card {
+/* Variant-specific styling */
+[data-variant="admin"] .card {
   --border-color: var(--color-warning);
 }
 
-[data-context="danger"] .button {
+[data-variant="danger"] .button {
   --bg: var(--color-danger);
 }
 ```
 
-**The "Aha!"**: No `.admin-card` or `.danger-button` classes. Context is data, not CSS.
+**The "Aha!"**: No `.admin-card` or `.danger-button` classes. Variants are data, not CSS.
 
 ## The Core Philosophy
 

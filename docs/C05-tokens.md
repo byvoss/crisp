@@ -269,8 +269,8 @@ For different brands or contexts:
   --space-1-0: 1.25rem; /* More spacious */
 }
 
-/* Compact context */
-[data-context="compact"] {
+/* Compact variant */
+[data-variant="compact"] {
   --space-1-0: 0.875rem;
   --text-size-1-0: 0.9375rem;
 }

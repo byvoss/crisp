@@ -295,7 +295,7 @@ export class Button extends CRISPComponent {
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     if (name === 'loading') {
       this.ariaBusy = newValue === 'true' ? 'true' : 'false';
-      this.setAttribute('data-state', newValue === 'true' ? 'loading' : '');
+      this.setAttribute('data-variant', newValue === 'true' ? 'loading' : '');
     }
   }
 }
@@ -400,7 +400,7 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 ### E-commerce Product Card
 ```html
 <!-- Works at all levels -->
-<article class="card as-stack with-shadow" data-context="product">
+<article class="card as-stack with-shadow" data-variant="product">
   <img class="image" src="product.jpg" alt="Product">
   
   <div class="as-stack">
@@ -420,7 +420,7 @@ document.querySelectorAll('[data-i18n]').forEach(el => {
 
 CSS for product context:
 ```css
-[data-context="product"] {
+[data-variant="product"] {
   /* 1. Define context tokens */
   --spacing: var(--space-1-5);
   --highlight: var(--color-primary);

@@ -68,7 +68,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 <!-- Modern app layout -->
 <div class="app as-grid" style="--template: 'nav main' / 250px 1fr; height: 100vh;">
   <!-- Sidebar navigation -->
-  <nav class="navigation app-nav as-stack" data-entries="2" data-context="app" style="grid-area: nav;">
+  <nav class="navigation app-nav as-stack" data-entries="2" data-variant="app" style="grid-area: nav;">
     <div class="as-stack" style="--gap: var(--space-2-0);">
       <!-- Logo -->
       <a class="link logo" href="/">
@@ -111,7 +111,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 
 CSS for app context:
 ```css
-[data-context="app"] {
+[data-variant="app"] {
   /* 1. Define context tokens */
   --nav-bg: var(--color-neutral-dark);
   --nav-color: white;
@@ -350,7 +350,7 @@ document.querySelectorAll('[data-function="infinite-scroll"]').forEach(el => {
 
 ### Multi-Step Form
 ```html
-<form class="form wizard" data-state="step-1">
+<form class="form wizard" data-variant="step-1">
   <!-- Progress -->
   <nav class="progress as-cluster" aria-label="Form progress">
     <button class="step" aria-current="step" data-step="1">
@@ -420,7 +420,7 @@ CSS for wizard forms:
 }
 
 /* Form states */
-.form[data-state^="step-"] .step-content {
+.form[data-variant^="step-"] .step-content {
   transition: var(--step-transition);
 }
 ```
@@ -549,7 +549,7 @@ CSS for responsive tables:
 ### Container Queries
 ```html
 <!-- Component that adapts to container -->
-<article class="card product-card" style="container-type: inline-size;" data-context="product">
+<article class="card product-card" style="container-type: inline-size;" data-variant="product">
   <img class="image" src="product.jpg" alt="">
   <div class="details as-stack">
     <h3 class="heading">Product Name</h3>
@@ -735,16 +735,16 @@ document.querySelector('[data-function="optimistic"]').addEventListener('submit'
 }
 
 /* Style based on data state */
-[data-state="loading"] {
+[data-variant="loading"] {
   --opacity: 0.6;
   cursor: wait;
 }
 
-[data-state="error"] {
+[data-variant="error"] {
   --border-color: var(--color-danger);
 }
 
-[data-state="success"] {
+[data-variant="success"] {
   --border-color: var(--color-success);
 }
 ```
@@ -753,7 +753,7 @@ document.querySelector('[data-function="optimistic"]').addEventListener('submit'
 
 ### Theme Context
 ```html
-<main data-context="dashboard" data-theme="dark">
+<main data-variant="dashboard" data-theme="dark">
   <section class="stats as-grid">
     <article class="card" data-variant="stat">
       <p class="number">1,234</p>
@@ -763,10 +763,10 @@ document.querySelector('[data-function="optimistic"]').addEventListener('submit'
 </main>
 ```
 
-CSS for context combinations:
+CSS for variant combinations:
 ```css
-/* Dashboard context with dark theme */
-[data-context="dashboard"][data-theme="dark"] {
+/* Dashboard variant with dark theme */
+[data-variant="dashboard"][data-theme="dark"] {
   --card-bg: var(--color-neutral-dark);
   --card-color: white;
   --card-border: 1px solid var(--color-neutral);

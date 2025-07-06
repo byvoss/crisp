@@ -31,7 +31,6 @@
 <element class="[component] [as-layout] [with-property]" 
   style="--token: value;"
   data-variant="variant"
-  data-state="state">
 ```
 
 **Rules**:
@@ -307,21 +306,21 @@ document.getElementById('modal').showModal();
 <nav class="navigation" data-entries="0" data-variant="tabs">Tab nav</nav>
 ```
 
-### States
+### Variants
 ```html
-<!-- Element states -->
-<button class="button" data-state="loading">Loading...</button>
-<input class="input" data-state="invalid">
-<form class="form" data-state="error">
-<div class="card" data-state="expanded">
+<!-- Element variants -->
+<button class="button" data-variant="loading">Loading...</button>
+<input class="input" data-variant="invalid">
+<form class="form" data-variant="error">
+<div class="card" data-variant="expanded">
 ```
 
-### Context
+### Contextual Variants
 ```html
-<!-- Environmental context -->
-<main data-context="admin">Admin area</main>
-<section data-context="premium">Premium content</section>
-<form data-context="checkout">Checkout form</form>
+<!-- Environmental variants -->
+<main data-variant="admin">Admin area</main>
+<section data-variant="premium">Premium content</section>
+<form data-variant="checkout">Checkout form</form>
 ```
 
 ## Theme Switching

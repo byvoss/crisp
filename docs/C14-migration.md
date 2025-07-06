@@ -284,7 +284,7 @@ Run both systems during migration:
 
 ```html
 <!-- Header with both systems -->
-<header data-context="migration">
+<header data-variant="migration">
   <!-- Old navigation for desktop -->
   <nav class="legacy-nav" data-variant="desktop">
     <!-- Complex legacy navigation -->
@@ -300,7 +300,7 @@ Run both systems during migration:
 
 CSS for migration context:
 ```css
-[data-context="migration"] {
+[data-variant="migration"] {
   /* Hide based on viewport */
   [data-variant="desktop"] {
     @media (max-width: 768px) {
@@ -391,7 +391,7 @@ h1, h2, h3 {
 **Solution**: Scope CRISP components
 ```css
 /* Scope CRISP to avoid conflicts */
-[data-context="crisp"] {
+[data-variant="crisp"] {
   /* CRISP resets */
   h1, h2, h3 {
     /* 1. Define heading defaults */

@@ -228,11 +228,11 @@ Want to customise it? Use CSS custom properties - you know, that feature that's 
 </article>
 ```
 
-Need context? Use data attributes, not CSS classes:
+Need variants? Use data attributes, not CSS classes:
 
 ```html
 <!-- No .danger-zone .warning-context .theme-dark nonsense -->
-<section data-context="checkout">
+<section data-variant="checkout">
   <article class="card">
     <p class="text">Context without class pollution</p>
     <button class="button">Inherits checkout styling</button>

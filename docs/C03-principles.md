@@ -218,19 +218,19 @@ Stop fighting CSS. The cascade is your friend.
   background: var(--bg);
 }
 
-/* Context naturally overrides via data attributes */
+/* Variants naturally override via data attributes */
 [data-theme="dark"] {
   --color-primary: var(--color-primary-dark);
 }
 
-[data-context="danger"] .button {
+[data-variant="danger"] .button {
   --bg: var(--color-danger);
 }
 ```
 
 ### The Inheritance
 ```html
-<!-- Parent sets context via data attribute -->
+<!-- Parent sets theme via data attribute -->
 <main data-theme="dark">
   <!-- Children inherit automatically -->
   <article class="card">
@@ -241,8 +241,8 @@ Stop fighting CSS. The cascade is your friend.
   </button>
 </main>
 
-<!-- Danger context -->
-<section data-context="danger">
+<!-- Danger variant -->
+<section data-variant="danger">
   <button class="button">Delete Account</button>
   <p class="text">This action cannot be undone</p>
 </section>
@@ -251,16 +251,16 @@ Stop fighting CSS. The cascade is your friend.
 ### The Simplicity
 No theme-specific classes. No dark mode modifiers. Just CSS custom properties cascading as Håkon Wium Lie intended.
 
-**The Principle**: CSS is for layout and presentation only - never for context. Context is semantic information that belongs in HTML via data attributes. Don't pollute your styling with meaning.
+**The Principle**: CSS is for layout and presentation only - never for variants. Variants are semantic information that belongs in HTML via data attributes. Don't pollute your styling with meaning.
 
 ### Direct Application
 ```html
-<!-- ✅ Component AND context on same element -->
-<button class="button" data-context="danger">Delete Account</button>
+<!-- ✅ Component AND variant on same element -->
+<button class="button" data-variant="danger">Delete Account</button>
 <article class="card" data-theme="dark">Dark Card</article>
 
 <!-- ❌ Unnecessary nesting -->
-<div data-context="danger">
+<div data-variant="danger">
   <button class="button">Delete Account</button>
 </div>
 ```

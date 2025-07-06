@@ -71,7 +71,7 @@ The card is CRISP's Swiss Army knife. It contains things. That's it.
 </article>
 
 <!-- Context-aware card -->
-<article class="card" data-context="premium">
+<article class="card" data-variant="premium">
   <h2>Premium Content</h2>
   <p>Automatically styled for premium context.</p>
 </article>
@@ -104,7 +104,7 @@ CSS that powers it all:
 }
 
 /* Context-aware styling */
-[data-context="premium"] .card {
+[data-variant="premium"] .card {
   --bg: var(--color-accent);
   --border: 2px solid var(--color-gold);
 }
@@ -235,7 +235,7 @@ For overlays and modals:
 </dialog>
 
 <!-- Danger context dialog -->
-<dialog class="dialog card" data-context="danger">
+<dialog class="dialog card" data-variant="danger">
   <h2>Destructive Action</h2>
   <p>This cannot be undone!</p>
 </dialog>
@@ -256,7 +256,7 @@ For overlays and modals:
   height: var(--height);
 }
 
-[data-context="danger"] .dialog {
+[data-variant="danger"] .dialog {
   --bg: var(--color-danger-light);
 }
 ```
@@ -492,7 +492,7 @@ document.getElementById('confirm-dialog').close();
 ### 4. Context via Data Attributes
 ```html
 <!-- ✅ Context defines appearance -->
-<article class="card" data-state="featured">
+<article class="card" data-variant="featured">
   Featured content gets special styling
 </article>
 
