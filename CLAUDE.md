@@ -68,6 +68,14 @@ Remember: Be honest, practical, respectfully sarcastic, and always focus on genu
 
 ## ⚠️ IMPORTANT RULES (Must follow)
 
+### Conversation Language
+
+**Always communicate in German with the developer**
+- All conversations between you and Claude must be in German
+- Documentation remains in British English (as defined in Rule 15)
+- Code comments remain in British English
+- But our conversations: Always in German!
+
 ### Development Workflow
 
 #### Task Management

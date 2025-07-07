@@ -2,6 +2,24 @@
 
 This document tracks open questions, inconsistencies, and decisions needed for CRISP development.
 
+## Status Key
+
+### Decision Status:
+- ⏳ **PENDING** - Needs decision
+- 🔄 **IN PROGRESS** - Being resolved
+- ✅ **DECIDED** - Decision made (see Decision Log)
+- ❌ **REJECTED** - Won't fix
+
+### Implementation Progress (for ✅ DECIDED items):
+- **Stage 1** → 📝 **DECIDED ONLY** - Decision made in CLARIFICATIONS.md, nothing else done
+- **Stage 2** → 📄 **DOCUMENTED** - Added to documentation chapters, awaiting code implementation
+- **Stage 3** → 🔨 **IMPLEMENTED** - Actually built into CSS/JS/TS files
+
+### Clear Examples:
+- Item decided but not in docs yet → **Status**: ✅ DECIDED | **Progress**: 📝 DECIDED ONLY
+- Item fully documented but no code → **Status**: ✅ DECIDED | **Progress**: 📄 DOCUMENTED  
+- Item built and working → **Status**: ✅ DECIDED | **Progress**: 🔨 IMPLEMENTED
+
 ## 🔴 Critical Issues (Block Release)
 
 ### 1. ✅ Color vs Colour Inconsistency
@@ -463,7 +481,7 @@ tests/
 - Active development and community
 
 **Action**: Configure Vitest and Playwright for comprehensive testing
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📝 DECIDED ONLY
 
 ### ✅ [2025-01-06] CDN Distribution Strategy (#12)
 **Decision**: State-of-the-art CDN setup with all modern features  
@@ -512,7 +530,7 @@ tests/
 - Type definitions for component APIs
 - Proper ESM module output
 **Action**: Set up TypeScript configuration for Enterprise tier
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] Stylelint Configuration (#14)
 **Decision**: Configure rules to enforce CRISP conformity  
@@ -527,7 +545,7 @@ tests/
   - No deep nesting
   - Semantic class patterns
 **Action**: Create CRISP-specific stylelint config and fix issues
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] Browser Fallbacks (#16)
 **Decision**: No fallbacks needed - target modern browsers only  
@@ -570,7 +588,7 @@ tests/
 - Test gradients between shades
 - Ensure consistent perceived brightness across scales
 **Action**: Convert entire color system to OKLCH
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] ID Usage Guidelines (#18)
 **Decision**: IDs are purely functional - NEVER for styling  
@@ -619,7 +637,7 @@ tests/
 5. **Predictable**: CRISP always behaves the same
 **Browser Support**: All modern browsers (2022+) support @layer
 **Action**: Restructure all CSS to use @layer architecture
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] Relative Color Syntax for Automatic Variations (#21)
 **Decision**: Use CSS relative colors for automatic state variations  
@@ -650,7 +668,7 @@ tests/
 - Keep calculations simple and predictable
 **Browser Support**: All desktop browsers since 2023
 **Philosophy**: "Modern patterns for modern browsers - legacy users shop elsewhere"
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] CSS :has() for Smart Components (#22)
 **Decision**: Maximize CSS-only interactivity with :has() selector  
@@ -701,7 +719,7 @@ tests/
 - Perfect for WebView/PWA applications
 - Reduced server costs (less hydration)
 - Green tech: Lower carbon footprint
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] @property for Type-Safe Custom Properties (#23)
 **Decision**: Use @property for ALL custom properties - it's a game-changer!  
@@ -757,7 +775,7 @@ tests/
 - Document complex syntax patterns
 **Browser Support**: All modern browsers (Firefox 128+, July 2024)
 **Impact**: Makes CRISP the most robust CSS framework available
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] CSS Subgrid for Advanced Layouts (#24)
 **Decision**: Implement comprehensive subgrid system with flexible columns  
@@ -840,7 +858,7 @@ tests/
 - Works with any column count
 - Global page grid without extra containers
 **Browser Support**: Firefox (2019), Safari (2022), Chrome (2023)
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] Native ::backdrop Instead of Wrapper Divs (#26)
 **Decision**: Always use ::backdrop pseudo-element for overlays  
@@ -876,7 +894,7 @@ dialog::backdrop {
 - Future: Popover API
 **Browser Support**: All modern browsers (2022+)
 **Philosophy**: "Use the platform, not the framework"
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] @starting-style for JavaScript-Free Animations (#27)
 **Decision**: Use @starting-style for all entry animations  
@@ -931,7 +949,7 @@ dialog {
 - Accessibility-friendly (respects prefers-reduced-motion)
 **Browser Support**: Chrome 117+, Safari 17.5+, Firefox 129+ (2023/2024)
 **Philosophy**: "CSS does animations better than JavaScript"
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] field-sizing: content for Auto-Growing Forms (#28)
 **Decision**: Add field-sizing: content as progressive enhancement  
@@ -983,7 +1001,7 @@ dialog {
 **Browser Support**: Chrome 123+ (2024), Others coming
 **Philosophy**: "Progressive enhancement that costs nothing"
 **Note**: This is a true progressive enhancement - add it everywhere!
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ### ✅ [2025-01-06] ARIA Requirements (#17)
 **Decision**: Full WCAG 2.2 AA conformance required  
@@ -1004,7 +1022,7 @@ dialog {
    - Screen reader announcement
    - WCAG 2.2 AA automated tests
 **Action**: Create ARIA patterns documentation with required attributes per component
-**Status**: ⚠️ NOT IMPLEMENTED YET
+**Progress**: 📄 DOCUMENTED
 
 ---
 
@@ -1015,11 +1033,6 @@ dialog {
 3. **Move** to Decision Log when resolved
 4. **Add** new questions as discovered
 
-## Status Key
-- ⏳ PENDING - Needs decision
-- 🔄 IN PROGRESS - Being resolved
-- ✅ DECIDED - See Decision Log
-- ❌ REJECTED - Won't fix
 
 ---
 
