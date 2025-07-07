@@ -1,22 +1,29 @@
 # Chapter 15: Component Reference
 
-*Or: The complete CRISP component encyclopaedia*
+*Or: The only component documentation you'll ever bookmark*
 
 ## How to Use This Reference
 
+*Your cheat sheet for "How do I make a...?" moments*
+
 Each component includes:
-- Basic usage
-- Custom properties (without prefixes for elements)
-- Common patterns
-- Accessibility notes
-- Define/Use pattern examples
+- **Basic usage** (copy, paste, done)
+- **Custom properties** (no prefixes needed for elements!)
+- **Common patterns** (the ones you'll actually use)
+- **Accessibility notes** (because we're not monsters)
+- **Define/Use pattern examples** (the CRISP way)
+
+**The "Aha!"**: Every component is just semantic HTML + one class. No divs wrapping divs. No utility class soup. Just clarity.
 
 ## Interactive Elements
 
+*The things users click, tap, and type into*
+
 ### button
-**Purpose**: Interactive elements that trigger actions
+**Purpose**: Interactive elements that trigger actions (not navigation!)
 
 ```html
+<!-- The simplest button (yes, it's really this simple) -->
 <button class="button" type="button">Default Button</button>
 ```
 
@@ -31,32 +38,45 @@ Each component includes:
 
 **Define/Use Pattern**:
 ```css
-.button {
-  /* 1. Define defaults */
-  --bg: var(--color-neutral);
-  --color: white;
-  --size: var(--text-size-base);
-  --weight: var(--text-weight-medium);
-  --padding: var(--space-0-75) var(--space-1-5);
-  --radius: var(--radius-md);
-  --border: none;
+@layer crisp {
+  .button {
+    /* 1. Define defaults with @property */
+    @property --bg {
+      syntax: "<color>";
+      inherits: false;
+      initial-value: var(--color-neutral);
+    }
+    
+    --color: white;
+    --size: var(--text-size-base);
+    --weight: var(--text-weight-medium);
+    --padding: var(--space-0-75) var(--space-1-5);
+    --radius: var(--radius-md);
+    --border: none;
   
-  /* 2. Use the tokens */
-  background: var(--bg);
-  color: var(--color);
-  font-size: var(--size);
-  font-weight: var(--weight);
-  padding: var(--padding);
-  border-radius: var(--radius);
-  border: var(--border);
+    /* 2. Use the tokens */
+    background: var(--bg);
+    color: var(--color);
+    font-size: var(--size);
+    font-weight: var(--weight);
+    padding: var(--padding);
+    border-radius: var(--radius);
+    border: var(--border);
+    
+    /* Hover with relative color */
+    &:hover {
+      --bg: oklch(from var(--bg) calc(l - 0.05) c h);
+    }
+  }
 }
 ```
 
 **Common Patterns**:
 ```html
-<!-- Primary button -->
-<button class="button" type="button" 
-  style="--bg: var(--color-primary);">
+<!-- Primary button (the star of the show) -->
+<button class="button with-interaction" type="button" 
+  style="--bg: var(--color-primary);"
+  aria-label="Primary action">
   Primary Action
 </button>
 
@@ -66,19 +86,22 @@ Each component includes:
   Submit Form
 </button>
 
-<!-- Icon button -->
-<button class="button" type="button" aria-label="Settings">
-  ⚙️
+<!-- Icon button (accessibility matters!) -->
+<button class="button" type="button" aria-label="Open settings">
+  <span aria-hidden="true">⚙️</span>
 </button>
 
-<!-- Loading state -->
-<button class="button" type="button" disabled data-variant="loading">
-  <span class="spinner"></span> Loading...
+<!-- Loading state (no spinners.css required) -->
+<button class="button" type="button" disabled aria-busy="true" data-state="loading">
+  <span class="spinner" aria-hidden="true"></span>
+  <span>Loading...</span>
 </button>
 ```
 
+**Mind = Blown**: One button class. Infinite variations through custom properties. No more `.btn-primary-large-rounded-loading`.
+
 ### link
-**Purpose**: Navigation between pages or sections
+**Purpose**: Navigation between pages or sections (not actions!)
 
 ```html
 <a class="link" href="/about">About Us</a>
@@ -92,13 +115,18 @@ Each component includes:
 
 **Common Patterns**:
 ```html
-<!-- External link -->
-<a class="link" href="https://example.com" target="_blank" rel="noopener">
-  External Site ↗
+<!-- External link (security included) -->
+<a class="link" href="https://example.com" 
+   target="_blank" 
+   rel="noopener noreferrer"
+   aria-label="Visit external site (opens in new tab)">
+  External Site <span aria-hidden="true">↗</span>
 </a>
 
-<!-- Link as button -->
-<a class="link" href="/signup" role="button">
+<!-- Link styled as button (when navigation looks like action) -->
+<a class="link" href="/signup" 
+   role="button"
+   style="--bg: var(--color-primary); --padding: var(--space-0-75) var(--space-1-5);">
   Sign Up
 </a>
 
@@ -109,7 +137,7 @@ Each component includes:
 ```
 
 ### input
-**Purpose**: Single-line text input
+**Purpose**: Single-line text input (the workhorse of forms)
 
 ```html
 <input class="input" type="text" name="username">
@@ -124,24 +152,35 @@ Each component includes:
 
 **Common Patterns**:
 ```html
-<!-- With label -->
+<!-- With label (always use labels!) -->
 <label class="label" for="email">Email</label>
-<input class="input" id="email" type="email" name="email" required>
+<input class="input" id="email" type="email" name="email" 
+       required aria-required="true"
+       aria-describedby="email-hint">
+<small class="helper" id="email-hint">We'll never spam you</small>
 
 <!-- Full width -->
 <input class="input" type="search" style="width: 100%;">
 
-<!-- With validation state -->
-<input class="input" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" data-variant="invalid">
+<!-- With validation state (no JS required) -->
+<input class="input" type="tel" 
+       pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
+       placeholder="123-456-7890"
+       aria-invalid="true"
+       aria-describedby="tel-error"
+       data-state="invalid">
+<small class="error" id="tel-error" role="alert">Please use format: 123-456-7890</small>
 ```
 
 ### select
-**Purpose**: Dropdown selection
+**Purpose**: Dropdown selection (still better than a custom dropdown)
 
 ```html
-<select class="select" name="country">
-  <option value="">Choose...</option>
+<select class="select" name="country" aria-label="Select country">
+  <option value="" disabled selected>Choose country...</option>
   <option value="uk">United Kingdom</option>
+  <option value="us">United States</option>
+  <option value="ca">Canada</option>
 </select>
 ```
 
@@ -152,10 +191,13 @@ Each component includes:
 - `--padding`: Internal spacing
 
 ### textarea
-**Purpose**: Multi-line text input
+**Purpose**: Multi-line text input (for when input isn't enough)
 
 ```html
-<textarea class="textarea" name="message" rows="4"></textarea>
+<textarea class="textarea" name="message" rows="4"
+          placeholder="Tell us your thoughts..."
+          aria-label="Message"
+          style="--resize: vertical;"></textarea>
 ```
 
 **Custom Properties**:
@@ -167,12 +209,13 @@ Each component includes:
 - `--resize`: Resize behavior
 
 ### checkbox
-**Purpose**: Binary choice input
+**Purpose**: Binary choice input (yes/no, on/off, subscribe/unsubscribe)
 
 ```html
 <label class="label">
-  <input class="checkbox" type="checkbox" name="agree">
-  <span>I agree to terms</span>
+  <input class="checkbox" type="checkbox" name="agree" 
+         value="yes" aria-describedby="terms-link">
+  <span>I agree to the <a href="/terms" id="terms-link">terms and conditions</a></span>
 </label>
 ```
 
@@ -187,11 +230,12 @@ Each component includes:
 ```
 
 ### switch
-**Purpose**: Toggle between on/off states
+**Purpose**: Toggle between on/off states (fancier than checkbox)
 
 ```html
 <label class="label">
-  <input class="switch" type="checkbox" name="notifications">
+  <input class="switch" type="checkbox" name="notifications"
+         role="switch" aria-checked="false">
   <span>Enable notifications</span>
 </label>
 ```
@@ -203,8 +247,10 @@ Each component includes:
 
 ## Content Containers
 
+*The building blocks of every modern interface*
+
 ### card
-**Purpose**: Container for related content
+**Purpose**: Container for related content (the Swiss Army knife of UI)
 
 ```html
 <article class="card">
@@ -221,34 +267,54 @@ Each component includes:
 
 **Define/Use Pattern**:
 ```css
-.card {
-  /* 1. Define defaults */
-  --bg: white;
-  --padding: var(--space-1-5);
-  --radius: var(--radius-lg);
-  --border: 1px solid var(--color-border);
-  --shadow: none;
+@layer crisp {
+  .card {
+    /* 1. Define defaults with @property */
+    @property --bg {
+      syntax: "<color>";
+      inherits: false;
+      initial-value: var(--color-bg);
+    }
+    
+    --padding: var(--space-1-5);
+    --radius: var(--radius-lg);
+    --border: 1px solid var(--color-border);
+    --shadow: none;
   
-  /* 2. Use the tokens */
-  background: var(--bg);
-  padding: var(--padding);
-  border-radius: var(--radius);
-  border: var(--border);
-  box-shadow: var(--shadow);
+    /* 2. Use the tokens */
+    background: var(--bg);
+    padding: var(--padding);
+    border-radius: var(--radius);
+    border: var(--border);
+    box-shadow: var(--shadow);
+    
+    /* Dark mode automatic */
+    @media (prefers-color-scheme: dark) {
+      --bg: var(--color-bg-dark);
+      --border: 1px solid var(--color-border-dark);
+    }
+  }
 }
 ```
 
 **Common Patterns**:
 ```html
-<!-- Card with layout -->
-<article class="card as-stack">
+<!-- Card with layout (structure included!) -->
+<article class="card as-stack" role="article">
   <h3 class="heading">Card Title</h3>
   <p class="text">Card content</p>
+  <a class="link" href="#">Learn more →</a>
 </article>
 
-<!-- Interactive card -->
-<article class="card with-interaction" tabindex="0" role="button">
-  Clickable card
+<!-- Interactive card (entire card is clickable) -->
+<article class="card with-interaction" 
+         tabindex="0" 
+         role="button"
+         aria-label="View details"
+         onclick="handleCardClick()"
+         onkeydown="if(event.key === 'Enter' || event.key === ' ') handleCardClick()">
+  <h3 class="heading">Clickable card</h3>
+  <p class="text">Click anywhere on this card</p>
 </article>
 
 <!-- Card with shadow -->
@@ -256,11 +322,15 @@ Each component includes:
   Elevated card
 </article>
 
-<!-- Context-specific card -->
-<article class="card" data-variant="premium">
+<!-- Context-specific card (variants through data attributes) -->
+<article class="card" data-variant="premium" role="article">
+  <span class="badge" data-variant="premium">PRO</span>
   <h3 class="heading">Premium Feature</h3>
+  <p class="text">Available for premium members</p>
 </article>
 ```
+
+**The "Aha!"**: Cards aren't special. They're just `<article>` elements with nice defaults. Semantic HTML wins again.
 
 ### article
 **Purpose**: Self-contained content
@@ -283,18 +353,26 @@ Each component includes:
 ```
 
 ### dialog
-**Purpose**: Modal or popup dialogs
+**Purpose**: Modal or popup dialogs (yes, native HTML!)
 
 ```html
-<dialog class="dialog" id="modal">
-  <p>Dialog content</p>
-  <button onclick="this.closest('dialog').close()">Close</button>
+<dialog class="dialog" id="modal" aria-labelledby="modal-title">
+  <h2 id="modal-title">Dialog Title</h2>
+  <p>Dialog content with proper semantics</p>
+  <form method="dialog">
+    <button class="button">Close</button>
+  </form>
 </dialog>
 ```
 
 **JavaScript**:
 ```javascript
-document.getElementById('modal').showModal();
+// Show modal (native API!)
+const dialog = document.getElementById('modal');
+dialog.showModal();
+
+// Handle escape key and backdrop clicks automatically!
+// No library needed. Thank you, browser makers.
 ```
 
 ### figure
@@ -308,36 +386,41 @@ document.getElementById('modal').showModal();
 ```
 
 ### blockquote
-**Purpose**: Quoted content
+**Purpose**: Quoted content (give credit where it's due)
 
 ```html
-<blockquote class="quote">
-  <p>"Quote text here"</p>
-  <cite>- Author Name</cite>
+<blockquote class="quote" cite="https://source.com">
+  <p>"The best code is no code at all."</p>
+  <footer>
+    <cite>Jeff Atwood</cite>
+  </footer>
 </blockquote>
 ```
 
 ## Navigation Components
 
+*Because users need to find things*
+
 ### navigation
-**Purpose**: Navigation links container
+**Purpose**: Navigation links container (with proper ARIA)
 
 ```html
-<nav class="navigation" data-entries="2" aria-label="Main">
-  <a class="link" href="/">Home</a>
+<nav class="navigation as-cluster" data-entries="3" aria-label="Main navigation">
+  <a class="link" href="/" aria-current="page">Home</a>
   <a class="link" href="/about">About</a>
+  <a class="link" href="/contact">Contact</a>
 </nav>
 ```
 
 ### breadcrumb
-**Purpose**: Hierarchical navigation trail
+**Purpose**: Hierarchical navigation trail (Hansel and Gretel style)
 
 ```html
 <nav class="breadcrumb" data-entries="3" aria-label="Breadcrumb">
-  <ol class="list as-cluster">
-    <li><a class="link" href="/">Home</a></li>
-    <li><a class="link" href="/products">Products</a></li>
-    <li aria-current="page">Laptop</li>
+  <ol class="list as-cluster" role="list">
+    <li><a class="link" href="/">Home</a> <span aria-hidden="true">/</span></li>
+    <li><a class="link" href="/products">Products</a> <span aria-hidden="true">/</span></li>
+    <li aria-current="page">MacBook Pro</li>
   </ol>
 </nav>
 ```
@@ -354,33 +437,47 @@ document.getElementById('modal').showModal();
 ```
 
 ### tabs
-**Purpose**: Content panel switching
+**Purpose**: Content panel switching (no JavaScript required!)
 
 ```html
-<div class="tabs" data-entries="2">
-  <input class="radio" id="tab1" type="radio" name="tabs" checked>
-  <input class="radio" id="tab2" type="radio" name="tabs">
+<!-- Pure CSS tabs (yes, really!) -->
+<div class="tabs" role="tablist" aria-label="Product information">
+  <input class="radio" id="tab1" type="radio" name="tabs" checked aria-hidden="true">
+  <input class="radio" id="tab2" type="radio" name="tabs" aria-hidden="true">
   
-  <nav class="navigation as-cluster" data-entries="2" data-variant="tabs">
-    <label class="tab" for="tab1">Tab 1</label>
-    <label class="tab" for="tab2">Tab 2</label>
+  <nav class="navigation as-cluster" data-entries="2" data-variant="tabs" role="tablist">
+    <label class="tab" for="tab1" role="tab" aria-selected="true">Description</label>
+    <label class="tab" for="tab2" role="tab" aria-selected="false">Specifications</label>
   </nav>
   
   <div class="panels">
-    <section class="panel">Panel 1</section>
-    <section class="panel">Panel 2</section>
+    <section class="panel" role="tabpanel" aria-labelledby="tab1">
+      <h3>Product Description</h3>
+      <p>Details here...</p>
+    </section>
+    <section class="panel" role="tabpanel" aria-labelledby="tab2">
+      <h3>Technical Specifications</h3>
+      <p>Specs here...</p>
+    </section>
   </div>
 </div>
 ```
 
+**Mind = Blown**: Tabs without JavaScript. Using radio buttons and CSS sibling selectors. Your 50KB tab library is crying.
+
 ## Form Components
 
+*Where data collection happens (hopefully painlessly)*
+
 ### form
-**Purpose**: Form container
+**Purpose**: Form container (the semantic wrapper)
 
 ```html
-<form class="form as-stack" method="post">
+<form class="form as-stack" method="post" action="/submit"
+      aria-label="Contact form"
+      novalidate>
   <!-- Form fields -->
+  <!-- novalidate because we'll handle validation ourselves -->
 </form>
 ```
 
@@ -403,44 +500,56 @@ document.getElementById('modal').showModal();
 ```
 
 ### field
-**Purpose**: Form field wrapper
+**Purpose**: Form field wrapper (label + input + help text)
 
 ```html
-<div class="field">
-  <label class="label" for="email">Email</label>
-  <input class="input" id="email" type="email">
-  <small class="helper">We'll never share your email</small>
+<div class="field" role="group">
+  <label class="label" for="email">Email <span aria-label="required">*</span></label>
+  <input class="input" id="email" type="email" 
+         required aria-required="true"
+         aria-describedby="email-help email-error">
+  <small class="helper" id="email-help">We'll never share your email</small>
+  <small class="error" id="email-error" role="alert" hidden>Please enter a valid email</small>
 </div>
 ```
 
 ## Feedback Components
 
+*How to talk to users without annoying them*
+
 ### alert
-**Purpose**: Important messages
+**Purpose**: Important messages (that actually get noticed)
 
 ```html
-<aside class="alert" role="alert">
-  Alert message
+<!-- Basic alert -->
+<aside class="alert" role="alert" aria-live="polite">
+  <strong>Note:</strong> Alert message that doesn't shout
 </aside>
 ```
 
 **Variants** (using data attributes):
 ```html
-<aside class="alert" role="alert" data-variant="success">
-  Success message
+<!-- Success (the good news) -->
+<aside class="alert" role="status" data-variant="success" aria-live="polite">
+  <strong>Success!</strong> Your changes have been saved.
 </aside>
 
 <aside class="alert" role="alert" data-variant="warning">
   Warning message
 </aside>
 
-<aside class="alert" role="alert" data-variant="error">
-  Error message
+<!-- Error (the bad news, delivered gently) -->
+<aside class="alert" role="alert" data-variant="error" aria-live="assertive">
+  <strong>Error:</strong> Something went wrong. Please try again.
 </aside>
 
-<aside class="alert with-dismiss" role="alert">
-  <p>Dismissible alert</p>
-  <button aria-label="Dismiss">×</button>
+<!-- Dismissible (for non-critical messages) -->
+<aside class="alert with-dismiss" role="alert" aria-live="polite">
+  <p>This website uses cookies. Deal with it.</p>
+  <button class="button" aria-label="Dismiss cookie notice" 
+          onclick="this.parentElement.remove()">
+    <span aria-hidden="true">×</span>
+  </button>
 </aside>
 ```
 
@@ -455,13 +564,21 @@ document.getElementById('modal').showModal();
 ```
 
 ### badge
-**Purpose**: Status indicators or counts
+**Purpose**: Status indicators or counts (the little attention grabbers)
 
 ```html
-<span class="badge">42</span>
-<span class="badge" data-variant="success">Active</span>
-<span class="badge" data-variant="warning">Pending</span>
-<span class="badge" data-variant="error">Offline</span>
+<!-- Count badge (inbox zero is a myth) -->
+<span class="badge" aria-label="42 unread messages">42</span>
+
+<!-- Status badges (traffic lights for your UI) -->
+<span class="badge" data-variant="success" role="status">Active</span>
+<span class="badge" data-variant="warning" role="status">Pending</span>
+<span class="badge" data-variant="error" role="status">Offline</span>
+
+<!-- In context -->
+<button class="button">
+  Messages <span class="badge" aria-label="3 new">3</span>
+</button>
 ```
 
 ### tag
@@ -476,30 +593,43 @@ document.getElementById('modal').showModal();
 ```
 
 ### progress
-**Purpose**: Progress indication
+**Purpose**: Progress indication (showing users there's hope)
 
 ```html
-<!-- Determinate -->
-<progress class="progress" value="75" max="100">75%</progress>
+<!-- Determinate (when you know how long) -->
+<label for="upload">Upload progress:</label>
+<progress class="progress" id="upload" value="75" max="100" aria-label="75% complete">
+  75%
+</progress>
 
-<!-- Indeterminate -->
-<progress class="progress">Loading...</progress>
+<!-- Indeterminate (when you're guessing) -->
+<progress class="progress" aria-label="Loading, please wait">
+  Loading...
+</progress>
 ```
 
 ## Media Components
 
+*Pictures, videos, and sounds (oh my!)*
+
 ### image
-**Purpose**: Responsive images
+**Purpose**: Responsive images (that don't break layouts)
 
 ```html
-<img class="image" src="photo.jpg" alt="Description">
+<!-- Basic image (always use alt text!) -->
+<img class="image" 
+     src="photo.jpg" 
+     alt="Descriptive text for screen readers"
+     loading="lazy"
+     decoding="async">
 ```
 
 **Custom Properties**:
 - `--width`: Width constraint
-- `--height`: Height constraint
-- `--fit`: Object fit
-- `--radius`: Corner radius
+- `--height`: Height constraint  
+- `--fit`: Object fit (cover, contain, etc.)
+- `--radius`: Corner radius (for that Instagram look)
+- `--aspect-ratio`: Aspect ratio (16/9, 4/3, 1/1)
 
 ### video
 **Purpose**: Video player
@@ -521,12 +651,17 @@ document.getElementById('modal').showModal();
 
 ## Text Components
 
+*Words, words, words*
+
 ### heading
-**Purpose**: Section headings
+**Purpose**: Section headings (hierarchy matters)
 
 ```html
+<!-- Semantic heading levels (please use them in order) -->
 <h1 class="heading">Main Heading</h1>
 <h2 class="heading">Sub Heading</h2>
+<h3 class="heading">Sub-sub Heading</h3>
+<!-- Don't skip levels! h1 → h3 makes screen readers sad -->
 ```
 
 **Custom Properties**:
@@ -549,15 +684,17 @@ document.getElementById('modal').showModal();
 - `--line-height`: Line height
 
 ### code
-**Purpose**: Code snippets
+**Purpose**: Code snippets (monospace goodness)
 
 ```html
-<code class="code">const x = 42;</code>
+<!-- Inline code -->
+<p>Use <code class="code">const</code> instead of <code class="code">var</code>.</p>
 
-<pre class="code">
-function example() {
-  return true;
-}
+<!-- Code blocks (with syntax highlighting classes if needed) -->
+<pre class="code" data-language="javascript">
+<code>function example() {
+  return true; // No more var!
+}</code>
 </pre>
 ```
 
@@ -578,21 +715,26 @@ function example() {
 
 ## Data Display
 
+*When you need to show data, not just pretty pictures*
+
 ### table
-**Purpose**: Tabular data
+**Purpose**: Tabular data (yes, tables are still okay for data!)
 
 ```html
-<table class="table">
+<table class="table" role="table">
+  <caption class="sr-only">Product pricing table</caption>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Value</th>
+      <th scope="col">Name</th>
+      <th scope="col">Value</th>
+      <th scope="col">Action</th>
     </tr>
   </thead>
   <tbody>
     <tr>
       <td>Item 1</td>
       <td>£10</td>
+      <td><button class="button">Buy</button></td>
     </tr>
   </tbody>
 </table>
@@ -610,13 +752,16 @@ function example() {
 
 ## Layout Utilities
 
+*The magic that makes everything line up*
+
 ### as-stack
-**Purpose**: Vertical spacing
+**Purpose**: Vertical spacing (the end of margin-bottom hell)
 
 ```html
-<div class="as-stack">
-  <p>Item 1</p>
-  <p>Item 2</p>
+<div class="as-stack" style="--stack-gap: var(--space-1-0);">
+  <h2>Heading</h2>
+  <p>Paragraph with automatic spacing</p>
+  <button class="button">No margin needed!</button>
 </div>
 ```
 
@@ -624,13 +769,14 @@ function example() {
 - `--gap`: Gap between items
 
 ### as-cluster
-**Purpose**: Horizontal grouping with wrap
+**Purpose**: Horizontal grouping with wrap (inline friends that stick together)
 
 ```html
-<div class="as-cluster">
-  <button>One</button>
-  <button>Two</button>
-</div>
+<nav class="as-cluster" data-entries="3" aria-label="Actions">
+  <button class="button">Save</button>
+  <button class="button">Cancel</button>
+  <button class="button">Delete</button>
+</nav>
 ```
 
 **Custom Properties**:
@@ -638,26 +784,34 @@ function example() {
 - `--align`: Alignment
 
 ### as-grid
-**Purpose**: Two-dimensional grid
+**Purpose**: Two-dimensional grid (CSS Grid made simple)
 
 ```html
-<div class="as-grid">
-  <div>Cell 1</div>
-  <div>Cell 2</div>
+<!-- Auto-responsive grid (it just works) -->
+<div class="as-grid" data-entries="3">
+  <article class="card">Card 1</article>
+  <article class="card">Card 2</article>
+  <article class="card">Card 3</article>
 </div>
 ```
 
 **Custom Properties**:
-- `--columns`: Number of columns or `auto-fit`
-- `--gap`: Gap between cells
-- `--min-width`: Minimum cell width
+- `--grid-columns`: Number of columns or `auto-fit`
+- `--grid-gap`: Gap between cells
+- `--grid-min`: Minimum cell width (for auto-fit)
+
+**The "Aha!"**: No more `col-xs-12 col-sm-6 col-md-4 col-lg-3`. Just `as-grid` and it figures it out.
 
 ### as-center
-**Purpose**: Perfect centering
+**Purpose**: Perfect centering (the holy grail, achieved)
 
 ```html
-<div class="as-center">
-  <p>Centered content</p>
+<!-- Finally, centering that just works -->
+<div class="as-center" style="--center-height: 100vh;">
+  <div class="card">
+    <h2 class="heading">Perfectly Centered</h2>
+    <p class="text">Horizontally AND vertically!</p>
+  </div>
 </div>
 ```
 
@@ -688,12 +842,14 @@ function example() {
 ```
 
 ### as-container
-**Purpose**: Width constraint and centering
+**Purpose**: Width constraint and centering (your content's best friend)
 
 ```html
-<div class="as-container">
-  Contained content
-</div>
+<main class="as-container" role="main">
+  <!-- Content is centered with nice padding -->
+  <!-- Max-width prevents those super-wide paragraphs -->
+  <h1>Your content lives here</h1>
+</main>
 ```
 
 **Custom Properties**:
@@ -702,11 +858,14 @@ function example() {
 
 ## Property Modifiers
 
+*The cherries on top*
+
 ### with-shadow
-**Purpose**: Add elevation shadow
+**Purpose**: Add elevation shadow (instant depth)
 
 ```html
-<article class="card with-shadow">
+<article class="card with-shadow" role="article">
+  <!-- Looks like it's floating (but it's not) -->
   Elevated content
 </article>
 ```
@@ -731,12 +890,18 @@ function example() {
 - `--border-style`: Border style
 
 ### with-interaction
-**Purpose**: Interactive states (hover, focus)
+**Purpose**: Interactive states (hover, focus, and friends)
 
 ```html
 <button class="button with-interaction">
+  <!-- Hover me! Focus me! I respond! -->
   Interactive button
 </button>
+
+<article class="card with-interaction" tabindex="0" role="button">
+  <!-- Entire card is interactive -->
+  Click anywhere
+</article>
 ```
 
 ### with-padding
@@ -786,8 +951,9 @@ function example() {
 
 ## Quick Lookup
 
+*For those "what was that class again?" moments*
+
 | Need to... | Use this... |
-|------------|-------------|
 | Create a button | `button` |
 | Make a card | `card` |
 | Build navigation | `navigation` |
@@ -803,23 +969,48 @@ function example() {
 
 ## State Management
 
-Use data attributes for variants:
-- `data-variant="loading"` - Loading variant
-- `data-variant="error"` - Error variant
-- `data-variant="success"` - Success variant
-- `data-variant="disabled"` - Disabled variant
+*Let data attributes handle your component states*
+
+Use `data-state` for component states:
+- `data-state="loading"` - Currently loading
+- `data-state="error"` - Error state
+- `data-state="success"` - Success state  
+- `data-state="disabled"` - Disabled state
+
+```html
+<!-- Component states in action -->
+<button class="button" data-state="loading" aria-busy="true">
+  <span class="spinner"></span> Saving...
+</button>
+
+<form class="form" data-state="error">
+  <!-- Form has errors -->
+</form>
+```
 
 ## Variant Management
 
-Use data attributes for variants:
+*Context-aware styling without class explosions*
+
+Use `data-variant` for contextual styling:
 - `data-variant="admin"` - Admin interface
 - `data-variant="premium"` - Premium features
 - `data-variant="checkout"` - Checkout flow
 - `data-variant="authenticated"` - Logged-in users
 
+```html
+<!-- Apply variant to container, children inherit -->
+<main data-variant="admin">
+  <nav class="navigation"><!-- Gets admin styling --></nav>
+  <section class="card"><!-- Also gets admin styling --></section>
+</main>
+```
+
 ## Enterprise Web Components
 
-**Available in Tier 3 (Free!)** - Web Components that generate CRISP HTML:
+**Available in Tier 3** - Web Components that generate CRISP HTML:
+
+**The "Aha!"**: These aren't replacements for HTML. They're generators that create perfect CRISP markup. Think of them as very smart snippets.
 
 ### Pattern Generators
 ```html
@@ -850,12 +1041,36 @@ Use data attributes for variants:
 ```
 
 ### Key Concept
-Web Components are **containers only** - they:
-- Accept typed attributes
-- Handle business logic
-- Generate 100% pure CRISP HTML
-- Save typing, not philosophy
+
+*Progressive enhancement, not replacement*
+
+Web Components are **generators only** - they:
+- Accept typed attributes (TypeScript powered)
+- Handle business logic (the complex stuff)
+- Generate 100% pure CRISP HTML (view source and see)
+- Save typing, not philosophy (semantic HTML forever)
 
 The output is always standard CRISP components that work in all tiers!
+
+```javascript
+// What the Web Component does:
+customElements.define('crisp-search-box', class extends HTMLElement {
+  connectedCallback() {
+    // Generates the exact CRISP HTML you'd write by hand
+    this.innerHTML = `
+      <search class="search as-stack" role="search">
+        <form class="form as-cluster">
+          <input class="input" type="search" 
+                 placeholder="${this.getAttribute('placeholder')}">
+          <button class="button with-interaction">Search</button>
+        </form>
+        <div class="results" aria-live="polite"></div>
+      </search>
+    `;
+  }
+});
+```
+
+**Mind = Blown**: View source still shows semantic HTML. SEO still works. CSS still applies. It's just HTML with helpers.
 
 → Continue to [Chapter 16: CRISP Cheatsheet](./C16-cheatsheet.md)

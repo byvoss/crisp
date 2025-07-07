@@ -52,6 +52,7 @@ This document contains ALL mandatory rules for CRISP development. Every rule MUS
     - [data-theme: ONLY for Color Schemes](#data-theme-only-for-color-schemes)
     - [data-variant: Everything Else](#data-variant-everything-else)
   - [Rule 26: Semantic Data Attributes](#rule-26-semantic-data-attributes)
+  - [Rule 27: Example Paradigm - Make CRISP the Developer's Dream](#rule-27-example-paradigm)
 
 ---
 
@@ -688,6 +689,82 @@ Philosophy: "Modern patterns for modern browsers - legacy users shop elsewhere"
 
 ---
 
+## <a id="rule-27-example-paradigm"></a>Rule 27: Example Paradigm - Make CRISP the Developer's Dream
+
+**ALL documentation examples MUST follow this contrast pattern:**
+
+### Before/After Examples Must Show:
+
+1. **Legacy code must be realistically complex**:
+   - Use actual Bootstrap/BEM/Tailwind patterns
+   - Show real framework pain points (not strawmen)
+   - Include typical overengineering: `btn btn-primary btn-lg btn-block active focus`
+   - Show nested divs, wrapper elements, utility soup
+   - NO CRISP concepts in legacy examples (no data-variant, no custom properties)
+
+2. **CRISP solution must be the dream**:
+   - Dramatically shorter and clearer
+   - One semantic element + one class (usually)
+   - Custom properties for variations
+   - Proper ARIA included
+   - The psychological impact: "Oh my god, it's that simple?"
+
+### Example Pattern:
+```html
+<!-- ❌ BEFORE: Bootstrap nightmare (47 classes, 5 nested divs) -->
+<div class="card card-default card-shadow-lg hover-card">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <h3 class="card-title mb-0 text-dark font-weight-bold">Title</h3>
+    <span class="badge badge-primary badge-pill">NEW</span>
+  </div>
+  <div class="card-body p-4">
+    <p class="card-text text-muted line-clamp-3">Content here...</p>
+  </div>
+  <div class="card-footer bg-light border-top">
+    <button class="btn btn-primary btn-sm float-right">Read More</button>
+  </div>
+</div>
+
+<!-- ✅ AFTER: CRISP dream (semantic HTML + 2 classes) -->
+<article class="card as-stack">
+  <header>
+    <h3 class="heading">Title</h3>
+    <span class="badge" data-variant="new">NEW</span>
+  </header>
+  <p class="text">Content here...</p>
+  <footer>
+    <button class="button" style="--bg: var(--color-primary);">Read More</button>
+  </footer>
+</article>
+
+<!-- The "Aha!": 5 lines vs 11 lines. Zero divs. Actual semantic HTML. -->
+```
+
+### Rules for Examples:
+
+1. **Show real pain**: Legacy examples from actual codebases
+2. **No artificial complexity**: But pick the worst real examples
+3. **Visceral contrast**: CRISP must look like salvation
+4. **Include "Aha!" moments**: Point out the revelation
+5. **Respect the past**: "They tried their best with the tools they had"
+
+### Psychological Impact Goals:
+- First reaction: "Wait, that's it?"
+- Second reaction: "This can't be real"
+- Third reaction: "Where has this been all my life?"
+- Final reaction: "I'm never going back to the old way"
+
+### Common Legacy Patterns to Show:
+- Bootstrap: `col-xs-12 col-sm-6 col-md-4 col-lg-3`
+- BEM: `block__element--modifier-state-variant`
+- Tailwind: `flex items-center justify-between p-4 bg-gray-100 hover:bg-gray-200`
+- Atomic CSS: `mt-20 mb-20 pt-10 pb-10 fs-16 fw-bold`
+- jQuery spaghetti: `$('.modal-trigger[data-target="#modal-1"]')`
+
+Remember: We're not mocking - we're showing the honest difference. CRISP should feel like switching from assembly to Python.
+
+---
+
 *These are the laws of CRISP. They are not suggestions. They are not guidelines. They are requirements.*
 
-*Last updated: 2025-01-06*
+*Last updated: 2025-01-07*

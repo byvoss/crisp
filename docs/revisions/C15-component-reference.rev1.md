@@ -6,10 +6,10 @@
 
 Each component includes:
 - Basic usage
-- Custom properties
+- Custom properties (without prefixes for elements)
 - Common patterns
 - Accessibility notes
-- Link to detailed docs
+- Define/Use pattern examples
 
 ## Interactive Elements
 
@@ -21,25 +21,48 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--button-bg`: Background color
-- `--button-color`: Text color
-- `--button-size`: Font size
-- `--button-padding`: Internal spacing
-- `--button-radius`: Corner radius
-- `--button-border`: Border style
-- `--button-width`: Width (defaults to auto)
+- `--bg`: Background color
+- `--color`: Text color
+- `--size`: Font size
+- `--weight`: Font weight
+- `--padding`: Internal spacing
+- `--radius`: Corner radius
+- `--border`: Border style
+
+**Define/Use Pattern**:
+```css
+.button {
+  /* 1. Define defaults */
+  --bg: var(--color-neutral);
+  --color: white;
+  --size: var(--text-size-base);
+  --weight: var(--text-weight-medium);
+  --padding: var(--space-0-75) var(--space-1-5);
+  --radius: var(--radius-md);
+  --border: none;
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  color: var(--color);
+  font-size: var(--size);
+  font-weight: var(--weight);
+  padding: var(--padding);
+  border-radius: var(--radius);
+  border: var(--border);
+}
+```
 
 **Common Patterns**:
 ```html
 <!-- Primary button -->
 <button class="button" type="button" 
-  style="--button-bg: var(--color-primary-50);">
+  style="--bg: var(--color-primary);">
   Primary Action
 </button>
 
 <!-- Full-width button -->
 <button class="button" type="submit" 
-  style="--button-width: 100%;">
+  style="width: 100%;">
   Submit Form
 </button>
 
@@ -47,9 +70,12 @@ Each component includes:
 <button class="button" type="button" aria-label="Settings">
   ⚙️
 </button>
-```
 
-**See**: [Button Documentation](./components/button.md)
+<!-- Loading state -->
+<button class="button" type="button" disabled data-variant="loading">
+  <span class="spinner"></span> Loading...
+</button>
+```
 
 ### link
 **Purpose**: Navigation between pages or sections
@@ -59,10 +85,10 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--link-color`: Text color
-- `--link-decoration`: Underline style
-- `--link-weight`: Font weight
-- `--link-opacity`: Hover opacity
+- `--color`: Text color
+- `--decoration`: Underline style
+- `--weight`: Font weight
+- `--opacity`: Hover opacity
 
 **Common Patterns**:
 ```html
@@ -82,8 +108,6 @@ Each component includes:
 </a>
 ```
 
-**See**: [Link Documentation](./components/link.md)
-
 ### input
 **Purpose**: Single-line text input
 
@@ -92,12 +116,11 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--input-bg`: Background color
-- `--input-border`: Border style
-- `--input-radius`: Corner radius
-- `--input-padding`: Internal spacing
-- `--input-width`: Width
-- `--input-color`: Text color
+- `--bg`: Background color
+- `--border`: Border style
+- `--radius`: Corner radius
+- `--padding`: Internal spacing
+- `--color`: Text color
 
 **Common Patterns**:
 ```html
@@ -106,10 +129,10 @@ Each component includes:
 <input class="input" id="email" type="email" name="email" required>
 
 <!-- Full width -->
-<input class="input" type="search" style="--input-width: 100%;">
+<input class="input" type="search" style="width: 100%;">
 
-<!-- With validation -->
-<input class="input" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+<!-- With validation state -->
+<input class="input" type="tel" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" data-variant="invalid">
 ```
 
 ### select
@@ -123,11 +146,10 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--select-bg`: Background color
-- `--select-border`: Border style
-- `--select-radius`: Corner radius
-- `--select-padding`: Internal spacing
-- `--select-width`: Width
+- `--bg`: Background color
+- `--border`: Border style
+- `--radius`: Corner radius
+- `--padding`: Internal spacing
 
 ### textarea
 **Purpose**: Multi-line text input
@@ -137,13 +159,12 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--textarea-bg`: Background color
-- `--textarea-border`: Border style
-- `--textarea-radius`: Corner radius
-- `--textarea-padding`: Internal spacing
-- `--textarea-width`: Width
-- `--textarea-min-height`: Minimum height
-- `--textarea-resize`: Resize behavior (vertical, horizontal, both, none)
+- `--bg`: Background color
+- `--border`: Border style
+- `--radius`: Corner radius
+- `--padding`: Internal spacing
+- `--min-height`: Minimum height
+- `--resize`: Resize behavior
 
 ### checkbox
 **Purpose**: Binary choice input
@@ -176,9 +197,9 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--switch-on-bg`: Background when checked
-- `--switch-off-bg`: Background when unchecked
-- `--switch-size`: Overall size
+- `--on-bg`: Background when checked
+- `--off-bg`: Background when unchecked
+- `--size`: Overall size
 
 ## Content Containers
 
@@ -192,11 +213,30 @@ Each component includes:
 ```
 
 **Custom Properties**:
-- `--card-bg`: Background color
-- `--card-padding`: Internal spacing
-- `--card-radius`: Corner radius
-- `--card-border`: Border style
-- `--card-shadow`: Box shadow
+- `--bg`: Background color
+- `--padding`: Internal spacing
+- `--radius`: Corner radius
+- `--border`: Border style
+- `--shadow`: Box shadow
+
+**Define/Use Pattern**:
+```css
+.card {
+  /* 1. Define defaults */
+  --bg: white;
+  --padding: var(--space-1-5);
+  --radius: var(--radius-lg);
+  --border: 1px solid var(--color-border);
+  --shadow: none;
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  padding: var(--padding);
+  border-radius: var(--radius);
+  border: var(--border);
+  box-shadow: var(--shadow);
+}
+```
 
 **Common Patterns**:
 ```html
@@ -209,6 +249,16 @@ Each component includes:
 <!-- Interactive card -->
 <article class="card with-interaction" tabindex="0" role="button">
   Clickable card
+</article>
+
+<!-- Card with shadow -->
+<article class="card with-shadow">
+  Elevated card
+</article>
+
+<!-- Context-specific card -->
+<article class="card" data-variant="premium">
+  <h3 class="heading">Premium Feature</h3>
 </article>
 ```
 
@@ -273,7 +323,7 @@ document.getElementById('modal').showModal();
 **Purpose**: Navigation links container
 
 ```html
-<nav class="navigation" aria-label="Main">
+<nav class="navigation" data-entries="2" aria-label="Main">
   <a class="link" href="/">Home</a>
   <a class="link" href="/about">About</a>
 </nav>
@@ -283,7 +333,7 @@ document.getElementById('modal').showModal();
 **Purpose**: Hierarchical navigation trail
 
 ```html
-<nav class="breadcrumb" aria-label="Breadcrumb">
+<nav class="breadcrumb" data-entries="3" aria-label="Breadcrumb">
   <ol class="list as-cluster">
     <li><a class="link" href="/">Home</a></li>
     <li><a class="link" href="/products">Products</a></li>
@@ -296,7 +346,7 @@ document.getElementById('modal').showModal();
 **Purpose**: Page navigation
 
 ```html
-<nav class="pagination" aria-label="Pagination">
+<nav class="pagination" data-entries="3" aria-label="Pagination">
   <a class="link" href="?page=1">Previous</a>
   <span>Page 2 of 5</span>
   <a class="link" href="?page=3">Next</a>
@@ -307,11 +357,11 @@ document.getElementById('modal').showModal();
 **Purpose**: Content panel switching
 
 ```html
-<div class="tabs">
+<div class="tabs" data-entries="2">
   <input class="radio" id="tab1" type="radio" name="tabs" checked>
   <input class="radio" id="tab2" type="radio" name="tabs">
   
-  <nav class="navigation as-cluster">
+  <nav class="navigation as-cluster" data-entries="2" data-variant="tabs">
     <label class="tab" for="tab1">Tab 1</label>
     <label class="tab" for="tab2">Tab 2</label>
   </nav>
@@ -374,11 +424,25 @@ document.getElementById('modal').showModal();
 </aside>
 ```
 
-**Variants**:
-- `with-success`: Success messages
-- `with-warning`: Warning messages
-- `with-error`: Error messages
-- `with-dismiss`: Dismissible alerts
+**Variants** (using data attributes):
+```html
+<aside class="alert" role="alert" data-variant="success">
+  Success message
+</aside>
+
+<aside class="alert" role="alert" data-variant="warning">
+  Warning message
+</aside>
+
+<aside class="alert" role="alert" data-variant="error">
+  Error message
+</aside>
+
+<aside class="alert with-dismiss" role="alert">
+  <p>Dismissible alert</p>
+  <button aria-label="Dismiss">×</button>
+</aside>
+```
 
 ### toast
 **Purpose**: Temporary notifications
@@ -395,7 +459,9 @@ document.getElementById('modal').showModal();
 
 ```html
 <span class="badge">42</span>
-<span class="badge with-success">Active</span>
+<span class="badge" data-variant="success">Active</span>
+<span class="badge" data-variant="warning">Pending</span>
+<span class="badge" data-variant="error">Offline</span>
 ```
 
 ### tag
@@ -430,10 +496,10 @@ document.getElementById('modal').showModal();
 ```
 
 **Custom Properties**:
-- `--image-width`: Width constraint
-- `--image-height`: Height constraint
-- `--image-fit`: Object fit (cover, contain, etc.)
-- `--image-radius`: Corner radius
+- `--width`: Width constraint
+- `--height`: Height constraint
+- `--fit`: Object fit
+- `--radius`: Corner radius
 
 ### video
 **Purpose**: Video player
@@ -464,10 +530,10 @@ document.getElementById('modal').showModal();
 ```
 
 **Custom Properties**:
-- `--heading-size`: Font size
-- `--heading-weight`: Font weight
-- `--heading-color`: Text color
-- `--heading-line`: Line height
+- `--size`: Font size
+- `--weight`: Font weight
+- `--color`: Text color
+- `--line-height`: Line height
 
 ### text
 **Purpose**: Body text
@@ -477,10 +543,10 @@ document.getElementById('modal').showModal();
 ```
 
 **Custom Properties**:
-- `--text-size`: Font size
-- `--text-weight`: Font weight
-- `--text-color`: Text color
-- `--text-line`: Line height
+- `--size`: Font size
+- `--weight`: Font weight
+- `--color`: Text color
+- `--line-height`: Line height
 
 ### code
 **Purpose**: Code snippets
@@ -555,7 +621,7 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--stack-gap`: Gap between items
+- `--gap`: Gap between items
 
 ### as-cluster
 **Purpose**: Horizontal grouping with wrap
@@ -568,8 +634,8 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--cluster-gap`: Gap between items
-- `--cluster-align`: Alignment (center, space-between, etc.)
+- `--gap`: Gap between items
+- `--align`: Alignment
 
 ### as-grid
 **Purpose**: Two-dimensional grid
@@ -582,9 +648,9 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--grid-columns`: Number of columns or `auto-fit`
-- `--grid-gap`: Gap between cells
-- `--grid-min`: Minimum cell width
+- `--columns`: Number of columns or `auto-fit`
+- `--gap`: Gap between cells
+- `--min-width`: Minimum cell width
 
 ### as-center
 **Purpose**: Perfect centering
@@ -596,22 +662,30 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--center-height`: Container height
+- `--height`: Container height
 
-### as-sidebar
-**Purpose**: Main content with sidebar
+### as-split
+**Purpose**: Two elements with one fixed width
 
 ```html
-<div class="as-sidebar">
-  <aside>Sidebar</aside>
-  <main>Main content</main>
+<div class="as-split">
+  <aside>Fixed width</aside>
+  <main>Flexible content</main>
 </div>
 ```
 
 **Custom Properties**:
-- `--sidebar-width`: Sidebar width
-- `--sidebar-gap`: Gap between sections
-- `--sidebar-content-min`: Main content minimum width
+- `--split`: Fixed element width
+- `--gap`: Gap between sections
+
+**Variants**:
+```html
+<!-- Reverse order -->
+<div class="as-split" data-variant="reverse">
+  <main>Flexible content</main>
+  <aside>Fixed width</aside>
+</div>
+```
 
 ### as-container
 **Purpose**: Width constraint and centering
@@ -623,8 +697,8 @@ function example() {
 ```
 
 **Custom Properties**:
-- `--container-max`: Maximum width
-- `--container-padding`: Horizontal padding
+- `--max-width`: Maximum width
+- `--padding`: Horizontal padding
 
 ## Property Modifiers
 
@@ -637,6 +711,11 @@ function example() {
 </article>
 ```
 
+**Custom Properties**:
+- `--shadow-color`: Shadow color
+- `--shadow-blur`: Blur radius
+- `--shadow-offset`: Offset distance
+
 ### with-border
 **Purpose**: Add border styling
 
@@ -645,6 +724,11 @@ function example() {
   Bordered content
 </article>
 ```
+
+**Custom Properties**:
+- `--border-width`: Border thickness
+- `--border-color`: Border color
+- `--border-style`: Border style
 
 ### with-interaction
 **Purpose**: Interactive states (hover, focus)
@@ -664,6 +748,9 @@ function example() {
 </section>
 ```
 
+**Custom Properties**:
+- `--padding-size`: Padding amount
+
 ### with-margin
 **Purpose**: External spacing
 
@@ -673,6 +760,9 @@ function example() {
 </article>
 ```
 
+**Custom Properties**:
+- `--margin-size`: Margin amount
+
 ### with-sticky
 **Purpose**: Sticky positioning
 
@@ -681,6 +771,9 @@ function example() {
   Sticky header
 </header>
 ```
+
+**Custom Properties**:
+- `--sticky-top`: Top offset
 
 ### with-animate
 **Purpose**: Animation effects
@@ -701,10 +794,68 @@ function example() {
 | Stack things vertically | `as-stack` |
 | Create a grid | `as-grid` |
 | Center something | `as-center` |
+| Split layout | `as-split` |
 | Add a shadow | `with-shadow` |
 | Make it interactive | `with-interaction` |
 | Show an alert | `alert` |
 | Display a badge | `badge` |
 | Create a form | `form` |
+
+## State Management
+
+Use data attributes for variants:
+- `data-variant="loading"` - Loading variant
+- `data-variant="error"` - Error variant
+- `data-variant="success"` - Success variant
+- `data-variant="disabled"` - Disabled variant
+
+## Variant Management
+
+Use data attributes for variants:
+- `data-variant="admin"` - Admin interface
+- `data-variant="premium"` - Premium features
+- `data-variant="checkout"` - Checkout flow
+- `data-variant="authenticated"` - Logged-in users
+
+## Enterprise Web Components
+
+**Available in Tier 3 (Free!)** - Web Components that generate CRISP HTML:
+
+### Pattern Generators
+```html
+<!-- Search with auto-complete -->
+<crisp-search-box 
+  placeholder="Search..."
+  api="/api/search"
+  min-chars="2">
+  <!-- Generates complete CRISP search pattern -->
+</crisp-search-box>
+
+<!-- Product display -->
+<crisp-product-card
+  name="Product Name"
+  price="99.99"
+  currency="USD"
+  image="/path/to/image.jpg">
+  <!-- Generates formatted CRISP product card -->
+</crisp-product-card>
+
+<!-- Data table with sorting -->
+<crisp-data-table
+  source="/api/data"
+  sortable="true"
+  paginate="10">
+  <!-- Generates responsive CRISP table -->
+</crisp-data-table>
+```
+
+### Key Concept
+Web Components are **containers only** - they:
+- Accept typed attributes
+- Handle business logic
+- Generate 100% pure CRISP HTML
+- Save typing, not philosophy
+
+The output is always standard CRISP components that work in all tiers!
 
 → Continue to [Chapter 16: CRISP Cheatsheet](./C16-cheatsheet.md)

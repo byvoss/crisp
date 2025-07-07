@@ -364,14 +364,27 @@ Run both systems during migration (like serving two dinners to picky eaters):
 
 ```html
 <!-- Header with both systems (the Swiss Army knife approach) -->
-<header data-variant="migration" role="banner">
-  <!-- Old navigation for desktop (don't touch, it's fragile) -->
-  <nav class="legacy-nav" data-variant="desktop" aria-label="Desktop navigation">
-    <!-- Complex legacy navigation -->
+<header class="site-header" role="banner">
+  <!-- Old navigation for desktop (Bootstrap/BEM horror show) -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light navbar--primary desktop-only">
+    <div class="container-fluid">
+      <div class="navbar-brand">
+        <img src="/logo.png" class="navbar-brand__logo img-responsive">
+      </div>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+          <li class="nav-item"><a class="nav-link" href="/about">About</a></li>
+        </ul>
+      </div>
+    </div>
   </nav>
   
-  <!-- New CRISP navigation for mobile (the future is now) -->
-  <nav class="navigation as-cluster" data-entries="2" data-variant="mobile" aria-label="Mobile navigation">
+  <!-- New CRISP navigation for mobile -->
+  <nav class="navigation as-cluster mobile-only" data-entries="2" aria-label="Mobile navigation">
     <a class="link" href="/" aria-current="page">Home</a>
     <a class="link" href="/about">About</a>
   </nav>
@@ -380,22 +393,33 @@ Run both systems during migration (like serving two dinners to picky eaters):
 
 CSS for migration context:
 ```css
-@layer crisp {
-  [data-variant="migration"] {
-  /* Hide based on viewport */
-  [data-variant="desktop"] {
-    @media (max-width: 768px) {
-      display: none;
-    }
+/* Legacy CSS (the Bootstrap special) */
+.desktop-only {
+  display: block;
+}
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-only {
+    display: none !important; /* Classic Bootstrap override */
   }
-  
-  [data-variant="mobile"] {
-    @media (min-width: 769px) {
-      display: none;
-    }
+  .mobile-only {
+    display: block !important;
   }
 }
-```
+
+/* CRISP layer for new navigation */
+@layer crisp {
+  .navigation.mobile-only {
+    /* Clean CRISP styles */
+    --gap: var(--space-1-0);
+    --padding: var(--space-1-0);
+    
+    padding: var(--padding);
+  }
+}
 
 ## Dealing with Specificity
 
