@@ -61,7 +61,7 @@ Customise the gap:
 
 ### 2. Cluster (Horizontal Group)
 
-Things that belong together, side by side:
+Things that belong together, side by side, wrapping at the end:
 
 ```html
 <nav class="as-cluster" aria-label="Actions">
