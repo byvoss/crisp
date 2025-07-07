@@ -35,13 +35,42 @@ The workhorse of the web:
 ```css
 /* Inside CRISP */
 .button {
-  /* Defaults */
-  --bg: var(--color-neutral);
-  --color: white;
-  --size: 1rem;
-  --weight: 500;
-  --padding: var(--space-0-75) var(--space-1-5);
-  --radius: var(--radius-md);
+  /* ALWAYS define with @property */
+  @property --bg {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: var(--color-neutral);
+  }
+  
+  @property --color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: white;
+  }
+  
+  @property --size {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 1rem;
+  }
+  
+  @property --weight {
+    syntax: "<integer>";
+    inherits: false;
+    initial-value: 500;
+  }
+  
+  @property --padding {
+    syntax: "<length>#";
+    inherits: false;
+    initial-value: var(--space-0-75) var(--space-1-5);
+  }
+  
+  @property --radius {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: var(--radius-md);
+  }
   
   /* Apply them */
   background: var(--bg);
