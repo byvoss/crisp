@@ -11,7 +11,7 @@
 <!-- Basic structure -->
 <body class="as-stack">
   <header class="header as-container">
-    <nav class="navigation as-cluster">
+    <nav class="navigation as-cluster" data-entries="1">
       <a class="link" href="/">Home</a>
     </nav>
   </header>
@@ -29,13 +29,16 @@
 
 ```html
 <element class="[component] [as-layout] [with-property]" 
-  style="--custom: value;">
+  style="--token: value;"
+  data-variant="variant"
 ```
 
 **Rules**:
 - 1 component class (what it is)
-- 1 layout class (how it's arranged)
+- 1 layout class (how it's arranged)  
 - Up to 3 property classes (special features)
+- Custom properties WITHOUT prefixes for elements
+- Data attributes for variants and states
 
 ## Core Components
 
@@ -63,10 +66,10 @@
 
 ### Navigation
 ```html
-<nav class="navigation">Nav</nav>
-<nav class="breadcrumb">Breadcrumb</nav>
-<nav class="pagination">Pages</nav>
-<div class="tabs">Tabs</div>
+<nav class="navigation" data-entries="0">Nav</nav>
+<nav class="breadcrumb" data-entries="0">Breadcrumb</nav>
+<nav class="pagination" data-entries="0">Pages</nav>
+<div class="tabs" data-entries="0">Tabs</div>
 ```
 
 ### Feedback
@@ -123,12 +126,15 @@
 <div class="as-center" style="--center-height: 50vh;">
 ```
 
-### Sidebar
+### Split Layout
 ```html
-<div class="as-sidebar">
-  <aside>Sidebar</aside>
-  <main>Content</main>
+<div class="as-split">
+  <aside>Fixed width</aside>
+  <main>Flexible</main>
 </div>
+
+<!-- Custom split width -->
+<div class="as-split" style="--split-ratio: 300px;">
 ```
 
 ### Container
@@ -170,19 +176,26 @@
 --color-text
 --color-border
 
-/* Scales (10-90) */
---color-primary-50
---color-neutral-50
---color-success-50
---color-warning-50
---color-danger-50
+/* Core colors (no numeric suffix) */
+--color-primary
+--color-neutral
+--color-success
+--color-warning
+--color-danger
+
+/* Light/dark variants */
+--color-primary-light
+--color-primary-dark
+--color-neutral-light
+--color-neutral-dark
 ```
 
 ### Typography
 ```css
 /* Sizes */
---text-size-0-75   /* 0.75rem */
---text-size-1-0    /* 1rem */
+--text-size-sm     /* 0.875rem */
+--text-size-base   /* 1rem */
+--text-size-lg     /* 1.125rem */
 --text-size-1-25   /* 1.25rem */
 --text-size-1-5    /* 1.5rem */
 --text-size-2-0    /* 2rem */
@@ -193,16 +206,15 @@
 --text-weight-medium    /* 500 */
 --text-weight-semibold  /* 600 */
 --text-weight-bold      /* 700 */
---text-weight-massiv    /* 900 */
 ```
 
 ### Effects
 ```css
 /* Radius */
---radius-0-25  /* 0.25rem */
---radius-0-5   /* 0.5rem */
---radius-0-75  /* 0.75rem */
---radius-1-0   /* 1rem */
+--radius-sm    /* 0.25rem */
+--radius-md    /* 0.5rem */
+--radius-lg    /* 0.75rem */
+--radius-xl    /* 1rem */
 --radius-full  /* 9999px */
 
 /* Shadows */
@@ -246,7 +258,7 @@
 
 ### Navigation Bar
 ```html
-<nav class="navigation as-cluster" style="--cluster-align: space-between;">
+<nav class="navigation as-cluster" data-entries="2" style="--cluster-align: space-between;">
   <a class="link" href="/">Logo</a>
   <div class="as-cluster">
     <a class="link" href="/about">About</a>
@@ -259,7 +271,7 @@
 ```html
 <section class="hero as-center" style="--center-height: 80vh;">
   <div class="as-stack">
-    <h1 class="heading" style="--heading-size: var(--text-size-3-0);">
+    <h1 class="heading" style="--size: var(--text-size-3-0);">
       Big Title
     </h1>
     <p class="text">Subtitle text</p>
@@ -283,6 +295,60 @@ document.getElementById('modal').showModal();
 </script>
 ```
 
+## Data Attributes
+
+### Variants
+```html
+<!-- Visual variations -->
+<button class="button" data-variant="primary">Primary</button>
+<aside class="alert" data-variant="success">Success!</aside>
+<span class="badge" data-variant="warning">3</span>
+<nav class="navigation" data-entries="0" data-variant="tabs">Tab nav</nav>
+```
+
+### Variants
+```html
+<!-- Element variants -->
+<button class="button" data-variant="loading">Loading...</button>
+<input class="input" data-variant="invalid">
+<form class="form" data-variant="error">
+<div class="card" data-variant="expanded">
+```
+
+### Contextual Variants
+```html
+<!-- Environmental variants -->
+<main data-variant="admin">Admin area</main>
+<section data-variant="premium">Premium content</section>
+<form data-variant="checkout">Checkout form</form>
+```
+
+## 💡 Critical: data-theme vs data-variant
+
+**Never mix these two!**
+
+### data-theme = Color Schemes ONLY
+```html
+<!-- ✅ Correct: Theme on high-level containers -->
+<body data-theme="dark">
+<main data-theme="light">
+<section data-theme="high-contrast">
+
+<!-- ❌ Wrong: Never on components -->
+<button data-theme="primary">  <!-- NO! -->
+```
+
+### data-variant = Everything Else
+```html
+<!-- ✅ All variations use data-variant -->
+<button class="button" data-variant="primary">Primary</button>
+<button class="button" data-variant="loading">Loading...</button>
+<article class="card" data-variant="danger">Error</article>
+<nav class="navigation" data-variant="admin">Admin Nav</nav>
+```
+
+**Remember**: Themes cascade and control colors. Variants don't cascade and control purpose.
+
 ## Theme Switching
 
 ```html
@@ -290,9 +356,9 @@ document.getElementById('modal').showModal();
 <script src="crisp-theme.min.js"></script>
 
 <!-- Theme controls -->
-<button onclick="setTheme('light')">Light</button>
-<button onclick="setTheme('dark')">Dark</button>
-<button onclick="setTheme('auto')">Auto</button>
+<button data-function="theme" data-theme="light">Light</button>
+<button data-function="theme" data-theme="dark">Dark</button>
+<button data-function="theme" data-theme="auto">Auto</button>
 ```
 
 ## Accessibility Checklist
@@ -310,12 +376,14 @@ document.getElementById('modal').showModal();
 
 | Old Way | CRISP Way |
 |---------|-----------|
-| `.btn .btn-primary .btn-lg` | `.button` + `style="--button-bg: var(--color-primary-50); --button-size: large;"` |
+| `.btn .btn-primary .btn-lg` | `.button` + `style="--bg: var(--color-primary); --size: var(--text-size-lg);"` |
 | `.card-header` + `.card-body` | `.card.as-stack` |
 | `.row` + `.col-md-4` | `.as-grid` |
 | `.text-center` | `style="text-align: center;"` |
 | `.mt-3 .mb-3` | `style="margin-block: var(--space-1-5);"` |
 | `.d-none` | `hidden` attribute |
+| `.btn-success` | `.button` + `data-variant="success"` |
+| `.alert-warning` | `.alert` + `data-variant="warning"` |
 
 ## Component + Layout Combinations
 
@@ -331,9 +399,9 @@ document.getElementById('modal').showModal();
 <form class="form as-grid">Grid form</form>
 
 <!-- Navigation layouts -->
-<nav class="navigation as-cluster">Horizontal nav</nav>
-<nav class="navigation as-stack">Vertical nav</nav>
-<nav class="navigation as-grid">Grid nav</nav>
+<nav class="navigation as-cluster" data-entries="0">Horizontal nav</nav>
+<nav class="navigation as-stack" data-entries="0">Vertical nav</nav>
+<nav class="navigation as-grid" data-entries="0">Grid nav</nav>
 ```
 
 ## Progressive Enhancement Path
@@ -345,9 +413,61 @@ document.getElementById('modal').showModal();
 <!-- Level 2: CRISP Theme (+ themes) -->
 <button class="button">Works + themes</button>
 
-<!-- Level 3: CRISP Enterprise (+ TypeScript) -->
-<button class="button" data-component="button">
+<!-- Level 3: CRISP Enterprise (+ Web Components) -->
+<button class="button" data-function="submit">
   Works + themes + TypeScript
+</button>
+```
+
+### Enterprise Web Components (Free!)
+
+```html
+<!-- Use pre-built Web Component -->
+<crisp-search-box placeholder="Search products...">
+  <!-- Generates this CRISP HTML automatically: -->
+  <div class="search as-cluster">
+    <input class="input" type="search" placeholder="Search products...">
+    <button class="button" data-variant="primary">
+      <span class="icon">🔍</span>
+    </button>
+  </div>
+</crisp-search-box>
+
+<!-- Simple product card component -->
+<crisp-product-card 
+  name="CRISP Framework"
+  price="0.00"
+  currency="EUR">
+  <!-- Generates this CRISP HTML: -->
+  <article class="card as-stack" data-variant="product">
+    <h3 class="heading">CRISP Framework</h3>
+    <p class="price">€ 0,00</p>
+    <button class="button" data-variant="primary">Get it free</button>
+  </article>
+</crisp-product-card>
+```
+
+**Remember**: Web Components are just containers - they output 100% CRISP HTML!
+
+## Define/Use Pattern
+
+```css
+/* Every element defines its defaults */
+.button {
+  /* 1. Define */
+  --bg: var(--color-neutral);
+  --color: white;
+  --size: var(--text-size-base);
+  
+  /* 2. Use */
+  background: var(--bg);
+  color: var(--color);
+  font-size: var(--size);
+}
+
+/* Customize only what you need */
+<button class="button" style="--bg: var(--color-primary);">
+  Primary Button
 </button>
 ```
 
@@ -356,8 +476,17 @@ document.getElementById('modal').showModal();
 1. **Semantic HTML first** - Use real elements
 2. **One component class** - Be clear what it is
 3. **Custom properties for variants** - Not modifier classes
-4. **Maximum 3 properties** - Or create new component
+4. **Data attributes for state** - Not state classes
 5. **Progressive enhancement** - Works without JS
+6. **Define/Use pattern** - Define defaults, then use them
+7. **Layout tokens describe pattern** - Not content
+
+## Token Naming Rules
+
+- **Element classes**: No prefix (`--bg`, `--color`, `--size`)
+- **Property classes**: With prefix (`--shadow-color`, `--border-width`)
+- **Layout classes**: Pattern-specific (`--gap`, `--split`, `--columns`)
+- **All other tokens**: Need identification (`--space-1-0`, `--color-primary`)
 
 ## Need Help?
 
