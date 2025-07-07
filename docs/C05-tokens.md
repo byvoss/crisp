@@ -411,17 +411,17 @@ Remember the hierarchy:
 ### CSS Layers for Token Organization
 
 ```css
-@layer tokens, base, components;
+/* Standard CRISP structure */
+@layer crisp, bridge, overrides;
 
-@layer tokens {
+@layer crisp {
+  /* All CRISP tokens and components */
   :root {
-    /* All tokens defined here */
+    /* Design tokens defined here */
     --color-primary: oklch(60% 0.20 250);
     --space-1-0: 1rem;
   }
-}
-
-@layer components {
+  
   .button {
     /* Components use tokens */
     background: var(--color-primary);

@@ -9,7 +9,7 @@
 ### 🔴 FUNDAMENTAL ARCHITECTURE RULES (Follow First!)
 1. **[The Sacred 1+1+3 Formula](./CLAUDE-RULES.md#rule-1-sacred-formula)** - Component + layout + max 3 properties
 2. **[CSS @layer Architecture](./CLAUDE-RULES.md#rule-2-layers)** 🎯 - The killer feature for isolation
-3. **[CSS @layer Usage](./CLAUDE-RULES.md#rule-3-layer-usage)** - Simple isolation with KISS
+3. **[CSS @layer Usage](./CLAUDE-RULES.md#rule-3-layer-usage)** 🎯 - Three layers with toggle system
 4. **[Custom Properties Pattern](./CLAUDE-RULES.md#rule-4-properties)** - Define/Use pattern
 
 ### 🟠 NAMING & STRUCTURE RULES (Follow When Writing)

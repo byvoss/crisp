@@ -7,7 +7,7 @@ This document contains ALL mandatory rules for CRISP development. Every rule MUS
 ### 🔴 FUNDAMENTAL ARCHITECTURE RULES (Follow First!)
 - [Rule 1: The Sacred 1+1+3 Formula](#rule-1-the-sacred-113-formula)
 - [Rule 2: CSS @layer Architecture](#rule-2-css-layer-architecture)
-- [Rule 3: CSS @layer Usage - KISS!](#rule-3-layer-usage)
+- [Rule 3: CSS @layer Usage - Three Layers, Infinite Power!](#rule-3-layer-usage)
 - [Rule 4: Custom Properties Pattern](#rule-4-custom-properties-pattern)
 
 ### 🟠 NAMING & STRUCTURE RULES (Follow When Writing)
@@ -99,29 +99,30 @@ CRISP uses @layer for complete isolation. Users can override ANYTHING without !i
 - Drop into any project safely
 - Predictable behavior always
 
-## <a id="rule-3-layer-usage"></a>Rule 3: CSS @layer Usage - KISS!
+## <a id="rule-3-layer-usage"></a>Rule 3: CSS @layer Usage - Three Layers, Infinite Power!
 
-**ALL CRISP CSS goes in `@layer crisp`. User overrides go in `@layer overrides`. That's it!**
+**CRISP uses exactly THREE layers: `crisp`, `bridge`, `overrides`. The `bridge` layer is your project's toggle system.**
 
-### Standard Usage:
+### Standard CRISP Structure:
 
 ```css
-/* Define layer order */
-@layer crisp, overrides;
+/* Always these three layers */
+@layer crisp, bridge, overrides;
 
-/* All CRISP styles in one layer */
+/* CRISP framework styles */
 @layer crisp {
   .button { 
     background: var(--color-primary);
-    /* ALL button styles, states, etc. */
-  }
-  
-  .button:hover {
-    background: var(--color-primary-dark);
+    /* ALL CRISP styles */
   }
 }
 
-/* Users override without !important */
+/* Bridge is empty by default but ALWAYS present */
+@layer bridge {
+  /* Your project-specific toggleable features go here */
+}
+
+/* User customizations */
 @layer overrides {
   .button { 
     background: hotpink; /* This ALWAYS wins! */
@@ -129,42 +130,64 @@ CRISP uses @layer for complete isolation. Users can override ANYTHING without !i
 }
 ```
 
-### Migration Usage:
+### The Bridge Layer - Your Migration & Toggle System:
 
-For migrating from other frameworks, add temporary layers:
+The `bridge` layer is a permanent meta-layer for project-specific toggleable features:
 
 ```css
-/* Migration layer order */
-@layer legacy, crisp, bridge, overrides;
-
-@layer legacy {
-  /* Old framework styles isolated here */
-}
+@layer crisp, bridge, overrides;
 
 @layer bridge {
-  /* Temporary mappings */
-  .btn-primary { 
-    @extend .button; 
-    --bg: var(--color-primary);
+  /* Define your project's sub-layers */
+  @layer old-framework, vendor-styles, legacy-components, temp-fixes;
+  
+  @layer old-framework {
+    /* Bootstrap/Tailwind compatibility */
+    .btn { @extend .button; }
+    .col-md-6 { grid-column: span 6; }
+  }
+  
+  @layer vendor-styles {
+    /* Third-party CSS */
+  }
+  
+  @layer legacy-components {
+    /* Old custom components */
   }
 }
 ```
 
-### Why This Works:
+### Toggle Features On/Off:
 
-1. **Dead Simple**: Two layers. Done.
-2. **No Specificity Wars**: Later layers always win
-3. **User-Friendly**: Override anything without !important
-4. **Migration-Ready**: Add layers as needed
-5. **KISS Philosophy**: Complexity is the enemy
+```css
+/* All bridge features active (default) */
+@layer crisp, bridge, overrides;
 
-### The Only Rules:
+/* Only specific features active */
+@layer crisp, bridge.old-framework, overrides;
 
-- **CRISP code** → `@layer crisp`
-- **User overrides** → `@layer overrides`
-- **Migration code** → `@layer legacy` / `@layer bridge` (temporary)
+/* Multiple features */
+@layer crisp, bridge.vendor-styles bridge.temp-fixes, overrides;
 
-No sub-layers. No complex hierarchies. Just simple, powerful isolation.
+/* All bridge features off (post-migration) */
+@layer crisp, bridge, overrides;  /* bridge layer stays but is empty */
+```
+
+### Why This Architecture:
+
+1. **Always Three Layers**: Consistent structure for every project
+2. **Bridge = Meta Layer**: Organize all project-specific code
+3. **Granular Control**: Toggle individual features
+4. **Clean Migration**: Turn off old code without deleting
+5. **No Legacy Layer**: Everything goes in organized bridge sub-layers
+
+### Layer Purposes:
+
+- **`crisp`** → The CRISP framework (never modify)
+- **`bridge`** → Your project's toggleable features
+- **`overrides`** → Final user customizations
+
+The bridge layer is your playground - use it for migrations, experiments, temporary fixes, or any project-specific code that you might want to toggle.
 
 ## <a id="rule-4-properties"></a>Rule 4: Custom Properties Pattern
 

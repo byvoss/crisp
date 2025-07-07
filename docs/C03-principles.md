@@ -238,6 +238,9 @@ Stop fighting CSS. The cascade is your friend.
 #page .wrapper .button { background: green !important; }
 
 /* ✅ Flowing with the cascade + @layer */
+/* Always declare the three layers */
+@layer crisp, bridge, overrides;
+
 @layer crisp {
   .button {
     /* Define with @property */
@@ -254,6 +257,11 @@ Stop fighting CSS. The cascade is your friend.
   [data-variant="danger"] .button {
     --bg: var(--color-danger);
   }
+}
+
+/* Bridge layer for migrations (empty by default) */
+@layer bridge {
+  /* Project-specific toggleable features */
 }
 
 /* User overrides always win */

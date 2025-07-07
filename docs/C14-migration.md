@@ -450,25 +450,44 @@ body#body #page .container .row .col .card .card-body p.text.text-color {
 **The "Aha!"**: CSS Layers solve specificity wars forever. Legacy CSS becomes the lowest priority automatically.
 
 ```css
-/* 1. Legacy layer (lowest priority) */
-@layer legacy {
-  @import 'old-styles.css';
-  @import 'vendor/bootstrap.css';
-  @import 'that-jquery-plugin-from-2012.css';
-}
+/* Standard CRISP three-layer structure */
+@layer crisp, bridge, overrides;
 
-/* 2. Bridge layer */
-@layer bridge {
-  /* Migration mappings */
-}
-
-/* 3. CRISP layer (highest priority) */
+/* 1. CRISP layer - The framework */
 @layer crisp {
   @import 'crisp.css';
 }
 
-/* CRISP now wins without a single !important */
-/* Steve's specificity nightmare is defeated */
+/* 2. Bridge layer - Your migration toggle system */
+@layer bridge {
+  /* Define project-specific sub-layers */
+  @layer old-bootstrap, vendor-plugins, legacy-styles, temp-fixes;
+  
+  @layer old-bootstrap {
+    @import 'vendor/bootstrap.css';
+    /* Bootstrap compatibility mappings */
+    .btn { @extend .button; }
+  }
+  
+  @layer vendor-plugins {
+    @import 'that-jquery-plugin-from-2012.css';
+  }
+  
+  @layer legacy-styles {
+    @import 'old-styles.css';
+  }
+}
+
+/* 3. Overrides layer - Final customizations */
+@layer overrides {
+  /* User customizations always win */
+}
+
+/* Toggle features during migration:
+   - All on: @layer crisp, bridge, overrides;
+   - Bootstrap only: @layer crisp, bridge.old-bootstrap, overrides;
+   - All off: @layer crisp, bridge, overrides; (empty bridge)
+*/
 ```
 
 **Mind = Blown**: Your `.text` class now beats `body#body #page .container .row .col .card .card-body p.text.text-color`. No !important needed. Steve is confused but impressed.
