@@ -72,28 +72,46 @@ Map your old classes to CRISP patterns:
 ```css
 /* bridge.css - Temporary mapping layer */
 
-/* Map old components to CRISP */
+/* Map old buttons to CRISP */
 .old-button,
 .btn,
 .button-primary,
 .action-button {
-  @extend .button;
+  /* Inherit CRISP button styles */
+  --bg: var(--color-primary);
+  --color: white;
+  --padding: var(--space-0-75) var(--space-1-5);
+  --radius: var(--radius-md);
+  
+  /* Apply tokens */
+  background: var(--bg);
+  color: var(--color);
+  padding: var(--padding);
+  border-radius: var(--radius);
+  
+  /* Match CRISP button behavior */
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-0-5);
+  border: none;
+  cursor: pointer;
+  font: inherit;
+  text-decoration: none;
 }
 
 /* Map old layouts */
-.row,
-.grid-container,
-.flex-wrapper {
-  @extend .as-cluster;
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-1-0);
 }
 
-.column,
 .col,
-.grid-item {
-  /* Handled by parent .as-grid */
+.column {
+  flex: 1;
 }
 
-/* Map old utilities */
+/* Map old utilities to custom properties */
 .text-center { text-align: center; }
 .mt-20 { margin-top: var(--space-1-0); }
 .hidden { display: none; }
@@ -112,11 +130,32 @@ Pick one component type at a time:
 
 <!-- After -->
 <button class="button" 
-  style="--button-bg: var(--color-primary-50); 
-         --button-size: var(--text-size-1-25);
-         --button-width: 100%;">
+  style="--bg: var(--color-primary); 
+         --size: var(--text-size-1-25);
+         width: 100%;">
   Click me
 </button>
+```
+
+CSS for migrated buttons:
+```css
+.button {
+  /* 1. Define defaults */
+  --bg: var(--color-neutral);
+  --color: white;
+  --size: var(--text-size-base);
+  --weight: var(--text-weight-medium);
+  --padding: var(--space-0-75) var(--space-1-5);
+  --radius: var(--radius-md);
+  
+  /* 2. Use the tokens */
+  background: var(--bg);
+  color: var(--color);
+  font-size: var(--size);
+  font-weight: var(--weight);
+  padding: var(--padding);
+  border-radius: var(--radius);
+}
 ```
 
 #### Week 2: Cards
@@ -141,7 +180,7 @@ Pick one component type at a time:
   </header>
   <p class="text">Content</p>
   <footer>
-    <button class="button" style="--button-bg: var(--color-primary-50);">
+    <button class="button" style="--bg: var(--color-primary);">
       Action
     </button>
   </footer>
@@ -189,14 +228,14 @@ Wrap old components and gradually replace internals:
 
 ```html
 <!-- Phase 1: Wrap old component -->
-<article class="card">
+<article class="card" data-migration="phase-1">
   <div class="legacy-card-component">
     <!-- Old HTML structure -->
   </div>
 </article>
 
 <!-- Phase 2: Replace internals -->
-<article class="card as-stack">
+<article class="card as-stack" data-migration="phase-2">
   <h3 class="heading">New heading</h3>
   <div class="legacy-card-body">
     <!-- Still some old parts -->
@@ -204,7 +243,7 @@ Wrap old components and gradually replace internals:
 </article>
 
 <!-- Phase 3: Fully migrated -->
-<article class="card as-stack with-shadow">
+<article class="card as-stack with-shadow" data-migration="complete">
   <h3 class="heading">New heading</h3>
   <p class="text">Fully CRISP</p>
 </article>
@@ -215,7 +254,7 @@ Wrap old components and gradually replace internals:
 Use data attributes to toggle between old and new:
 
 ```html
-<body data-use-crisp="true">
+<body data-crisp="enabled">
   <!-- CSS switches behaviour -->
 </body>
 ```
@@ -227,9 +266,15 @@ Use data attributes to toggle between old and new:
 }
 
 /* New styles when flag enabled */
-[data-use-crisp="true"] .header {
+[data-crisp="enabled"] .header {
   /* Clean CRISP styles */
-  @extend .as-container;
+  --padding: var(--space-1-5);
+  --bg: white;
+  --border: 1px solid var(--color-border);
+  
+  padding: var(--padding);
+  background: var(--bg);
+  border-bottom: var(--border);
 }
 ```
 
@@ -239,20 +284,36 @@ Run both systems during migration:
 
 ```html
 <!-- Header with both systems -->
-<header>
+<header data-variant="migration">
   <!-- Old navigation for desktop -->
-  <nav class="legacy-nav desktop月nly">
+  <nav class="legacy-nav" data-variant="desktop">
     <!-- Complex legacy navigation -->
   </nav>
   
   <!-- New CRISP navigation for mobile -->
-  <nav class="navigation as-cluster mobile-only">
+  <nav class="navigation as-cluster" data-variant="mobile">
     <a class="link" href="/">Home</a>
     <a class="link" href="/about">About</a>
   </nav>
 </header>
+```
 
-<!-- Gradually expand CRISP usage -->
+CSS for migration context:
+```css
+[data-variant="migration"] {
+  /* Hide based on viewport */
+  [data-variant="desktop"] {
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+  
+  [data-variant="mobile"] {
+    @media (min-width: 769px) {
+      display: none;
+    }
+  }
+}
 ```
 
 ## Dealing with Specificity
@@ -266,7 +327,8 @@ Run both systems during migration:
 
 /* CRISP won't win this fight directly */
 .text {
-  color: var(--text-color);
+  --color: var(--color-neutral);
+  color: var(--color);
 }
 ```
 
@@ -293,13 +355,19 @@ Run both systems during migration:
 ### Or Use Isolation
 ```css
 /* Isolate CRISP sections */
-.crisp-section {
+[data-crisp="isolated"] {
   /* Reset cascade */
   all: initial;
   
-  /* Apply CRISP */
+  /* Apply CRISP fundamentals */
   font-family: var(--font-sans);
-  /* ... */
+  line-height: var(--line-height-base);
+  color: var(--color-neutral);
+  
+  /* All children use CRISP */
+  * {
+    box-sizing: border-box;
+  }
 }
 ```
 
@@ -323,11 +391,20 @@ h1, h2, h3 {
 **Solution**: Scope CRISP components
 ```css
 /* Scope CRISP to avoid conflicts */
-.crisp-content {
+[data-variant="crisp"] {
   /* CRISP resets */
   h1, h2, h3 {
-    margin: 0;
-    font-family: var(--font-sans);
+    /* 1. Define heading defaults */
+    --size: var(--text-size-2-0);
+    --weight: var(--text-weight-bold);
+    --line-height: var(--line-height-tight);
+    --margin: 0;
+    
+    /* 2. Use the tokens */
+    font-size: var(--size);
+    font-weight: var(--weight);
+    line-height: var(--line-height);
+    margin: var(--margin);
   }
 }
 ```
@@ -340,12 +417,24 @@ $('.btn-primary').click(function() {
 });
 ```
 
-**Solution**: Add compatibility classes
+**Solution**: Add compatibility attributes
 ```html
 <button class="button btn-primary" 
-  data-component="button">
+  data-function="submit"
+  data-legacy="btn">
   Works with both
 </button>
+```
+
+```css
+/* Support legacy JS */
+.button[data-legacy="btn"] {
+  &.btn-loading {
+    --opacity: 0.6;
+    opacity: var(--opacity);
+    cursor: wait;
+  }
+}
 ```
 
 ### Challenge 3: Third-Party Components
@@ -356,16 +445,24 @@ $('.btn-primary').click(function() {
 </div>
 ```
 
-**Solution**: Don't migrate these (yet)
+**Solution**: Wrap, don't migrate
 ```html
-<!-- Keep third-party components as-is -->
-<div class="field">
+<!-- Keep third-party components isolated -->
+<div class="field" data-vendor="datepicker">
   <label class="label">Date</label>
-  <!-- Legacy datepicker -->
+  <!-- Legacy datepicker unchanged -->
   <div class="datepicker-wrapper">
     <input type="text" class="form-control datepicker">
   </div>
 </div>
+```
+
+```css
+/* Isolate vendor styles */
+[data-vendor] {
+  /* Vendor components untouched */
+  all: revert;
+}
 ```
 
 ## Migration Checklist
@@ -447,5 +544,7 @@ $('.btn-primary').click(function() {
 5. **Stay patient**: Rome wasn't rebuilt in a day
 
 Your legacy CSS is not your destiny. Freedom awaits.
+
+And when the PM asks "how long will migration take?" You don't give a timeline. You show them a working component built in CRISP in 5 minutes. That's the power of gradual migration.
 
 → Continue to [Chapter 15: Component Reference](./C15-component-reference.md)
