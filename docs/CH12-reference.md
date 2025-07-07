@@ -852,19 +852,19 @@ Properties:
   <article class="card as-stack">
     <h3 class="heading">Card 1</h3>
     <p class="text">Description</p>
-    <button class="button">Action</button>
+    <a class="link" href="#">View Details</a>
   </article>
   
   <article class="card as-stack">
     <h3 class="heading">Card 2</h3>
     <p class="text">Description</p>
-    <button class="button">Action</button>
+    <a class="link" href="#">View Details</a>
   </article>
   
   <article class="card as-stack">
     <h3 class="heading">Card 3</h3>
     <p class="text">Description</p>
-    <button class="button">Action</button>
+    <a class="link" href="#">View Details</a>
   </article>
 </div>
 ```

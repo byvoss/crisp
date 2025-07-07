@@ -38,28 +38,28 @@ From those 10 base colors, CRISP calculates everything else:
 
 ```css
 /* Every interactive element gets automatic states */
-.button {
-  @property --bg {
+.link {
+  @property --color {
     syntax: "<color>";
     inherits: false;
     initial-value: var(--color-primary);
   }
   
-  background: var(--bg);
+  color: var(--color);
   
   /* Hover: 10% lighter */
   &:hover {
-    --bg: oklch(from var(--bg) calc(l + 0.1) c h);
+    --color: oklch(from var(--color) calc(l + 0.1) c h);
   }
   
   /* Active: 10% darker */
   &:active {
-    --bg: oklch(from var(--bg) calc(l - 0.1) c h);
+    --color: oklch(from var(--color) calc(l - 0.1) c h);
   }
   
-  /* Disabled: 50% opacity */
-  &:disabled {
-    --bg: oklch(from var(--bg) l c h / 0.5);
+  /* Visited: Hue shift */
+  &:visited {
+    --color: oklch(from var(--color) l c calc(h + 30));
   }
 }
 ```

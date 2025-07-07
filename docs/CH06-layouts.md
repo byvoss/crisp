@@ -64,11 +64,11 @@ Customise the gap:
 Things that belong together, side by side, wrapping at the end:
 
 ```html
-<nav class="as-cluster" aria-label="Actions">
-  <button class="button">Save</button>
-  <button class="button">Cancel</button>
-  <button class="button">Delete</button>
-</nav>
+<div class="as-cluster" role="group" aria-label="Filter options">
+  <span class="badge" data-active="true">All</span>
+  <span class="badge">Active</span>
+  <span class="badge">Archived</span>
+</div>
 ```
 
 With custom gap and alignment:
@@ -367,7 +367,7 @@ The real power? Combining layouts:
       <article class="card as-stack">
         <h3 class="heading">Product 1</h3>
         <p class="text">Description</p>
-        <button class="button">Learn More</button>
+        <a class="link" href="/products/1">Learn More</a>
       </article>
       <!-- 5 more cards -->
     </div>
