@@ -41,6 +41,8 @@
 24. **[Browser Support Policy](./CLAUDE-RULES.md#rule-24-browser-support)** - Modern browsers only
 25. **[Theme vs Variant Distinction](./CLAUDE-RULES.md#rule-25-theme-variant)** - Clear separation
 26. **[Semantic Data Attributes](./CLAUDE-RULES.md#rule-26-semantic-attributes)** - Enhanced HTML meaning
+27. **[Example Paradigm](./CLAUDE-RULES.md#rule-27-example-paradigm)** - Make CRISP the developer's dream
+28. **[Strict @layer Assignment](./CLAUDE-RULES.md#rule-28-layer-assignment)** 🚨 - MANDATORY layer placement
 
 ## 📝 Documentation Writing Principles
 
