@@ -1,0 +1,34 @@
+/**
+ * @license
+ * CRISP - Code Rules for Intuitive Semantic Projects
+ * Copyright (c) 2025 Vivian Burkhard Voss, ByVoss Technologies
+ * MIT License - see LICENSE file for details
+ */
+
+/**
+ * The 10-Color System
+ * All colors use OKLCH for perceptual uniformity
+ */
+
+:root {
+  /* The Brand Trinity (3 colors) */
+  --color-primary:   oklch(60% 0.20 250);  /* Main brand color */
+  --color-secondary: oklch(55% 0.15 280);  /* Supporting color */
+  --color-accent:    oklch(65% 0.25 200);  /* Attention color */
+  
+  /* The Semantic Quartet (4 colors) */
+  --color-error:   oklch(60% 0.22 25);   /* Red - danger/errors */
+  --color-warning: oklch(75% 0.20 90);   /* Yellow - caution */
+  --color-success: oklch(65% 0.20 145);  /* Green - success */
+  --color-info:    oklch(60% 0.15 220);  /* Blue - information */
+  
+  /* The Neutral Trio (3 colors) */
+  --color-neutral: oklch(50% 0.01 250);  /* Mid-gray */
+  --color-surface: oklch(98% 0.00 0);    /* Background (white) */
+  --color-ink:     oklch(10% 0.01 250);  /* Text (near-black) */
+  
+  /* Semantic aliases */
+  --color-text: var(--color-ink);
+  --color-bg: var(--color-surface);
+  --color-border: oklch(from var(--color-neutral) 0.9 c h);
+}

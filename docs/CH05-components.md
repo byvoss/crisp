@@ -2,6 +2,44 @@
 
 *Or: Everything you need, nothing you don't*
 
+## The Secret Fourth Layer
+
+Remember in Chapter 4 when we mentioned a secret? Here it is:
+
+```css
+/* The complete layer architecture */
+@layer kernel, crisp, bridge, overrides;
+```
+
+**The "Aha!"**: There's a `kernel` layer that contains all the @property definitions. It's like the engine room of a ship - you never go there, but it powers everything:
+
+```css
+/* In kernel layer (you never edit this) */
+@layer kernel {
+  @property --bg {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: transparent;
+  }
+  
+  @property --size {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 1rem;
+  }
+  
+  /* ... hundreds more ... */
+}
+
+/* In your components (what you write) */
+.button {
+  background: var(--bg);     /* Already type-safe! */
+  font-size: var(--size);    /* No need to define @property */
+}
+```
+
+**Important**: Never modify the kernel layer. It's infrastructure. If you break the kernel, everything breaks. Now let's use what it provides...
+
 ## The Component Philosophy
 
 Remember building components with 47 modifier classes? CRISP has a different idea:

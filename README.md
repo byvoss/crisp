@@ -1,8 +1,12 @@
 # CRISP - Pattern & Framework
 
 > Code Rules for Intuitive Semantic Projects
+> 
+> **"Learn concepts, not APIs."**
 
 CRISP is both a **CSS methodology** (like BEM) and a lightweight but powerful **ready-to-use framework**. It prioritises semantic HTML, minimal classes, and accessibility-first design.
+
+**The killer feature**: With CRISP, you learn CSS concepts that stay forever. With other frameworks, you learn APIs that change with every major version.
 
 ## Use as Pattern (Methodology Only)
 

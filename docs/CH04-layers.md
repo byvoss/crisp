@@ -41,13 +41,15 @@ The top always wins. No specificity calculation. No !important. Just layers.
 
 ## The CRISP Three-Layer System
 
-CRISP uses exactly three layers:
+CRISP uses exactly three layers (that you see):
 
 ```css
 @layer crisp, bridge, overrides;
 ```
 
 That's it. One line that changes everything.
+
+**The Secret**: There's actually a fourth layer called `kernel` that comes before everything. But you never touch it - it's the engine room that makes everything work. We'll reveal this secret when you're ready (Chapter 5).
 
 ### Layer 1: CRISP Framework
 

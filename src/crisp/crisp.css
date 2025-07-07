@@ -1,0 +1,48 @@
+/**
+ * @license
+ * CRISP - Code Rules for Intuitive Semantic Projects
+ * Copyright (c) 2025 Vivian Burkhard Voss, ByVoss Technologies
+ * MIT License - see LICENSE file for details
+ */
+
+/**
+ * CRISP Layer
+ * The main framework implementation
+ */
+
+/* Design tokens (order matters) */
+@import "tokens/colors.css";
+@import "tokens/spacing.css";
+@import "tokens/typography.css";
+@import "tokens/effects.css";
+
+/* Layout patterns */
+@import "layouts/stack.css";
+@import "layouts/cluster.css";
+@import "layouts/grid.css";
+@import "layouts/center.css";
+@import "layouts/split.css";
+@import "layouts/sidebar.css";
+@import "layouts/container.css";
+
+/* Components */
+@import "components/button.css";
+@import "components/link.css";
+@import "components/input.css";
+@import "components/textarea.css";
+@import "components/select.css";
+@import "components/checkbox.css";
+@import "components/radio.css";
+@import "components/switch.css";
+@import "components/card.css";
+@import "components/article.css";
+@import "components/section.css";
+@import "components/dialog.css";
+@import "components/alert.css";
+@import "components/badge.css";
+@import "components/progress.css";
+
+/* Utilities */
+@import "utilities/with-shadow.css";
+@import "utilities/with-interaction.css";
+@import "utilities/with-border.css";

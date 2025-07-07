@@ -1,0 +1,20 @@
+/**
+ * @license
+ * CRISP - Code Rules for Intuitive Semantic Projects
+ * Copyright (c) 2025 Vivian Burkhard Voss, ByVoss Technologies
+ * MIT License - see LICENSE file for details
+ */
+
+/**
+ * CRISP CSS Framework
+ * Main entry point with four-layer architecture
+ */
+
+/* Define all layers in order */
+@layer kernel, crisp, bridge, overrides;
+
+/* Import each layer */
+@import "kernel/kernel.css" layer(kernel);
+@import "crisp/crisp.css" layer(crisp);
+@import "bridge/bridge.css" layer(bridge);
+@import "overrides/overrides.css" layer(overrides);

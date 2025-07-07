@@ -2,6 +2,10 @@
 
 *Or: How we built a monster and learned to live with it*
 
+> **"Learn concepts, not APIs."**
+> 
+> That's the CRISP difference. While other frameworks teach you their syntax—which changes with every major version—CRISP teaches you CSS. And CSS is forever.
+
 ## A Love Story Gone Wrong
 
 CSS started as a beautiful idea. Separation of concerns. Style without polluting markup. A simple cascade of rules. Somewhere between 1996 and now, we've turned it into a Frankenstein's monster that requires a PhD in specificity calculation and a support group for survivors.
@@ -210,5 +214,7 @@ You'd probably think I'd been at the sherry. But stay with me.
 The winter of CSS complexity is ending. Spring is coming.
 
 And it's called CRISP.
+
+**The Killer Feature**: With CRISP, you learn concepts that stay forever. With other frameworks, you learn APIs that change with every major version. When Bootstrap 6 arrives, your Bootstrap 5 knowledge becomes technical debt. When Tailwind v4 ships, prepare to relearn everything. But CSS? CSS is eternal. And CRISP is just CSS, thoughtfully organised.
 
 → Continue to [Chapter 2: The 1+1+3 Formula](./CH02-solution.md)

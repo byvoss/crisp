@@ -1,0 +1,171 @@
+/**
+ * @license
+ * CRISP - Code Rules for Intuitive Semantic Projects
+ * Copyright (c) 2025 Vivian Burkhard Voss, ByVoss Technologies
+ * MIT License - see LICENSE file for details
+ */
+
+/**
+ * Kernel Layer: Property Definitions
+ * 
+ * All @property definitions for type-safe custom properties.
+ * This is infrastructure - never modify directly!
+ */
+
+/* Color properties */
+@property --bg {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: transparent;
+}
+
+@property --color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: currentColor;
+}
+
+@property --border-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: currentColor;
+}
+
+/* Size properties */
+@property --size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1rem;
+}
+
+@property --width {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: auto;
+}
+
+@property --height {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: auto;
+}
+
+@property --max-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: none;
+}
+
+/* Spacing properties */
+@property --padding {
+  syntax: "<length>#";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --margin {
+  syntax: "<length>#";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --gap {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+
+/* Typography properties */
+@property --font-family {
+  syntax: "*";
+  inherits: true;
+  initial-value: inherit;
+}
+
+@property --font-size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1rem;
+}
+
+@property --font-weight {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 400;
+}
+
+@property --line-height {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1.5;
+}
+
+/* Effect properties */
+@property --radius {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: none;
+}
+
+@property --opacity {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+/* Layout properties */
+@property --columns {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --align {
+  syntax: "start | center | end | stretch | baseline";
+  inherits: false;
+  initial-value: stretch;
+}
+
+@property --justify {
+  syntax: "start | center | end | space-between | space-around | space-evenly";
+  inherits: false;
+  initial-value: start;
+}
+
+/* Animation properties */
+@property --duration {
+  syntax: "<time>";
+  inherits: false;
+  initial-value: 0ms;
+}
+
+@property --delay {
+  syntax: "<time>";
+  inherits: false;
+  initial-value: 0ms;
+}
+
+/* Component-specific properties */
+@property --entries {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@property --active {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --variant {
+  syntax: "*";
+  inherits: false;
+  initial-value: default;
+}

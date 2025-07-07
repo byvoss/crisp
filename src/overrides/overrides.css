@@ -1,0 +1,19 @@
+/**
+ * @license
+ * CRISP - Code Rules for Intuitive Semantic Projects
+ * Copyright (c) 2025 Vivian Burkhard Voss, ByVoss Technologies
+ * MIT License - see LICENSE file for details
+ */
+
+/**
+ * Overrides Layer
+ * For project-specific customizations
+ * 
+ * This file is intentionally empty.
+ * Users add their own customizations here.
+ * 
+ * Example usage:
+ * .button {
+ *   --bg: var(--color-brand);
+ * }
+ */

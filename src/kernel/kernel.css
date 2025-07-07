@@ -1,0 +1,14 @@
+/**
+ * @license
+ * CRISP - Code Rules for Intuitive Semantic Projects
+ * Copyright (c) 2025 Vivian Burkhard Voss, ByVoss Technologies
+ * MIT License - see LICENSE file for details
+ */
+
+/**
+ * Kernel Layer
+ * Core infrastructure - don't modify!
+ */
+
+/* Import all kernel modules */
+@import "properties.css";

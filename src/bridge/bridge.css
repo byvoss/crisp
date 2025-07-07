@@ -1,0 +1,18 @@
+/**
+ * @license
+ * CRISP - Code Rules for Intuitive Semantic Projects
+ * Copyright (c) 2025 Vivian Burkhard Voss, ByVoss Technologies
+ * MIT License - see LICENSE file for details
+ */
+
+/**
+ * Bridge Layer
+ * For migration and legacy code compatibility
+ * 
+ * This file is intentionally empty.
+ * Users add their own legacy CSS here during migration.
+ * 
+ * Example usage:
+ * @import "legacy/bootstrap-overrides.css";
+ * @import "legacy/old-components.css";
+ */

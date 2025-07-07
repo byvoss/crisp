@@ -1,0 +1,30 @@
+/**
+ * @license
+ * CRISP - Code Rules for Intuitive Semantic Projects
+ * Copyright (c) 2025 Vivian Burkhard Voss, ByVoss Technologies
+ * MIT License - see LICENSE file for details
+ */
+
+/**
+ * Spacing Scale
+ * Mathematical progression for consistent rhythm
+ */
+
+:root {
+  /* Base spacing scale */
+  --space-0-25: 0.25rem;  /*  4px - Hairline */
+  --space-0-5:  0.5rem;   /*  8px - Tight */
+  --space-0-75: 0.75rem;  /* 12px - Snug */
+  --space-1:    1rem;     /* 16px - Default */
+  --space-1-5:  1.5rem;   /* 24px - Comfortable */
+  --space-2:    2rem;     /* 32px - Spacious */
+  --space-3:    3rem;     /* 48px - Generous */
+  --space-4:    4rem;     /* 64px - Massive */
+  
+  /* Semantic aliases */
+  --space-xs: var(--space-0-25);
+  --space-sm: var(--space-0-5);
+  --space-md: var(--space-1);
+  --space-lg: var(--space-2);
+  --space-xl: var(--space-3);
+}
