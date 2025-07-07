@@ -6,43 +6,45 @@
 
 ## 📋 Quick Rules Index
 
-### Critical Rules (MUST follow)
+### 🔴 FUNDAMENTAL ARCHITECTURE RULES (Follow First!)
 1. **[The Sacred 1+1+3 Formula](./CLAUDE-RULES.md#rule-1-sacred-formula)** - Component + layout + max 3 properties
-2. **[WCAG 2.2 AA Compliance](./CLAUDE-RULES.md#rule-2-accessibility)** 🚨 - Accessibility is non-negotiable
-3. **[CSS @layer Architecture](./CLAUDE-RULES.md#rule-3-layers)** 🎯 - The killer feature for isolation
+2. **[CSS @layer Architecture](./CLAUDE-RULES.md#rule-2-layers)** 🎯 - The killer feature for isolation
+3. **[CSS @layer Usage](./CLAUDE-RULES.md#rule-3-layer-usage)** - Simple isolation with KISS
 4. **[Custom Properties Pattern](./CLAUDE-RULES.md#rule-4-properties)** - Define/Use pattern
-5. **[OKLCH Colors Only](./CLAUDE-RULES.md#rule-5-colors)** - No HSL, RGB, or HEX
 
-### Token & Naming Rules
-6. **[Token Naming Rules](./CLAUDE-RULES.md#rule-6-tokens)** - Clear prefix hierarchy
-7. **[Data Attributes vs ARIA](./CLAUDE-RULES.md#rule-7-attributes)** - KISS principle
+### 🟠 NAMING & STRUCTURE RULES (Follow When Writing)
+5. **[Component Naming Discipline](./CLAUDE-RULES.md#rule-5-naming)** - Max one hyphen
+6. **[Class Prefixes](./CLAUDE-RULES.md#rule-6-prefixes)** - as-, with-, no prefix
+7. **[Token Naming Rules](./CLAUDE-RULES.md#rule-7-tokens)** - Clear prefix hierarchy
 8. **[No IDs in CSS](./CLAUDE-RULES.md#rule-8-no-ids)** - IDs for function only
-9. **[@property for All Tokens](./CLAUDE-RULES.md#rule-9-property)** - Type safety
-10. **[Battery-Efficient Design](./CLAUDE-RULES.md#rule-10-battery)** 🔋 - CSS-only philosophy
 
-### Component Guidelines
-11. **[Component Naming Discipline](./CLAUDE-RULES.md#rule-11-naming)** - Max one hyphen
-12. **[Semantic HTML First](./CLAUDE-RULES.md#rule-12-semantic)** - Proper elements
-13. **[Progressive Enhancement Path](./CLAUDE-RULES.md#rule-13-progressive)** - Three tiers
-14. **[Class Prefixes](./CLAUDE-RULES.md#rule-14-prefixes)** - as-, with-, no prefix
-15. **[Language Rules](./CLAUDE-RULES.md#rule-15-language)** - British docs, US code
+### 🟡 TECHNICAL CORE RULES (Always Apply)
+9. **[Semantic HTML First](./CLAUDE-RULES.md#rule-9-semantic)** - Proper elements
+10. **[WCAG 2.2 AA Compliance](./CLAUDE-RULES.md#rule-10-accessibility)** 🚨 - Accessibility is non-negotiable
+11. **[Complete Default Values](./CLAUDE-RULES.md#rule-11-defaults)** - All tokens defined
+12. **[Data Attributes vs ARIA](./CLAUDE-RULES.md#rule-12-attributes)** - KISS principle
 
-### Advanced CSS Features
-16. **[Relative Color Pattern](./CLAUDE-RULES.md#rule-16-relative-colors)** - Automatic variations
-17. **[CSS :has() for Smart Components](./CLAUDE-RULES.md#rule-17-has)** - CSS-only interactivity
-18. **[CSS Subgrid System](./CLAUDE-RULES.md#rule-18-subgrid)** - Grid layouts
-19. **[Native ::backdrop Usage](./CLAUDE-RULES.md#rule-19-backdrop)** - No wrapper divs
-20. **[@starting-style Animations](./CLAUDE-RULES.md#rule-20-starting-style)** - Zero JS
+### 🟢 DESIGN SYSTEM RULES (Follow When Styling)
+13. **[OKLCH Colors Only](./CLAUDE-RULES.md#rule-13-colors)** - No HSL, RGB, or HEX
+14. **[Relative Color Pattern](./CLAUDE-RULES.md#rule-14-relative-colors)** - Automatic variations
+15. **[@property for All Tokens](./CLAUDE-RULES.md#rule-15-property)** - Type safety
+16. **[Layout Token Patterns](./CLAUDE-RULES.md#rule-16-layout-tokens)** - Pattern-specific tokens
+17. **[Theme vs Variant Distinction](./CLAUDE-RULES.md#rule-17-theme-variant)** - Clear separation
 
-### Implementation Details
+### 🔵 PROGRESSIVE ENHANCEMENT (Modern Features)
+18. **[CSS :has() for Smart Components](./CLAUDE-RULES.md#rule-18-has)** - CSS-only interactivity
+19. **[@starting-style Animations](./CLAUDE-RULES.md#rule-19-starting-style)** - Zero JS
+20. **[Native ::backdrop Usage](./CLAUDE-RULES.md#rule-20-backdrop)** - No wrapper divs
 21. **[field-sizing Progressive Enhancement](./CLAUDE-RULES.md#rule-21-field-sizing)** - Auto-growing fields
-22. **[Layout Token Patterns](./CLAUDE-RULES.md#rule-22-layout-tokens)** - Pattern-specific tokens
-23. **[Complete Default Values](./CLAUDE-RULES.md#rule-23-defaults)** - All tokens defined
-24. **[Browser Support Policy](./CLAUDE-RULES.md#rule-24-browser-support)** - Modern browsers only
-25. **[Theme vs Variant Distinction](./CLAUDE-RULES.md#rule-25-theme-variant)** - Clear separation
-26. **[Semantic Data Attributes](./CLAUDE-RULES.md#rule-26-semantic-attributes)** - Enhanced HTML meaning
-27. **[Example Paradigm](./CLAUDE-RULES.md#rule-27-example-paradigm)** - Make CRISP the developer's dream
-28. **[Strict @layer Assignment](./CLAUDE-RULES.md#rule-28-layer-assignment)** 🚨 - MANDATORY layer placement
+22. **[CSS Subgrid System](./CLAUDE-RULES.md#rule-22-subgrid)** - Grid layouts
+
+### ⚪ META RULES (Overarching)
+23. **[Progressive Enhancement Path](./CLAUDE-RULES.md#rule-23-progressive)** - Three tiers
+24. **[Battery-Efficient Design](./CLAUDE-RULES.md#rule-24-battery)** 🔋 - CSS-only philosophy
+25. **[Browser Support Policy](./CLAUDE-RULES.md#rule-25-browser-support)** - Modern browsers only
+26. **[Language Rules](./CLAUDE-RULES.md#rule-26-language)** - British docs, US code
+27. **[Semantic Data Attributes](./CLAUDE-RULES.md#rule-27-semantic-attributes)** - Enhanced HTML meaning
+28. **[Example Paradigm](./CLAUDE-RULES.md#rule-28-example-paradigm)** - Make CRISP the developer's dream
 
 ## 📝 Documentation Writing Principles
 

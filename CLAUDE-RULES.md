@@ -7,7 +7,7 @@ This document contains ALL mandatory rules for CRISP development. Every rule MUS
 ### 🔴 FUNDAMENTAL ARCHITECTURE RULES (Follow First!)
 - [Rule 1: The Sacred 1+1+3 Formula](#rule-1-the-sacred-113-formula)
 - [Rule 2: CSS @layer Architecture](#rule-2-css-layer-architecture)
-- [Rule 3: Strict CSS @layer Assignment - MANDATORY!](#rule-3-strict-layer-assignment)
+- [Rule 3: CSS @layer Usage - KISS!](#rule-3-layer-usage)
 - [Rule 4: Custom Properties Pattern](#rule-4-custom-properties-pattern)
 
 ### 🟠 NAMING & STRUCTURE RULES (Follow When Writing)
@@ -99,139 +99,72 @@ CRISP uses @layer for complete isolation. Users can override ANYTHING without !i
 - Drop into any project safely
 - Predictable behavior always
 
-## <a id="rule-3-layer-assignment"></a>Rule 3: Strict CSS @layer Assignment - MANDATORY!
+## <a id="rule-3-layer-usage"></a>Rule 3: CSS @layer Usage - KISS!
 
-**Every piece of CSS MUST be placed in its designated layer. NO EXCEPTIONS.**
+**ALL CRISP CSS goes in `@layer crisp`. User overrides go in `@layer overrides`. That's it!**
 
-### The Seven Sacred Layers (in order):
+### Standard Usage:
 
 ```css
+/* Define layer order */
+@layer crisp, overrides;
+
+/* All CRISP styles in one layer */
 @layer crisp {
-  @layer tokens, base, layouts, elements, properties, states, themes;
-}
-```
-
-### Mandatory Layer Assignments:
-
-#### 1. **`@layer tokens`** - ONLY Design Token Definitions
-```css
-@layer tokens {
-  :root {
-    --color-primary: oklch(60% 0.20 250);
-    --space-1-0: 1rem;
-    --font-sans: system-ui, sans-serif;
+  .button { 
+    background: var(--color-primary);
+    /* ALL button styles, states, etc. */
   }
-  /* NOTHING ELSE belongs here */
-}
-```
-
-#### 2. **`@layer base`** - ONLY Resets & Native HTML Elements
-```css
-@layer base {
-  *, *::before, *::after { box-sizing: border-box; }
-  body { margin: 0; font-family: var(--font-sans); }
-  h1, h2, h3 { line-height: 1.2; }
-  /* NO CLASSES allowed here */
-}
-```
-
-#### 3. **`@layer layouts`** - ONLY Layout Classes (`.as-*`)
-```css
-@layer layouts {
-  .as-grid { display: grid; }
-  .as-stack { display: flex; flex-direction: column; }
-  .as-center { display: grid; place-items: center; }
-  /* ONLY layout utilities with .as- prefix */
-}
-```
-
-#### 4. **`@layer elements`** - ONLY Component Classes
-```css
-@layer elements {
-  .button { /* button styles */ }
-  .card { /* card styles */ }
-  .navigation { /* navigation styles */ }
-  /* ALL components go here */
-}
-```
-
-#### 5. **`@layer properties`** - ONLY Property Classes (`.with-*`)
-```css
-@layer properties {
-  .with-shadow { box-shadow: var(--shadow); }
-  .with-border { border: 1px solid var(--border-color); }
-  .with-interaction { cursor: pointer; }
-  /* ONLY enhancement classes with .with- prefix */
-}
-```
-
-#### 6. **`@layer states`** - ONLY States & Pseudo-Classes
-```css
-@layer states {
-  .button:hover { --bg: var(--bg-hover); }
-  .button:active { --bg: var(--bg-active); }
-  [aria-pressed="true"] { --bg: var(--bg-pressed); }
-  [data-variant="primary"] { --bg: var(--color-primary); }
-  /* ALL interactive states and ARIA states */
-}
-```
-
-#### 7. **`@layer themes`** - ONLY Theme Overrides
-```css
-@layer themes {
-  [data-theme="dark"] {
-    --color-neutral: oklch(20% 0.01 250);
-    --color-on-neutral: oklch(95% 0.01 250);
+  
+  .button:hover {
+    background: var(--color-primary-dark);
   }
-  /* ONLY theme-specific token overrides */
+}
+
+/* Users override without !important */
+@layer overrides {
+  .button { 
+    background: hotpink; /* This ALWAYS wins! */
+  }
 }
 ```
 
-### VIOLATIONS = BROKEN CRISP:
+### Migration Usage:
 
-❌ **WRONG - Mixed concerns in one layer:**
+For migrating from other frameworks, add temporary layers:
+
 ```css
-@layer elements {
-  .button { /* styles */ }
-  .button:hover { /* NO! States go in @layer states */ }
-  .as-grid { /* NO! Layouts go in @layer layouts */ }
+/* Migration layer order */
+@layer legacy, crisp, bridge, overrides;
+
+@layer legacy {
+  /* Old framework styles isolated here */
+}
+
+@layer bridge {
+  /* Temporary mappings */
+  .btn-primary { 
+    @extend .button; 
+    --bg: var(--color-primary);
+  }
 }
 ```
 
-✅ **RIGHT - Proper separation:**
-```css
-@layer elements {
-  .button { /* base button styles */ }
-}
+### Why This Works:
 
-@layer states {
-  .button:hover { /* hover state */ }
-}
+1. **Dead Simple**: Two layers. Done.
+2. **No Specificity Wars**: Later layers always win
+3. **User-Friendly**: Override anything without !important
+4. **Migration-Ready**: Add layers as needed
+5. **KISS Philosophy**: Complexity is the enemy
 
-@layer layouts {
-  .as-grid { /* layout utility */ }
-}
-```
+### The Only Rules:
 
-### Why This Matters:
-1. **Predictable Cascade**: Later layers ALWAYS override earlier ones
-2. **User Control**: Users know exactly where to look for each type of style
-3. **Clean Overrides**: Users can target specific layers without affecting others
-4. **Maintainability**: New developers instantly know where code belongs
-5. **Performance**: Browsers can optimize layer processing
+- **CRISP code** → `@layer crisp`
+- **User overrides** → `@layer overrides`
+- **Migration code** → `@layer legacy` / `@layer bridge` (temporary)
 
-### The Golden Rule:
-**"When in doubt, check the prefix or purpose. The layer assignment is NEVER optional."**
-
-- Token definition? → `@layer tokens`
-- HTML reset? → `@layer base`
-- `.as-` prefix? → `@layer layouts`
-- Component class? → `@layer elements`
-- `.with-` prefix? → `@layer properties`
-- `:hover`, `[aria-*]`? → `@layer states`
-- `[data-theme]`? → `@layer themes`
-
-This is NOT a suggestion. This is LAW.
+No sub-layers. No complex hierarchies. Just simple, powerful isolation.
 
 ## <a id="rule-4-properties"></a>Rule 4: Custom Properties Pattern
 
