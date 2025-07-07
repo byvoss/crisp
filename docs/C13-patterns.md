@@ -158,13 +158,21 @@ CSS for split layout:
   > :last-child {
     flex: 1;
   }
-}
 
-/* Reverse variant */
-.as-split[data-variant="reverse"] {
-  flex-direction: row-reverse;
+  /* Reverse variant (RTL-friendly!) */
+  .as-split[data-variant="reverse"] {
+    flex-direction: row-reverse;
+  }
+  
+  /* Responsive without media queries using :has() */
+  .as-split:has(> :nth-child(3)) {
+    /* Stack on narrow containers when 3+ children */
+    flex-wrap: wrap;
+  }
 }
 ```
+
+**Mind = Blown**: The split layout handles sidebars, forms, cards - anything that needs a fixed + flexible pattern. No grid systems needed.
 
 ## Component Patterns
 
@@ -289,19 +297,31 @@ CSS for modal variants:
   max-width: var(--max-width);
   background: var(--bg);
   box-shadow: var(--shadow);
-  border: none;
-}
+    border: none;
+    
+    /* Native ::backdrop styling! */
+    &::backdrop {
+      background: oklch(0% 0 0 / 0.5);
+      backdrop-filter: blur(4px);
+    }
+  }
 
-.dialog[data-variant="fullscreen"] {
-  --max-width: 100vw;
-  --max-height: 100vh;
-  --padding: 0;
-  --radius: 0;
-  
-  width: 100%;
-  height: 100%;
+  .dialog[data-variant="fullscreen"] {
+    --max-width: 100vw;
+    --max-height: 100vh;
+    --padding: 0;
+    --radius: 0;
+    
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    max-width: none;
+    max-height: none;
+  }
 }
 ```
+
+**The "Aha!"**: Native `<dialog>` handles focus trapping, escape key, backdrop clicks, and accessibility. Why are we still using modal libraries?
 
 ### Loading Patterns
 ```html
@@ -417,11 +437,15 @@ CSS for wizard forms:
     --opacity: 0.5;
     cursor: not-allowed;
   }
-}
-
-/* Form states */
-.form[data-variant^="step-"] .step-content {
-  transition: var(--step-transition);
+  /* Form states with @starting-style */
+  .form[data-variant^="step-"] .step-content {
+    transition: var(--step-transition);
+    
+    @starting-style {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+  }
 }
 ```
 
@@ -540,11 +564,14 @@ CSS for responsive tables:
         content: attr(data-label);
         font-weight: var(--text-weight-semibold);
         text-align: left;
+        }
       }
     }
   }
 }
 ```
+
+**Mind = Blown**: Tables that transform into cards on mobile. No JavaScript. Just CSS attribute selectors and pseudo-elements.
 
 ### Container Queries
 ```html
@@ -590,10 +617,13 @@ CSS with container queries:
   @container (max-width: 300px) {
     .description {
       display: none;
+      }
     }
   }
 }
 ```
+
+**The "Aha!"**: Container queries mean your card component works in a sidebar (300px) or main content (900px) without media queries. Write once, use anywhere.
 
 ## Performance Patterns
 
@@ -710,6 +740,7 @@ document.querySelector('[data-function="optimistic"]').addEventListener('submit'
   > * + h3 {
     margin-block-start: var(--heading-space);
   }
+  }
 }
 ```
 
@@ -773,7 +804,11 @@ CSS for variant combinations:
   
   .card[data-variant="stat"] {
     .number {
-      --color: var(--color-primary-light);
+        --color: var(--color-primary-light);
+        
+        /* Glow effect for dark theme */
+        filter: drop-shadow(0 0 20px oklch(from var(--color-primary) l c h / 0.3));
+      }
     }
   }
 }

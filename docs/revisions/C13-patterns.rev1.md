@@ -14,7 +14,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 <body class="as-stack" style="--stack-gap: 0;">
   <!-- Sticky header -->
   <header class="header with-sticky as-container">
-    <nav class="navigation as-cluster" style="--cluster-align: space-between;">
+    <nav class="navigation as-cluster" data-entries="2" style="--cluster-align: space-between;">
       <a class="link logo" href="/">Logo</a>
       <div class="as-cluster">
         <a class="link" href="/about">About</a>
@@ -25,10 +25,10 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
   
   <!-- Main content with sidebars -->
   <div class="as-container">
-    <main class="as-sidebar" style="--sidebar-width: 250px;">
+    <main class="as-split" style="--split-ratio: 250px;">
       <!-- Left sidebar -->
-      <aside class="aside as-stack with-sticky" style="--aside-top: 5rem;">
-        <nav class="navigation as-stack">
+      <aside class="aside as-stack with-sticky" style="--top: 5rem;">
+        <nav class="navigation as-stack" data-entries="4">
           <h3 class="heading">Categories</h3>
           <a class="link" href="#" aria-current="page">All Posts</a>
           <a class="link" href="#">Technology</a>
@@ -37,7 +37,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
       </aside>
       
       <!-- Main + right sidebar wrapper -->
-      <div class="as-sidebar" style="--sidebar-reverse: true; --sidebar-width: 300px;">
+      <div class="as-split" data-variant="reverse" style="--split-ratio: 300px;">
         <!-- Content -->
         <article class="article as-stack">
           <h1 class="heading">Article Title</h1>
@@ -66,9 +66,9 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 ### The App Shell
 ```html
 <!-- Modern app layout -->
-<div class="app as-grid" style="--grid-template: 'nav main' / 250px 1fr; height: 100vh;">
+<div class="app as-grid" style="--template: 'nav main' / 250px 1fr; height: 100vh;">
   <!-- Sidebar navigation -->
-  <nav class="navigation app-nav as-stack" style="grid-area: nav;">
+  <nav class="navigation app-nav as-stack" data-entries="2" data-variant="app" style="grid-area: nav;">
     <div class="as-stack" style="--stack-gap: var(--space-2-0);">
       <!-- Logo -->
       <a class="link logo" href="/">
@@ -109,6 +109,63 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 </div>
 ```
 
+CSS for app context:
+```css
+[data-variant="app"] {
+  /* 1. Define context tokens */
+  --nav-bg: var(--color-neutral-dark);
+  --nav-color: white;
+  --nav-padding: var(--space-1-5);
+  
+  /* 2. Apply to navigation */
+  &.navigation {
+    background: var(--nav-bg);
+    color: var(--nav-color);
+    padding: var(--nav-padding);
+  }
+  
+  .nav-item {
+    --padding: var(--space-0-75) var(--space-1-0);
+    --radius: var(--radius-md);
+    
+    &[aria-current="page"] {
+      --bg: var(--color-primary);
+    }
+  }
+}
+```
+
+CSS for split layout:
+```css
+.as-split {
+  /* 1. Define split layout tokens */
+  --split-ratio: 300px;        /* Fixed width for first element */
+  --split-gap: var(--space-1-0);
+  --split-align: start;
+  
+  /* 2. Use the tokens */
+  display: flex;
+  gap: var(--split-gap);
+  align-items: var(--split-align);
+  
+  /* First child gets fixed width */
+  > :first-child {
+    flex-basis: var(--split-ratio);
+    flex-shrink: 0;
+  }
+  
+  /* Second child fills remaining space */
+  > :last-child {
+    flex: 1;
+  }
+}
+
+/* Reverse variant */
+.as-split[data-variant="reverse"] {
+  flex-direction: row-reverse;
+}
+```
+
 ## Component Patterns
 
 ### Card Variations
@@ -137,7 +194,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 
 <!-- Horizontal card -->
 <article class="card as-cluster" style="--cluster-gap: var(--space-1-5);">
-  <img class="image" src="thumb.jpg" alt="" style="--image-width: 150px;">
+  <img class="image" src="thumb.jpg" alt="" style="--width: 150px;">
   <div class="as-stack">
     <h3 class="heading">Side by Side</h3>
     <p class="text">Content flows horizontally</p>
@@ -149,15 +206,32 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
 </article>
 
 <!-- Stats card -->
-<article class="card as-stack stat-card">
-  <span class="icon" style="--icon-size: 3rem;">📈</span>
-  <p class="stat" style="--stat-size: var(--text-size-3-0); --stat-weight: var(--text-weight-bold);">
-    1,234
-  </p>
-  <p class="text" style="--text-color: var(--color-neutral-60);">
-    Active users
-  </p>
+<article class="card as-stack" data-variant="stat">
+  <span class="icon" style="--size: 3rem;">📈</span>
+  <p class="stat">1,234</p>
+  <p class="text">Active users</p>
 </article>
+```
+
+CSS for card variants:
+```css
+.card[data-variant="stat"] {
+  /* 1. Define stat card tokens */
+  --stat-align: center;
+  --text-align: center;
+  
+  /* 2. Apply to children */
+  .stat {
+    --size: var(--text-size-3-0);
+    --weight: var(--text-weight-bold);
+    --color: var(--color-primary);
+  }
+  
+  .text {
+    --color: var(--color-neutral);
+    --size: var(--text-size-sm);
+  }
+}
 ```
 
 ### Modal Patterns
@@ -171,7 +245,7 @@ Years of web development distilled into CRISP patterns. Copy, paste, ship.
     <div class="as-cluster" style="--cluster-align: flex-end;">
       <button class="button" value="cancel">Cancel</button>
       <button class="button" value="confirm" 
-        style="--button-bg: var(--color-danger-50);">
+        style="--bg: var(--color-danger);">
         Delete
       </button>
     </div>
@@ -191,22 +265,42 @@ document.getElementById('confirm-modal').addEventListener('close', (e) => {
 </script>
 
 <!-- Fullscreen modal -->
-<dialog class="dialog fullscreen" id="photo-modal">
+<dialog class="dialog" id="photo-modal" data-variant="fullscreen">
   <button class="button close" onclick="this.closest('dialog').close()">
     ×
   </button>
   <img class="image" src="photo-large.jpg" alt="">
 </dialog>
+```
 
-<style>
-.dialog.fullscreen {
-  max-width: 100vw;
-  max-height: 100vh;
+CSS for modal variants:
+```css
+.dialog {
+  /* 1. Define defaults */
+  --padding: var(--space-2-0);
+  --radius: var(--radius-lg);
+  --max-width: 600px;
+  --bg: white;
+  --shadow: var(--shadow-elevated);
+  
+  /* 2. Use the tokens */
+  padding: var(--padding);
+  border-radius: var(--radius);
+  max-width: var(--max-width);
+  background: var(--bg);
+  box-shadow: var(--shadow);
+  border: none;
+}
+
+.dialog[data-variant="fullscreen"] {
+  --max-width: 100vw;
+  --max-height: 100vh;
+  --padding: 0;
+  --radius: 0;
+  
   width: 100%;
   height: 100%;
-  padding: 0;
 }
-</style>
 ```
 
 ### Loading Patterns
@@ -215,15 +309,15 @@ document.getElementById('confirm-modal').addEventListener('close', (e) => {
 <article class="card as-stack" aria-busy="true" aria-label="Loading content">
   <div class="skeleton heading"></div>
   <div class="skeleton text"></div>
-  <div class="skeleton text" style="--skeleton-width: 80%;"></div>
+  <div class="skeleton text" style="--width: 80%;"></div>
 </article>
 
 <!-- Progressive image loading -->
 <figure class="figure">
-  <img class="image lazy" 
+  <img class="image" 
     src="placeholder.jpg" 
     data-src="full-image.jpg"
-    loading="lazy"
+    data-loading="lazy"
     alt="Description">
   <noscript>
     <img class="image" src="full-image.jpg" alt="Description">
@@ -232,7 +326,7 @@ document.getElementById('confirm-modal').addEventListener('close', (e) => {
 
 <!-- Infinite scroll trigger -->
 <div class="observer" 
-  data-observe="infinite-scroll"
+  data-function="infinite-scroll"
   aria-label="Loading more content">
   <div class="spinner"></div>
 </div>
@@ -246,7 +340,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 });
 
-document.querySelectorAll('[data-observe="infinite-scroll"]').forEach(el => {
+document.querySelectorAll('[data-function="infinite-scroll"]').forEach(el => {
   observer.observe(el);
 });
 </script>
@@ -256,7 +350,7 @@ document.querySelectorAll('[data-observe="infinite-scroll"]').forEach(el => {
 
 ### Multi-Step Form
 ```html
-<form class="form wizard" data-step="1">
+<form class="form wizard" data-variant="step-1">
   <!-- Progress -->
   <nav class="progress as-cluster" aria-label="Form progress">
     <button class="step" aria-current="step" data-step="1">
@@ -293,10 +387,10 @@ document.querySelectorAll('[data-observe="infinite-scroll"]').forEach(el => {
   
   <!-- Navigation -->
   <div class="as-cluster" style="--cluster-align: space-between;">
-    <button class="button" type="button" onclick="previousStep()" hidden>
+    <button class="button" type="button" data-function="previous" hidden>
       Previous
     </button>
-    <button class="button" type="button" onclick="nextStep()">
+    <button class="button" type="button" data-function="next">
       Next
     </button>
     <button class="button" type="submit" hidden>
@@ -304,6 +398,31 @@ document.querySelectorAll('[data-observe="infinite-scroll"]').forEach(el => {
     </button>
   </div>
 </form>
+```
+
+CSS for wizard forms:
+```css
+.wizard {
+  /* 1. Define wizard tokens */
+  --step-spacing: var(--space-2-0);
+  --step-transition: opacity 250ms ease;
+  
+  /* 2. Apply to steps */
+  .step[aria-current="step"] {
+    --bg: var(--color-primary);
+    --color: white;
+  }
+  
+  .step:disabled {
+    --opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* Form states */
+.form[data-variant^="step-"] .step-content {
+  transition: var(--step-transition);
+}
 ```
 
 ### Search Patterns
@@ -367,7 +486,7 @@ document.querySelector('[type="search"]').addEventListener('input', (e) => {
 ```html
 <!-- Mobile-friendly table -->
 <div class="table-wrapper">
-  <table class="table">
+  <table class="table" data-variant="responsive">
     <thead>
       <tr>
         <th>Name</th>
@@ -388,40 +507,49 @@ document.querySelector('[type="search"]').addEventListener('input', (e) => {
     </tbody>
   </table>
 </div>
+```
 
-<style>
-@media (max-width: 768px) {
-  .table thead {
-    display: none;
-  }
+CSS for responsive tables:
+```css
+.table[data-variant="responsive"] {
+  /* 1. Define table tokens */
+  --border: 1px solid var(--color-border);
+  --padding: var(--space-0-75);
+  --radius: var(--radius-md);
   
-  .table tr {
-    display: block;
-    margin-bottom: var(--space-1-0);
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-md);
-  }
-  
-  .table td {
-    display: flex;
-    justify-content: space-between;
-    padding: var(--space-0-75);
-    text-align: right;
-  }
-  
-  .table td::before {
-    content: attr(data-label);
-    font-weight: var(--text-weight-semibold);
-    text-align: left;
+  /* 2. Mobile layout */
+  @media (max-width: 768px) {
+    thead {
+      display: none;
+    }
+    
+    tr {
+      display: block;
+      margin-bottom: var(--space-1-0);
+      border: var(--border);
+      border-radius: var(--radius);
+    }
+    
+    td {
+      display: flex;
+      justify-content: space-between;
+      padding: var(--padding);
+      text-align: right;
+      
+      &::before {
+        content: attr(data-label);
+        font-weight: var(--text-weight-semibold);
+        text-align: left;
+      }
+    }
   }
 }
-</style>
 ```
 
 ### Container Queries
 ```html
 <!-- Component that adapts to container -->
-<article class="card product-card" style="container-type: inline-size;">
+<article class="card product-card" style="container-type: inline-size;" data-variant="product">
   <img class="image" src="product.jpg" alt="">
   <div class="details as-stack">
     <h3 class="heading">Product Name</h3>
@@ -430,37 +558,41 @@ document.querySelector('[type="search"]').addEventListener('input', (e) => {
     <button class="button">Add to Cart</button>
   </div>
 </article>
+```
 
-<style>
-/* Default: Vertical layout */
+CSS with container queries:
+```css
 .product-card {
+  /* 1. Define defaults */
+  --card-gap: var(--space-1-0);
+  --direction: column;
+  
+  /* 2. Use the tokens */
   display: flex;
-  flex-direction: column;
-}
-
-/* Wide container: Horizontal layout */
-@container (min-width: 500px) {
-  .product-card {
-    flex-direction: row;
-    gap: var(--space-1-5);
+  flex-direction: var(--direction);
+  gap: var(--card-gap);
+  
+  /* Wide container: Horizontal layout */
+  @container (min-width: 500px) {
+    --direction: row;
+    --card-gap: var(--space-1-5);
+    
+    .image {
+      --width: 200px;
+    }
+    
+    .description {
+      display: block;
+    }
   }
   
-  .product-card .image {
-    width: 200px;
-  }
-  
-  .product-card .description {
-    display: block;
-  }
-}
-
-/* Narrow container: Compact */
-@container (max-width: 300px) {
-  .product-card .description {
-    display: none;
+  /* Narrow container: Compact */
+  @container (max-width: 300px) {
+    .description {
+      display: none;
+    }
   }
 }
-</style>
 ```
 
 ## Performance Patterns
@@ -483,7 +615,7 @@ document.querySelector('[type="search"]').addEventListener('input', (e) => {
 
 <!-- Components -->
 <div class="component" 
-  data-component="heavy-component"
+  data-function="heavy-component"
   data-load="lazy">
   <!-- Loaded when visible -->
 </div>
@@ -491,7 +623,7 @@ document.querySelector('[type="search"]').addEventListener('input', (e) => {
 
 ### Optimistic UI
 ```html
-<form class="form" data-optimistic="true">
+<form class="form" data-function="optimistic">
   <button class="button" type="submit">
     <span class="default">Save</span>
     <span class="loading" hidden>Saving...</span>
@@ -500,7 +632,7 @@ document.querySelector('[type="search"]').addEventListener('input', (e) => {
 </form>
 
 <script>
-document.querySelector('[data-optimistic]').addEventListener('submit', async (e) => {
+document.querySelector('[data-function="optimistic"]').addEventListener('submit', async (e) => {
   e.preventDefault();
   const button = e.target.querySelector('button');
   
@@ -533,11 +665,10 @@ document.querySelector('[data-optimistic]').addEventListener('submit', async (e)
 ```css
 /* Different layouts based on child count */
 .as-grid {
-  /* 1 child: full width */
-  &:has(> :only-child) {
-    --grid-columns: 1;
-  }
+  /* 1. Define base tokens */
+  --grid-columns: 1;
   
+  /* 2. Adjust based on children */
   /* 2 children: two columns */
   &:has(> :nth-child(2):last-child) {
     --grid-columns: 2;
@@ -557,22 +688,28 @@ document.querySelector('[data-optimistic]').addEventListener('submit', async (e)
 
 ### Smart Spacing
 ```css
-/* Remove margin from last element */
-.as-stack > *:last-child {
-  margin-block-end: 0;
-}
-
-/* Consistent spacing between different elements */
-.article > * + * {
-  margin-block-start: var(--space-1-0);
-}
-
-.article > h2 + * {
-  margin-block-start: var(--space-0-5);
-}
-
-.article > * + h2 {
-  margin-block-start: var(--space-2-0);
+/* Define spacing tokens */
+.article {
+  --flow-space: var(--space-1-0);
+  --heading-space: var(--space-2-0);
+  --tight-space: var(--space-0-5);
+  
+  /* Consistent spacing between elements */
+  > * + * {
+    margin-block-start: var(--flow-space);
+  }
+  
+  /* Tighter spacing after headings */
+  > h2 + *,
+  > h3 + * {
+    margin-block-start: var(--tight-space);
+  }
+  
+  /* More space before headings */
+  > * + h2,
+  > * + h3 {
+    margin-block-start: var(--heading-space);
+  }
 }
 ```
 
@@ -580,7 +717,7 @@ document.querySelector('[data-optimistic]').addEventListener('submit', async (e)
 ```css
 /* Style based on form validity */
 .form:valid .button[type="submit"] {
-  --button-bg: var(--color-success-50);
+  --bg: var(--color-success);
 }
 
 /* Style based on empty state */
@@ -589,12 +726,56 @@ document.querySelector('[data-optimistic]').addEventListener('submit', async (e)
   display: block;
   text-align: center;
   padding: var(--space-2-0);
-  color: var(--color-neutral-60);
+  color: var(--color-neutral);
 }
 
 /* Style based on sibling state */
 .input:invalid ~ .helper {
-  color: var(--color-danger-60);
+  --color: var(--color-danger);
+}
+
+/* Style based on data state */
+[data-variant="loading"] {
+  --opacity: 0.6;
+  cursor: wait;
+}
+
+[data-variant="error"] {
+  --border-color: var(--color-danger);
+}
+
+[data-variant="success"] {
+  --border-color: var(--color-success);
+}
+```
+
+## Context-Aware Patterns
+
+### Theme Context
+```html
+<main data-variant="dashboard" data-theme="dark">
+  <section class="stats as-grid">
+    <article class="card" data-variant="stat">
+      <p class="number">1,234</p>
+      <p class="label">Users</p>
+    </article>
+  </section>
+</main>
+```
+
+CSS for variant combinations:
+```css
+/* Dashboard variant with dark theme */
+[data-variant="dashboard"][data-theme="dark"] {
+  --card-bg: var(--color-neutral-dark);
+  --card-color: white;
+  --card-border: 1px solid var(--color-neutral);
+  
+  .card[data-variant="stat"] {
+    .number {
+      --color: var(--color-primary-light);
+    }
+  }
 }
 ```
 
@@ -602,10 +783,12 @@ document.querySelector('[data-optimistic]').addEventListener('submit', async (e)
 
 These patterns solve real problems:
 - Copy what works
-- Adapt to your needs
+- Adapt to your needs  
 - Keep it semantic
+- Use data attributes for state and variants
+- Define tokens, then use them
 - Progressive enhancement always
 
-Your problems aren't unique. The solutions already exist.
+Your problems aren't unique. The solutions already exist. And with CRISP, they're simple.
 
 → Continue to [Chapter 14: Escaping Your Legacy CSS Prison](./C14-migration.md)
