@@ -36,6 +36,44 @@ The `src/` directory contains PROTOTYPE CODE ONLY. Do not update these files - t
 - [ ] Create getting started guide
 - [ ] Add changelog/release notes template
 
+### Documentation Structure Rewrite (HIGH PRIORITY)
+- [ ] Archive old docs to /archive folder ✓
+- [ ] Create TODO-DOCS-REBUILD.md guide ✓
+- [ ] Complete restructuring per TODO-DOCS-REBUILD.md:
+  - **Part 1: The Discovery**
+    - [ ] CH01-discovery.md - Winter's End (adapt from archive)
+    - [ ] CH02-solution.md - The 1+1+3 Formula (NEW showcase)
+    - [ ] CH03-quickstart.md - Your First Page (NEW)
+    - [ ] CH04-layers.md - Three Layers (NEW)
+  - **Part 2: The Toolkit**
+    - [ ] CH05-components.md - Basic Patterns
+    - [ ] CH06-layouts.md - Layouts Without Tears
+    - [ ] CH07-progressive.md - Three Tiers
+    - [ ] CH08-accessibility.md - WCAG First
+  - **Part 3: The Deep Dive**
+    - [ ] CH09-tokens.md - 10-Color System & Tokens
+    - [ ] CH10-modern-css.md - Modern CSS Magic
+    - [ ] CH11-migration.md - Escape Legacy
+    - [ ] CH12-reference.md - Component Library
+  - **Part 4: The Mastery**
+    - [ ] CH13-advanced.md - Advanced Patterns
+    - [ ] CH14-enterprise.md - Enterprise Features
+    - [ ] CH15-practices.md - Best Practices
+    - [ ] CH16-cheatsheet.md - The Almanac
+- [ ] Add OKLCH relative color power examples throughout docs:
+  - Show automatic hover/active states with calc()
+  - Demonstrate theme variations from single base color
+  - Show perceptual uniformity advantage over HSL
+  - Examples: `oklch(from var(--bg) calc(l + 0.1) c h)`
+  - Emphasize: "One color, infinite variations, zero manual calculation"
+- [ ] Design CRISP "10-Color System" - everything else computed:
+  - 3 Brand colors (primary, secondary, accent)
+  - 4 Semantic colors (error, warning, success, info)
+  - 3 Neutrals (text, background, border)
+  - ALL other colors derived via calc() from these 10
+  - Document the mathematical relationships
+  - Show how 10 colors become 100+ variations
+
 ### Documentation Enhancements (Optional)
 - [ ] Could always add MORE humor to chapters
 - [ ] Add more real-world examples
