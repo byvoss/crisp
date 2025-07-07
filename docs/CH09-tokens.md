@@ -294,29 +294,12 @@ Need more than 10 colors? Add them:
 
 ```css
 .card {
-  /* Define all tokens with @property */
-  @property --bg {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: var(--color-surface);
-  }
+  /* Properties are type-safe from kernel layer */
+  /* Just use with defaults - no @property needed! */
   
-  @property --padding {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: var(--space-1-5);
-  }
-  
-  @property --radius {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: var(--radius-lg);
-  }
-  
-  /* Use them */
-  background: var(--bg);
-  padding: var(--padding);
-  border-radius: var(--radius);
+  background: var(--bg, var(--color-surface));
+  padding: var(--padding, var(--space-1-5));
+  border-radius: var(--radius, var(--radius-lg));
 }
 ```
 

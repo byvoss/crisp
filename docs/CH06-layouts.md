@@ -47,15 +47,10 @@ Customise the gap:
 ```css
 /* Inside CRISP */
 .as-stack {
-  @property --stack-gap {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: var(--space-1);
-  }
-  
+  /* --stack-gap is type-safe from kernel layer */
   display: flex;
   flex-direction: column;
-  gap: var(--stack-gap);
+  gap: var(--stack-gap, var(--space-1));
 }
 ```
 
@@ -83,22 +78,11 @@ With custom gap and alignment:
 ```css
 /* Inside CRISP */
 .as-cluster {
-  @property --cluster-gap {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: var(--space-1);
-  }
-  
-  @property --align {
-    syntax: "start | center | end | baseline";
-    inherits: false;
-    initial-value: baseline;
-  }
-  
+  /* Properties are type-safe from kernel layer */
   display: flex;
   flex-wrap: wrap;
-  gap: var(--cluster-gap);
-  align-items: var(--align);
+  gap: var(--cluster-gap, var(--space-1));
+  align-items: var(--align, baseline);
 }
 ```
 
