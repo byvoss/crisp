@@ -29,41 +29,47 @@ But here's the secret: You don't need to rewrite everything. You can migrate gra
 Add this ONE line to your CSS:
 
 ```css
-@layer legacy, crisp, overrides;
+@layer crisp, bridge, overrides;
 ```
 
-That's it. You've just tamed your legacy CSS. Here's why:
+That's it. You've just created your migration workspace. Here's why:
 
 ```css
-/* All your old CSS goes here */
-@layer legacy {
-  @import "old-styles.css";
-  @import "bootstrap.css";
-  @import "vendor-chaos.css";
-}
-
-/* CRISP styles */
+/* CRISP framework */
 @layer crisp {
   @import "crisp.css";
 }
 
-/* Your new work */
+/* Your bridge layer - empty by default */
+@layer bridge {
+  /* Your migration workspace */
+  /* Add old CSS here when needed */
+  /* Create sub-layers for organization */
+  /* Toggle features on/off */
+}
+
+/* Your customizations */
 @layer overrides {
   /* This ALWAYS wins */
 }
 ```
 
-**The "Aha!"**: Your legacy CSS now has the LOWEST priority. CRISP overrides it. Your overrides beat everything.
+**The "Aha!"**: The bridge layer is your playground. Add legacy code when needed, remove it when migrated.
 
-### Step 2: The Bridge Layer
+### Step 2: Using the Bridge Layer
 
-For complex migrations, use the bridge pattern:
+Put your legacy code IN the bridge layer:
 
 ```css
 @layer crisp, bridge, overrides;
 
 @layer bridge {
-  /* Define sub-layers for organization */
+  /* Import your old CSS here */
+  @import "old-styles.css";
+  @import "bootstrap.css";
+  @import "vendor-chaos.css";
+  
+  /* Or organize with sub-layers */
   @layer bootstrap-compat, tailwind-map, temp-fixes;
   
   @layer bootstrap-compat {
@@ -239,18 +245,21 @@ body.home #main .container .row .col-md-8 .content .article h2.title {
 CRISP wins anyway:
 
 ```css
-@layer legacy {
-  /* That monster selector above */
+@layer bridge {
+  /* That monster selector lives here */
+  body.home #main .container .row .col-md-8 .content .article h2.title {
+    color: #333 !important;
+  }
 }
 
-@layer crisp {
+@layer overrides {
   .heading {
     color: var(--color-text); /* This wins! */
   }
 }
 ```
 
-**The "Aha!"**: Layers beat specificity. Even `!important` in legacy loses to simple selectors in CRISP.
+**The "Aha!"**: Layers beat specificity. Even `!important` in bridge loses to simple selectors in overrides.
 
 ## JavaScript Compatibility
 
@@ -371,10 +380,11 @@ Developer happiness: 😊
 }
 ```
 
-Solution: Scope your resets:
+Solution: Put resets in bridge layer:
 
 ```css
-@layer legacy {
+@layer bridge {
+  /* Scoped to prevent conflicts */
   @scope ([data-legacy]) {
     * { /* Reset only legacy sections */ }
   }
