@@ -341,13 +341,16 @@ Respecting user preferences:
 ### Accessible Navigation
 
 ```html
+<!-- Server renders this - knows /products is current page -->
 <nav class="navigation" aria-label="Main" data-entries="4">
-  <a class="link" href="/" aria-current="page">Home</a>
+  <a class="link" href="/">Home</a>
   <a class="link" href="/about">About</a>
-  <a class="link" href="/products">Products</a>
+  <a class="link" href="/products" aria-current="page">Products</a>
   <a class="link" href="/contact">Contact</a>
 </nav>
 ```
+
+**Important**: Your server sets `aria-current="page"`. Not JavaScript. The server knows which page it's serving!
 
 ### Accessible Cards
 

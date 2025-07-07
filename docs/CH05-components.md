@@ -106,7 +106,7 @@ Semantic, accessible, styled:
 <!-- Basic link -->
 <a class="link" href="/about">About us</a>
 
-<!-- Current page -->
+<!-- Current page (set by your server!) -->
 <a class="link" href="/" aria-current="page">Home</a>
 
 <!-- External link -->
@@ -114,6 +114,8 @@ Semantic, accessible, styled:
   Visit site
 </a>
 ```
+
+**The "Aha!"**: `aria-current="page"` comes from YOUR SERVER. Not JavaScript. The days of "let the client pay for it" are over. Your server knows which page is current - so it should say so in the HTML.
 
 ### Form Inputs
 

@@ -369,11 +369,11 @@ function toggleTheme() {
 
 ## Browser Support
 
-Modern browsers only (2020+):
-- Chrome 88+
-- Firefox 87+
-- Safari 14.1+
-- Edge 88+
+Modern browsers only (2024+):
+- Chrome 120+
+- Firefox 120+
+- Safari 17.2+
+- Edge 120+
 
 ## Quick Wins
 

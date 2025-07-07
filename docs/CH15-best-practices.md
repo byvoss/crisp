@@ -444,6 +444,8 @@ console.log({
 6. **Measure everything**
 7. **Document for your team**
 8. **CSS can do more than you think**
+9. **Server renders the truth** - No client-side state for static content
+10. **The client already pays enough** - Don't make browsers calculate what servers know
 
 **The Bottom Line**: Good practices aren't rules to follow blindly. They're patterns that prevent problems.
 
