@@ -150,6 +150,13 @@ Here's the truly criminal part. While we've been building our house of cards, CS
 /* CSS Grid (2017) - 98% browser support */
 display: grid; /* We're still using .col-md-4 */
 
+/* @property (2021) - 94% browser support */
+@property --color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: blue;
+} /* We're still using untyped custom properties */
+
 /* :has() selector (2023) - 91% browser support */
 .form:has(.error) { } /* We're still toggling classes with JS */
 

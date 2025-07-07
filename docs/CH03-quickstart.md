@@ -34,7 +34,7 @@ Start with proper, semantic HTML:
 </html>
 ```
 
-That's it. No build process. No npm install. Just one CSS file.
+That's it.
 
 ## Step 2: Navigation That Just Works
 
