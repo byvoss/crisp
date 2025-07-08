@@ -392,4 +392,6 @@ And it's called CRISP.
 
 **The Killer Feature**: With CRISP, you learn concepts that stay forever – you learn to write pure CSS again. With other frameworks, you learn APIs that change with every major version. When Bootstrap 6 arrives, your Bootstrap 5 knowledge becomes technical debt. When Tailwind v4 ships, prepare to relearn everything. But CSS? CSS is eternal. And CRISP is just CSS, thoughtfully organised and a KISS of minimalism.
 
+As Brian once painted on the temple wall: "Frames eunt domus!" 
+
 → Continue to [Chapter 2: The 1+1+3 Formula](./CH02-solution.md)
