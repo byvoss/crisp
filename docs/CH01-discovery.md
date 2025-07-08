@@ -8,7 +8,7 @@
 
 ## A Love Story Gone Wrong
 
-CSS started as a beautiful idea. Separation of concerns. Style without polluting markup. A simple cascade of rules. Somewhere between 1996 and now, we've turned it into a Frankenstein's monster that requires a PhD in specificity calculation and a support group for survivors.
+CSS is wonderful and was never the underlying problem. Countless frameworks that tried to 'improve' CSS have evolved into true monstrosities over time. Whilst CSS itself became ever more powerful, we buried it under kilometre-thick layers of abstractions and raised a generation of developers who think only in frameworks, not in clean vanilla code.
 
 Let's be honest about what we've done.
 
@@ -34,11 +34,11 @@ Open any production CSS file. Go on, I'll wait. What do you see?
 
 And that's just for the header. We haven't even talked about the navigation yet.
 
-## The Crimes We've Committed
+## The Detours We've Taken
 
-### Crime #1: The Great Class Name Arms Race
+### Detour #1: The Great Class Name Arms Race
 
-Remember when class names were simple? Neither do I.
+I have a question: Canst thou remember when class names were simple? Neither do I.
 
 ```html
 <!-- Exhibit A: BEM goes wild -->
@@ -60,7 +60,7 @@ Remember when class names were simple? Neither do I.
 </div>
 ```
 
-### Crime #2: The Specificity Wars
+### Detour #2: The Specificity Wars
 
 Every CSS developer has been here:
 
@@ -90,9 +90,9 @@ body.page-template-default .main-content .container .button {
 }
 ```
 
-### Crime #3: The Framework Dependency Hellscape
+### Detour #3: The Framework Dependency Hellscape
 
-Your `package.json` tells a story of desperation:
+Thy `package.json` doth tell a tale of desperation:
 
 ```json
 {
@@ -112,7 +112,24 @@ Your `package.json` tells a story of desperation:
 
 Build time: 3 minutes. CSS output: Still 2.3MB. Sanity: Not found.
 
-### Crime #4: The Utility Class Explosion
+```mermaid
+graph TD
+    PJ[package.json] --> B[Bootstrap<br/>for grids]
+    PJ --> T[Tailwind<br/>for utilities]
+    PJ --> SC[Styled Components<br/>for components]
+    PJ --> S[Sass<br/>for nesting]
+    PJ --> PC[PostCSS<br/>for... something?]
+    
+    B --> CSS[2.3MB CSS]
+    T --> CSS
+    SC --> CSS
+    S --> CSS
+    PC --> CSS
+    
+    CSS --> SAD[😢]
+```
+
+### Detour #4: The Utility Class Explosion
 
 We solved CSS by... not writing CSS?
 
@@ -145,55 +162,213 @@ Let's talk about what this madness costs:
 
 ## The Modern CSS Features We're Ignoring
 
-Here's the truly criminal part. While we've been building our house of cards, CSS quietly became incredible:
+Here's the truly sad part. While we've been building our house of cards, CSS quietly became incredible:
+
+### 🎯 Custom Properties (2017)
+*Key powers: Runtime values, inheritance, calc() support, and JavaScript access*
 
 ```css
-/* Custom Properties (2017) - 99.5% browser support */
---color: blue; /* We're still using Sass variables */
+/* Native CSS variables with inheritance and runtime updates */
+:root {
+  --primary: blue;
+  --spacing: 1rem;
+}
 
-/* CSS Grid (2017) - 98% browser support */
-display: grid; /* We're still using .col-md-4 */
+.component {
+  color: var(--primary);
+  padding: var(--spacing);
+}
+```
+**Modern browser support**: 100%  
+**What we're still doing**: Using Sass variables that compile to static values
 
-/* @property (2021) - 94% browser support */
-@property --color {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: blue;
-} /* We're still using untyped custom properties */
+---
 
-/* :has() selector (2023) - 91% browser support */
-.form:has(.error) { } /* We're still toggling classes with JS */
+### 🏗️ CSS Grid (2017)
+*Key powers: Named areas, auto-placement, fractional units, and true 2D layouts*
 
-/* @layer (2022) - 93% browser support */
-@layer components { } /* We're still fighting specificity */
-
-/* OKLCH colors (2023) - 88% browser support */
-color: oklch(60% 0.15 250); /* We're still using hex codes */
-
-/* Container Queries (2023) - 92% browser support */
-@container (width > 400px) { } /* We're still using media queries */
-
-/* field-sizing (2024) - Growing support */
-field-sizing: content; /* We're still using JS for auto-resize */
+```
+Desktop Layout:                    Mobile Layout (Same HTML DOM Structure !):
+┌─────────────────────────────┐    ┌─────────────────┐
+│          Header             │    │     Header      │
+├─────────┬─────────┬─────────┤    ├─────────────────┤
+│         │         │         │    │   Main Content  │ ← moved up!
+│ Sidebar │  Main   │  Aside  │    ├─────────────────┤
+│         │ Content │         │    │     Aside       │
+│         │         │         │    ├─────────────────┤
+├─────────┴─────────┴─────────┤    │    Sidebar      │ ← moved down!
+│          Footer             │    ├─────────────────┤
+└─────────────────────────────┘    │     Footer      │
+                                   └─────────────────┘
 ```
 
-We have superpowers. We're using sticks and stones.
+```css
+/* Two-dimensional layouts with named areas */
+.app {
+  display: grid;
+  grid-template-areas:
+    "header header header"
+    "sidebar main aside"
+    "footer footer footer";
+  gap: 1rem;
+}
+
+/* Rearrange entire layout for mobile - NO DOM manipulation! */
+@media (max-width: 768px) {
+  .app {
+    grid-template-areas:
+      "header"
+      "main"
+      "aside"
+      "sidebar"
+      "footer";
+  }
+}
+
+.header { grid-area: header; }
+.main { grid-area: main; }
+.sidebar { grid-area: sidebar; }
+.aside { grid-area: aside; }
+.footer { grid-area: footer; }
+```
+
+**Modern browser support**: 100%  
+**What we're still doing**: JavaScript DOM manipulation for responsive layouts
+
+---
+
+### 🔒 @property (2021)
+*Key powers: Type checking, animation control, inheritance rules, and syntax validation*
+
+```css
+/* Type-safe CSS with syntax checking */
+@property --gradient-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+```
+**Modern browser support**: 100%  
+**What we're still doing**: Hoping our custom properties contain valid values
+
+---
+
+### 📚 @layer (2022)
+*Key powers: Cascade control, specificity management, and framework isolation*
+
+```css
+/* Cascade layers end specificity wars forever */
+@layer kernel, crisp, bridge, overrides;
+
+/* This beats any framework specificity */
+@layer overrides {
+  .my-component { color: red; }
+}
+```
+
+```
+Layer Hierarchy (lowest to highest specificity):
+┌────────────────────────────────────────────────────┐
+│ kernel     - @property definitions (hidden)        │
+├────────────────────────────────────────────────────┤
+│ crisp      - Framework components & layouts        │
+├────────────────────────────────────────────────────┤
+│ bridge     - Togglable Vendor/framework sublayers  │
+│   └── @layer bridge.tailwind {... import lib ...}  │
+│   └── @layer bridge.bootstrap {... import lib ...} │
+├────────────────────────────────────────────────────┤
+│ overrides  - Your specific customisations          │
+└────────────────────────────────────────────────────┘
+              ↑ Specificity increases ↑
+```
+**Modern browser support**: 98%  
+**What we're still doing**: `!important` everywhere
+
+---
+
+### 📦 Container Queries (2023)
+*Key powers: Component-scoped breakpoints, inline-size queries, and style containment*
+
+```css
+/* Components that respond to their container, not viewport */
+.card {
+  container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+  .card { flex-direction: row; }
+}
+```
+**Modern browser support**: 96%  
+**What we're still doing**: Breakpoint classes for every viewport size
+
+---
+
+### 🎯 :has() Selector (2023)
+*Key powers: Parent selection, conditional styling, and relationship-based logic*
+
+```css
+/* Parent selector - the holy grail */
+.form:has(.input:invalid) {
+  border-color: red;
+}
+
+/* Style based on children */
+.nav:has(> .active) {
+  background: highlight;
+}
+```
+**Modern browser support**: 95%  
+**What we're still doing**: JavaScript classList.toggle() madness
+
+---
+
+### 🎨 OKLCH Colors (2023)
+*Key powers: Human readable and perceptual uniformity, predictable gradients, and accessible contrast*
+
+```css
+/* Perceptually uniform color space */
+.brand {
+  --primary: oklch(60% 0.15 250);
+  --primary-dark: oklch(40% 0.15 250);  /* Actually darker! */
+}
+```
+**Modern browser support**: 92%  
+**What we're still doing**: Guessing with hex codes and HSL
+
+---
+
+### 📝 field-sizing (2024)
+*Key powers: Auto-growing textareas, content-based sizing, and native behaviour, without any downwards compatibillity problems*
+
+```css
+/* Textareas that grow with content - no JS! */
+textarea {
+  field-sizing: content;
+  min-height: 3em;
+  max-height: 10em;
+}
+```
+**Modern browser support**: Growing  
+**What we're still doing**: 200 lines of JavaScript for auto-resize
+
+We have superpowers but we're using kerfuffeled sticks and stones constructs to walk.
 
 ## The Human Cost
 
-Beyond the technical debt, there's a human cost:
+Beyond all technical debt, there's an important human cost:
 
-- **New developer onboarding**: "Here's our CSS documentation" *points to 47 Confluence pages*
-- **Designer handoff**: "It's like the mockup but with compromises"
-- **Performance reviews**: "Could you make the CSS more maintainable?" *nervous laughter*
-- **Team morale**: "I love everything about my job except the CSS"
+- **New developer onboarding**: "Here's our CSS documentation" *points to 12 Confluence pages, 3 outdated READMEs, and yes, "just ask Sarah, she knows that part"*
+- **Designer handoff**: "It's like the mockup but with... creative interpretations"
+- **Performance reviews**: "Could you make the CSS more maintainable, please, could you?" *nervous laughter*
+- **Team morale**: "I love everything about my job except the 47 npm packages we need to display a button"
 
 ## The Elephant in the Room
 
-We know it's broken. Every developer survey confirms it:
-- CSS is the most frustrating part of web development
-- "CSS is broken" is a meme because it's true
-- We've accepted that suffering is part of the job
+We know what's broken. Every developer survey confirms it:
+- The CSS peripheral ecosystem is the most frustrating part of web development
+- "CSS is broken" is a meme - but CSS isn't the problem, our tooling is
+- We've accepted that suffering from framework churn is part of the job, and some irritated souls started loving and spreading it over the acres, so that everyone growing there never sees the underlying roots and their inherited power
 
 But what if it didn't have to be this way?
 
@@ -202,10 +377,10 @@ But what if it didn't have to be this way?
 What if I told you:
 - You could write 90% less CSS
 - Your specificity wars could end today
-- You could use modern CSS features without a PhD
-- Your HTML could be semantic again
-- Dark mode could be 2 lines of CSS
-- Your entire design system could be 10 colours
+- You could use modern CSS features without studying in Oxford for 2 years
+- Your HTML could be clean and semantic again
+- A Dark mode could be some lines of colour properties away
+- Your entire design system could be 10 base colours auto expanding up to hundereds
 
 What if CSS could be... fun again?
 
@@ -215,6 +390,6 @@ The winter of CSS complexity is ending. Spring is coming.
 
 And it's called CRISP.
 
-**The Killer Feature**: With CRISP, you learn concepts that stay forever. With other frameworks, you learn APIs that change with every major version. When Bootstrap 6 arrives, your Bootstrap 5 knowledge becomes technical debt. When Tailwind v4 ships, prepare to relearn everything. But CSS? CSS is eternal. And CRISP is just CSS, thoughtfully organised.
+**The Killer Feature**: With CRISP, you learn concepts that stay forever – you learn to write pure CSS again. With other frameworks, you learn APIs that change with every major version. When Bootstrap 6 arrives, your Bootstrap 5 knowledge becomes technical debt. When Tailwind v4 ships, prepare to relearn everything. But CSS? CSS is eternal. And CRISP is just CSS, thoughtfully organised and a KISS of minimalism.
 
 → Continue to [Chapter 2: The 1+1+3 Formula](./CH02-solution.md)
