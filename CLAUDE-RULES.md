@@ -5,7 +5,7 @@ This document contains ALL mandatory rules for CRISP development. Every rule MUS
 ## Table of Contents
 
 ### 🔴 FUNDAMENTAL ARCHITECTURE RULES (Follow First!)
-- [Rule 1: The Sacred 1+1+3 Formula](#rule-1-the-sacred-113-formula)
+- [Rule 1: The Sacred 1+2+3 Formula](#rule-1-the-sacred-123-formula)
 - [Rule 2: CSS @layer Architecture](#rule-2-css-layer-architecture)
 - [Rule 3: CSS @layer Usage - Three Layers, Infinite Power!](#rule-3-layer-usage)
 - [Rule 4: Custom Properties Pattern](#rule-4-custom-properties-pattern)
@@ -48,22 +48,25 @@ This document contains ALL mandatory rules for CRISP development. Every rule MUS
 
 ## 🔴 FUNDAMENTAL ARCHITECTURE RULES
 
-## <a id="rule-1-sacred-formula"></a>Rule 1: The Sacred 1+1+3 Formula
+## <a id="rule-1-sacred-formula"></a>Rule 1: The Sacred 1+2+3 Formula
 
-Every element follows: **1 component + 1 layout + max 3 properties**
+Every element follows: **1 component + max 2 layouts + max 3 properties**
 
 ```html
 <!-- ✅ Correct -->
 <article class="card as-stack with-shadow with-border">
 
+<!-- ✅ Also correct - 2 layouts -->
+<section class="hero as-center as-container with-overlay">
+
 <!-- ❌ Wrong - too many classes -->
-<article class="card card-featured as-stack stack-small with-shadow with-border with-rounded with-padding">
+<article class="card card-featured as-stack as-grid as-center with-shadow with-border with-rounded">
 ```
 
 **Important**: Data attributes do NOT count toward this limit. They are data carriers for logic, not layout only controls.
 
 ```html
-<!-- ✅ Correct: Classes follow 1+1+3, unlimited data attributes -->
+<!-- ✅ Correct: Classes follow 1+2+3, unlimited data attributes -->
 <article class="card as-stack with-shadow with-border" 
   data-variant="featured"
   data-entries="5"

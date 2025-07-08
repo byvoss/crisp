@@ -394,4 +394,4 @@ And it's called CRISP.
 
 As Brian once painted on the temple wall: "Frames eunt domus!" 
 
-→ Continue to [Chapter 2: The 1+1+3 Formula](./CH02-solution.md)
+→ Continue to [Chapter 2: The 1+2+3 Formula](./CH02-solution.md)

@@ -20,10 +20,10 @@
 </html>
 ```
 
-## The 1+1+3 Formula
+## The 1+2+3 Formula
 
 ```html
-<!-- 1 component + 1 layout + max 3 custom properties -->
+<!-- 1 component + max 2 layouts + max 3 custom properties -->
 <article class="card as-stack" style="--padding: 2rem; --gap: 1rem; --bg: var(--color-surface);">
   <h2 class="heading">Perfect Balance</h2>
   <p class="text">Simple yet flexible</p>
