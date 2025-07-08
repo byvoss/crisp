@@ -43,11 +43,12 @@ Every CRISP element follows one rule - simple enough to sketch on a napkin after
 Let's perform the autopsy on that button:
 
 ```html
-<button class="button with-interaction" type="button">
-  └─────┘       └──────────────────┘
-     │                    │
-     │                    └── Property class (the special sauce)
-     └────────────────────── Component class (what it IS, not how it looks)
+<section class="hero as-center as-container with-overlay with-shadow">
+         └───────┘    └──────────────┘       └─────────────┘
+           │              │                     │
+           │              │                     └──── Property class (special effects)
+           │              └────────────────────────── Layout classes (how it arranges)
+           └───────────────────────────────────────── Component class (what it IS)
 ```
 
 That's the maximum complexity. Often you need less:
