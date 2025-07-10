@@ -619,7 +619,7 @@ Required:
 Form wrapper.
 
 ```html
-<form class="form">
+<form class="form" data-key="contact-form">
   <!-- Form fields -->
 </form>
 ```

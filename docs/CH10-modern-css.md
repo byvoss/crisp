@@ -244,7 +244,7 @@ Animations tied to scroll position:
 
 ```css
 /* Progress bar that tracks reading */
-.reading-progress {
+.reading-progress[data-key="progress-indicator"] {
   animation: grow linear;
   animation-timeline: scroll();
   transform-origin: left;

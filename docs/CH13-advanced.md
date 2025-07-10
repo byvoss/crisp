@@ -114,7 +114,7 @@ CSS-only state machines:
 }
 
 /* Usage */
-<div class="wizard" style="--current-step: 2; --total-steps: 4;">
+<div class="wizard" data-key="checkout-wizard" style="--current-step: 2; --total-steps: 4;">
   <div class="step">Step 1 content</div>
   <div class="step">Step 2 content (current)</div>
   <div class="step">Step 3 content (hidden)</div>

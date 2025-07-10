@@ -23,8 +23,8 @@
 ## The 1+2+3 Formula
 
 ```html
-<!-- 1 component + max 2 layouts + max 3 custom properties -->
-<article class="card as-stack" style="--padding: 2rem; --gap: 1rem; --bg: var(--color-surface);">
+<!-- 1 blueprint + max 2 layouts + max 3 custom properties -->
+<article class="card as-stack" data-key="feature-card" style="--padding: 2rem; --gap: 1rem; --bg: var(--color-surface);">
   <h2 class="heading">Perfect Balance</h2>
   <p class="text">Simple yet flexible</p>
 </article>
@@ -44,12 +44,12 @@
 }
 ```
 
-## Core Components
+## Core Blueprints
 
 ### Button
 ```html
 <button class="button" type="button">Default</button>
-<button class="button with-interaction" style="--bg: var(--color-primary);">Primary</button>
+<button class="button with-interaction" data-key="primary-action" style="--bg: var(--color-primary);">Primary</button>
 <button class="button" style="--bg: var(--color-error);">Danger</button>
 <button class="button" disabled>Disabled</button>
 ```
@@ -107,7 +107,7 @@
 
 ### Card
 ```html
-<article class="card">
+<article class="card" data-key="info-card">
   <h3 class="heading">Card Title</h3>
   <p class="text">Card content</p>
 </article>
@@ -120,7 +120,7 @@
 
 ### Navigation
 ```html
-<nav class="navigation" data-entries="4" aria-label="Main">
+<nav class="navigation" data-key="main-nav" data-entries="4" aria-label="Main">
   <a class="link" href="/" aria-current="page">Home</a>
   <a class="link" href="/about">About</a>
   <a class="link" href="/services">Services</a>
@@ -130,7 +130,7 @@
 
 ### Form
 ```html
-<form class="form as-stack">
+<form class="form as-stack" data-key="contact-form">
   <div class="field">
     <label class="label" for="name">Name</label>
     <input class="input" type="text" id="name" required>
@@ -142,17 +142,17 @@
     <small class="helper">We'll never share your email</small>
   </div>
   
-  <button class="button with-interaction" type="submit">Submit</button>
+  <button class="button with-interaction" data-key="submit-form" type="submit">Submit</button>
 </form>
 ```
 
 ### Alert
 ```html
-<div class="alert" role="alert" data-variant="success">
+<div class="alert" data-key="success-alert" role="alert" data-variant="success">
   <p class="text">Success! Your changes have been saved.</p>
 </div>
 
-<div class="alert" role="alert" data-variant="error">
+<div class="alert" data-key="error-alert" role="alert" data-variant="error">
   <p class="text">Error: Please check your input.</p>
 </div>
 ```
@@ -286,7 +286,7 @@
 
 ### Hero Section
 ```html
-<section class="as-center as-stack" style="--max-width: 800px; --gap: 2rem;">
+<section class="as-center as-stack" data-key="hero-section" style="--max-width: 800px; --gap: 2rem;">
   <h1 class="heading" style="--size: clamp(2rem, 5vw, 4rem);">
     Welcome to CRISP
   </h1>
@@ -294,7 +294,7 @@
     Semantic HTML, minimal classes, maximum flexibility
   </p>
   <div class="as-cluster">
-    <button class="button with-interaction">Get Started</button>
+    <button class="button with-interaction" data-key="cta-start">Get Started</button>
     <a class="link" href="/docs">Learn More</a>
   </div>
 </section>
@@ -302,7 +302,7 @@
 
 ### Feature Grid
 ```html
-<div class="as-grid" data-entries="3">
+<div class="as-grid" data-key="feature-grid" data-entries="3">
   <article class="card as-stack">
     <h3 class="heading">Feature 1</h3>
     <p class="text">Description</p>
@@ -313,7 +313,7 @@
 
 ### Contact Form
 ```html
-<form class="form as-stack" style="--gap: 1.5rem;">
+<form class="form as-stack" data-key="contact-form" style="--gap: 1.5rem;">
   <div class="as-cluster" style="--gap: 1rem;">
     <div class="field" style="flex: 1;">
       <label class="label" for="first">First Name</label>
@@ -335,7 +335,7 @@
     <textarea class="textarea" id="message" rows="5"></textarea>
   </div>
   
-  <button class="button with-interaction" type="submit">
+  <button class="button with-interaction" data-key="send-message" type="submit">
     Send Message
   </button>
 </form>
@@ -389,7 +389,7 @@ Modern browsers only (2024+):
 2. **Use semantic HTML**: `<button>` not `<div onclick>`
 3. **Custom properties need @property**: Define before use
 4. **Layers beat specificity**: Even `!important`
-5. **Container queries > media queries**: Components should be self-aware
+5. **Container queries > media queries**: Blueprints should be self-aware
 
 ## Resources
 

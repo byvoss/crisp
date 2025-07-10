@@ -314,7 +314,7 @@ That datepicker you can't replace yet:
 
 ```html
 <!-- Wrap vendor components -->
-<div data-vendor="datepicker">
+<div data-vendor="datepicker" data-key="vendor-wrapper">
   <!-- Third-party component unchanged -->
 </div>
 ```

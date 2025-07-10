@@ -38,7 +38,7 @@ One codebase, infinite brands:
   --brand-accent: oklch(45% 0.15 300);    /* Deep purple */
 }
 
-/* Components use brand tokens */
+/* Blueprints use brand tokens */
 .button {
   --bg: var(--brand-primary);
 }
@@ -51,7 +51,7 @@ One codebase, infinite brands:
 Progressive enhancement with Web Components:
 
 ```typescript
-// Base component class
+// Base blueprint class
 export class CrispElement extends HTMLElement {
   static observedAttributes = ['data-variant', 'data-size'];
   
@@ -75,7 +75,7 @@ export class CrispElement extends HTMLElement {
   }
 }
 
-// Smart form component
+// Smart form blueprint
 export class CrispForm extends CrispElement {
   connectedCallback() {
     super.connectedCallback();
@@ -104,7 +104,7 @@ export class CrispForm extends CrispElement {
   }
 }
 
-// Register components
+// Register blueprints
 customElements.define('crisp-form', CrispForm);
 ```
 
@@ -116,15 +116,15 @@ CRISP in distributed architectures:
 <!-- Host application -->
 <body data-brand="main">
   <!-- Team A's micro-frontend -->
-  <div data-mfe="team-a" data-brand="healthcare">
-    <crisp-card>
+  <div data-mfe="team-a" data-key="healthcare-section" data-brand="healthcare">
+    <crisp-card data-key="health-card">
       Healthcare content with healthcare brand
     </crisp-card>
   </div>
   
   <!-- Team B's micro-frontend -->
-  <div data-mfe="team-b" data-brand="finance">
-    <crisp-card>
+  <div data-mfe="team-b" data-key="finance-section" data-brand="finance">
+    <crisp-card data-key="finance-card">
       Finance content with finance brand
     </crisp-card>
   </div>
@@ -176,7 +176,7 @@ Enterprise-grade optimization:
 ```
 
 ```javascript
-// Component lazy loading
+// Blueprint lazy loading
 const loadComponent = async (name) => {
   const module = await import(`@byvoss/crisp-enterprise/dist/${name}.js`);
   customElements.define(`crisp-${name}`, module.default);
@@ -194,7 +194,7 @@ const observer = new IntersectionObserver((entries) => {
   });
 });
 
-// Observe all CRISP components
+// Observe all CRISP blueprints
 document.querySelectorAll('[class*="crisp-"]').forEach(el => {
   observer.observe(el);
 });
@@ -220,7 +220,7 @@ export function extractTokens() {
   return tokens;
 }
 
-// Generate component documentation
+// Generate blueprint documentation
 export function documentComponent(selector) {
   const element = document.querySelector(selector);
   const computed = getComputedStyle(element);
@@ -243,7 +243,7 @@ Enterprise testing patterns:
 // Visual regression testing
 import { test, expect } from '@playwright/test';
 
-test.describe('CRISP Components', () => {
+test.describe('CRISP Blueprints', () => {
   test('button renders correctly', async ({ page }) => {
     await page.goto('/components/button');
     
@@ -279,7 +279,7 @@ test('form meets WCAG 2.2', async ({ page }) => {
 Track design system usage:
 
 ```javascript
-// Component usage analytics
+// Blueprint usage analytics
 class CrispAnalytics {
   constructor() {
     this.usage = new Map();
@@ -287,7 +287,7 @@ class CrispAnalytics {
   }
   
   observe() {
-    // Track component usage
+    // Track blueprint usage
     const observer = new MutationObserver((mutations) => {
       mutations.forEach(mutation => {
         mutation.addedNodes.forEach(node => {
@@ -350,7 +350,7 @@ export default {
     {
       postcssPlugin: 'crisp-usage',
       Rule(rule) {
-        // Track which components are actually used
+        // Track which blueprints are actually used
         trackComponentUsage(rule.selector);
       }
     }
@@ -371,7 +371,7 @@ Enterprise security considerations:
 }
 
 /* Sanitization-safe HTML */
-.user-content {
+.user-content[data-key="ugc-container"] {
   /* Safe property values */
   @property --user-color {
     syntax: "<color>";

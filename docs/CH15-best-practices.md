@@ -423,12 +423,12 @@ console.log({
 }
 
 /* ✅ GOOD: Progressive enhancement */
-.component {
+.component[data-key="responsive-section"] {
   /* Base styles work everywhere */
 }
 
 @supports (selector(:has(*))) {
-  .component {
+  .component[data-key="responsive-section"] {
     /* Enhanced for modern browsers */
   }
 }
