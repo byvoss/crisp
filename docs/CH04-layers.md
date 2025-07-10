@@ -32,24 +32,37 @@ Still fighting? Welcome to specificity hell. But what if I told you this problem
 
 ## Enter CSS @layer
 
-CSS layers are like... well, layers. Imagine a cake:
-- Bottom layer: Framework styles
-- Middle layer: Your customisations
-- Top layer: Emergency overrides
+CSS layers are like transparent sheets stacked on top of each other:
+- Bottom sheet: Framework styles (complete definitions)
+- Middle sheet: Your customisations (only what you want to change)
+- Top sheet: Emergency overrides (final adjustments)
+- Invisible top layer: Inline styles (always win!)
+
+When you look down through the stack, you see the topmost definition for each property.
 
 The top always wins. No specificity calculation. No !important. Just layers.
 
+**The Complete Truth**: There's actually a hierarchy:
+1. Inline styles (style="...") - Always win
+2. !important in layers - Nuclear option !EVIL!
+3. @layer overrides - Your customisations
+4. @layer bridge - Migrations - place sublayers in there for every case you have to bridge
+5. @layer crisp - Framework blueprints
+6. @layer kernel - Framework Foundation (hidden)
+
+But for daily work, you only think about the three main layers.
+
 ## The CRISP Three-Layer System
 
-CRISP uses exactly three layers (that you see):
+CRISP uses exactly three open layers (and one internal):
 
 ```css
-@layer crisp, bridge, overrides;
+@layer (kernel) crisp, bridge, overrides;
 ```
 
 That's it. One line that changes everything.
 
-**The Secret**: There's actually a fourth layer called `kernel` that comes before everything. But you never touch it - it's the engine room that defines all the standard properties like `--color-neutral`, `--space-1`, `--radius-md`. Every blueprint uses these kernel properties. We'll reveal this secret fully when you're ready (Chapter 5).
+**The open Secret**: There's actually a fourth layer called `kernel` that comes before everything. But you never touch it - it's the engine room that defines all the generic properties like `--bg`, `--color`, `--size`, `--padding` with their type definitions and defaults. Every blueprint uses these kernel properties. We'll reveal this secret fully when you're ready (Chapter 5).
 
 ### Layer 1: CRISP Framework
 
@@ -84,6 +97,34 @@ That's it. One line that changes everything.
   /* Migration helpers */
   /* Temporary fixes */
   /* Third-party integrations */
+}
+```
+
+Example sublayers for organization:
+
+```css
+@layer bridge {
+  /* Organize different concerns in sublayers */
+  @layer bridge.bootstrap {
+    /* All Bootstrap compatibility mappings */
+    @import "bootstrap-compat.css";
+  }
+  
+  @layer bridge.our-old-logic {
+    /* Legacy code that needs gradual migration */
+    @import "legacy-components.css";
+  }
+  
+  @layer bridge.vendor {
+    /* Third-party libraries */
+    @import "datepicker.css";
+    @import "charts.css";
+  }
+  
+  @layer bridge.experiments {
+    /* New features being tested */
+    .card { --experimental-glow: 0 0 20px var(--color-primary); }
+  }
 }
 ```
 
