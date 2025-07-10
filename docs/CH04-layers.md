@@ -49,7 +49,7 @@ CRISP uses exactly three layers (that you see):
 
 That's it. One line that changes everything.
 
-**The Secret**: There's actually a fourth layer called `kernel` that comes before everything. But you never touch it - it's the engine room that makes everything work. We'll reveal this secret when you're ready (Chapter 5).
+**The Secret**: There's actually a fourth layer called `kernel` that comes before everything. But you never touch it - it's the engine room that defines all the standard properties like `--color-neutral`, `--space-1`, `--radius-md`. Every blueprint uses these kernel properties. We'll reveal this secret fully when you're ready (Chapter 5).
 
 ### Layer 1: CRISP Framework
 
@@ -262,7 +262,7 @@ Think of it like this:
     --color-secondary: oklch(60% 0.20 150);
   }
   
-  /* Your component tweaks */
+  /* Your blueprint tweaks */
   .card {
     --radius: 1rem;
   }
@@ -273,15 +273,20 @@ Think of it like this:
 }
 ```
 
-### Pattern 2: Component Variants
+### Pattern 2: Blueprint Variants
 
 ```css
 @layer overrides {
   /* Add new variants without touching CRISP */
-  [data-variant="cta"] .button {
+  .button[data-variant="cta"] {
     --bg: var(--color-accent);
     --size: 1.25rem;
     --padding: var(--space-1) var(--space-2);
+  }
+  
+  /* Or target specific buttons */
+  .button[data-key="hero-cta"] {
+    --bg: linear-gradient(45deg, var(--color-primary), var(--color-secondary));
   }
 }
 ```
@@ -331,7 +336,7 @@ With three layers:
   }
 </style>
 
-<div class="demo">
+<div class="demo" data-key="layer-example">
   I'm hotpink, not blue!
 </div>
 ```
@@ -345,6 +350,7 @@ Layers solve problems you didn't know you had:
 3. **Refactoring simplified**: Move styles between layers
 4. **Testing isolated**: Toggle layers on/off
 5. **Performance improved**: Browser optimises layer rendering
+6. **Blueprint customisation**: Override any blueprint property cleanly
 
 ## Your Escape Route
 
@@ -381,4 +387,4 @@ Just predictable, manageable styles.
 
 Ready to see what you can build with this foundation?
 
-→ Continue to [Chapter 5: Planting Patterns - Basic Components](./CH05-components.md)
+→ Continue to [Chapter 5: Planting Patterns - Blueprint Classes](./CH05-components.md)
