@@ -188,7 +188,7 @@ Consistent rhythm throughout:
 Use them everywhere:
 
 ```css
-.component {
+.blueprint {
   @property --padding {
     syntax: "<length>";
     inherits: false;
@@ -290,7 +290,7 @@ Need more than 10 colors? Add them:
 
 ## Token Usage Patterns
 
-### Component Tokens
+### Blueprint Tokens
 
 ```css
 .card {
@@ -317,7 +317,7 @@ Need more than 10 colors? Add them:
 
 ```css
 /* Related values stay in sync */
-.component {
+.blueprint {
   --base-size: 1rem;
   --padding: calc(var(--base-size) * 0.75);
   --gap: calc(var(--base-size) * 0.5);
