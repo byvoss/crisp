@@ -39,8 +39,8 @@ That's it.
 ## Step 2: Navigation That Just Works
 
 ```html
-<header class="header as-container">
-  <nav class="navigation as-cluster" data-entries="4" aria-label="Main navigation">
+<header class="header as-container" data-key="site-header">
+  <nav class="navigation as-cluster" data-entries="4" data-key="main-nav" aria-label="Main navigation">
     <a class="link" href="/" aria-current="page">Home</a>
     <a class="link" href="/about">About</a>
     <a class="link" href="/features">Features</a>
@@ -53,6 +53,7 @@ That's it.
 - `as-container` gives you responsive padding
 - `as-cluster` arranges links horizontally with proper spacing
 - `data-entries="4"` tells CSS there are 4 items (for responsive decisions)
+- `data-key` provides stable anchors for testing and analytics
 - Proper ARIA labels for accessibility
 
 Mobile responsive? Already handled. Dark mode? Automatic.
@@ -60,7 +61,7 @@ Mobile responsive? Already handled. Dark mode? Automatic.
 ## Step 3: A Hero That Heroes
 
 ```html
-<section class="hero as-center">
+<section class="hero as-center" data-key="homepage-hero">
   <div class="as-stack">
     <h1 class="heading" style="--size: clamp(2rem, 5vw, 3rem);">
       Welcome to Simple
@@ -71,10 +72,11 @@ Mobile responsive? Already handled. Dark mode? Automatic.
     <div class="as-cluster">
       <button class="button with-interaction" 
               style="--bg: var(--color-primary);" 
-              type="button">
+              type="button"
+              data-key="hero-cta-primary">
         Get Started
       </button>
-      <a class="button" href="#features">Learn More</a>
+      <a class="button" href="#features" data-key="hero-cta-secondary">Learn More</a>
     </div>
   </div>
 </section>
@@ -85,7 +87,7 @@ No utility classes. No breakpoints. Just semantic HTML with layout helpers.
 ## Step 4: Features Grid
 
 ```html
-<section class="section as-container" id="features">
+<section class="section as-container" id="features" data-key="features-section">
   <h2 class="heading as-center">Why CRISP?</h2>
   
   <div class="as-grid" data-entries="3" style="--grid-gap: var(--space-2);">
@@ -121,11 +123,11 @@ No utility classes. No breakpoints. Just semantic HTML with layout helpers.
 ## Step 5: A Form That Forms
 
 ```html
-<section class="section as-container" id="contact">
+<section class="section as-container" id="contact" data-key="contact-section">
   <div class="as-center" style="--max-width: 40rem;">
     <h2 class="heading">Get in Touch</h2>
     
-    <form class="form as-stack">
+    <form class="form as-stack" data-key="contact-form">
       <div class="field">
         <label class="label" for="name">Name</label>
         <input class="input" type="text" id="name" name="name" required>
@@ -143,7 +145,8 @@ No utility classes. No breakpoints. Just semantic HTML with layout helpers.
       
       <button class="button with-interaction" 
               style="--bg: var(--color-primary);" 
-              type="submit">
+              type="submit"
+              data-key="contact-form-submit">
         Send Message
       </button>
     </form>
@@ -156,10 +159,10 @@ Native HTML validation. Accessible by default. Styled without fighting.
 ## Step 6: Footer Finale
 
 ```html
-<footer class="footer as-container">
+<footer class="footer as-container" data-key="site-footer">
   <div class="as-split">
     <p class="text">&copy; 2025 Simple Site. All rights reserved.</p>
-    <nav class="navigation as-cluster" data-entries="3" aria-label="Footer navigation">
+    <nav class="navigation as-cluster" data-entries="3" data-key="footer-nav" aria-label="Footer navigation">
       <a class="link" href="/privacy">Privacy</a>
       <a class="link" href="/terms">Terms</a>
       <a class="link" href="/cookies">Cookies</a>
@@ -190,8 +193,8 @@ Put it all together:
   </style>
 </head>
 <body>
-  <header class="header as-container">
-    <nav class="navigation as-cluster" data-entries="4" aria-label="Main navigation">
+  <header class="header as-container" data-key="site-header">
+    <nav class="navigation as-cluster" data-entries="4" data-key="main-nav" aria-label="Main navigation">
       <a class="link" href="/" aria-current="page">Home</a>
       <a class="link" href="/about">About</a>
       <a class="link" href="/features">Features</a>
@@ -200,7 +203,7 @@ Put it all together:
   </header>
 
   <main>
-    <section class="hero as-center">
+    <section class="hero as-center" data-key="homepage-hero">
       <div class="as-stack">
         <h1 class="heading" style="--size: clamp(2rem, 5vw, 3rem);">
           Welcome to Simple
@@ -211,15 +214,16 @@ Put it all together:
         <div class="as-cluster">
           <button class="button with-interaction" 
                   style="--bg: var(--color-primary);" 
-                  type="button">
+                  type="button"
+                  data-key="hero-cta-primary">
             Get Started
           </button>
-          <a class="button" href="#features">Learn More</a>
+          <a class="button" href="#features" data-key="hero-cta-secondary">Learn More</a>
         </div>
       </div>
     </section>
 
-    <section class="section as-container" id="features">
+    <section class="section as-container" id="features" data-key="features-section">
       <h2 class="heading as-center">Why CRISP?</h2>
       
       <div class="as-grid" data-entries="3" style="--grid-gap: var(--space-2);">
@@ -246,11 +250,11 @@ Put it all together:
       </div>
     </section>
 
-    <section class="section as-container" id="contact">
+    <section class="section as-container" id="contact" data-key="contact-section">
       <div class="as-center" style="--max-width: 40rem;">
         <h2 class="heading">Get in Touch</h2>
         
-        <form class="form as-stack">
+        <form class="form as-stack" data-key="contact-form">
           <div class="field">
             <label class="label" for="name">Name</label>
             <input class="input" type="text" id="name" name="name" required>
@@ -268,7 +272,8 @@ Put it all together:
           
           <button class="button with-interaction" 
                   style="--bg: var(--color-primary);" 
-                  type="submit">
+                  type="submit"
+                  data-key="contact-form-submit">
             Send Message
           </button>
         </form>
@@ -276,10 +281,10 @@ Put it all together:
     </section>
   </main>
 
-  <footer class="footer as-container">
+  <footer class="footer as-container" data-key="site-footer">
     <div class="as-split">
       <p class="text">&copy; 2025 Simple Site. All rights reserved.</p>
-      <nav class="navigation as-cluster" data-entries="3" aria-label="Footer navigation">
+      <nav class="navigation as-cluster" data-entries="3" data-key="footer-nav" aria-label="Footer navigation">
         <a class="link" href="/privacy">Privacy</a>
         <a class="link" href="/terms">Terms</a>
         <a class="link" href="/cookies">Cookies</a>
@@ -294,7 +299,7 @@ Put it all together:
 
 Let's tally what you just built:
 
-**Components Used:**
+**Blueprint Classes Used:**
 - `header`, `navigation`, `link`
 - `hero`, `section`, `heading`, `text`
 - `card`, `button`
@@ -308,7 +313,7 @@ Let's tally what you just built:
 **Property Classes:**
 - `with-interaction` (just one!)
 
-**Total Unique Classes:** ~20
+**Total Unique Classes:** ~20 (blueprints + layouts + properties)
 
 **Lines of Custom CSS:** 3
 
