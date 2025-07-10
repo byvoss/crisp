@@ -24,7 +24,7 @@ CRISP flips this. Accessibility isn't added. It's built in.
 
 ## WCAG 2.2 AA: The Default
 
-Every CRISP component meets WCAG 2.2 AA out of the box:
+Every CRISP blueprint meets WCAG 2.2 AA out of the box:
 
 ### Semantic HTML = 80% There
 
@@ -161,7 +161,7 @@ Every form element properly labeled:
 </div>
 
 <!-- Grouped inputs -->
-<fieldset class="fieldset">
+<fieldset class="fieldset" data-key="shipping-address">
   <legend class="legend">Shipping address</legend>
   <!-- Related inputs grouped -->
 </fieldset>
@@ -178,7 +178,7 @@ Everything keyboard accessible:
 
 ```html
 <!-- Modal with focus trap -->
-<dialog class="dialog" aria-labelledby="dialog-title">
+<dialog class="dialog" aria-labelledby="dialog-title" data-key="confirm-dialog">
   <h2 class="heading" id="dialog-title">Confirm action</h2>
   <form method="dialog">
     <!-- Focus trapped inside dialog -->
@@ -188,7 +188,7 @@ Everything keyboard accessible:
 </dialog>
 
 <!-- Dropdown menu -->
-<div class="dropdown" role="navigation">
+<div class="dropdown" role="navigation" data-key="options-dropdown">
   <button class="button" 
           aria-expanded="false"
           aria-controls="dropdown-menu">
@@ -210,7 +210,7 @@ Everything keyboard accessible:
 - `Tab` - Navigate forward
 - `Shift + Tab` - Navigate backward
 - `Enter/Space` - Activate buttons
-- `Arrow keys` - Navigate within components
+- `Arrow keys` - Navigate within blueprints
 - `Escape` - Close modals/dropdowns
 - `Home/End` - Jump to first/last
 
@@ -254,7 +254,7 @@ Everything keyboard accessible:
 ### Data Tables
 
 ```html
-<table class="table" role="table">
+<table class="table" role="table" data-key="users-table">
   <caption class="caption">
     User accounts
     <small class="helper">Sorted by registration date</small>
@@ -342,7 +342,7 @@ Respecting user preferences:
 
 ```html
 <!-- Server renders this - knows /products is current page -->
-<nav class="navigation" aria-label="Main" data-entries="4">
+<nav class="navigation" aria-label="Main" data-entries="4" data-key="main-nav">
   <a class="link" href="/">Home</a>
   <a class="link" href="/about">About</a>
   <a class="link" href="/products" aria-current="page">Products</a>
@@ -355,7 +355,7 @@ Respecting user preferences:
 ### Accessible Cards
 
 ```html
-<article class="card" role="article" aria-labelledby="card-title-1">
+<article class="card" role="article" aria-labelledby="card-title-1" data-key="product-card">
   <h3 class="heading" id="card-title-1">
     <a class="link" href="/details">Product Name</a>
   </h3>
@@ -370,7 +370,7 @@ Respecting user preferences:
 ### Accessible Forms
 
 ```html
-<form class="form" aria-label="Contact form">
+<form class="form" aria-label="Contact form" data-key="contact-form">
   <div class="field">
     <label class="label" for="name">
       Your name
@@ -401,7 +401,7 @@ Respecting user preferences:
 
 ## Your Accessibility Checklist
 
-Before shipping any component:
+Before shipping any blueprint:
 
 1. ✓ Can I use it with keyboard only?
 2. ✓ Does screen reader announce it properly?
