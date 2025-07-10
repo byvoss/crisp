@@ -8,6 +8,28 @@ CRISP is both a **CSS methodology** (like BEM) and a lightweight but powerful **
 
 **The killer feature**: With CRISP, you learn CSS concepts that stay forever. With other frameworks, you learn APIs that change with every major version.
 
+## The Philosophy of Respect
+
+CRISP follows the demoscene philosophy - where 4KB demos create magic through elegance, not brute force. Every byte matters. Every cycle counts.
+
+**We respect:**
+- **Your users' bandwidth** - ~50KB, not 10MB of utilities
+- **Their battery life** - Pure CSS uses zero CPU for interactions
+- **Their time** - Instant load, no JavaScript parsing
+- **Your time** - Write `.button`, not 47 utility classes
+- **The planet** - Less data = less energy = cleaner environment
+
+This isn't minimalism for aesthetics. It's minimalism as **respect**.
+
+In the demoscene, constraints breed creativity. A 4KB limit forces elegance. CRISP applies this principle to web development:
+- **10 colors** → hundreds of variations through math
+- **3 layers** → infinite flexibility without complexity  
+- **20 classes** → complete websites
+
+True programming isn't about using every feature available. It's about achieving more with less. It's about respecting the machine, the network, the user, and the craft itself.
+
+CRISP is our homage to this philosophy. Maximum capability, minimum footprint. As it should be.
+
 ## Use as Pattern (Methodology Only)
 
 Implement CRISP conventions in your own CSS:
