@@ -23,11 +23,11 @@ What you get with just CSS:
 
 That's it. You now have:
 
-### Interactive Components Without JavaScript
+### Interactive Blueprints Without JavaScript
 
 ```html
 <!-- Fully functional accordion -->
-<details class="disclosure" open>
+<details class="disclosure" open data-key="accordion-example">
   <summary>Click to toggle</summary>
   <div class="content">
     <p class="text">No JavaScript. Just HTML.</p>
@@ -35,16 +35,16 @@ That's it. You now have:
 </details>
 
 <!-- Dialog with backdrop -->
-<dialog class="dialog" id="modal">
+<dialog class="dialog" id="modal" data-key="modal-example">
   <form method="dialog">
     <h2 class="heading">Native Dialog</h2>
     <p class="text">Press Escape to close. No library needed.</p>
-    <button class="button" type="submit">Close</button>
+    <button class="button" type="submit" data-key="modal-close">Close</button>
   </form>
 </dialog>
 
 <!-- Smooth scroll navigation -->
-<nav class="navigation" aria-label="Page sections">
+<nav class="navigation" aria-label="Page sections" data-key="smooth-nav">
   <a class="link" href="#section1">Smooth scroll</a>
   <a class="link" href="#section2">No JS required</a>
 </nav>
@@ -54,7 +54,7 @@ That's it. You now have:
 
 ```html
 <!-- Tab interface (CSS only!) -->
-<div class="tabs" role="tablist">
+<div class="tabs" role="tablist" data-key="css-tabs">
   <input type="radio" name="tabs" id="tab1" checked>
   <label class="tab" for="tab1" role="tab">Tab 1</label>
   
@@ -102,7 +102,7 @@ That's it. You now have:
 ### Form Validation Styling
 
 ```html
-<form class="form">
+<form class="form" data-key="validation-form">
   <div class="field">
     <label class="label" for="email">Email</label>
     <input class="input" type="email" id="email" required>
@@ -122,7 +122,7 @@ That's it. You now have:
 }
 ```
 
-**The "Aha!"**: Most "JavaScript components" are just CSS problems in disguise.
+**The "Aha!"**: Most "JavaScript blueprints" are just CSS problems in disguise.
 
 ## Tier 2: CRISP Theme (Dark Mode & Beyond)
 
@@ -160,7 +160,7 @@ document.documentElement.dataset.theme = savedTheme;
 
 ```html
 <!-- Pre-built theme toggle -->
-<button class="theme-toggle" aria-label="Toggle theme">
+<button class="theme-toggle" aria-label="Toggle theme" data-key="theme-toggle">
   <span class="icon-light">☀️</span>
   <span class="icon-dark">🌙</span>
   <span class="icon-auto">🌓</span>
@@ -171,7 +171,7 @@ document.documentElement.dataset.theme = savedTheme;
 
 ```html
 <!-- Not just dark/light -->
-<select class="theme-selector" aria-label="Choose theme">
+<select class="theme-selector" aria-label="Choose theme" data-key="theme-selector">
   <option value="light">Light</option>
   <option value="dark">Dark</option>
   <option value="high-contrast">High Contrast</option>
@@ -198,14 +198,14 @@ For complex applications, add Web Components:
 
 ### What Are CRISP Web Components?
 
-**NOT** another component library. They're HTML generators:
+**NOT** another blueprint library. They're HTML generators:
 
 ```html
 <!-- Write this -->
-<crisp-search placeholder="Search products..."></crisp-search>
+<crisp-search placeholder="Search products..." data-key="product-search"></crisp-search>
 
-<!-- Component generates this -->
-<form class="search as-cluster" role="search">
+<!-- Blueprint generates this -->
+<form class="search as-cluster" role="search" data-key="product-search">
   <input class="input" type="search" placeholder="Search products..." 
          aria-label="Search">
   <button class="button with-interaction" type="submit">
@@ -217,7 +217,7 @@ For complex applications, add Web Components:
 
 **The "Aha!"**: Web Components generate vanilla CRISP HTML. No shadow DOM mysteries. Full CSS customisation.
 
-### Enterprise Components Available
+### Enterprise Blueprints Available
 
 ```html
 <!-- Data table with sorting/filtering -->
@@ -225,27 +225,31 @@ For complex applications, add Web Components:
   data-source="/api/users" 
   columns="name,email,role"
   sortable
-  filterable>
+  filterable
+  data-key="users-table">
 </crisp-table>
 
 <!-- Auto-complete search -->
 <crisp-autocomplete 
   source="/api/search"
   min-chars="2"
-  debounce="300">
+  debounce="300"
+  data-key="search-autocomplete">
 </crisp-autocomplete>
 
 <!-- Date picker -->
 <crisp-datepicker 
   format="dd/mm/yyyy"
   min="2024-01-01"
-  max="2025-12-31">
+  max="2025-12-31"
+  data-key="date-picker">
 </crisp-datepicker>
 
 <!-- Rich text editor -->
 <crisp-editor 
   toolbar="basic"
-  max-length="5000">
+  max-length="5000"
+  data-key="content-editor">
 </crisp-editor>
 ```
 
@@ -254,12 +258,12 @@ For complex applications, add Web Components:
 ```html
 <!-- Components auto-translate -->
 <html lang="de">
-  <crisp-datepicker></crisp-datepicker>
+  <crisp-datepicker data-key="german-datepicker"></crisp-datepicker>
   <!-- Shows German month names, formats -->
 </html>
 
 <!-- Or explicit -->
-<crisp-table locale="fr-FR">
+<crisp-table locale="fr-FR" data-key="french-table">
   <!-- French interface -->
 </crisp-table>
 ```
@@ -328,8 +332,8 @@ The magic of progressive enhancement:
 
 ```html
 <!-- This HTML works in all tiers -->
-<article class="card as-stack with-shadow">
-  <h3 class="heading">Universal Component</h3>
+<article class="card as-stack with-shadow" data-key="universal-card">
+  <h3 class="heading">Universal Blueprint</h3>
   <p class="text">Works with CSS only.</p>
   <p class="text">Enhanced with themes.</p>
   <p class="text">Supercharged with components.</p>

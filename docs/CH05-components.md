@@ -290,9 +290,9 @@ Native, accessible modals:
     <h2 class="heading">Confirm Action</h2>
     <p class="text">Are you sure you want to continue?</p>
     <div class="as-cluster">
-      <button class="button" type="submit" value="cancel" data-key="confirm-cancel">Cancel</button>
+      <button class="button" type="submit" value="cancel">Cancel</button>
       <button class="button with-interaction" type="submit" value="confirm"
-              style="--bg: var(--color-primary);" data-key="confirm-submit">
+              style="--bg: var(--color-primary);">
         Confirm
       </button>
     </div>
@@ -350,19 +350,19 @@ The power comes from combining:
   <article class="card as-stack" data-key="card-1">
     <h3 class="heading">Card 1</h3>
     <p class="text">Content</p>
-    <button class="button" data-key="card-1-action">Action</button>
+    <button class="button">Action</button>
   </article>
   
   <article class="card as-stack" data-key="card-2">
     <h3 class="heading">Card 2</h3>
     <p class="text">Content</p>
-    <button class="button" data-key="card-2-action">Action</button>
+    <button class="button">Action</button>
   </article>
   
   <article class="card as-stack" data-key="card-3">
     <h3 class="heading">Card 3</h3>
     <p class="text">Content</p>
-    <button class="button" data-key="card-3-action">Action</button>
+    <button class="button">Action</button>
   </article>
 </div>
 ```
