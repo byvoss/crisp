@@ -29,6 +29,22 @@ The `src/` directory contains PROTOTYPE CODE ONLY. Do not update these files - t
   - [x] Review C11-C16 for Rule 27 compliance ✅ (2025-01-07)
   - [x] All documentation now follows Rule 27! ✅
 
+### Terminology Updates
+- [ ] Rename "Component Classes" to "Blueprint Classes" throughout all documentation
+  - [ ] Update CLAUDE-RULES.md
+  - [ ] Update all CH01-CH16 documentation files
+    - [x] CH02-solution.md ✅
+  - [ ] Update README.md
+  - [ ] Update any code comments
+  - Reason: "Blueprint" better conveys the concept of a complete template that can be extended
+
+### Pattern Updates
+- [ ] Add `data-key` attributes to examples throughout documentation
+  - [ ] Include in all interactive examples (buttons, forms, navigation)
+  - [ ] Show realistic naming patterns (e.g., "newsletter-signup-submit", "homepage-hero-main")
+  - [ ] Add note about programmatic access (not just testing)
+  - Reason: Provides stable anchors for automation, analytics, and JavaScript without coupling to CSS classes
+
 ### Documentation Site
 - [ ] Set up documentation site (GitHub Pages or similar)
 - [ ] Create examples directory with live demos
