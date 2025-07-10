@@ -26,7 +26,7 @@ CRISP has seven layout patterns. That's it. Seven patterns that handle every lay
 The most common layout - things on top of each other:
 
 ```html
-<div class="as-stack">
+<div class="as-stack" data-key="stacked-example">
   <h2 class="heading">Stacked Content</h2>
   <p class="text">Everything flows vertically.</p>
   <button class="button">With consistent spacing</button>
@@ -36,7 +36,7 @@ The most common layout - things on top of each other:
 Customise the gap:
 
 ```html
-<article class="card as-stack" style="--stack-gap: var(--space-2);">
+<article class="card as-stack" style="--stack-gap: var(--space-2);" data-key="spaced-card">
   <h3 class="heading">More Space</h3>
   <p class="text">Between elements.</p>
 </article>
@@ -59,7 +59,7 @@ Customise the gap:
 Things that belong together, side by side, wrapping at the end:
 
 ```html
-<div class="as-cluster" role="group" aria-label="Filter options">
+<div class="as-cluster" role="group" aria-label="Filter options" data-key="filter-options">
   <span class="badge" data-active="true">All</span>
   <span class="badge">Active</span>
   <span class="badge">Archived</span>
@@ -92,13 +92,13 @@ Not your grandfather's 12-column grid:
 
 ```html
 <!-- Auto-responsive grid -->
-<div class="as-grid" data-entries="6">
-  <article class="card">Item 1</article>
-  <article class="card">Item 2</article>
-  <article class="card">Item 3</article>
-  <article class="card">Item 4</article>
-  <article class="card">Item 5</article>
-  <article class="card">Item 6</article>
+<div class="as-grid" data-entries="6" data-key="product-grid">
+  <article class="card" data-key="product-1">Item 1</article>
+  <article class="card" data-key="product-2">Item 2</article>
+  <article class="card" data-key="product-3">Item 3</article>
+  <article class="card" data-key="product-4">Item 4</article>
+  <article class="card" data-key="product-5">Item 5</article>
+  <article class="card" data-key="product-6">Item 6</article>
 </div>
 ```
 
@@ -190,9 +190,9 @@ With custom max-width:
 Push things apart:
 
 ```html
-<header class="as-split">
+<header class="as-split" data-key="site-header">
   <h1 class="logo">CRISP</h1>
-  <nav class="navigation as-cluster" data-entries="3">
+  <nav class="navigation as-cluster" data-entries="3" data-key="header-nav">
     <a class="link" href="/about">About</a>
     <a class="link" href="/docs">Docs</a>
     <a class="link" href="/github">GitHub</a>
@@ -243,9 +243,9 @@ Works vertically too:
 Content with a sidebar, responsive by default:
 
 ```html
-<div class="as-sidebar">
+<div class="as-sidebar" data-key="docs-layout">
   <aside class="sidebar">
-    <nav class="navigation as-stack" data-entries="5">
+    <nav class="navigation as-stack" data-entries="5" data-key="docs-nav">
       <a class="link" href="#intro">Introduction</a>
       <a class="link" href="#features">Features</a>
       <a class="link" href="#usage">Usage</a>
@@ -330,10 +330,10 @@ The real power? Combining layouts:
 
 ```html
 <!-- Header with split layout inside container -->
-<header class="header as-container">
+<header class="header as-container" data-key="main-header">
   <div class="as-split">
-    <a class="logo" href="/">CRISP</a>
-    <nav class="navigation as-cluster" data-entries="4">
+    <a class="logo" href="/" data-key="logo">CRISP</a>
+    <nav class="navigation as-cluster" data-entries="4" data-key="main-nav">
       <a class="link" href="/features">Features</a>
       <a class="link" href="/docs">Docs</a>
       <a class="link" href="/examples">Examples</a>
@@ -343,12 +343,12 @@ The real power? Combining layouts:
 </header>
 
 <!-- Card grid inside centred container -->
-<main class="as-center">
-  <section class="as-stack">
+<main class="as-center" data-key="main-content">
+  <section class="as-stack" data-key="products-section">
     <h2 class="heading">Our Products</h2>
     
-    <div class="as-grid" data-entries="6">
-      <article class="card as-stack">
+    <div class="as-grid" data-entries="6" data-key="products-grid">
+      <article class="card as-stack" data-key="product-card-1">
         <h3 class="heading">Product 1</h3>
         <p class="text">Description</p>
         <a class="link" href="/products/1">Learn More</a>
@@ -374,7 +374,7 @@ Every layout is responsive by default:
 Need specific breakpoints? Use container queries:
 
 ```css
-/* Component-level responsiveness */
+/* Blueprint-level responsiveness */
 .card {
   container-type: inline-size;
 }
@@ -411,28 +411,28 @@ For complex apps, CRISP offers a global grid system:
 ### Holy Grail Layout
 
 ```html
-<body class="as-stack" style="--stack-gap: 0;">
-  <header class="header as-container">
+<body class="as-stack" style="--stack-gap: 0;" data-key="holy-grail-layout">
+  <header class="header as-container" data-key="layout-header">
     <h1>Header</h1>
   </header>
   
-  <div class="as-sidebar" style="min-height: 80vh;">
-    <nav class="sidebar as-container">
+  <div class="as-sidebar" style="min-height: 80vh;" data-key="layout-main">
+    <nav class="sidebar as-container" data-key="layout-nav">
       Navigation
     </nav>
     
-    <main class="content as-container">
+    <main class="content as-container" data-key="layout-content">
       <div class="as-center">
         Main content
       </div>
     </main>
     
-    <aside class="sidebar as-container">
+    <aside class="sidebar as-container" data-key="layout-aside">
       Sidebar
     </aside>
   </div>
   
-  <footer class="footer as-container">
+  <footer class="footer as-container" data-key="layout-footer">
     Footer
   </footer>
 </body>
@@ -441,22 +441,22 @@ For complex apps, CRISP offers a global grid system:
 ### Dashboard Layout
 
 ```html
-<div class="as-sidebar" style="--sidebar-width: 250px;">
-  <nav class="sidebar">
+<div class="as-sidebar" style="--sidebar-width: 250px;" data-key="dashboard-layout">
+  <nav class="sidebar" data-key="dashboard-nav">
     <!-- Fixed navigation -->
   </nav>
   
-  <main class="content as-stack">
-    <header class="as-split">
+  <main class="content as-stack" data-key="dashboard-main">
+    <header class="as-split" data-key="dashboard-header">
       <h1 class="heading">Dashboard</h1>
-      <button class="button">Settings</button>
+      <button class="button" data-key="settings-button">Settings</button>
     </header>
     
-    <div class="as-grid" data-entries="4">
+    <div class="as-grid" data-entries="4" data-key="metrics-grid">
       <!-- Metric cards -->
     </div>
     
-    <section class="as-stack">
+    <section class="as-stack" data-key="content-sections">
       <!-- Content sections -->
     </section>
   </main>
