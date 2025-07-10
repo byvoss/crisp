@@ -1,4 +1,4 @@
-# Chapter 5: Planting Patterns - Basic Components
+# Chapter 5: Planting Patterns - Blueprint Classes
 
 *Or: Everything you need, nothing you don't*
 
@@ -16,37 +16,44 @@ Remember in Chapter 4 when we mentioned a secret? Here it is:
 ```css
 /* In kernel layer (you never edit this) */
 @layer kernel {
-  @property --bg {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: transparent;
+  * {
+    @property --bg {
+      syntax: "<color>";
+      inherits: false;
+      initial-value: transparent;
+    }
+    
+    @property --size {
+      syntax: "<length>";
+      inherits: false;
+      initial-value: 1rem;
+    }
+    
+    /* ... all standard properties defined once ... */
   }
-  
-  @property --size {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: 1rem;
-  }
-  
-  /* ... hundreds more ... */
 }
 
-/* In your components (what you write) */
-.button {
-  background: var(--bg);     /* Already type-safe! */
-  font-size: var(--size);    /* No need to define @property */
+/* In your blueprints (what you write) */
+@layer crisp {
+  .button {
+    --bg: var(--color-neutral);    /* Just set values */
+    --size: 1rem;                  /* Kernel handles the rest */
+    
+    background: var(--bg);         /* Already type-safe! */
+    font-size: var(--size);        /* No @property needed */
+  }
 }
 ```
 
 **Important**: Never modify the kernel layer. It's infrastructure. If you break the kernel, everything breaks. Now let's use what it provides...
 
-## The Component Philosophy
+## The Blueprint Philosophy
 
 Remember building components with 47 modifier classes? CRISP has a different idea:
 
-**One class. Infinite variations. Zero complexity.**
+**One blueprint class. Infinite variations. Zero complexity.**
 
-Let's explore the essential components that power 90% of the web.
+Let's explore the essential blueprints that power 90% of the web.
 
 ## Interactive Elements
 
@@ -59,11 +66,12 @@ The workhorse of the web:
 <button class="button" type="button">Click me</button>
 
 <!-- With interaction feedback -->
-<button class="button with-interaction" type="button">Hover me</button>
+<button class="button with-interaction" type="button" data-key="cta-hover">Hover me</button>
 
 <!-- Customised -->
 <button class="button" type="button" 
-        style="--bg: var(--color-primary); --size: 1.25rem;">
+        style="--bg: var(--color-primary); --size: 1.25rem;"
+        data-key="primary-action">
   Primary Action
 </button>
 ```
@@ -71,52 +79,19 @@ The workhorse of the web:
 **The Magic**: Every button has hover states, active states, and focus styles built in. No extra classes needed.
 
 ```css
-/* Inside CRISP */
+/* Inside CRISP (kernel already defined these properties with defaults) */
 .button {
-  /* ALWAYS define with @property */
-  @property --bg {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: var(--color-neutral);
-  }
+  /* Override kernel defaults for button-specific values */
+  --bg: var(--color-neutral);
+  --color: white;
   
-  @property --color {
-    syntax: "<color>";
-    inherits: false;
-    initial-value: white;
-  }
-  
-  @property --size {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: 1rem;
-  }
-  
-  @property --weight {
-    syntax: "<integer>";
-    inherits: false;
-    initial-value: 500;
-  }
-  
-  @property --padding {
-    syntax: "<length>#";
-    inherits: false;
-    initial-value: var(--space-0-75) var(--space-1-5);
-  }
-  
-  @property --radius {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: var(--radius-md);
-  }
-  
-  /* Apply them */
+  /* Use the properties (kernel or overridden values) */
   background: var(--bg);
   color: var(--color);
-  font-size: var(--size);
-  font-weight: var(--weight);
-  padding: var(--padding);
-  border-radius: var(--radius);
+  font-size: var(--size);      /* Uses kernel default */
+  font-weight: var(--weight);  /* Uses kernel default */
+  padding: var(--padding);     /* Uses kernel default */
+  border-radius: var(--radius);/* Uses kernel default */
   
   /* Behaviour */
   cursor: pointer;
@@ -231,19 +206,19 @@ A modern toggle:
 
 ```html
 <!-- Basic switch -->
-<label class="switch">
+<label class="switch" data-key="notifications-toggle">
   <input type="checkbox" role="switch" aria-checked="false">
   <span>Enable notifications</span>
 </label>
 
 <!-- Checked state -->
-<label class="switch">
+<label class="switch" data-key="theme-toggle">
   <input type="checkbox" role="switch" aria-checked="true" checked>
   <span>Dark mode</span>
 </label>
 ```
 
-## Container Components
+## Container Blueprints
 
 ### The Card
 
@@ -251,13 +226,13 @@ Your content container:
 
 ```html
 <!-- Basic card -->
-<article class="card">
+<article class="card" data-key="simple-card">
   <h3 class="heading">Simple Card</h3>
   <p class="text">Just content in a box.</p>
 </article>
 
 <!-- Card with image -->
-<article class="card">
+<article class="card" data-key="media-card">
   <img class="media" src="..." alt="..." loading="lazy">
   <div class="content">
     <h3 class="heading">Media Card</h3>
@@ -266,7 +241,7 @@ Your content container:
 </article>
 
 <!-- Linked card -->
-<article class="card">
+<article class="card" data-key="clickable-card">
   <h3 class="heading">
     <a class="link" href="/details">Clickable Card</a>
   </h3>
@@ -279,7 +254,7 @@ Your content container:
 Semantic content container:
 
 ```html
-<article class="article" role="article">
+<article class="article" role="article" data-key="blog-article">
   <header>
     <h1 class="heading">Article Title</h1>
     <p class="meta">Published <time datetime="2025-01-15">15 January 2025</time></p>
@@ -298,7 +273,7 @@ Semantic content container:
 Page sections made simple:
 
 ```html
-<section class="section" aria-labelledby="features-title">
+<section class="section" aria-labelledby="features-title" data-key="features-section">
   <h2 class="heading" id="features-title">Features</h2>
   <p class="text">What makes us different.</p>
   <!-- Section content -->
@@ -310,14 +285,14 @@ Page sections made simple:
 Native, accessible modals:
 
 ```html
-<dialog class="dialog" id="confirm-dialog">
+<dialog class="dialog" id="confirm-dialog" data-key="confirm-modal">
   <form method="dialog" class="as-stack">
     <h2 class="heading">Confirm Action</h2>
     <p class="text">Are you sure you want to continue?</p>
     <div class="as-cluster">
-      <button class="button" type="submit" value="cancel">Cancel</button>
+      <button class="button" type="submit" value="cancel" data-key="confirm-cancel">Cancel</button>
       <button class="button with-interaction" type="submit" value="confirm"
-              style="--bg: var(--color-primary);">
+              style="--bg: var(--color-primary);" data-key="confirm-submit">
         Confirm
       </button>
     </div>
@@ -342,7 +317,7 @@ Native, accessible modals:
 Semantic media container:
 
 ```html
-<figure class="figure">
+<figure class="figure" data-key="sales-chart">
   <img class="media" src="chart.png" alt="Sales data for 2024">
   <figcaption class="caption">
     Sales increased by 23% year-over-year
@@ -355,7 +330,7 @@ Semantic media container:
 Quotes done right:
 
 ```html
-<blockquote class="blockquote" cite="https://example.com/article">
+<blockquote class="blockquote" cite="https://example.com/article" data-key="alan-kay-quote">
   <p class="text">
     "The best way to predict the future is to invent it."
   </p>
@@ -371,23 +346,23 @@ The power comes from combining:
 
 ```html
 <!-- Card grid -->
-<div class="as-grid" data-entries="3">
-  <article class="card as-stack">
+<div class="as-grid" data-entries="3" data-key="card-grid">
+  <article class="card as-stack" data-key="card-1">
     <h3 class="heading">Card 1</h3>
     <p class="text">Content</p>
-    <button class="button">Action</button>
+    <button class="button" data-key="card-1-action">Action</button>
   </article>
   
-  <article class="card as-stack">
+  <article class="card as-stack" data-key="card-2">
     <h3 class="heading">Card 2</h3>
     <p class="text">Content</p>
-    <button class="button">Action</button>
+    <button class="button" data-key="card-2-action">Action</button>
   </article>
   
-  <article class="card as-stack">
+  <article class="card as-stack" data-key="card-3">
     <h3 class="heading">Card 3</h3>
     <p class="text">Content</p>
-    <button class="button">Action</button>
+    <button class="button" data-key="card-3-action">Action</button>
   </article>
 </div>
 ```
@@ -398,20 +373,20 @@ Use data attributes and ARIA, not classes:
 
 ```html
 <!-- Visual variants -->
-<button class="button" data-variant="danger">Delete</button>
-<div class="alert" data-variant="success">Saved!</div>
+<button class="button" data-variant="danger" data-key="delete-button">Delete</button>
+<div class="alert" data-variant="success" data-key="success-alert">Saved!</div>
 
 <!-- Actual states -->
-<button class="button" aria-pressed="true">Active</button>
-<details class="disclosure" open>
+<button class="button" aria-pressed="true" data-key="toggle-button">Active</button>
+<details class="disclosure" open data-key="expandable-details">
   <summary>Expanded content</summary>
   <p>Details here</p>
 </details>
 ```
 
-## The Component Promise
+## The Blueprint Promise
 
-Every CRISP component:
+Every CRISP blueprint:
 - Works without JavaScript
 - Responds without media queries
 - Themes without modifications
@@ -427,9 +402,9 @@ You now have:
 - **Dialogs & Figures**: For special content
 - **State patterns**: For dynamic UI
 
-With these ~15 components, you can build almost anything.
+With these ~15 blueprints, you can build almost anything.
 
-**The "Aha!"**: You don't need 200 components. You need 15 good ones that compose well.
+**The "Aha!"**: You don't need 200 blueprints. You need 15 good ones that compose well.
 
 Ready to arrange them beautifully?
 
