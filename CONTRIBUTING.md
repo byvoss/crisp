@@ -100,6 +100,18 @@ Before submitting:
 - One class = one purpose
 - Mobile-first responsive design
 
+## Documentation Standards
+
+### Server-Side Examples
+
+All server-side code examples use **Rust/Tera** syntax as our standard (established in docs/CH05-blueprints.md). This reflects CRISP's preference for memory-safe, performant server architecture.
+
+When adding examples:
+- Use Rust/Tera template syntax
+- Follow the record pattern for data structures
+- Include comments explaining the server-side logic
+- Reference Chapter 5 for the complete pattern guide
+
 ## Questions?
 
 Open an issue for discussion before making major changes.

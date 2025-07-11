@@ -127,23 +127,28 @@ All CRISP editions include IDE autocomplete:
 - CSS class autocomplete
 - Custom property suggestions
 - Component documentation on hover
+- **Tera syntax highlighting** for template examples
 
 **JetBrains** (WebStorm, PhpStorm, etc.):
 - Built-in support via CSS definitions
 - Live documentation
+- **Tera template support** included
 
 **Zed** - Modern performance:
 - Native CRISP support via extensions
 - Lightning-fast autocomplete
+- **Tera syntax highlighting** built-in
 
 **Vim/Neovim** - For the cultured:
 - LSP support via `crisp-language-server`
 - coc-crisp for CoC users
 - Built-in via nvim-lsp
+- **Tera syntax via treesitter**
 
 **Other Editors**:
 - Sublime Text, Atom, etc. via LSP
 - CSS definition files included
+- **Tera highlighting** as Twig clone
 
 ## Quick Start
 

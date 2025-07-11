@@ -248,6 +248,15 @@ cp docs/C04-anatomy.md docs/revisions/C04-anatomy.rev1.md
 
 The `revisions/` folder maintains history without cluttering the main docs.
 
+### Server-Side Examples Standard
+
+**All server-side examples in CRISP documentation use Rust/Tera** as established in [Chapter 5: Blueprint Classes](./docs/CH05-blueprints.md). This decision reflects our preference for memory-safe, performant server architecture while acknowledging that PHP/Twig, Python/Jinja2, and Node.js/EJS are equally valid choices.
+
+When writing documentation:
+- Use Rust/Tera syntax for all server-side examples
+- Follow the record pattern for maintainable templates (see CH05)
+- Reference Chapter 5 when introducing server-side concepts in new sections
+
 ### Testing Guidelines
 - Check: `npm run lint`
 - Check: `npm run typecheck`

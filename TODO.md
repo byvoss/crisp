@@ -52,6 +52,27 @@ The `src/` directory contains PROTOTYPE CODE ONLY. Do not update these files - t
 - [ ] Create getting started guide
 - [ ] Add changelog/release notes template
 
+### IDE Extensions & Tooling
+- [ ] Create VS Code CRISP extension
+  - [ ] CSS class autocomplete for CRISP patterns
+  - [ ] Custom property IntelliSense
+  - [ ] Tera syntax highlighting (clone Twig grammar)
+  - [ ] Hover documentation for blueprints
+  - [ ] Record pattern snippets
+- [ ] Create JetBrains plugin
+  - [ ] Same features as VS Code
+  - [ ] Live templates for CRISP patterns
+- [ ] Create Zed extension
+  - [ ] Leverage Zed's performance for instant autocomplete
+  - [ ] Tera syntax support
+- [ ] Create Neovim plugin
+  - [ ] LSP integration
+  - [ ] Treesitter grammar for Tera
+  - [ ] coc-crisp for CoC users
+- [ ] Create Sublime Text package
+  - [ ] Basic syntax highlighting
+  - [ ] Completions file
+
 ### Documentation Structure Rewrite (HIGH PRIORITY)
 - [ ] Archive old docs to /archive folder ✓
 - [ ] Create TODO-DOCS-REBUILD.md guide ✓
