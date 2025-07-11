@@ -23,6 +23,20 @@ CRISP has seven layout patterns. That's it. Seven patterns that handle every lay
 
 ### 1. Stack (Vertical Flow)
 
+```
+┌─────────────────────┐
+│    Element 1        │
+└─────────────────────┘
+         ↓ gap
+┌─────────────────────┐
+│    Element 2        │
+└─────────────────────┘
+         ↓ gap
+┌─────────────────────┐
+│    Element 3        │
+└─────────────────────┘
+```
+
 The most common layout - things on top of each other:
 
 ```html
@@ -56,6 +70,16 @@ Customise the gap:
 
 ### 2. Cluster (Horizontal Group)
 
+```
+┌──────┐ ← gap → ┌──────┐ ← gap → ┌──────┐ ← gap → ┌──────┐ ↩ wrap
+│ Tag1 │         │ Tag2 │         │ Tag3 │         │ Tag4 │
+└──────┘         └──────┘         └──────┘         └──────┘
+                               ↓ gap ↓
+┌──────┐ ← gap → ┌──────┐
+│ Tag5 │         │ Tag6 │
+└──────┘         └──────┘
+```
+
 Things that belong together, side by side, wrapping at the end:
 
 ```html
@@ -87,6 +111,16 @@ With custom gap and alignment:
 ```
 
 ### 3. Grid (True Flexibility)
+
+```
+┌─────────┐ ← gap → ┌─────────┐ ← gap → ┌─────────┐
+│  Item 1 │         │  Item 2 │         │  Item 3 │
+└─────────┘         └─────────┘         └─────────┘
+                    ↓ gap ↓
+┌─────────┐ ← gap → ┌─────────┐ ← gap → ┌─────────┐
+│  Item 4 │         │  Item 5 │         │  Item 6 │
+└─────────┘         └─────────┘         └─────────┘
+```
 
 Not your grandfather's 12-column grid:
 
@@ -145,6 +179,21 @@ Explicit columns when needed:
 
 ### 4. Center (The Holy Grail)
 
+```
+┌─────────────────────────────────────────┐
+│                                         │
+│        ┌───────────────────┐            │
+│        │                   │            │
+│        │  Centered Content │            │
+│        │    (max-width)    │            │
+│        │                   │            │
+│        └───────────────────┘            │
+│                                         │
+└─────────────────────────────────────────┘
+          ↑                 ↑
+        auto              auto
+```
+
 Centre anything, without the tears:
 
 ```html
@@ -186,6 +235,14 @@ With custom max-width:
 ```
 
 ### 5. Split (Opposing Forces)
+
+```
+┌─────────────────────────────────────────┐
+│ ┌──────┐                      ┌──────┐ │
+│ │ Logo │  ← push apart →      │ Menu │ │
+│ └──────┘                      └──────┘ │
+└─────────────────────────────────────────┘
+```
 
 Push things apart:
 
@@ -239,6 +296,17 @@ Works vertically too:
 ```
 
 ### 6. Sidebar (Classic Layout)
+
+```
+┌──────────────────────────────────────────┐
+│ ┌──────────┐ ← gap → ┌────────────────┐ │
+│ │          │         │                │ │
+│ │ Sidebar  │         │  Main Content  │ │
+│ │  (250px) │         │     (1fr)      │ │
+│ │          │         │                │ │
+│ └──────────┘         └────────────────┘ │
+└──────────────────────────────────────────┘
+```
 
 Content with a sidebar, responsive by default:
 
@@ -301,6 +369,18 @@ Control the sidebar width:
 ```
 
 ### 7. Container (Responsive Padding)
+
+```
+┌─────────────────────────────────────────┐
+│ ← padding →                ← padding → │
+│                                         │
+│         [ Content Area ]                │
+│                                         │
+│ ← padding →                ← padding → │
+└─────────────────────────────────────────┘
+   ↑                                   ↑
+   responsive                     responsive
+```
 
 The wrapper that breathes:
 
