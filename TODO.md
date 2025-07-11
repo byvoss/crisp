@@ -51,6 +51,12 @@ The `src/` directory contains PROTOTYPE CODE ONLY. Do not update these files - t
 - [ ] Add component playground
 - [ ] Create getting started guide
 - [ ] Add changelog/release notes template
+- [ ] Create CH17-demo-shop.md - The Demo Scene Shop
+  - [ ] Showcase legendary 4KB/64KB demos as "products"
+  - [ ] Include .kkrieger as featured item
+  - [ ] Add CSS-only madness section (Minecraft, Excel games)
+  - [ ] Prove entire shop is smaller than one React component (~60KB total)
+  - [ ] Ultimate demonstration of CRISP efficiency meets demoscene philosophy
 
 ### IDE Extensions & Tooling
 - [ ] Create VS Code CRISP extension

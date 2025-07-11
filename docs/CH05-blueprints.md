@@ -16,6 +16,16 @@ Remember in Chapter 4 when we mentioned a secret kernel layer? Here it is:
 ```css
 /* In kernel layer (you never edit this) */
 @layer kernel {
+  :root {
+    /* Base font size - the ancient 16px standard from Netscape days
+       Still the browser default in 2025! Can be overridden for scaling */
+    --base-font-size: 16;
+    
+    /* The magic pixel-to-rem converter! 
+       1rem = browser's base font size (usually 16px unless user changed it) */
+    --rem: calc(1rem / var(--base-font-size));
+  }
+  
   * {
     @property --bg {
       syntax: "<color>";            /* Type-safe: only valid colors */
@@ -39,6 +49,13 @@ Remember in Chapter 4 when we mentioned a secret kernel layer? Here it is:
     --bg: var(--color-neutral);    /* Just set values */
     --size: 1rem;                  /* Kernel handles the rest */
     
+    /* Current best solution: */
+    width: calc(180 * var(--rem));  /* 180px → 11.25rem */
+    
+    /* Future dream syntax (when CSS evolves): */
+    /* --px-value: 180;
+    width: var(--size-in-rem); */
+    
     background: var(--bg);         /* Already type-safe! */
     font-size: var(--size);        /* No @property needed */
   }
@@ -46,6 +63,23 @@ Remember in Chapter 4 when we mentioned a secret kernel layer? Here it is:
 ```
 
 **Important**: Never modify the kernel layer! It's infrastructure. If you break the kernel, everything breaks. Now let's use what it provides...
+
+**Advanced Scaling**: Need larger or smaller UI? Override `--base-font-size` in the overrides layer:
+
+```css
+/* In overrides layer - scale entire UI */
+@layer overrides {
+  :root {
+    /* Larger UI: 18px base (112.5% scale) */
+    --base-font-size: 18;
+    
+    /* Or smaller UI: 14px base (87.5% scale) */
+    /* --base-font-size: 14; */
+  }
+}
+```
+
+This scales ALL rem-based values proportionally - spacing, sizes, everything!
 
 ## The Blueprint Philosophy
 

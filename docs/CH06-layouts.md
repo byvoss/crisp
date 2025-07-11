@@ -21,17 +21,19 @@ CRISP has seven layout patterns. That's it. Seven patterns that handle every lay
 
 ## The Magnificent Seven
 
+**A Note on Units**: Throughout CRISP, we avoid pixel values. When you see `calc(250 * var(--rem))`, this converts 250 design pixels to rem units (250px → 15.625rem). This ensures accessibility (users can scale their browser fonts) and consistency. The `--rem` converter is defined in the kernel layer as `calc(1rem / 16)`.
+
 ### 1. Stack (Vertical Flow)
 
 ```
 ┌─────────────────────┐
 │    Element 1        │
 └─────────────────────┘
-         ↓ gap
+         ↓ gap ↑
 ┌─────────────────────┐
 │    Element 2        │
 └─────────────────────┘
-         ↓ gap
+         ↓ gap ↑
 ┌─────────────────────┐
 │    Element 3        │
 └─────────────────────┘
@@ -74,7 +76,7 @@ Customise the gap:
 ┌──────┐ ← gap → ┌──────┐ ← gap → ┌──────┐ ← gap → ┌──────┐ ↩ wrap
 │ Tag1 │         │ Tag2 │         │ Tag3 │         │ Tag4 │
 └──────┘         └──────┘         └──────┘         └──────┘
-                               ↓ gap ↓
+↓ gap ↑          ↓ gap ↑          ↓ gap ↑          ↓ gap ↑
 ┌──────┐ ← gap → ┌──────┐
 │ Tag5 │         │ Tag6 │
 └──────┘         └──────┘
@@ -116,7 +118,7 @@ With custom gap and alignment:
 ┌─────────┐ ← gap → ┌─────────┐ ← gap → ┌─────────┐
 │  Item 1 │         │  Item 2 │         │  Item 3 │
 └─────────┘         └─────────┘         └─────────┘
-                    ↓ gap ↓
+↓ gap ↑             ↓ gap ↑             ↓ gap ↑
 ┌─────────┐ ← gap → ┌─────────┐ ← gap → ┌─────────┐
 │  Item 4 │         │  Item 5 │         │  Item 6 │
 └─────────┘         └─────────┘         └─────────┘
@@ -152,23 +154,10 @@ Explicit columns when needed:
 ```css
 /* Inside CRISP */
 .as-grid {
-  @property --grid-columns {
-    syntax: "<integer>";
-    inherits: false;
-    initial-value: 0; /* 0 means auto */
-  }
-  
-  @property --grid-gap {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: var(--space-1);
-  }
-  
-  @property --min-item-width {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: 250px;
-  }
+  /* Properties are type-safe from kernel layer:
+     --grid-columns (default: 0 = auto)
+     --grid-gap (default: var(--space-1))
+     --min-item-width (default: calc(250 * var(--rem))) = 15.625rem */
   
   display: grid;
   gap: var(--grid-gap);
@@ -180,18 +169,17 @@ Explicit columns when needed:
 ### 4. Center (The Holy Grail)
 
 ```
-┌─────────────────────────────────────────┐
-│                                         │
-│        ┌───────────────────┐            │
-│        │                   │            │
-│        │  Centered Content │            │
-│        │    (max-width)    │            │
-│        │                   │            │
-│        └───────────────────┘            │
-│                                         │
-└─────────────────────────────────────────┘
-          ↑                 ↑
-        auto              auto
+┌─────────────────────────────────────────────────┐
+│              ↑ align-content ↑                  │
+│         ┌─────────────────────────┐             │
+│         │                         │             │
+│    ←────│     Centered Content    │────→        │
+│         │       (max-width)       │             │
+│         │                         │             │
+│         └─────────────────────────┘             │
+│              ↓ align-content ↓                  │
+└─────────────────────────────────────────────────┘
+         ← justify-content: center →
 ```
 
 Centre anything, without the tears:
@@ -213,23 +201,28 @@ With custom max-width:
 </section>
 ```
 
+Full viewport centering:
+
+```html
+<div class="as-center" style="min-height: 100dvh;">
+  <div class="hero">
+    <h1>Perfectly Centered</h1>
+    <p>Both horizontally AND vertically!</p>
+  </div>
+</div>
+```
+
 ```css
 /* Inside CRISP */
 .as-center {
-  @property --max-width {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: 65ch;
-  }
+  /* Properties are type-safe from kernel layer:
+     --max-width (default: 65ch)
+     --center-padding (default: var(--space-1)) */
   
-  @property --center-padding {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: var(--space-1);
-  }
-  
-  max-width: var(--max-width);
-  margin-inline: auto;
+  /* True centering with Grid - both axes! */
+  display: grid;
+  place-content: center;
+  width: min(100%, var(--max-width));
   padding-inline: var(--center-padding);
 }
 ```
@@ -237,11 +230,11 @@ With custom max-width:
 ### 5. Split (Opposing Forces)
 
 ```
-┌─────────────────────────────────────────┐
-│ ┌──────┐                      ┌──────┐ │
-│ │ Logo │  ← push apart →      │ Menu │ │
-│ └──────┘                      └──────┘ │
-└─────────────────────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│ ┌────────┐                          ┌────────┐ │
+│ │  Logo  │ ←──── push apart ────→  │  Menu  │ │
+│ └────────┘                          └────────┘ │
+└─────────────────────────────────────────────────┘
 ```
 
 Push things apart:
@@ -260,7 +253,7 @@ Push things apart:
 Works vertically too:
 
 ```html
-<div class="card as-split" style="--direction: column; --min-height: 300px;">
+<div class="card as-split" style="--direction: column; --min-height: calc(300 * var(--rem));">
   <div class="content">Main content</div>
   <footer class="meta">Pushed to bottom</footer>
 </div>
@@ -269,23 +262,10 @@ Works vertically too:
 ```css
 /* Inside CRISP */
 .as-split {
-  @property --direction {
-    syntax: "row | column";
-    inherits: false;
-    initial-value: row;
-  }
-  
-  @property --split-gap {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: var(--space-1);
-  }
-  
-  @property --min-height {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: auto;
-  }
+  /* Properties are type-safe from kernel layer:
+     --direction (default: row)
+     --split-gap (default: var(--space-1))
+     --min-height (default: auto) */
   
   display: flex;
   flex-direction: var(--direction);
@@ -298,14 +278,14 @@ Works vertically too:
 ### 6. Sidebar (Classic Layout)
 
 ```
-┌──────────────────────────────────────────┐
-│ ┌──────────┐ ← gap → ┌────────────────┐ │
-│ │          │         │                │ │
-│ │ Sidebar  │         │  Main Content  │ │
-│ │  (250px) │         │     (1fr)      │ │
-│ │          │         │                │ │
-│ └──────────┘         └────────────────┘ │
-└──────────────────────────────────────────┘
+┌─────────────────────────────────────────────────┐
+│ ┌──────────────┐ ← gap → ┌───────────────────┐ │
+│ │              │         │                   │ │
+│ │   Sidebar    │         │   Main Content    │ │
+│ │  (15.625rem) │         │      (1fr)        │ │
+│ │              │         │                   │ │
+│ └──────────────┘         └───────────────────┘ │
+└─────────────────────────────────────────────────┘
 ```
 
 Content with a sidebar, responsive by default:
@@ -332,7 +312,7 @@ Content with a sidebar, responsive by default:
 Control the sidebar width:
 
 ```html
-<div class="as-sidebar" style="--sidebar-width: 300px;">
+<div class="as-sidebar" style="--sidebar-width: calc(300 * var(--rem));">
   <!-- Wider sidebar -->
 </div>
 ```
@@ -340,29 +320,16 @@ Control the sidebar width:
 ```css
 /* Inside CRISP */
 .as-sidebar {
-  @property --sidebar-width {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: 250px;
-  }
-  
-  @property --sidebar-gap {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: var(--space-2);
-  }
-  
-  @property --collapse-width {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: 768px;
-  }
+  /* Properties are type-safe from kernel layer:
+     --sidebar-width (default: calc(250 * var(--rem)))
+     --sidebar-gap (default: var(--space-2))
+     --collapse-width (default: calc(768 * var(--rem))) */
   
   display: grid;
   gap: var(--sidebar-gap);
   grid-template-columns: var(--sidebar-width) 1fr;
   
-  @media (max-width: var(--collapse-width)) {
+  @container (max-width: var(--collapse-width)) {
     grid-template-columns: 1fr;
   }
 }
@@ -371,15 +338,15 @@ Control the sidebar width:
 ### 7. Container (Responsive Padding)
 
 ```
-┌─────────────────────────────────────────┐
-│ ← padding →                ← padding → │
-│                                         │
-│         [ Content Area ]                │
-│                                         │
-│ ← padding →                ← padding → │
-└─────────────────────────────────────────┘
-   ↑                                   ↑
-   responsive                     responsive
+┌─────────────────────────────────────────────────┐
+│→ padding →┌─────────────────────┐← padding ←│
+│           │                     │           │
+│           │    Content Area     │           │
+│           │                     │           │
+│→ padding →└─────────────────────┘← padding ←│
+└─────────────────────────────────────────────────┘
+      ↑                                 ↑
+  responsive                       responsive
 ```
 
 The wrapper that breathes:
@@ -394,11 +361,8 @@ The wrapper that breathes:
 ```css
 /* Inside CRISP */
 .as-container {
-  @property --container-padding {
-    syntax: "<length>";
-    inherits: false;
-    initial-value: clamp(1rem, 5vw, 3rem);
-  }
+  /* Properties are type-safe from kernel layer:
+     --container-padding (default: clamp(1rem, 5vw, 3rem)) */
   
   padding-inline: var(--container-padding);
 }
@@ -459,7 +423,7 @@ Need specific breakpoints? Use container queries:
   container-type: inline-size;
 }
 
-@container (min-width: 400px) {
+@container (min-width: calc(400 * var(--rem))) {
   .card {
     --layout: horizontal;
   }
@@ -496,15 +460,13 @@ For complex apps, CRISP offers a global grid system:
     <h1>Header</h1>
   </header>
   
-  <div class="as-sidebar" style="min-height: 80vh;" data-key="layout-main">
-    <nav class="sidebar as-container" data-key="layout-nav">
+  <div class="as-grid" style="--grid-columns: 3; --grid-gap: 0; min-height: 80dvh;" data-key="layout-main">
+    <nav class="navigation as-container" data-key="layout-nav">
       Navigation
     </nav>
     
     <main class="content as-container" data-key="layout-content">
-      <div class="as-center">
-        Main content
-      </div>
+      Main content
     </main>
     
     <aside class="sidebar as-container" data-key="layout-aside">
@@ -521,7 +483,7 @@ For complex apps, CRISP offers a global grid system:
 ### Dashboard Layout
 
 ```html
-<div class="as-sidebar" style="--sidebar-width: 250px;" data-key="dashboard-layout">
+<div class="as-sidebar" style="--sidebar-width: calc(250 * var(--rem));" data-key="dashboard-layout">
   <nav class="sidebar" data-key="dashboard-nav">
     <!-- Fixed navigation -->
   </nav>
@@ -550,6 +512,7 @@ For complex apps, CRISP offers a global grid system:
 3. **Compose for complexity** - nest simple layouts
 4. **Data attributes for configuration**, not classes
 5. **Let CSS be intelligent** - it knows more than you think
+6. **All containers that center are grids** - modern CSS, no margins
 
 ## What You Don't Need
 
@@ -558,6 +521,7 @@ For complex apps, CRISP offers a global grid system:
 - Margin/padding utilities (`m-4`, `p-8`)
 - Flexbox utilities (`flex`, `items-center`)
 - Grid utilities (`grid-cols-3`)
+- `margin: auto` for centering (use Grid!)
 
 It's all built into the seven patterns.
 

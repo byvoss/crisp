@@ -28,6 +28,7 @@ This document contains ALL mandatory rules for CRISP development. Every rule MUS
 - [Rule 15: @property for All Tokens](#rule-15-property-for-all-tokens)
 - [Rule 16: Layout Token Patterns](#rule-16-layout-token-patterns)
 - [Rule 17: Theme vs Variant Distinction](#rule-17-theme-vs-variant-distinction)
+- [Rule 29: Modern CSS Units Only](#rule-29-modern-units)
 
 ### 🔵 PROGRESSIVE ENHANCEMENT (Modern Features)
 - [Rule 18: CSS :has() for Smart Components](#rule-18-css-has-for-smart-components)
@@ -865,6 +866,128 @@ Remember: We're not mocking - we're showing the honest difference. CRISP should 
 
 ---
 
+
+## <a id="rule-29-modern-units"></a>Rule 29: Modern CSS Units Only - Future-Proof from Day One
+
+**🚀 CRISP uses ONLY modern, future-proof CSS units. No legacy units allowed.**
+
+### Viewport Units - Dynamic by Default:
+```css
+/* ❌ NEVER use static viewport units */
+.hero {
+  height: 100vh;  /* Wrong - doesn't account for mobile UI */
+  width: 100vw;   /* Wrong - can cause scrollbars */
+}
+
+/* ✅ ALWAYS use dynamic viewport units */
+.hero {
+  height: 100dvh;  /* Dynamic - respects mobile browser UI */
+  width: 100dvw;   /* Dynamic - accounts for scrollbars */
+  
+  /* Or use specific variants when needed */
+  min-height: 100svh;  /* Small viewport (URL bar visible) */
+  max-height: 100lvh;  /* Large viewport (URL bar hidden) */
+}
+```
+
+### Logical Properties - Writing Mode Aware:
+```css
+/* ❌ NEVER use physical properties */
+.card {
+  margin-left: 1rem;
+  margin-right: 1rem;
+  width: 300px;
+  height: 200px;
+  padding-top: 1rem;
+}
+
+/* ✅ ALWAYS use logical properties */
+.card {
+  margin-inline: 1rem;      /* Replaces left/right */
+  inline-size: 300px;       /* Replaces width */
+  block-size: 200px;        /* Replaces height */
+  padding-block-start: 1rem; /* Replaces top */
+}
+```
+
+### Responsive Values - Built-in Flexibility:
+```css
+/* ❌ NEVER use fixed values without constraints */
+.container {
+  width: 1200px;
+  font-size: 18px;
+  gap: 20px;
+}
+
+/* ✅ ALWAYS use min/max/clamp for responsive design */
+.container {
+  inline-size: min(100% - 2rem, 1200px);
+  font-size: clamp(1rem, 2vw + 0.5rem, 1.25rem);
+  gap: clamp(1rem, 3vw, 2rem);
+}
+```
+
+### Accessibility Units - User Preference Respected:
+```css
+/* ❌ NEVER use pixels for text or spacing */
+.text {
+  font-size: 16px;
+  line-height: 24px;
+  margin-bottom: 20px;
+}
+
+/* ✅ ALWAYS use relative units */
+.text {
+  font-size: 1rem;        /* Respects user font size */
+  line-height: 1.5;       /* Unitless for inheritance */
+  margin-block-end: 1.25rem;  /* Scales with font size */
+}
+```
+
+### Container Query Units - Context Aware:
+```css
+/* ✅ Use container units inside containers */
+@container (min-width: 300px) {
+  .card-content {
+    padding: 5cqw;          /* 5% of container width */
+    font-size: clamp(0.875rem, 4cqh, 1.125rem);  /* Responsive to container height */
+  }
+}
+```
+
+### Complete Modern Units Reference:
+
+**Viewport Units:**
+- `dvh`, `dvw` - Dynamic viewport (ALWAYS prefer these)
+- `svh`, `svw` - Small viewport (mobile with UI shown)
+- `lvh`, `lvw` - Large viewport (mobile with UI hidden)
+- `dvmin`, `dvmax` - Dynamic viewport minimum/maximum
+
+**Logical Properties:**
+- `inline-size` / `block-size` (not width/height)
+- `margin-inline` / `margin-block` (not margin-left/right/top/bottom)
+- `padding-inline-start` / `padding-block-end` (not padding-left/top)
+- `inset-inline` / `inset-block` (not left/right/top/bottom)
+- `border-inline-end` (not border-right)
+
+**Container Units:**
+- `cqw`, `cqh` - Container query width/height
+- `cqi`, `cqb` - Container query inline/block
+- `cqmin`, `cqmax` - Container query minimum/maximum
+
+**Mathematical Functions:**
+- `min()`, `max()`, `clamp()` - ALWAYS use for constraints
+- `calc()` - For calculations
+- `round()`, `mod()`, `rem()` - For advanced math
+
+### Philosophy:
+- Future-proof from day one
+- Respect user preferences always
+- Support all writing modes
+- Responsive by default
+- No legacy baggage
+
+CRISP doesn't just follow trends - it sets the standard for modern CSS.
 
 ---
 
