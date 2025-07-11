@@ -11,10 +11,10 @@ CRISP is both a CSS methodology and a framework that solves the complexity crisi
 ### 🚀 Quick Start
 ```html
 <!-- The CRISP way: Clear, semantic, maintainable -->
-<article class="card as-stack with-shadow">
+<article class="card as-stack with-shadow" data-key="welcome-card">
   <h2 class="heading">Hello CRISP</h2>
-  <p class="text">One component, one layout, minimal properties.</p>
-  <button class="button with-interaction" 
+  <p class="text">One blueprint, one layout, minimal properties.</p>
+  <button class="button with-interaction" data-key="cta-button"
     style="--bg: var(--color-primary);">
     Get Started
   </button>
@@ -23,60 +23,60 @@ CRISP is both a CSS methodology and a framework that solves the complexity crisi
 
 ### 📚 Complete Documentation
 
-The documentation is structured as a journey from problem to solution:
+The documentation is structured as a journey from discovery to mastery:
 
-#### Part I: Understanding the Problem
-- [**Chapter 1: Why Your CSS Makes You Cry**](./C01-the-problem.md)  
-  The mess we've made with BEM, Atomic CSS, and other methodologies
+#### Part I: The Journey Begins
+- [**Chapter 1: The Great CSS Conspiracy**](./CH01-discovery.md)  
+  Why your CSS makes you question your life choices (and it's not your fault)
 
-- [**Chapter 2: CRISP - CSS That Actually Makes Sense**](./C02-the-solution.md)  
-  How CRISP solves these problems with radical simplicity
+- [**Chapter 2: The Sacred Formula**](./CH02-solution.md)  
+  CRISP's 1+2+3 formula - the most important equation you'll learn this year
 
-#### Part II: Core Principles
-- [**Chapter 3: The Five Commandments of CRISP**](./C03-principles.md)  
-  The sacred rules that keep your CSS sane
+- [**Chapter 3: Your First CRISP Garden**](./CH03-quickstart.md)  
+  10 minutes to your first "aha!" moment
 
-- [**Chapter 4: Anatomy of a CRISP Component**](./C04-anatomy.md)  
-  Understanding the structure and formula
+#### Part II: Core Architecture
+- [**Chapter 4: Garden Beds - The Three-Layer Architecture**](./CH04-layers.md)  
+  CSS @layer - the killer feature that changes everything
 
-- [**Chapter 5: Design Tokens - Your Single Source of Truth**](./C05-tokens.md)  
-  The variable system that powers everything
+- [**Chapter 5: Planting Patterns - Blueprint Classes**](./CH05-blueprints.md)  
+  The complete component system built on semantic HTML
 
-#### Part III: Building Blocks
-- [**Chapter 6: Layouts That Don't Make You Think**](./C06-layouts.md)  
-  Six layout patterns that solve 95% of your needs
+- [**Chapter 6: Growing Arrangements - Layout Patterns**](./CH06-layouts.md)  
+  Six patterns that solve 95% of layout needs
 
-- [**Chapter 7: The Building Blocks**](./C07-elements.md)  
-  Interactive elements done right
+#### Part III: Advanced Concepts
+- [**Chapter 7: Progressive Growth**](./CH07-progressive.md)  
+  The three-tier enhancement strategy
 
-- [**Chapter 8: Boxes That Contain Things**](./C08-containers.md)  
-  Content containers without the complexity
+- [**Chapter 8: Accessibility Garden**](./CH08-accessibility.md)  
+  Making the web work for everyone (it's not optional)
 
-- [**Chapter 9: Finding Your Way**](./C09-navigation.md)  
-  Navigation patterns that actually work
+- [**Chapter 9: The Garden's Foundation - Token System**](./CH09-tokens.md)  
+  The complete design token architecture
 
-- [**Chapter 10: Forms That Users Actually Complete**](./C10-forms.md)  
-  Forms without the trauma
+- [**Chapter 10: Growing with Modern CSS**](./CH10-modern-css.md)  
+  Container queries, :has(), and other magic
 
-- [**Chapter 11: Talking Back to Users**](./C11-feedback.md)  
-  Feedback and communication patterns
+#### Part IV: Implementation & Scale
+- [**Chapter 11: The Great Migration**](./CH11-migration.md)  
+  Escape your CSS prison without losing your mind
 
-#### Part IV: Advanced Topics
-- [**Chapter 12: From CSS to Enterprise Without Changing HTML**](./C12-progressive.md)  
-  Progressive enhancement from 50KB to full framework
+- [**Chapter 12: Component Encyclopedia**](./CH12-reference.md)  
+  Every blueprint, layout, and pattern documented
 
-- [**Chapter 13: Common Patterns & Clever Tricks**](./C13-patterns.md)  
-  Ready-to-use solutions for common problems
+- [**Chapter 13: Rare Specimens - Advanced Patterns**](./CH13-advanced.md)  
+  The patterns that make senior developers smile
 
-- [**Chapter 14: Escaping Your Legacy CSS Prison**](./C14-migration.md)  
-  How to migrate without losing your mind
+- [**Chapter 14: Enterprise Garden - Scale & Architecture**](./CH14-enterprise.md)  
+  From prototype to production without changing approach
 
-#### Part V: Reference
-- [**Chapter 15: Component Reference**](./C15-component-reference.md)  
-  Complete encyclopaedia of all components
+#### Part V: Mastery
+- [**Chapter 15: Master Gardener - Best Practices**](./CH15-best-practices.md)  
+  The wisdom gained from a thousand projects
 
-- [**Chapter 16: CRISP Cheatsheet**](./C16-cheatsheet.md)  
-  Everything you need on one page
+- [**Chapter 16: The Complete Garden Guide - Cheat Sheet**](./CH16-cheatsheet.md)  
+  Everything CRISP on one page
 
 ### 🎯 For Different Audiences
 
@@ -95,14 +95,14 @@ Chapters 5-11 cover all components in detail
 ## Core Principles at a Glance
 
 1. **Semantic HTML First** - Use real elements, not div soup
-2. **Rule of Three** - 1 component + 1 layout + max 3 properties
+2. **The Sacred Formula** - 1 blueprint + max 2 layouts + max 3 properties (1+2+3)
 3. **Define/Use Pattern** - Define defaults, then use the tokens
-4. **Data Attributes for Context** - Keep CSS for layout only
-5. **Embrace the Cascade** - Work with CSS, not against it
+4. **Data Attributes for Context** - Keep CSS for styling only
+5. **Embrace the Cascade** - Work with CSS @layer, not against specificity
 
 ### Key Patterns
 
-**Custom Properties Without Prefixes** (for elements):
+**Custom Properties Without Prefixes** (for blueprints):
 ```css
 .button {
   /* 1. Define defaults */
@@ -147,7 +147,7 @@ See [CONTRIBUTING.md](../CONTRIBUTING.md) for guidelines.
 - 🏠 [Main README](../README.md)
 - 📝 [License](../LICENSE)
 - 🤝 [Contributing](../CONTRIBUTING.md)
-- 🎯 [Cheatsheet](./C16-cheatsheet.md)
+- 🎯 [Cheatsheet](./CH16-cheatsheet.md)
 
 ---
 

@@ -20,60 +20,56 @@ Later, you need to override it:
 }
 ```
 
-But it doesn't work. So you try:
+But it doesn't work. So, after many turns you try to focus more precisely:
 
 ```css
-.container .special-button {
+body.product-page .order-container .special-button {
   background: red !important;
 }
 ```
 
-Still fighting? Welcome to specificity hell. But what if I told you this problem was solved in 2022?
+Still fighting? Welcome to specificity hell. But what if I told you this problem can be solved with one simple statement?
 
-## Enter CSS @layer
+## CSS @layer enters the stage
 
-CSS layers are like transparent sheets stacked on top of each other:
-- Bottom sheet: Framework styles (complete definitions)
-- Middle sheet: Your customisations (only what you want to change)
-- Top sheet: Emergency overrides (final adjustments)
-- Invisible top layer: Inline styles (always win!)
-
-When you look down through the stack, you see the topmost definition for each property.
-
-The top always wins. No specificity calculation. No !important. Just layers.
-
+CSS layers are purely powerful. They are like transparent sheets stacked on top of each other.
 **The Complete Truth**: There's actually a hierarchy:
 1. Inline styles (style="...") - Always win
-2. !important in layers - Nuclear option !EVIL!
-3. @layer overrides - Your customisations
-4. @layer bridge - Migrations - place sublayers in there for every case you have to bridge
-5. @layer crisp - Framework blueprints
-6. @layer kernel - Framework Foundation (hidden)
+2. @layer overrides - Your customisations
+3. @layer bridge - Migrations (place sublayers in there for every case you have to bridge)
+4. @layer crisp - Framework blueprints
+5. @layer kernel - Framework Foundation (hidden)
 
-But for daily work, you only think about the three main layers.
+The top layer always wins and inherits everything from the layers below. It's true inheritance through the layers. No specificity calculation. No !important shit move. Just layers.
+
+When you look down through the stack, you see the topmost definition for each property. But for daily work, CRISP keeps it simple - you only have to think about the three main layers:
 
 ## The CRISP Three-Layer System
 
-CRISP uses exactly three open layers (and one internal):
+CRISP uses exactly three open layers:
 
 ```css
-@layer (kernel) crisp, bridge, overrides;
+@layer crisp, bridge, overrides;
 ```
 
 That's it. One line that changes everything.
 
-**The open Secret**: There's actually a fourth layer called `kernel` that comes before everything. But you never touch it - it's the engine room that defines all the generic properties like `--bg`, `--color`, `--size`, `--padding` with their type definitions and defaults. Every blueprint uses these kernel properties. We'll reveal this secret fully when you're ready (Chapter 5).
+**The open Secret**: But what about the kernel layer, you ask? There's actually a fourth layer that sits beneath all others. You never touch it - it's the engine room that defines all the generic properties like `--bg`, `--color`, `--size`, `--padding` with their strict type definitions and defaults. Every blueprint uses these kernel properties. We'll reveal this secret fully when you're ready (Chapter 5).
 
 ### Layer 1: CRISP Framework
 
+This is where all CRISP's blueprints live. It's the foundation - battle-tested, accessible, and responsive by default. Every blueprint here follows the two-step pattern: define properties, then apply them. This separation is what makes CRISP so flexible.
+
 ```css
 @layer crisp {
-  /* All CRISP styles live here */
+  /* All CRISP blueprints live here */
   .button {
+    /* Step 1: Define blueprint defaults */
     --bg: var(--color-neutral);
     --color: white;
     --padding: var(--space-0-75) var(--space-1-5);
     
+    /* Step 2: Apply the properties */
     background: var(--bg);
     color: var(--color);
     padding: var(--padding);
@@ -91,56 +87,56 @@ That's it. One line that changes everything.
 
 ### Layer 2: Bridge (Your Playground)
 
-```css
-@layer bridge {
-  /* Your project-specific code */
-  /* Migration helpers */
-  /* Temporary fixes */
-  /* Third-party integrations */
-}
-```
+The bridge layer is your transition space. Empty by default, it's where you handle the messy reality of web development. Think of it as your workshop where you can safely tinker without touching the framework or your final styles.
 
-Example sublayers for organization:
-
-```css
-@layer bridge {
-  /* Organize different concerns in sublayers */
-  @layer bridge.bootstrap {
-    /* All Bootstrap compatibility mappings */
-    @import "bootstrap-compat.css";
-  }
-  
-  @layer bridge.our-old-logic {
-    /* Legacy code that needs gradual migration */
-    @import "legacy-components.css";
-  }
-  
-  @layer bridge.vendor {
-    /* Third-party libraries */
-    @import "datepicker.css";
-    @import "charts.css";
-  }
-  
-  @layer bridge.experiments {
-    /* New features being tested */
-    .card { --experimental-glow: 0 0 20px var(--color-primary); }
-  }
-}
-```
-
-The bridge layer is empty by default. It's your space for:
+It's your space for:
 - Migrating from other frameworks
 - Adding project-specific patterns
 - Integrating third-party code
 - Temporary workarounds
 
-### Layer 3: Overrides (Always Win)
+Example sublayers for organization:
+
+```css
+@layer bridge {
+  /* Organize migrations and temporary code into sublayers.
+     As each migration completes, you can toggle off its sublayer
+     without affecting the others - clean, controlled cleanup! */
+
+  /* All Bootstrap compatibility mappings */
+  @layer bridge.bootstrap {
+    @import "bootstrap-compat.css";
+  }
+  
+  /* Legacy code that needs gradual migration */
+  @layer bridge.our-old-logic {
+    @import "legacy-components.css";
+  }
+  
+  /* Third-party libraries */
+  @layer bridge.vendor {
+    @import "datepicker.css";
+    @import "charts.css";
+  }
+  
+  /* New features being tested */
+  @layer bridge.experiments {
+    .card { --experimental-glow: 0 0 20px var(--color-primary); }
+  }
+}
+```
+
+### Layer 3: Overrides (Your Final Say)
+
+This is your domain. The final word in the CSS layer system. Whatever you put here wins over @crisp and @bridge layers. It's where your brand lives, where you make CRISP truly yours. No specificity wars between stylesheets, no !important chains - just pure, predictable layer ordering. The only way to be more explicit is to use inline styles with CRISP kernel properties (e.g., `style="--bg: red;"`).
 
 ```css
 @layer overrides {
-  /* Your customisations always win */
+  /* Your customisations win over all layers below. 
+     The beauty: You only override what you need - all other 
+     properties inherit through from the layers beneath. */
   .button {
-    --bg: hotpink; /* This wins. Always. */
+    --bg: hotpink; /* This wins. */
   }
 }
 ```
@@ -153,7 +149,7 @@ Watch this:
 /* The layer order */
 @layer crisp, bridge, overrides;
 
-/* CRISP defines a button */
+/* CRISP defines a button blueprint */
 @layer crisp {
   .button {
     background: blue;
@@ -169,7 +165,15 @@ Watch this:
 }
 ```
 
-**The "Aha!"**: Your `.button` override wins even though CRISP's selector is identical. No specificity fight. The override layer always wins.
+Or use inline styles for ultimate control:
+
+```html 
+<button class="button" style="--bg: green;">
+  I'm green, no matter what!
+</button>
+```
+
+**The "Aha!"**: Your `.button` override wins even though CRISP's selector is identical. No specificity fight. The override layer always wins (unless you use inline styles, which beat everything).
 
 ## Real-World Example: Migration
 
@@ -179,67 +183,47 @@ Let's say you're migrating from Bootstrap:
 @layer crisp, bridge, overrides;
 
 @layer bridge {
-  /* Map Bootstrap classes to CRISP */
-  .btn {
-    @extend .button;
+  /* Use sublayers for organized migration */
+  @layer bridge.bootstrap {
+    /* Map Bootstrap classes to CRISP */
+    .btn {
+      @extend .button;
+    }
+    
+    .btn-primary {
+      --bg: var(--color-primary);
+    }
+    
+    .container {
+      @extend .as-container;
+    }
+    
+    .row {
+      @extend .as-grid;
+    }
   }
   
-  .btn-primary {
-    --bg: var(--color-primary);
-  }
-  
-  .container {
-    @extend .as-container;
-  }
-  
-  .row {
-    @extend .as-grid;
-  }
-}
-```
-
-Your Bootstrap HTML keeps working while you migrate. When ready, remove the bridge mappings.
-
-## Advanced Bridge Patterns
-
-The bridge layer can have sub-layers:
-
-```css
-@layer crisp, bridge, overrides;
-
-@layer bridge {
-  /* Define sub-layers for organisation */
-  @layer migrations, vendor, experiments;
-  
-  @layer migrations {
-    /* Bootstrap mappings */
-    .btn { @extend .button; }
-  }
-  
-  @layer vendor {
-    /* Third-party styles */
-    @import "some-datepicker.css";
-  }
-  
-  @layer experiments {
-    /* Try new ideas safely */
-    .card {
-      --experimental-shadow: 0 0 20px rainbow;
+  @layer bridge.our-old-logic {
+    /* Your legacy styles */
+    .old-header {
+      /* temporary compatibility styles */
     }
   }
 }
 ```
 
-You can even toggle sub-layers:
+Your Bootstrap HTML keeps working while you migrate. When ready, simply remove the `bridge.bootstrap` sublayer - the rest stays untouched. Clean, instant, no side effects.
+
+You can even toggle sub-layers during development:
 
 ```css
 /* All bridge features active */
 @layer crisp, bridge, overrides;
 
-/* Only migrations active */
-@layer crisp, bridge.migrations, overrides;
+/* Only Bootstrap mappings active */
+@layer crisp, bridge.bootstrap, overrides;
 
-/* Bridge off completely */
+/* Bridge off completely (migration complete!) */
 @layer crisp, overrides;
 ```
 
@@ -282,7 +266,7 @@ Think of it like this:
 
 1. **CRISP layer**: The foundation. Well-tested, reliable defaults.
 2. **Bridge layer**: Your workspace. Experiment, migrate, integrate.
-3. **Override layer**: Your final say. Always wins.
+3. **Override layer**: Your final say. Always wins as layer.
 
 ```css
 /* Your entire cascade control */
@@ -339,7 +323,7 @@ Think of it like this:
   /* Third-party component fix */
   .some-broken-widget {
     /* Your fix always wins */
-    position: relative !important; /* Yes, you can still use !important */
+    position: relative !important; /* Yes, you can still use !important, even though it remains a shit move */
   }
 }
 ```
@@ -350,7 +334,7 @@ With three layers:
 - Your overrides always win
 - No specificity calculations
 - No source order juggling
-- No !important wars (unless you want them)
+- No !important wars (unless you really want the hassle)
 - Clean separation of concerns
 
 ## Try It Yourself
@@ -358,12 +342,13 @@ With three layers:
 ```html
 <style>
   /* Setup layers */
-  @layer framework, overrides;
+  @layer crisp, bridge, overrides;
   
   /* Framework styles */
-  @layer framework {
+  @layer crisp {
     .demo {
-      background: blue;
+      --bg: blue;
+      background: var(--bg);
       color: white;
       padding: 2rem;
     }
@@ -372,15 +357,21 @@ With three layers:
   /* Your overrides */
   @layer overrides {
     .demo {
-      background: hotpink; /* Winner! */
+      --bg: hotpink; /* Override the property */
     }
   }
 </style>
 
-<div class="demo" data-key="layer-example">
-  I'm hotpink, not blue!
+<div class="demo" data-key="layer-example-1">
+  I'm hotpink (override layer wins)
+</div>
+
+<div class="demo" data-key="layer-example-2" style="--bg: green;">
+  I'm green (inline style wins)
 </div>
 ```
+
+**The key insight**: Always override custom properties, not direct values. If you override with `background: hotpink` instead of `--bg: hotpink`, you break the variable chain and inline styles can't override anymore.
 
 ## The Complete Power
 
@@ -399,16 +390,18 @@ Currently fighting specificity? Here's your migration:
 
 ```css
 /* Step 1: Add layers */
-@layer old-styles, crisp, overrides;
+@layer crisp, bridge, overrides;
 
-/* Step 2: Import everything */
-@layer old-styles {
-  @import "your-mess.css";
+/* Step 2: Import old styles as bridge sublayer */
+@layer bridge {
+  @layer bridge.legacy {
+    @import "your-mess.css";
+  }
 }
 
-/* Step 3: Start fresh in overrides */
+/* Step 3: Override specific CRISP blueprints as needed */
 @layer overrides {
-  /* Your new styles always win */
+  /* Only your brand customizations */
 }
 
 /* Step 4: Migrate gradually */
@@ -428,4 +421,4 @@ Just predictable, manageable styles.
 
 Ready to see what you can build with this foundation?
 
-→ Continue to [Chapter 5: Planting Patterns - Blueprint Classes](./CH05-components.md)
+→ Continue to [Chapter 5: Planting Patterns - Blueprint Classes](./CH05-blueprints.md)
