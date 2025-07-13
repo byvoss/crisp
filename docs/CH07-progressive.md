@@ -14,14 +14,20 @@ Let's explore each tier.
 
 ## Tier 1: CRISP (The CSS-Only Wonder)
 
-What you get with just CSS:
+**Package**: `@byvoss/crisp`  
+**Size**: ~50KB  
+**CDN**: `https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css`
+
+**What it does**: Complete CSS framework with all blueprints, layouts, and design system. Includes CSS-only interactivity (accordions, tabs, dialogs) and automatic responsive behavior. Zero JavaScript required.
+
+**When to use**: Static sites, blogs, documentation, landing pages, prototypes, any project that values simplicity and performance over complex state management.
 
 ```html
 <!-- Just one link tag -->
 <link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css">
 ```
 
-That's it. You now have:
+**What you get**:
 
 ### Interactive Blueprints Without JavaScript
 
@@ -126,7 +132,15 @@ That's it. You now have:
 
 ## Tier 2: CRISP Theme (Dark Mode & Beyond)
 
-Add theme switching with a tiny JavaScript module:
+**Package**: `@byvoss/crisp-theme`  
+**Size**: ~60KB (includes CRISP + 10KB theme system)  
+**CDN**: Base CSS + `https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js`
+
+**What it does**: Adds automatic theme detection, smooth transitions, and persistent user preferences. Includes light/dark/auto modes with system preference sync. Still works without JavaScript (falls back to system preference).
+
+**When to use**: Marketing sites needing dark mode, blogs with reading preferences, small applications, any project where users expect theme options.
+
+**Setup**:
 
 ```html
 <!-- Add theme switcher -->
@@ -183,7 +197,15 @@ document.documentElement.dataset.theme = savedTheme;
 
 ## Tier 3: CRISP Enterprise (Web Components)
 
-For complex applications, add Web Components:
+**Package**: `@byvoss/crisp-enterprise`  
+**Size**: ~150KB (includes everything + 90KB components)  
+**CDN**: All previous + `https://unpkg.com/@byvoss/crisp-enterprise@latest/dist/components.esm.js`
+
+**What it does**: Adds Web Components that generate semantic CRISP HTML, full TypeScript support, i18n system, and complex UI patterns. Components are HTML generators, not black boxes - they output vanilla CRISP blueprints.
+
+**When to use**: International applications, complex web apps, enterprise software, teams needing TypeScript, projects requiring data tables, date pickers, or other advanced UI components.
+
+**Setup**:
 
 ```html
 <!-- Full platform -->

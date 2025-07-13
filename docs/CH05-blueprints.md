@@ -93,7 +93,11 @@ Let's explore the essential elements that power 90% of the web.
 
 ### The Button
 
-The workhorse of the web:
+**Blueprint class**: `button`
+
+**What it does**: The workhorse of the web - creates a clickable action element with built-in hover, active, and focus states. Every button includes interaction feedback without extra classes.
+
+**When to use**: Form submissions, dialog triggers, any user action that changes state or navigates.
 
 ```html
 <!-- Just a button -->
@@ -148,7 +152,11 @@ The workhorse of the web:
 
 ### The Link
 
-Links that adapt to context and state:
+**Blueprint class**: `link`
+
+**What it does**: Links that adapt to context and state, with automatic styling for hover, focus, and current page states via ARIA attributes.
+
+**When to use**: Navigation between pages, in-page anchors, any clickable text that takes users somewhere.
 
 ```html
 <!-- Basic link with automatic hover/focus styles -->
@@ -161,6 +169,27 @@ Links that adapt to context and state:
 <a class="link" href="/cta" style="--color: var(--color-primary); --weight: 600;">
   Important Action
 </a>
+
+<!-- In-page anchor link -->
+<a class="link" href="#features">Jump to Features</a>
+
+```
+
+**Anchor targets**: Following CRISP principles, use IDs only for anchor functionality declarations:
+
+```html
+<!-- Anchor target - ID for functionality, not styling -->
+<section class="section" id="features" data-key="features-section">
+  <h2 class="heading">Features</h2>
+  <!-- content -->
+</section>
+
+<!-- Smooth scroll behavior (in your CSS) -->
+<style>
+  html {
+    scroll-behavior: smooth; /* Progressive enhancement */
+  }
+</style>
 ```
 
 ```css
@@ -225,7 +254,11 @@ With server-side `aria-current`, the link arrives already styled. No flash. No J
 
 ### Form Inputs
 
-Every input type, properly styled:
+**Blueprint classes**: `input`, `select`, `textarea`, `field`, `label`, `helper`
+
+**What it does**: Every input type properly styled with consistent spacing, focus states, error handling, and accessibility features built-in.
+
+**When to use**: User data collection, search boxes, contact forms, any place users need to provide information.
 
 ```html
 <!-- Text input -->
@@ -280,7 +313,11 @@ Every input type, properly styled:
 
 ### Checkboxes & Radios
 
-Properly styled, properly semantic:
+**Blueprint classes**: `checkbox`, `radio`, `fieldset`, `legend`
+
+**What it does**: Properly styled and semantic form controls that maintain native functionality while looking beautiful across all browsers.
+
+**When to use**: Multiple choice questions, preference selections, terms acceptance, any binary or multi-option choices.
 
 ```html
 <!-- Checkbox -->
@@ -337,7 +374,11 @@ And then use it with the merge pattern for clean markup:
 
 ### The Switch
 
-A modern toggle:
+**Blueprint class**: `switch`
+
+**What it does**: A modern toggle control that enhances a checkbox with switch UI while maintaining full accessibility through proper ARIA roles.
+
+**When to use**: Settings toggles, feature flags, on/off states, any binary choice that implies immediate effect.
 
 ```html
 <!-- Basic switch -->
@@ -386,7 +427,11 @@ Usage in your templates:
 
 ### The Card
 
-Your content container:
+**Blueprint class**: `card`
+
+**What it does**: Your flexible content container that groups related information with optional images, provides consistent padding, and works with any layout mode.
+
+**When to use**: Product listings, blog post previews, team member profiles, any grouped content that needs visual separation.
 
 ```html
 <!-- Basic card -->
@@ -453,7 +498,11 @@ And then use it in your templates:
 
 ### The Article
 
-Semantic content container:
+**Blueprint class**: `article`
+
+**What it does**: Semantic content container for self-contained compositions like blog posts, news stories, or forum posts with proper heading hierarchy.
+
+**When to use**: Blog posts, news articles, documentation pages, any standalone content that makes sense on its own.
 
 ```html
 <article class="article" role="article" data-key="blog-article">
@@ -503,7 +552,11 @@ Semantic content container:
 
 ### The Section
 
-Page sections made simple:
+**Blueprint class**: `section`
+
+**What it does**: Page sections made simple - groups thematic content with proper semantic structure and accessibility labeling.
+
+**When to use**: Major page divisions, feature sections, content chapters, any thematic grouping of related content.
 
 ```html
 <section class="section" aria-labelledby="features-title" data-key="features-section">
@@ -515,7 +568,11 @@ Page sections made simple:
 
 ### The Dialog
 
-Native, accessible modals:
+**Blueprint class**: `dialog`
+
+**What it does**: Native, accessible modals using the HTML dialog element with built-in focus trap, backdrop, and keyboard handling.
+
+**When to use**: Confirmation dialogs, forms in modals, image lightboxes, any content that needs user attention in an overlay.
 
 ```html
 <dialog class="dialog" id="confirm-dialog" data-key="confirm-modal">
@@ -568,7 +625,11 @@ Native, accessible modals:
 
 ### The Figure
 
-Semantic media container:
+**Blueprint class**: `figure` (with `caption` for figcaption)
+
+**What it does**: Semantic media container that properly associates images, charts, or diagrams with their captions for accessibility and SEO.
+
+**When to use**: Images with captions, charts, diagrams, code examples, any visual content that needs explanation.
 
 ```html
 <figure class="figure" data-key="sales-chart">
@@ -596,7 +657,11 @@ Semantic media container:
 
 ### The Blockquote
 
-Quotes done right:
+**Blueprint class**: `blockquote` (with `cite` for citations)
+
+**What it does**: Quotes done right - semantic markup for quotations with proper attribution and visual distinction from body text.
+
+**When to use**: Customer testimonials, article quotes, referenced text, any content quoted from another source.
 
 ```html
 <blockquote class="blockquote" cite="https://example.com/article" data-key="alan-kay-quote">

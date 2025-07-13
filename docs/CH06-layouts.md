@@ -25,6 +25,12 @@ CRISP has seven layout patterns. That's it. Seven patterns that handle every lay
 
 ### 1. Stack (Vertical Flow)
 
+**Layout class**: `as-stack`
+
+**What it does**: Arranges elements vertically with consistent spacing between them. Think of it like stacking plates - each item sits perfectly above the next with a defined gap.
+
+**When to use**: Navigation lists, form fields, article sections, card content, any vertical sequence of elements that need consistent spacing.
+
 ```
 ┌─────────────────────┐
 │    Element 1        │
@@ -72,11 +78,17 @@ Customise the gap:
 
 ### 2. Cluster (Horizontal Group)
 
+**Layout class**: `as-cluster`
+
+**What it does**: Groups elements horizontally and wraps them naturally when space runs out. Like words in a sentence - they flow left to right and wrap to the next line when needed.
+
+**When to use**: Tag lists, button groups, navigation bars, inline metadata, any collection of items that should stay together horizontally but can wrap if needed.
+
 ```
 ┌──────┐ ← gap → ┌──────┐ ← gap → ┌──────┐ ← gap → ┌──────┐ ↩ wrap
 │ Tag1 │         │ Tag2 │         │ Tag3 │         │ Tag4 │
 └──────┘         └──────┘         └──────┘         └──────┘
-↓ gap ↑          ↓ gap ↑          ↓ gap ↑          ↓ gap ↑
+↓ gap ↑          ↓ gap ↑    
 ┌──────┐ ← gap → ┌──────┐
 │ Tag5 │         │ Tag6 │
 └──────┘         └──────┘
@@ -113,6 +125,12 @@ With custom gap and alignment:
 ```
 
 ### 3. Grid (True Flexibility)
+
+**Layout class**: `as-grid`
+
+**What it does**: Creates a grid that automatically adjusts the number of columns based on available space and your minimum item width. No media queries needed - it just works.
+
+**When to use**: Product cards, image galleries, feature lists, team members, any collection of similar items that should be displayed in a grid.
 
 ```
 ┌─────────┐ ← gap → ┌─────────┐ ← gap → ┌─────────┐
@@ -166,7 +184,13 @@ Explicit columns when needed:
 }
 ```
 
-### 4. Center (The Holy Grail)
+### 4. Center (Content Centering)
+
+**Layout class**: `as-center`
+
+**What it does**: Centers content both horizontally and vertically using modern CSS Grid. Content stays centered and readable regardless of screen size, with optional maximum width constraints.
+
+**When to use**: Hero sections, centered forms, modal content, loading states, any content that needs to be perfectly centered in its container.
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -229,11 +253,17 @@ Full viewport centering:
 
 ### 5. Split (Opposing Forces)
 
+**Layout class**: `as-split`
+
+**What it does**: Pushes two elements to opposite ends of their container - one to the start, one to the end. Works both horizontally (left/right) and vertically (top/bottom).
+
+**When to use**: Headers with logo and navigation, cards with content and footer, toolbars with actions on both sides, any layout needing elements at opposite ends.
+
 ```
 ┌─────────────────────────────────────────────────┐
-│ ┌────────┐                          ┌────────┐ │
-│ │  Logo  │ ←──── push apart ────→  │  Menu  │ │
-│ └────────┘                          └────────┘ │
+│ ┌────────┐                          ┌────────┐  │
+│ │  Logo  │ ←──── push apart ────→   │  Menu  │  │
+│ └────────┘                          └────────┘  │
 └─────────────────────────────────────────────────┘
 ```
 
@@ -276,6 +306,12 @@ Works vertically too:
 ```
 
 ### 6. Sidebar (Classic Layout)
+
+**Layout class**: `as-sidebar`
+
+**What it does**: Creates a two-column layout with a fixed-width sidebar and flexible main content area. The sidebar maintains its width until space becomes too tight, then stacks vertically.
+
+**When to use**: Documentation sites, admin dashboards, blog layouts with aside content, any layout needing primary content with supplementary sidebar.
 
 ```
 ┌─────────────────────────────────────────────────┐
@@ -336,6 +372,12 @@ Control the sidebar width:
 ```
 
 ### 7. Container (Responsive Padding)
+
+**Layout class**: `as-container`
+
+**What it does**: Provides responsive padding that scales with the viewport. Ensures content has breathing room on all screen sizes without media queries.
+
+**When to use**: Main page wrapper, section containers, any element that needs responsive internal spacing that adapts to screen size.
 
 ```
 ┌─────────────────────────────────────────────────┐

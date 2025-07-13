@@ -991,6 +991,76 @@ CRISP doesn't just follow trends - it sets the standard for modern CSS.
 
 ---
 
+
+## <a id="rule-30-documentation-pattern"></a>Rule 30: Documentation Pattern for Classes & Attributes
+
+**📚 ALL documentation for CRISP classes, attributes, and features MUST follow this exact pattern.**
+
+### The Sacred Documentation Structure:
+
+When documenting any CRISP class, layout, or feature:
+
+```markdown
+### [Number]. [Name] ([Descriptive Category])
+
+**[Type] class**: `class-name`  <!-- or "Layout class", "Property class", "Data attribute", etc. -->
+
+**What it does**: [Clear, concise explanation of the functionality. Use metaphors where helpful.]
+
+**When to use**: [Specific use cases and scenarios where this should be applied.]
+```
+
+### Real Example:
+```markdown
+### 2. Cluster (Horizontal Group)
+
+**Layout class**: `as-cluster`
+
+**What it does**: Groups elements horizontally and wraps them naturally when space runs out. Like words in a sentence - they flow left to right and wrap to the next line when needed.
+
+**When to use**: Tag lists, button groups, navigation bars, inline metadata, any collection of items that should stay together horizontally but can wrap if needed.
+```
+
+### For Data Attributes:
+```markdown
+### Theme Selection
+
+**Data attribute**: `data-theme="dark"`
+
+**What it does**: Sets the color theme for the element and all its children. Overrides system preferences when explicitly set.
+
+**When to use**: User theme preferences, section-specific theming, component variants that need different color schemes.
+```
+
+### For Properties:
+```markdown
+### Shadow Property
+
+**Property class**: `with-shadow`
+
+**What it does**: Adds a subtle drop shadow to create depth and hierarchy. Shadow adapts to theme automatically.
+
+**When to use**: Cards, modals, dropdown menus, any element that should appear elevated above the page.
+```
+
+### Rules:
+1. **ALWAYS start with the class/attribute** - developers scan for this first
+2. **Use code formatting** for the actual class name (backticks)
+3. **"What it does" must be understandable** without reading any CSS
+4. **"When to use" must give concrete scenarios**, not abstract descriptions
+5. **Use metaphors sparingly** but effectively (like "words in a sentence")
+6. **Keep it scannable** - developers are often tired, rushed, or both
+
+### Why This Pattern:
+- **Scannable**: Developers see the class name immediately
+- **Practical**: "When to use" answers the real question
+- **Clear**: "What it does" explains without jargon
+- **Consistent**: Same pattern everywhere reduces cognitive load
+
+This pattern applies to ALL documentation chapters, not just layouts. When in doubt, follow this structure.
+
+---
+
 *These are the laws of CRISP. They are not suggestions. They are not guidelines. They are requirements.*
 
 *Last updated: 2025-01-07*
