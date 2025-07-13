@@ -76,7 +76,46 @@ Customise the gap:
 }
 ```
 
-### 2. Cluster (Horizontal Group)
+### 2. Container (Responsive Padding)
+
+**Layout class**: `as-container`
+
+**What it does**: Provides responsive padding that scales with the viewport. Ensures content has breathing room on all screen sizes without media queries.
+
+**When to use**: Main page wrapper, section containers, any element that needs responsive internal spacing that adapts to screen size.
+
+```
+┌─────────────────────────────────────────────┐
+│→ padding →┌─────────────────────┐← padding ←│
+│           │                     │           │
+│           │    Content Area     │           │
+│           │                     │           │
+│→ padding →└─────────────────────┘← padding ←│
+└─────────────────────────────────────────────┘
+      ↑                                 ↑
+  responsive                       responsive
+```
+
+The wrapper that breathes:
+
+```html
+<section class="as-container">
+  <h2 class="heading">Contained Content</h2>
+  <p class="text">Padding adjusts to viewport. No media queries.</p>
+</section>
+```
+
+```css
+/* Inside CRISP */
+.as-container {
+  /* Properties are type-safe from kernel layer:
+     --container-padding (default: clamp(1rem, 5vw, 3rem)) */
+  
+  padding-inline: var(--container-padding);
+}
+```
+
+### 3. Cluster (Horizontal Group)
 
 **Layout class**: `as-cluster`
 
@@ -124,7 +163,7 @@ With custom gap and alignment:
 }
 ```
 
-### 3. Grid (True Flexibility)
+### 4. Grid (True Flexibility)
 
 **Layout class**: `as-grid`
 
@@ -184,7 +223,7 @@ Explicit columns when needed:
 }
 ```
 
-### 4. Center (Content Centering)
+### 5. Center (Content Centering)
 
 **Layout class**: `as-center`
 
@@ -193,16 +232,16 @@ Explicit columns when needed:
 **When to use**: Hero sections, centered forms, modal content, loading states, any content that needs to be perfectly centered in its container.
 
 ```
-┌─────────────────────────────────────────────────┐
-│              ↑ align-content ↑                  │
-│         ┌─────────────────────────┐             │
-│         │                         │             │
-│    ←────│     Centered Content    │────→        │
-│         │       (max-width)       │             │
-│         │                         │             │
-│         └─────────────────────────┘             │
-│              ↓ align-content ↓                  │
-└─────────────────────────────────────────────────┘
+┌─────────────────────────────────────────────┐
+│              ↑ align-content ↑              │
+│         ┌─────────────────────────┐         │
+│         │                         │         │
+│    ←────│     Centered Content    │────→    │
+│         │       (max-width)       │         │
+│         │                         │         │
+│         └─────────────────────────┘         │
+│              ↓ align-content ↓              │
+└─────────────────────────────────────────────┘
          ← justify-content: center →
 ```
 
@@ -251,7 +290,7 @@ Full viewport centering:
 }
 ```
 
-### 5. Split (Opposing Forces)
+### 6. Split (Opposing Forces)
 
 **Layout class**: `as-split`
 
@@ -305,30 +344,30 @@ Works vertically too:
 }
 ```
 
-### 6. Sidebar (Classic Layout)
+### 7. Aside-Content (Classic Layout)
 
-**Layout class**: `as-sidebar`
+**Layout class**: `as-aside-content`
 
-**What it does**: Creates a two-column layout with a fixed-width sidebar and flexible main content area. The sidebar maintains its width until space becomes too tight, then stacks vertically.
+**What it does**: Creates a two-column layout with a fixed-width aside (sidebar) on the left and flexible main content area on the right. The aside maintains its width until space becomes too tight, then stacks vertically.
 
-**When to use**: Documentation sites, admin dashboards, blog layouts with aside content, any layout needing primary content with supplementary sidebar.
+**When to use**: Documentation sites, admin dashboards, blog layouts with navigation or supplementary content, any layout needing an aside area next to main content.
 
 ```
-┌─────────────────────────────────────────────────┐
+┌────────────────────────────────────────────────┐
 │ ┌──────────────┐ ← gap → ┌───────────────────┐ │
 │ │              │         │                   │ │
-│ │   Sidebar    │         │   Main Content    │ │
+│ │    Aside     │         │   Main Content    │ │
 │ │  (15.625rem) │         │      (1fr)        │ │
 │ │              │         │                   │ │
 │ └──────────────┘         └───────────────────┘ │
-└─────────────────────────────────────────────────┘
+└────────────────────────────────────────────────┘
 ```
 
-Content with a sidebar, responsive by default:
+Content with an aside area, responsive by default:
 
 ```html
-<div class="as-sidebar" data-key="docs-layout">
-  <aside class="sidebar">
+<div class="as-aside-content" data-key="docs-layout">
+  <aside class="aside">
     <nav class="navigation as-stack" data-entries="5" data-key="docs-nav">
       <a class="link" href="#intro">Introduction</a>
       <a class="link" href="#features">Features</a>
@@ -340,30 +379,30 @@ Content with a sidebar, responsive by default:
   
   <main class="content">
     <h1 class="heading">Main Content</h1>
-    <p class="text">Sidebar collapses on mobile automatically.</p>
+    <p class="text">Aside collapses on mobile automatically.</p>
   </main>
 </div>
 ```
 
-Control the sidebar width:
+Control the aside width:
 
 ```html
-<div class="as-sidebar" style="--sidebar-width: calc(300 * var(--rem));">
-  <!-- Wider sidebar -->
+<div class="as-aside-content" style="--aside-width: calc(300 * var(--rem));">
+  <!-- Wider aside -->
 </div>
 ```
 
 ```css
 /* Inside CRISP */
-.as-sidebar {
+.as-aside-content {
   /* Properties are type-safe from kernel layer:
-     --sidebar-width (default: calc(250 * var(--rem)))
-     --sidebar-gap (default: var(--space-2))
+     --aside-width (default: calc(250 * var(--rem)))
+     --aside-gap (default: var(--space-2))
      --collapse-width (default: calc(768 * var(--rem))) */
   
   display: grid;
-  gap: var(--sidebar-gap);
-  grid-template-columns: var(--sidebar-width) 1fr;
+  gap: var(--aside-gap);
+  grid-template-columns: var(--aside-width) 1fr;
   
   @container (max-width: var(--collapse-width)) {
     grid-template-columns: 1fr;
@@ -371,44 +410,246 @@ Control the sidebar width:
 }
 ```
 
-### 7. Container (Responsive Padding)
+## Responsive Breakpoints
 
-**Layout class**: `as-container`
-
-**What it does**: Provides responsive padding that scales with the viewport. Ensures content has breathing room on all screen sizes without media queries.
-
-**When to use**: Main page wrapper, section containers, any element that needs responsive internal spacing that adapts to screen size.
-
-```
-┌─────────────────────────────────────────────────┐
-│→ padding →┌─────────────────────┐← padding ←│
-│           │                     │           │
-│           │    Content Area     │           │
-│           │                     │           │
-│→ padding →└─────────────────────┘← padding ←│
-└─────────────────────────────────────────────────┘
-      ↑                                 ↑
-  responsive                       responsive
-```
-
-The wrapper that breathes:
-
-```html
-<section class="as-container">
-  <h2 class="heading">Contained Content</h2>
-  <p class="text">Padding adjusts to viewport. No media queries.</p>
-</section>
-```
+While CRISP layouts are responsive by default, sometimes you need explicit control. CRISP provides four semantic breakpoints organized in separate files:
 
 ```css
-/* Inside CRISP */
-.as-container {
-  /* Properties are type-safe from kernel layer:
-     --container-padding (default: clamp(1rem, 5vw, 3rem)) */
+/* File structure for breakpoints */
+src/crisp/
+├── crisp.css              # Main file with imports
+├── base.css               # Mobile-first base styles
+└── breakpoints/
+    ├── phone.css          # Phone-specific styles
+    ├── tablet.css         # Tablet-specific styles
+    ├── screen.css         # Screen-specific styles
+    └── wide.css           # Wide screen styles
+
+/* In crisp.css */
+@layer crisp {
+  /* Define sub-layers */
+  @layer base, phone, tablet, screen, wide;
   
-  padding-inline: var(--container-padding);
+  /* Import base styles */
+  @import "base.css" layer(base);
+  
+  /* Import breakpoints with media conditions */
+  @import "breakpoints/phone.css" layer(phone) (max-width: 41.1875rem); /* 659px */
+  @import "breakpoints/tablet.css" layer(tablet) (min-width: 41.25rem) and (max-width: 59.9375rem); /* 660px - 959px */
+  @import "breakpoints/screen.css" layer(screen) (min-width: 60rem) and (max-width: 78.6875rem); /* 960px - 1259px */
+  @import "breakpoints/wide.css" layer(wide) (min-width: 78.75rem); /* 1260px+ */
+}
+
+/* In base.css - no media query needed */
+.as-split {
+  display: flex;
+  flex-direction: column;
+  gap: var(--split-gap, var(--space-1));
+}
+
+.phone-only { display: none; }
+.tablet-only { display: none; }
+.screen-only { display: none; }
+.wide-only { display: none; }
+
+/* In breakpoints/phone.css - no media query needed! */
+.phone-only { display: block; }
+.hide-on-phone { display: none; }
+.as-aside-content { grid-template-columns: 1fr; }
+
+/* In breakpoints/tablet.css - no media query needed! */
+.tablet-only { display: block; }
+.hide-on-tablet { display: none; }
+.as-split { flex-direction: row; }
+```
+
+**The "Aha!"**: The media query is defined ONCE at import time! Each breakpoint file contains clean CSS without any media queries. The conditional loading happens through the @import statement.
+
+### The Breakpoint Reality Check
+
+**What we'd love** (but CSS doesn't support):
+```css
+/* This would be amazing... */
+@layer crisp.phone {
+  /* Styles that only apply on phones */
+  .as-split { flex-direction: column; }
+}
+
+/* ...but layers can't be conditional! */
+```
+
+**What actually works**:
+```css
+@layer crisp {
+  /* We can organize with layers inside media queries */
+  @media (max-width: 41.1875rem) {
+    @layer phone {
+      .as-split { flex-direction: column; }
+    }
+  }
 }
 ```
+
+But the media query still wraps everything. The layers just help with organization and specificity within each breakpoint.
+
+### Using Breakpoints with Layouts
+
+```html
+<!-- Use visibility utilities -->
+<nav class="hide-on-phone">Desktop navigation</nav>
+<nav class="phone-only">Mobile navigation</nav>
+```
+
+**Better approach**: Let layouts adapt naturally:
+
+```css
+/* In your overrides layer */
+@layer overrides {
+  @media (max-width: 41.1875rem) {
+    .header-nav {
+      --cluster-gap: var(--space-0-5);
+      --align: stretch;
+    }
+  }
+}
+```
+
+### Breakpoint Philosophy
+
+1. **Container queries first** - Component-level responsiveness
+2. **Breakpoints second** - Page-level layout changes
+3. **Four is enough** - Phone, Tablet, Screen, Wide
+4. **Semantic names** - Not "sm", "md", "lg", "xl"
+5. **Progressive enhancement** - Mobile-first thinking
+
+### Mobile-First Inheritance
+
+**What mobile-first really means**:
+
+```css
+/* In base.css - Mobile styles */
+.button {
+  display: inline-flex;
+  padding: var(--space-0-75) var(--space-1-5);
+  font-size: 1rem;
+  border-radius: 0.5rem;
+  /* 10+ more properties... */
+}
+
+/* In tablet.css - ONLY what changes! */
+.button {
+  padding: var(--space-1) var(--space-2);  /* Bigger padding */
+  font-size: 1.125rem;                    /* Bigger text */
+  /* That's it! Everything else inherits */
+}
+
+/* In wide.css - Again, ONLY differences */
+.button {
+  padding: var(--space-1-25) var(--space-2-5);  /* Even bigger */
+  /* font-size stays from tablet */
+  /* Everything else cascades up */
+}
+```
+
+**Never do this** (copy-paste everything):
+```css
+/* WRONG - Don't duplicate everything! */
+@media (min-width: 41.25rem) {
+  .button {
+    display: inline-flex;      /* Duplicate */
+    padding: var(--space-1);   /* Changed */
+    font-size: 1.125rem;       /* Changed */
+    border-radius: 0.5rem;     /* Duplicate */
+    /* 10+ more duplicates... */
+  }
+}
+```
+
+**The cascade flows upward**: base → phone → tablet → screen → wide. Each layer only declares what CHANGES. This keeps code minimal, readable, and maintainable.
+
+### The Architecture Protects Itself
+
+**Why this structure matters:**
+
+```css
+@layer crisp {
+  /* Someone tries to quick-fix in the wrong place */
+  @media (max-width: 41.1875rem) {
+    .button { background: red; } /* This is in the parent layer */
+  }
+  
+  /* Properly organized styles in sub-layers */
+  @import "breakpoints/phone.css" layer(phone) (max-width: 41.1875rem);
+}
+
+/* In phone.css */
+.button { background: blue; } /* This wins! Sub-layer beats parent layer */
+```
+
+**The cascade hierarchy:**
+1. `crisp` (parent layer) - Weakest
+2. `crisp.base` - Stronger
+3. `crisp.phone` - Even stronger
+4. `crisp.tablet` - Continues...
+5. `crisp.wide` - Strongest
+
+**The result**: Wild styles in the wrong place automatically lose to properly organized styles. The structure enforces good practices - you MUST put styles in the right file to make them work. 
+
+**Note**: `!important` still overrides layer specificity (it's the nuclear option), but the structure makes it unnecessary. When everything is in the right place, you never need `!important`.
+
+**The only thing that always wins**: The evil atomic bomb approach - `!important`. Where that drops, no grass grows anymore. It's the CSS equivalent of salting the earth. Don't be that developer.
+
+This isn't just about being tidy - it's **technical guardrails** that guide you toward clean, maintainable code.
+
+### Container Queries: The bound Exception
+
+While global breakpoints live in separate files, **container queries belong with their - yes: container**:
+
+```css
+/* In base.css - Container queries stay with their blueprint */
+.card {
+  container-type: inline-size;
+  padding: var(--space-1);
+  
+  /* Container query RIGHT HERE - it's blueprint-specific */
+  @container (min-width: 25rem) { /* 400px */
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: var(--space-1);
+  }
+  
+  @container (min-width: 40rem) { /* 640px */
+    grid-template-columns: 200px 1fr;
+    gap: var(--space-2);
+  }
+}
+
+/* Also with nesting */
+.product-grid {
+  container-type: inline-size;
+  
+  .product-card {
+    /* Mobile-first base */
+    display: flex;
+    flex-direction: column;
+    
+    /* Container-based enhancement */
+    @container (min-width: 30rem) { /* 480px */
+      flex-direction: row;
+      
+      .media {
+        width: 120px;
+      }
+    }
+  }
+}
+```
+
+**The Rule**:
+- **Global viewport queries** → Separate breakpoint files (affects everything)
+- **Container queries** → With the blueprint (affects only that container)
+
+This is the ONLY case where responsive rules live directly with the blueprint - because container queries are inherently container-scoped, not global.
 
 ## Composition Magic
 
@@ -445,19 +686,19 @@ The real power? Combining layouts:
 </main>
 ```
 
-## No Media Queries Required
+## Responsive by Default
 
-Every layout is responsive by default:
+Every layout adapts naturally without media queries:
 
-- **Stack**: Always vertical
-- **Cluster**: Wraps when needed
-- **Grid**: Adjusts columns intelligently
+- **Stack**: Always vertical, gap scales with space
+- **Container**: Padding scales with viewport automatically
+- **Cluster**: Wraps when space runs out
+- **Grid**: Adjusts columns based on available space
 - **Center**: Constrains to readable width
-- **Split**: Stacks on mobile
-- **Sidebar**: Collapses gracefully
-- **Container**: Padding scales with viewport
+- **Split**: Can change direction via custom properties
+- **Aside-Content**: Collapses when space is tight
 
-Need specific breakpoints? Use container queries:
+For blueprint-specific responsiveness, prefer container queries:
 
 ```css
 /* Blueprint-level responsiveness */
@@ -511,8 +752,8 @@ For complex apps, CRISP offers a global grid system:
       Main content
     </main>
     
-    <aside class="sidebar as-container" data-key="layout-aside">
-      Sidebar
+    <aside class="aside as-container" data-key="layout-aside">
+      Aside
     </aside>
   </div>
   
@@ -525,8 +766,8 @@ For complex apps, CRISP offers a global grid system:
 ### Dashboard Layout
 
 ```html
-<div class="as-sidebar" style="--sidebar-width: calc(250 * var(--rem));" data-key="dashboard-layout">
-  <nav class="sidebar" data-key="dashboard-nav">
+<div class="as-aside-content" style="--aside-width: calc(250 * var(--rem));" data-key="dashboard-layout">
+  <nav class="aside" data-key="dashboard-nav">
     <!-- Fixed navigation -->
   </nav>
   
@@ -571,12 +812,12 @@ It's all built into the seven patterns.
 
 You now have:
 - **Stack**: Vertical rhythm
-- **Cluster**: Horizontal grouping
+- **Container**: Responsive spacing
+- **Cluster**: Horizontal grouping  
 - **Grid**: 2D arrangements
 - **Center**: Content focus
 - **Split**: Opposing elements
-- **Sidebar**: Classic two-column
-- **Container**: Responsive spacing
+- **Aside-Content**: Classic two-column
 
 Seven patterns. Infinite possibilities. Zero utility classes.
 

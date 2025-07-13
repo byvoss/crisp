@@ -564,20 +564,20 @@ Properties:
 - `--direction`: row or column
 - `--split-gap`: Minimum space between
 
-### Sidebar
+### Aside-Content
 
-Two-column with responsive collapse.
+Two-column layout with aside (left) and content (right), responsive collapse.
 
 ```html
-<div class="as-sidebar">
-  <aside class="sidebar">Sidebar</aside>
+<div class="as-aside-content">
+  <aside class="aside">Aside content</aside>
   <main class="content">Main content</main>
 </div>
 ```
 
 Properties:
-- `--sidebar-width`: Width of sidebar
-- `--sidebar-gap`: Space between columns
+- `--aside-width`: Width of aside area
+- `--aside-gap`: Space between columns
 - `--collapse-width`: Breakpoint for stacking
 
 ### Container

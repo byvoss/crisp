@@ -202,10 +202,10 @@
 </div>
 ```
 
-### Sidebar
+### Aside-Content
 ```html
-<div class="as-sidebar" style="--sidebar-width: 300px;">
-  <aside>Sidebar content</aside>
+<div class="as-aside-content" style="--aside-width: 300px;">
+  <aside>Aside content</aside>
   <main>Main content</main>
 </div>
 ```
