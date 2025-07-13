@@ -126,7 +126,7 @@ No utility classes. No breakpoints. Just semantic HTML with layout helpers.
 
 ```html
 <section class="section as-container" id="contact" data-key="contact-section">
-  <div class="as-center" style="--max-width: 40rem;">
+  <div class="as-center" style="--max-width: 640px;">
     <h2 class="heading">Get in Touch</h2>
     
     <form class="form as-stack" data-key="contact-form">
@@ -253,7 +253,7 @@ Put it all together:
     </section>
 
     <section class="section as-container" id="contact" data-key="contact-section">
-      <div class="as-center" style="--max-width: 40rem;">
+      <div class="as-center" style="--max-width: 640px;">
         <h2 class="heading">Get in Touch</h2>
         
         <form class="form as-stack" data-key="contact-form">

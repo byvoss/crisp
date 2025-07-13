@@ -412,58 +412,93 @@ Control the aside width:
 
 ## Responsive Breakpoints
 
-While CRISP layouts are responsive by default, sometimes you need explicit control. CRISP provides four semantic breakpoints organised in separate files:
+While CRISP layouts are responsive by default, sometimes you need explicit control. CRISP provides four semantic breakpoints that you can use directly in your blueprint files or custom CSS.
+
+**Standard CRISP Breakpoints (in pixels for clarity):**
+- **Phone**: < 660px (mobile devices in portrait)
+- **Tablet**: 660px - 959px (tablets, large phones in landscape)
+- **Screen**: 960px - 1259px (small desktops, tablets in landscape)
+- **Wide**: 1260px+ (large screens, wide monitors)
+
+Why pixels instead of rems? Because `768px` is immediately understandable, while `48rem` requires mental math. CRISP values clarity.
 
 ```css
-/* File structure for breakpoints */
-src/crisp/
-├── crisp.css              # Main file with imports
-├── base.css               # Mobile-first base styles
-└── breakpoints/
-    ├── phone.css          # Phone-specific styles
-    ├── tablet.css         # Tablet-specific styles
-    ├── screen.css         # Screen-specific styles
-    └── wide.css           # Wide screen styles
-
-/* In crisp.css */
+/* In your blueprint CSS or overrides - media queries go directly in the files */
 @layer crisp {
-  /* Define sub-layers */
-  @layer base, phone, tablet, screen, wide;
-  
-  /* Import base styles */
-  @import "base.css" layer(base);
-  
-  /* Import breakpoints with media conditions */
-  @import "breakpoints/phone.css" layer(phone) (max-width: 41.1875rem); /* 659px */
-  @import "breakpoints/tablet.css" layer(tablet) (min-width: 41.25rem) and (max-width: 59.9375rem); /* 660px - 959px */
-  @import "breakpoints/screen.css" layer(screen) (min-width: 60rem) and (max-width: 78.6875rem); /* 960px - 1259px */
-  @import "breakpoints/wide.css" layer(wide) (min-width: 78.75rem); /* 1260px+ */
+  /* Base styles (mobile-first) */
+  @media (min-width: 0) {
+    @layer base {
+      .as-split {
+        display: flex;
+        flex-direction: column;
+        gap: var(--split-gap, var(--space-1));
+      }
+
+      /* Default all visibility utilities */
+      .only-phone { display: none; }
+      .only-tablet { display: none; }
+      .only-screen { display: none; }
+      .only-wide { display: none; }
+      
+      .not-phone { display: block; }
+      .not-tablet { display: block; }
+      .not-screen { display: block; }
+      .not-wide { display: block; }
+      
+      .as-aside-content { grid-template-columns: 1fr; }
+    }
+  }
+
+  /* Phone breakpoint (320px+) */
+  @media (min-width: 320px) {
+    @layer phone {
+      /* Only what changes */
+      .only-phone { display: block; }
+      .not-phone { display: none; }
+    }
+  }
+
+  /* Tablet breakpoint (660px+) */
+  @media (min-width: 660px) {
+    @layer tablet {
+      /* Only what changes */
+      .only-phone { display: none; }
+      .only-tablet { display: block; }
+      
+      .not-phone { display: block; }
+      .not-tablet { display: none; }
+      
+      .as-split { flex-direction: row; }
+    }
+  }
+
+  /* Screen breakpoint (960px+) */
+  @media (min-width: 960px) {
+    @layer screen {
+      /* Only what changes */
+      .only-tablet { display: none; }
+      .only-screen { display: block; }
+      
+      .not-tablet { display: block; }
+      .not-screen { display: none; }
+    }
+  }
+
+  /* Wide breakpoint (1260px+) */
+  @media (min-width: 1260px) {
+    @layer wide {
+      /* Only what changes */
+      .only-screen { display: none; }
+      .only-wide { display: block; }
+      
+      .not-screen { display: block; }
+      .not-wide { display: none; }
+    }
+  }
 }
-
-/* In base.css - no media query needed */
-.as-split {
-  display: flex;
-  flex-direction: column;
-  gap: var(--split-gap, var(--space-1));
-}
-
-.phone-only { display: none; }
-.tablet-only { display: none; }
-.screen-only { display: none; }
-.wide-only { display: none; }
-
-/* In breakpoints/phone.css - no media query needed! */
-.phone-only { display: block; }
-.hide-on-phone { display: none; }
-.as-aside-content { grid-template-columns: 1fr; }
-
-/* In breakpoints/tablet.css - no media query needed! */
-.tablet-only { display: block; }
-.hide-on-tablet { display: none; }
-.as-split { flex-direction: row; }
 ```
 
-**The "Aha!"**: The media query is defined ONCE at import time! Each breakpoint file contains clean CSS without any media queries. The conditional loading happens through the @import statement.
+**The "Aha!"**: Media queries go directly in your blueprint files where they're needed! The build process handles layer sorting automatically, so you can focus on writing clean, responsive CSS.
 
 ### The Breakpoint Reality Check
 
@@ -482,7 +517,7 @@ src/crisp/
 ```css
 @layer crisp {
   /* We can organize with layers inside media queries */
-  @media (max-width: 41.1875rem) {
+  @media (max-width: 659px) {
     @layer phone {
       .as-split { flex-direction: column; }
     }
@@ -496,8 +531,8 @@ But the media query still wraps everything. The layers just help with organisati
 
 ```html
 <!-- Use visibility utilities -->
-<nav class="hide-on-phone">Desktop navigation</nav>
-<nav class="phone-only">Mobile navigation</nav>
+<nav class="not-phone">Desktop navigation</nav>
+<nav class="only-phone">Mobile navigation</nav>
 ```
 
 **Better approach**: Let layouts adapt naturally:
@@ -505,7 +540,7 @@ But the media query still wraps everything. The layers just help with organisati
 ```css
 /* In your overrides layer */
 @layer overrides {
-  @media (max-width: 41.1875rem) {
+  @media (max-width: 659px) {
     .header-nav {
       --cluster-gap: var(--space-0-5);
       --align: stretch;
@@ -554,7 +589,7 @@ But the media query still wraps everything. The layers just help with organisati
 **Never do this** (copy-paste everything):
 ```css
 /* WRONG - Don't duplicate everything! */
-@media (min-width: 41.25rem) {
+@media (min-width: 660px) {
   .button {
     display: inline-flex;      /* Duplicate */
     padding: var(--space-1);   /* Changed */
@@ -574,16 +609,17 @@ But the media query still wraps everything. The layers just help with organisati
 ```css
 @layer crisp {
   /* Someone tries to quick-fix in the wrong place */
-  @media (max-width: 41.1875rem) {
+  @media (max-width: 659px) {
     .button { background: red; } /* This is in the parent layer */
   }
   
   /* Properly organised styles in sub-layers */
-  @import "breakpoints/phone.css" layer(phone) (max-width: 41.1875rem);
+  @media (max-width: 659px) {
+    @layer phone {
+      .button { background: blue; } /* This wins! Sub-layer beats parent layer */
+    }
+  }
 }
-
-/* In phone.css */
-.button { background: blue; } /* This wins! Sub-layer beats parent layer */
 ```
 
 **The cascade hierarchy:**
@@ -593,7 +629,7 @@ But the media query still wraps everything. The layers just help with organisati
 4. `crisp.tablet` - Continues...
 5. `crisp.wide` - Strongest
 
-**The result**: Wild styles in the wrong place automatically lose to properly organised styles. The structure enforces good practices - you MUST put styles in the right file to make them work. 
+**The result**: Wild styles in the wrong place automatically lose to properly organised styles. The layer structure enforces good practices - proper layer organization ensures styles cascade correctly. 
 
 **Note**: `!important` still overrides layer specificity (it's the nuclear option), but the structure makes it unnecessary. When everything is in the right place, you never need `!important`.
 
@@ -603,22 +639,22 @@ This isn't just about being tidy - it's **technical guardrails** that guide you 
 
 ### Container Queries: The bound Exception
 
-While global breakpoints live in separate files, **container queries belong with their - yes: container**:
+Both global media queries and container queries belong in your blueprint files - keep responsive styles with their components:
 
 ```css
-/* In base.css - Container queries stay with their blueprint */
+/* In blueprints/card/card.css - All responsive styles together */
 .card {
   container-type: inline-size;
   padding: var(--space-1);
   
   /* Container query RIGHT HERE - it's blueprint-specific */
-  @container (min-width: 25rem) { /* 400px */
+  @container (min-width: 400px) {
     display: grid;
     grid-template-columns: 150px 1fr;
     gap: var(--space-1);
   }
   
-  @container (min-width: 40rem) { /* 640px */
+  @container (min-width: 640px) {
     grid-template-columns: 200px 1fr;
     gap: var(--space-2);
   }
@@ -634,7 +670,7 @@ While global breakpoints live in separate files, **container queries belong with
     flex-direction: column;
     
     /* Container-based enhancement */
-    @container (min-width: 30rem) { /* 480px */
+    @container (min-width: 480px) {
       flex-direction: row;
       
       .media {
@@ -646,8 +682,9 @@ While global breakpoints live in separate files, **container queries belong with
 ```
 
 **The Rule**:
-- **Global viewport queries** → Separate breakpoint files (affects everything)
-- **Container queries** → With the blueprint (affects only that container)
+- **Global viewport queries** → In blueprint files with @media rules
+- **Container queries** → In the same blueprint files with @container rules
+- **Both types** → Stay with their components for better maintainability
 
 This is the ONLY case where responsive rules live directly with the blueprint - because container queries are inherently container-scoped, not global.
 
@@ -706,7 +743,7 @@ For blueprint-specific responsiveness, prefer container queries:
   container-type: inline-size;
 }
 
-@container (min-width: calc(400 * var(--rem))) {
+@container (min-width: 400px) {
   .card {
     --layout: horizontal;
   }
