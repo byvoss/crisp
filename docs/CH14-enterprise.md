@@ -64,7 +64,7 @@ export class CrispElement extends HTMLElement {
   connectedCallback() {
     // Import CRISP styles into shadow DOM
     this.shadowRoot.innerHTML = `
-      <link rel="stylesheet" href="@byvoss/crisp/dist/crisp.css">
+      <link rel="stylesheet" href="@byvoss/crisp-pure/dist/crisp.css">
       <slot></slot>
     `;
   }
@@ -145,7 +145,7 @@ CRISP in distributed architectures:
   font-family: inherit;
   
   /* Re-apply CRISP */
-  @import url('@byvoss/crisp/dist/crisp.css') layer(crisp);
+  @import url('@byvoss/crisp-pure/dist/crisp.css') layer(crisp);
 }
 ```
 
@@ -178,7 +178,7 @@ Enterprise-grade optimization:
 ```javascript
 // Blueprint lazy loading
 const loadComponent = async (name) => {
-  const module = await import(`@byvoss/crisp-enterprise/dist/${name}.js`);
+  const module = await import(`@byvoss/crisp-complete/dist/${name}.js`);
   customElements.define(`crisp-${name}`, module.default);
 };
 
@@ -393,7 +393,7 @@ Enterprise security considerations:
 
 ```yaml
 # CI/CD pipeline
-name: CRISP Enterprise Deploy
+name: CRISP Complete Deploy
 
 on:
   push:

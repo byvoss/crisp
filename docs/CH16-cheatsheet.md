@@ -12,7 +12,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRISP Page</title>
-  <link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp-pure@latest/dist/crisp.min.css">
 </head>
 <body>
   <!-- Your semantic HTML here -->
@@ -394,8 +394,8 @@ Modern browsers only (2024+):
 ## Resources
 
 - GitHub: [github.com/byvoss/crisp](https://github.com/byvoss/crisp)
-- CDN: `https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css`
-- NPM: `npm install @byvoss/crisp`
+- CDN: `https://unpkg.com/@byvoss/crisp-pure@latest/dist/crisp.min.css`
+- NPM: `npm install @byvoss/crisp-pure`
 
 ---
 

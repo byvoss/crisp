@@ -110,9 +110,9 @@ Remember: Be honest, practical, respectfully sarcastic, and always focus on genu
 ### Package & Build Strategy
 
 **Three separate NPM packages** (not a monolith):
-1. **@byvoss/crisp** - Pure CSS (~50KB)
-2. **@byvoss/crisp-theme** - Theme JS only (~10KB)
-3. **@byvoss/crisp-enterprise** - Web Components only (~90KB)
+1. **@byvoss/crisp-pure** - Zero JavaScript (~50KB)
+2. **@byvoss/crisp-interactive** - Minimal JS for themes & enhancements (~60KB total)
+3. **@byvoss/crisp-complete** - Full platform with components & i18n (~150KB total)
 
 **Build Process**:
 - Three separate build pipelines
@@ -125,33 +125,29 @@ Remember: Be honest, practical, respectfully sarcastic, and always focus on genu
 **Modern ESM modules with SRI integrity for security and performance:**
 
 ```html
-<!-- Tier 1: CRISP (Pure CSS) -->
+<!-- Tier 1: CRISP Pure (Zero JavaScript) -->
 <link rel="stylesheet" 
-  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  href="https://unpkg.com/@byvoss/crisp-pure@latest/dist/crisp.min.css"
   integrity="sha384-..." 
   crossorigin="anonymous">
 
-<!-- Tier 2: CRISP Theme (CSS + Theme JS) -->
+<!-- Tier 2: CRISP Interactive (Minimal JS) -->
 <link rel="stylesheet" 
-  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  href="https://unpkg.com/@byvoss/crisp-pure@latest/dist/crisp.min.css"
   integrity="sha384-..." 
   crossorigin="anonymous">
 <script type="module" 
-  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
+  src="https://unpkg.com/@byvoss/crisp-interactive@latest/dist/interactive.esm.js"
   integrity="sha384-..." 
   crossorigin="anonymous"></script>
 
-<!-- Tier 3: CRISP Enterprise (Full Platform) -->
+<!-- Tier 3: CRISP Complete (Full Platform) -->
 <link rel="stylesheet" 
-  href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css"
+  href="https://unpkg.com/@byvoss/crisp-pure@latest/dist/crisp.min.css"
   integrity="sha384-..." 
   crossorigin="anonymous">
 <script type="module" 
-  src="https://unpkg.com/@byvoss/crisp-theme@latest/dist/theme.esm.js"
-  integrity="sha384-..." 
-  crossorigin="anonymous"></script>
-<script type="module" 
-  src="https://unpkg.com/@byvoss/crisp-enterprise@latest/dist/components.esm.js"
+  src="https://unpkg.com/@byvoss/crisp-complete@latest/dist/complete.esm.js"
   integrity="sha384-..." 
   crossorigin="anonymous"></script>
 ```

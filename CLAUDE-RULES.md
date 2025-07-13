@@ -644,9 +644,9 @@ Add to all form fields - costs nothing, helps when supported:
 
 ## <a id="rule-23-progressive"></a>Rule 23: Progressive Enhancement Path
 
-- **CRISP** (~50KB): Pure CSS - More interactive than most JS frameworks!
-- **CRISP Theme** (~60KB): + Theme switching
-- **CRISP Enterprise** (~150KB): + Web Components & i18n
+- **CRISP Pure** (~50KB): Zero JavaScript - More interactive than most JS frameworks!
+- **CRISP Interactive** (~60KB): + Minimal JS for themes & enhancements
+- **CRISP Complete** (~150KB): + Full platform with components & i18n
 
 **Web Component Philosophy**: 
 - WCs are CRISP Pattern Generators - convenience wrappers only

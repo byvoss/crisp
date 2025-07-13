@@ -770,7 +770,7 @@ Properties:
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CRISP Page</title>
-  <link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp@latest/dist/crisp.min.css">
+  <link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp-pure@latest/dist/crisp.min.css">
 </head>
 <body>
   <header class="header as-container">
