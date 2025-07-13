@@ -144,6 +144,50 @@ $ crisp build
 ✓ Done in 247ms
 ```
 
+## Override Organization
+
+You have two ways to organize your overrides:
+
+### Option 1: Structured (like blueprints)
+```
+overrides/
+├── brand-button/
+│   ├── brand-button.css      # Component overrides
+│   ├── brand-button.ts       # Optional TypeScript
+│   └── brand-button.tera     # Optional template
+├── holiday-theme/
+│   └── holiday-theme.css     # Seasonal styles
+└── client-requests/
+    └── client-requests.css   # Those "urgent" changes
+```
+
+### Option 2: Loose Files (simpler)
+```
+overrides/
+├── brand.css                 # All brand customizations
+├── components.css            # All component tweaks
+├── shame.css                 # We all have one
+└── whatever.css              # It's your project
+```
+
+**The Build Magic**: CRISP Studio finds all CSS files in `overrides/` (regardless of structure) and automatically wraps them in `@layer overrides`. You write normal CSS, the build tool handles the layer complexity.
+
+```css
+/* You write (in any file under overrides/) */
+.button {
+  --bg: var(--color-brand);
+}
+
+/* Build outputs */
+@layer overrides {
+  .button {
+    --bg: var(--color-brand);
+  }
+}
+```
+
+**Best Practice**: Start loose, refactor to structured when it grows. The build doesn't care - it processes both the same way.
+
 ## The Build Process
 
 CRISP Studio's build tool (written in Rust for blazing speed):

@@ -33,15 +33,15 @@
 ## CSS Layers
 
 ```css
-/* Always this order */
-@layer crisp, bridge, overrides;
+/* Layer order (handled automatically by CRISP) */
+/* kernel → crisp → bridge → overrides */
 
-/* Your customizations in overrides */
-@layer overrides {
-  .button {
-    --bg: var(--color-brand);
-  }
+/* For overrides: Use the overrides/ directory */
+/* overrides/my-styles.css */
+.button {
+  --bg: var(--color-brand);
 }
+/* Build wraps this in @layer overrides automatically */
 ```
 
 ## Core Blueprints

@@ -525,13 +525,16 @@ No layer complexity. Just clean, nested media queries that follow the cascade na
 **Better approach**: Let layouts adapt naturally:
 
 ```css
-/* In your overrides layer */
-@layer overrides {
-  @media (max-width: 659px) {
-    .header-nav {
-      --cluster-gap: var(--space-0-5);
-      --align: stretch;
-    }
+/* Your responsive overrides - mobile-first! */
+.header-nav {
+  /* Base (mobile) styles */
+  --cluster-gap: var(--space-0-5);
+  --align: stretch;
+  
+  /* Tablet (660px+) - restore normal spacing */
+  @media (min-width: 660px) {
+    --cluster-gap: var(--space-1);
+    --align: center;
   }
 }
 ```

@@ -200,16 +200,14 @@ Want to customise? Just whisper sweet properties to it:
 **Alternative approach** - Use the overrides layer for site-wide customisations:
 
 ```css
-@layer overrides {
-  /* These beat ALL framework styles automatically */
-  .button[data-variant="primary"] {
-    --bg: var(--color-primary);
-  }
-  
-  .button[data-variant="large"] {
-    --size: 1.5rem;
-    --padding: var(--space-1) var(--space-2);
-  }
+/* Your custom styles - automatically in overrides layer, beat ALL framework styles */
+.button[data-variant="primary"] {
+  --bg: var(--color-primary);
+}
+
+.button[data-variant="large"] {
+  --size: 1.5rem;
+  --padding: var(--space-1) var(--space-2);
 }
 ```
 
@@ -219,7 +217,7 @@ Want to customise? Just whisper sweet properties to it:
   Emergency Override
 </button>
 
-<!-- Why it works: inline style (specificity 1000) beats @layer overrides (specificity ~100) -->
+<!-- Why it works: inline style (specificity 1000) beats overrides layer (specificity ~100) -->
 ```
 
 **The power of predictability**: No more `!important` wars. No specificity battles. No 47-selector chains to override a colour. Just three clear levels: blueprint defaults → layer overrides → inline properties. Your CSS stays clean, your team stays sane, and your buttons? They just work. Every time. Without surprises.

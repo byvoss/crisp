@@ -43,22 +43,20 @@ Remember in Chapter 4 when we mentioned a secret kernel layer? Here it is:
   }
 }
 
-/* In your blueprints (the element what you write) */
-@layer crisp {
-  .button {
-    --bg: var(--color-neutral);    /* Just set values */
-    --size: 1rem;                  /* Kernel handles the rest */
-    
-    /* Current best solution: */
-    width: calc(180 * var(--rem));  /* 180px → 11.25rem */
-    
-    /* Future dream syntax (when CSS evolves): */
-    /* --px-value: 180;
-    width: var(--size-in-rem); */
-    
-    background: var(--bg);         /* Already type-safe! */
-    font-size: var(--size);        /* No @property needed */
-  }
+/* In your blueprints (what you actually write) */
+.button {
+  --bg: var(--color-neutral);    /* Just set values */
+  --size: 1rem;                  /* Kernel handles the rest */
+  
+  /* Current best solution: */
+  width: calc(180 * var(--rem));  /* 180px → 11.25rem */
+  
+  /* Future dream syntax (when CSS evolves): */
+  /* --px-value: 180;
+  width: var(--size-in-rem); */
+  
+  background: var(--bg);         /* Already type-safe! */
+  font-size: var(--size);        /* No @property needed */
 }
 ```
 
@@ -67,15 +65,13 @@ Remember in Chapter 4 when we mentioned a secret kernel layer? Here it is:
 **Advanced Scaling**: Need larger or smaller UI? Override `--base-font-size` in the overrides layer:
 
 ```css
-/* In overrides layer - scale entire UI */
-@layer overrides {
-  :root {
-    /* Larger UI: 18px base (112.5% scale) */
-    --base-font-size: 18;
-    
-    /* Or smaller UI: 14px base (87.5% scale) */
-    /* --base-font-size: 14; */
-  }
+/* Your custom overrides - scale entire UI */
+:root {
+  /* Larger UI: 18px base (112.5% scale) */
+  --base-font-size: 18;
+  
+  /* Or smaller UI: 14px base (87.5% scale) */
+  /* --base-font-size: 14; */
 }
 ```
 
@@ -849,6 +845,43 @@ You now have:
 With these ~15 blueprints, you can build almost anything.
 
 **The "Aha!"**: You don't need 200 blueprints. You need 15 good ones that compose well.
+
+## Customizing Blueprints
+
+Need to override CRISP defaults? Use the `overrides/` directory:
+
+### Simple Override Structure
+```
+overrides/
+├── my-styles.css         # All your customizations
+└── brand.css             # Brand-specific styles
+```
+
+### Or Organized Like Blueprints
+```
+overrides/
+├── fancy-button/
+│   └── fancy-button.css  # Override button styles
+├── brand-colors/
+│   └── brand-colors.css  # Custom color scheme
+└── client-specials/
+    └── client-specials.css
+```
+
+**Write normal CSS**:
+```css
+/* In overrides/my-styles.css */
+.button {
+  --bg: var(--color-brand);
+  --radius: 0; /* Client wants sharp corners */
+}
+
+.card {
+  --shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+```
+
+**Build handles the rest**: All files in `overrides/` are automatically wrapped in `@layer overrides`, ensuring they beat CRISP defaults. No `!important` needed!
 
 Ready to arrange them beautifully?
 
