@@ -1,4 +1,4 @@
-# Chapter 17: From Garden to Market - Distribution & Architecture
+# Chapter 18: From Garden to Market - Distribution & Architecture
 
 *Or: How CRISP gets from source code to your project*
 
@@ -82,7 +82,7 @@ Again, no source files - just the built CSS.
 ### Option 3: Server Installation
 
 ```bash
-curl -sSf https://crisp.byvoss.tech/create-crisp-server.sh | sh
+curl -sSf https://crisp.style/create-crisp-server.sh | sh
 ```
 
 This creates:

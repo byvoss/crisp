@@ -27,7 +27,7 @@ Let's explore each tier.
 <link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp-pure@latest/dist/crisp.min.css">
 ```
 
-**What you get**: A complete, pre-built CSS file with all blueprints included. No build process needed on your end. (Curious about how these blueprints are compiled? See [Chapter 17: Distribution](./CH17-distribution.md))
+**What you get**: A complete, pre-built CSS file with all blueprints included. No build process needed on your end. (Curious about how these blueprints are compiled? See [Chapter 18: Distribution](./CH18-distribution.md))
 
 ### Interactive Blueprints Without JavaScript
 
@@ -259,7 +259,7 @@ HTML5 brought us built-in validation, but most developers still reach for JavaSc
 </script>
 ```
 
-**What's added**: A small JavaScript module (~10KB) that adds theme switching and persistence. The JavaScript source is already compiled and optimized. (Build details → [Chapter 17](./CH17-distribution.md))
+**What's added**: A small JavaScript module (~10KB) that adds theme switching and persistence. The JavaScript source is already compiled and optimized. (Build details → [Chapter 18](./CH18-distribution.md))
 
 Now you can enhance your Tier 1 elements:
 
@@ -387,7 +387,7 @@ Modern browsers render pages progressively, which can cause elements to jump aro
 </script>
 ```
 
-**What's included**: All the TypeScript components and i18n system, pre-compiled into an ES module. The source `.ts` files from the blueprint folders are already built - you just use the components. (Full architecture details → [Chapter 17](./CH17-distribution.md))
+**What's included**: All the TypeScript components and i18n system, pre-compiled into an ES module. The source `.ts` files from the blueprint folders are already built - you just use the components. (Full architecture details → [Chapter 18](./CH18-distribution.md))
 
 ### What Are CRISP Web Components?
 
@@ -440,7 +440,7 @@ blueprints/
 └── ... (all Crown blueprints follow this pattern)
 ```
 
-**Important**: This is the source structure. When you use Tier 3, you get pre-compiled components in `crown.esm.js` and aggregated macros in `base.tera`. (See [Chapter 17](./CH17-distribution.md) for how the build process works)
+**Important**: This is the source structure. When you use Tier 3, you get pre-compiled components in `crown.esm.js` and aggregated macros in `base.tera`. (See [Chapter 18](./CH18-distribution.md) for how the build process works)
 
 Remember building a data table from scratch? The endless hours of sorting logic, filter implementations, and accessibility attributes? Well, put down that coffee and step away from Stack Overflow. CRISP Crown brings the heavy machinery - pre-built patterns for the complex UI that makes developers weep.
 
@@ -553,7 +553,7 @@ Fancy seeing CRISP at warp speed? We've included a production-ready Rust server 
 
 ```bash
 # Create a complete CRISP + Rust project
-curl -sSf https://crisp.byvoss.tech/create-crisp-server.sh | sh
+curl -sSf https://crisp.style/create-crisp-server.sh | sh
 
 # Interactive setup:
 # Project name: My Amazing Site

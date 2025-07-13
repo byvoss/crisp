@@ -1055,7 +1055,7 @@ But here's the magic:
 
 **The "Aha!"**: Modular organization for maintainers, single import for users. Small files with big power.
 
-**Want the Complete Picture?** The entire build pipeline - from individual blueprint files to the final distributed packages - is thoroughly documented in [Chapter 17: Distribution & Architecture](./CH17-distribution.md).
+**Want the Complete Picture?** The entire build pipeline - from individual blueprint files to the final distributed packages - is thoroughly documented in [Chapter 18: Distribution & Architecture](./CH18-distribution.md).
 
 **Custom Extensions in the Same File:**
 

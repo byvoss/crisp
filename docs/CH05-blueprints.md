@@ -137,7 +137,7 @@ blueprints/
 
 **For Tier 1 Users**: You'll use the pre-built `crisp.css` that includes all blueprints. The folder structure is just how we organise the source - you don't need to worry about it!
 
-**Want to know more?** The complete journey from these source files to the CSS you use is detailed in [Chapter 17: Distribution & Architecture](./CH17-distribution.md).
+**Want to know more?** The complete journey from these source files to the CSS you use is detailed in [Chapter 18: Distribution & Architecture](./CH18-distribution.md).
 
 **For Advanced Users**: In later tiers (Chapter 7), you'll see how this structure expands:
 ```
