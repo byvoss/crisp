@@ -36,6 +36,8 @@ Start with proper, semantic HTML:
 
 That's it.
 
+**For the Curious**: Wonder how CRISP gets from source code to this one CSS file? The complete build and distribution process is explained in [Chapter 17](./CH17-distribution.md).
+
 ## Step 2: Navigation That Just Works
 
 ```html

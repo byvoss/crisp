@@ -81,6 +81,74 @@ Remember in Chapter 4 when we mentioned a secret kernel layer? Here it is:
 
 This scales ALL rem-based values proportionally - spacing, sizes, everything!
 
+## How Blueprints Are Organised
+
+Before we dive into specific blueprints, let's understand how CRISP organises them. Each blueprint lives in its own folder with a consistent structure:
+
+```
+blueprints/
+├── button/
+│   └── button.css          # The CSS for this blueprint
+├── card/
+│   └── card.css           
+├── input/
+│   └── input.css          
+├── badge/
+│   └── badge.css          
+└── ... (every blueprint has its folder)
+```
+
+**Why this structure?**
+- **Modular**: Each blueprint is independent
+- **Maintainable**: Easy to find and update specific blueprints
+- **Scalable**: New blueprints just add new folders
+- **Progressive**: Later tiers add more files to the same folders
+
+**Inside a blueprint CSS file:**
+```css
+/* blueprints/button/button.css */
+
+/* Just write your styles - the build process handles layers! */
+.button {
+  /* Custom properties first */
+  --bg: var(--color-primary);
+  --color: var(--color-surface);
+  /* ... rest of styles ... */
+}
+
+/* Property modifiers - automatically sorted into properties layer */
+.button.with-icon {
+  gap: var(--space-0-5);
+}
+
+/* States - automatically sorted into states layer */
+.button:hover {
+  --bg: oklch(from var(--color-primary) calc(l * 1.1) c h);
+}
+```
+
+**The Magic**: You don't declare layers in blueprint files! The build process:
+1. Reads all blueprint CSS files
+2. Identifies what type each rule is (element, property, state)
+3. Places them in the correct sub-layer automatically
+4. Outputs one perfectly layered CSS file
+
+**The Build Process**: When you use CRISP, all these individual files are intelligently combined into one optimised CSS file, properly layered and ordered. You get the simplicity of one file with the maintainability of many.
+
+**For Tier 1 Users**: You'll use the pre-built `crisp.css` that includes all blueprints. The folder structure is just how we organise the source - you don't need to worry about it!
+
+**Want to know more?** The complete journey from these source files to the CSS you use is detailed in [Chapter 17: Distribution & Architecture](./CH17-distribution.md).
+
+**For Advanced Users**: In later tiers (Chapter 7), you'll see how this structure expands:
+```
+blueprints/button/
+├── button.css    # Tier 1: CSS (you are here)
+├── button.ts     # Tier 3: TypeScript component
+└── button.tera   # Tier 3: Server-side macro
+```
+
+But for now, let's focus on the CSS blueprints themselves...
+
 ## The Blueprint Philosophy
 
 Remember building components with 47 modifier classes? CRISP has a more natural idea:

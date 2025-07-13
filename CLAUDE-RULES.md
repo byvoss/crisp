@@ -646,7 +646,7 @@ Add to all form fields - costs nothing, helps when supported:
 
 - **CRISP Pure** (~50KB): Zero JavaScript - More interactive than most JS frameworks!
 - **CRISP Interactive** (~60KB): + Minimal JS for themes & enhancements
-- **CRISP Complete** (~150KB): + Full platform with components & i18n
+- **CRISP Crown** (~150KB): + Full platform with components & i18n
 
 **Web Component Philosophy**: 
 - WCs are CRISP Pattern Generators - convenience wrappers only

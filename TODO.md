@@ -20,95 +20,16 @@ The `src/` directory contains PROTOTYPE CODE ONLY. Do not update these files - t
 
 ## 📚 [ACTIVE] DOCUMENTATION PHASE
 
-### Documentation Finalization
-- [x] Apply Rule 27 (Example Paradigm) to ALL chapters ✅ COMPLETE!
-  - [x] Rule 27 created and added to CLAUDE-RULES.md ✅
-  - [x] C14-migration.md already fixed (Side-by-Side pattern) ✅
-  - [x] Review C01-C05 for Rule 27 compliance ✅
-  - [x] Review C06-C10 for Rule 27 compliance ✅
-  - [x] Review C11-C16 for Rule 27 compliance ✅ (2025-01-07)
-  - [x] All documentation now follows Rule 27! ✅
+### 🎯 Priority Tasks (Must Complete)
 
-### Terminology Updates
-- [ ] Rename "Component Classes" to "Blueprint Classes" throughout all documentation
-  - [ ] Update CLAUDE-RULES.md
-  - [ ] Update all CH01-CH16 documentation files
-    - [x] CH02-solution.md ✅
-  - [ ] Update README.md
-  - [ ] Update any code comments
-  - Reason: "Blueprint" better conveys the concept of a complete template that can be extended
-
-### Pattern Updates
+#### 1. Pattern Updates
 - [ ] Add `data-key` attributes to examples throughout documentation
   - [ ] Include in all interactive examples (buttons, forms, navigation)
   - [ ] Show realistic naming patterns (e.g., "newsletter-signup-submit", "homepage-hero-main")
   - [ ] Add note about programmatic access (not just testing)
   - Reason: Provides stable anchors for automation, analytics, and JavaScript without coupling to CSS classes
 
-### Documentation Site
-- [ ] Set up documentation site (GitHub Pages or similar)
-- [ ] Create examples directory with live demos
-- [ ] Add component playground
-- [ ] Create getting started guide
-- [ ] Add changelog/release notes template
-- [ ] Create CH17-demo-shop.md - The Demo Scene Shop
-  - [ ] Showcase legendary 4KB/64KB demos as "products"
-  - [ ] Include .kkrieger as featured item
-  - [ ] Add CSS-only madness section (Minecraft, Excel games)
-  - [ ] Prove entire shop is smaller than one React component (~60KB total)
-  - [ ] Ultimate demonstration of CRISP efficiency meets demoscene philosophy
-
-### IDE Extensions & Tooling
-- [ ] Create VS Code CRISP extension
-  - [ ] CSS class autocomplete for CRISP patterns
-  - [ ] Custom property IntelliSense
-  - [ ] Tera syntax highlighting (clone Twig grammar)
-  - [ ] Hover documentation for blueprints
-  - [ ] Record pattern snippets
-- [ ] Create JetBrains plugin
-  - [ ] Same features as VS Code
-  - [ ] Live templates for CRISP patterns
-- [ ] Create Zed extension
-  - [ ] Leverage Zed's performance for instant autocomplete
-  - [ ] Tera syntax support
-- [ ] Create Neovim plugin
-  - [ ] LSP integration
-  - [ ] Treesitter grammar for Tera
-  - [ ] coc-crisp for CoC users
-- [ ] Create Sublime Text package
-  - [ ] Basic syntax highlighting
-  - [ ] Completions file
-
-### Documentation Structure Rewrite (HIGH PRIORITY)
-- [ ] Archive old docs to /archive folder ✓
-- [ ] Create TODO-DOCS-REBUILD.md guide ✓
-- [ ] Complete restructuring per TODO-DOCS-REBUILD.md:
-  - **Part 1: The Discovery**
-    - [ ] CH01-discovery.md - Winter's End (adapt from archive)
-    - [ ] CH02-solution.md - The 1+1+3 Formula (NEW showcase)
-    - [ ] CH03-quickstart.md - Your First Page (NEW)
-    - [ ] CH04-layers.md - Three Layers (NEW)
-  - **Part 2: The Toolkit**
-    - [ ] CH05-components.md - Basic Patterns
-    - [ ] CH06-layouts.md - Layouts Without Tears
-    - [ ] CH07-progressive.md - Three Tiers
-    - [ ] CH08-accessibility.md - WCAG First
-  - **Part 3: The Deep Dive**
-    - [ ] CH09-tokens.md - 10-Color System & Tokens
-    - [ ] CH10-modern-css.md - Modern CSS Magic
-    - [ ] CH11-migration.md - Escape Legacy
-    - [ ] CH12-reference.md - Component Library
-  - **Part 4: The Mastery**
-    - [ ] CH13-advanced.md - Advanced Patterns
-    - [ ] CH14-enterprise.md - Enterprise Features
-    - [ ] CH15-practices.md - Best Practices
-    - [ ] CH16-cheatsheet.md - The Almanac
-- [ ] Add OKLCH relative color power examples throughout docs:
-  - Show automatic hover/active states with calc()
-  - Demonstrate theme variations from single base color
-  - Show perceptual uniformity advantage over HSL
-  - Examples: `oklch(from var(--bg) calc(l + 0.1) c h)`
-  - Emphasize: "One color, infinite variations, zero manual calculation"
+#### 2. Color System Documentation
 - [ ] Design CRISP "10-Color System" - everything else computed:
   - 3 Brand colors (primary, secondary, accent)
   - 4 Semantic colors (error, warning, success, info)
@@ -116,12 +37,22 @@ The `src/` directory contains PROTOTYPE CODE ONLY. Do not update these files - t
   - ALL other colors derived via calc() from these 10
   - Document the mathematical relationships
   - Show how 10 colors become 100+ variations
+- [ ] Add OKLCH relative color power examples throughout docs:
+  - Show automatic hover/active states with calc()
+  - Demonstrate theme variations from single base color
+  - Show perceptual uniformity advantage over HSL
+  - Examples: `oklch(from var(--bg) calc(l + 0.1) c h)`
+  - Emphasize: "One color, infinite variations, zero manual calculation"
 
-### Documentation Enhancements (Optional)
-- [ ] Could always add MORE humor to chapters
-- [ ] Add more real-world examples
-- [ ] Create video tutorials
-- [ ] Document browser fallback strategies (CLARIFICATIONS #16)
+### 📄 Final Documentation Task
+
+- [ ] Create QUICKSTART.md - Ultra-condensed version
+  - [ ] Installation in 3 lines
+  - [ ] Override styles with @layer overrides 
+  - [ ] Basic examples without theory
+  - [ ] Link to full docs for "how it works"
+  - [ ] Maximum 2-3 pages
+  - Reason: Most developers want to see results fast, not read 16 chapters
 
 ---
 
@@ -218,20 +149,25 @@ The `src/` directory contains PROTOTYPE CODE ONLY. Do not update these files - t
 
 ## ✅ COMPLETED TASKS
 
-### Documentation Updates (2025-01-07)
-- ✅ All chapters (C01-C16) updated with new CRISP patterns
+### Documentation Structure (2025-01-06)
+- ✅ Complete documentation restructure (CH01-CH16)
+- ✅ Archive old docs to /archive folder
+- ✅ Create TODO-DOCS-REBUILD.md guide
+
+### Documentation Quality (2025-01-07)
+- ✅ Rule 27 (Example Paradigm) applied to ALL chapters
+- ✅ All chapters updated with new CRISP patterns
 - ✅ WCAG 2.2 AA compliance in documentation
 - ✅ OKLCH color system in all examples
 - ✅ CSS @layer architecture documented
 - ✅ British humor and "Aha!" moments added
 - ✅ ARIA usage guidelines created
 - ✅ ID patterns for accessibility documented
-- ✅ Rule 27 (Example Paradigm) created
 
 ### Technical Specifications
 - ✅ Custom properties without prefixes for elements
 - ✅ Context via data attributes
-- ✅ Component naming discipline
+- ✅ Blueprint naming discipline (renamed from Component)
 - ✅ Define/Use pattern with @property
 - ✅ Layout tokens that describe patterns
 - ✅ Complete default values

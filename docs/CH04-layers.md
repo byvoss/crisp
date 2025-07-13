@@ -275,6 +275,83 @@ Think of it like this:
 /* That's it. You're done. */
 ```
 
+## CRISP's Internal Layer Structure
+
+While you work with three main layers (`crisp`, `bridge`, `overrides`), CRISP internally organizes its styles with sub-layers for perfect cascade control:
+
+```css
+@layer crisp {
+  @layer tokens, base, layouts, elements, properties, states, themes;
+}
+```
+
+**The Sub-Layer Hierarchy (in priority order):**
+
+1. **`tokens`** - Design token definitions (lowest priority)
+   ```css
+   @layer tokens {
+     :root {
+       --color-primary: oklch(60% 0.20 250);
+       --space-1: 1rem;
+     }
+   }
+   ```
+
+2. **`base`** - HTML element resets
+   ```css
+   @layer base {
+     *, *::before, *::after { box-sizing: border-box; }
+     body { margin: 0; font-family: system-ui; }
+   }
+   ```
+
+3. **`layouts`** - Layout classes (`.as-*`)
+   ```css
+   @layer layouts {
+     .as-stack { display: flex; flex-direction: column; }
+     .as-grid { display: grid; }
+   }
+   ```
+
+4. **`elements`** - Component classes
+   ```css
+   @layer elements {
+     .button { background: var(--color-primary); }
+     .card { border: 1px solid var(--color-border); }
+   }
+   ```
+
+5. **`properties`** - Modifier classes (`.with-*`)
+   ```css
+   @layer properties {
+     .button.with-icon { gap: var(--space-0-5); }
+     .card.with-shadow { box-shadow: var(--shadow-2); }
+   }
+   ```
+
+6. **`states`** - Interactive states
+   ```css
+   @layer states {
+     .button:hover { --bg: oklch(from var(--color-primary) calc(l * 1.1) c h); }
+     .button:disabled { opacity: 0.5; }
+   }
+   ```
+
+7. **`themes`** - Theme overrides (highest priority within CRISP)
+   ```css
+   @layer themes {
+     [data-theme="dark"] .button { --bg: var(--color-surface); }
+   }
+   ```
+
+**Why This Order?**
+- Base styles are defined first (`elements`)
+- Modifiers enhance them (`properties`)
+- States override both (`states`)
+- Themes can override everything (`themes`)
+
+**The "Aha!"**: Within CRISP, later layers override earlier ones. But your `overrides` layer still beats everything in CRISP, even `themes`!
+
 ## Common Patterns
 
 ### Pattern 1: Project Customisation

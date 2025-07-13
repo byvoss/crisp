@@ -8,7 +8,7 @@ Remember installing 200MB of node_modules for a toggle button? CRISP grows with 
 
 1. **CRISP Pure** (~50KB) - Zero JavaScript, more interactive than most JS frameworks
 2. **CRISP Interactive** (~60KB) - Minimal JS for themes & enhancements
-3. **CRISP Complete** (~150KB) - Full platform with components & i18n
+3. **CRISP Crown** (~150KB) - Full platform with components & i18n
 
 Let's explore each tier.
 
@@ -27,7 +27,7 @@ Let's explore each tier.
 <link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp-pure@latest/dist/crisp.min.css">
 ```
 
-**What you get**:
+**What you get**: A complete, pre-built CSS file with all blueprints included. No build process needed on your end. (Curious about how these blueprints are compiled? See [Chapter 17: Distribution](./CH17-distribution.md))
 
 ### Interactive Blueprints Without JavaScript
 
@@ -259,6 +259,8 @@ HTML5 brought us built-in validation, but most developers still reach for JavaSc
 </script>
 ```
 
+**What's added**: A small JavaScript module (~10KB) that adds theme switching and persistence. The JavaScript source is already compiled and optimized. (Build details → [Chapter 17](./CH17-distribution.md))
+
 Now you can enhance your Tier 1 elements:
 
 ### Enhanced Dialog with Theme Support
@@ -324,6 +326,33 @@ document.documentElement.dataset.theme = savedTheme;
 </button>
 ```
 
+### Zero CLS Professional Technique
+
+Modern browsers render pages progressively, which can cause elements to jump around as resources load - devastating for both user experience and SEO rankings. The professional solution? Show the complete page once it's ready, rather than in jarring pieces. Here's the enterprise-standard approach:
+
+```html
+<!-- In your <head> - before any CSS -->
+<style>html{visibility:hidden;opacity:0}</style>
+
+<!-- At the end of <head> or start of <body> -->
+<script>
+  // Reveal when initial styles are ready
+  requestAnimationFrame(() => {
+    document.documentElement.style.visibility = 'visible';
+    document.documentElement.style.opacity = '1';
+    document.documentElement.style.transition = 'opacity 0.2s';
+  });
+</script>
+```
+
+**Why this is standard practice:**
+- Prevents content jumping (CLS = 0)
+- Better perceived performance (cohesive reveal vs piecemeal loading)
+- On decent infrastructure: 400-800ms total load time
+- Users see a complete, stable page instead of a construction site
+
+**The philosophy:** It's more professional to show a complete page after a brief moment than to show a broken page immediately. Quality over raw speed.
+
 ### Multiple Theme Support
 
 ```html
@@ -338,11 +367,11 @@ document.documentElement.dataset.theme = savedTheme;
 
 **The "Aha!"**: 10KB of JavaScript for theme switching. Not 200KB.
 
-## Tier 3: CRISP Complete (Full Platform)
+## Tier 3: CRISP Crown (Full Platform)
 
-**Package**: `@byvoss/crisp-complete`  
+**Package**: `@byvoss/crisp-crown`  
 **Size**: ~150KB (includes everything)  
-**CDN**: Base CSS + `https://unpkg.com/@byvoss/crisp-complete@latest/dist/complete.esm.js`
+**CDN**: Base CSS + `https://unpkg.com/@byvoss/crisp-crown@latest/dist/crown.esm.js`
 
 **What it does**: Adds Web Components that generate semantic CRISP HTML, full TypeScript support, i18n system, and complex UI patterns. Components are HTML generators, not black boxes - they output vanilla CRISP blueprints.
 
@@ -354,11 +383,15 @@ document.documentElement.dataset.theme = savedTheme;
 <!-- Full platform -->
 <link rel="stylesheet" href="https://unpkg.com/@byvoss/crisp-pure@latest/dist/crisp.min.css">
 <script type="module" 
-        src="https://unpkg.com/@byvoss/crisp-complete@latest/dist/complete.esm.js">
+        src="https://unpkg.com/@byvoss/crisp-crown@latest/dist/crown.esm.js">
 </script>
 ```
 
+**What's included**: All the TypeScript components and i18n system, pre-compiled into an ES module. The source `.ts` files from the blueprint folders are already built - you just use the components. (Full architecture details → [Chapter 17](./CH17-distribution.md))
+
 ### What Are CRISP Web Components?
+
+Imagine if your HTML could write itself. Not the dystopian AI takeover kind, but the helpful assistant kind - like having a very competent intern who knows all your design patterns by heart. That's what CRISP Web Components do: they take your intent and generate perfect, semantic CRISP HTML.
 
 **NOT** another blueprint library. They're HTML generators:
 
@@ -377,9 +410,39 @@ document.documentElement.dataset.theme = savedTheme;
 </form>
 ```
 
+**Server-side with Rust/Tera:**
+```html
+<!-- Dynamic search with suggestions from your database -->
+<crisp-search 
+  placeholder="{{ search_config.placeholder | default(value='Search...') }}"
+  data-key="search-{{ search_config.context }}"
+  data-suggestions-url="/api/search/{{ search_config.context }}/suggestions"
+  data-min-chars="{{ search_config.min_chars | default(value=2) }}">
+</crisp-search>
+```
+
 **The "Aha!"**: Web Components generate vanilla CRISP HTML. No shadow DOM mysteries. Full CSS customisation.
 
 ### Enterprise Blueprints Available
+
+Remember the blueprint folder structure from Chapter 5? In Tier 3, each blueprint folder expands with new powers:
+
+```
+blueprints/
+├── table/
+│   ├── table.css          # Tier 1: Basic table styles
+│   ├── table.ts           # Tier 3: Sorting, filtering, pagination
+│   └── table.tera         # Tier 3: Server-side generation
+├── datepicker/
+│   ├── datepicker.css     # Tier 1: Input styling
+│   ├── datepicker.ts      # Tier 3: Calendar logic
+│   └── datepicker.tera    # Tier 3: Locale-aware dates
+└── ... (all Crown blueprints follow this pattern)
+```
+
+**Important**: This is the source structure. When you use Tier 3, you get pre-compiled components in `crown.esm.js` and aggregated macros in `base.tera`. (See [Chapter 17](./CH17-distribution.md) for how the build process works)
+
+Remember building a data table from scratch? The endless hours of sorting logic, filter implementations, and accessibility attributes? Well, put down that coffee and step away from Stack Overflow. CRISP Crown brings the heavy machinery - pre-built patterns for the complex UI that makes developers weep.
 
 ```html
 <!-- Data table with sorting/filtering -->
@@ -415,7 +478,48 @@ document.documentElement.dataset.theme = savedTheme;
 </crisp-editor>
 ```
 
-### Internationalisation Built In
+**Server-side with Rust/Tera:**
+```html
+<!-- Dynamic user table with permissions -->
+<crisp-table 
+  data-source="{{ api_config.base_url }}/users"
+  columns="{{ table_config.columns | join(sep=',') }}"
+  {% if user_permissions.can_sort %}sortable{% endif %}
+  {% if user_permissions.can_filter %}filterable{% endif %}
+  data-key="users-{{ department.slug }}"
+  data-page-size="{{ pagination.per_page | default(value=25) }}">
+</crisp-table>
+
+<!-- Autocomplete with dynamic endpoints -->
+<crisp-autocomplete 
+  source="{{ api_endpoints.search }}"
+  min-chars="{{ search_settings.min_chars }}"
+  debounce="{{ search_settings.debounce_ms }}"
+  data-key="search-{{ search_context }}"
+  placeholder="{{ 'search.placeholder' | t }}">
+</crisp-autocomplete>
+
+<!-- Date picker with business rules -->
+<crisp-datepicker 
+  format="{{ locale_settings.date_format }}"
+  min="{{ booking_rules.min_date | date(format='%Y-%m-%d') }}"
+  max="{{ booking_rules.max_date | date(format='%Y-%m-%d') }}"
+  data-key="booking-date"
+  data-blocked-dates="{{ blocked_dates | json_encode }}">
+</crisp-datepicker>
+
+<!-- Content editor with role-based features -->
+<crisp-editor 
+  toolbar="{{ user_role.editor_toolbar | default(value='basic') }}"
+  max-length="{{ content_rules.max_length }}"
+  data-key="content-{{ content_type }}"
+  data-upload-url="{% if user_permissions.can_upload %}/api/upload{% endif %}">
+</crisp-editor>
+```
+
+### Smart Text Management (Not Just i18n)
+
+Here's the clever bit: even if your site only speaks one language, the text management system is brilliant for consistency. Define your button text once, use it everywhere. Need to change "Submit" to "Send"? One edit, updates everywhere. Oh, and if you DO add languages later, it just works - your German users automatically see "Absenden" without touching your templates.
 
 ```html
 <!-- Components auto-translate -->
@@ -432,16 +536,80 @@ document.documentElement.dataset.theme = savedTheme;
 
 ### TypeScript Support
 
+For those who like their JavaScript with training wheels (and we mean that in the best possible way), CRISP Crown comes with full TypeScript definitions. Every property, every method, every event - all typed tighter than a Victorian corset, but considerably more comfortable to work with.
+
 ```typescript
 // Full type safety
-import { CrispTable } from '@byvoss/crisp-complete';
+import { CrispTable } from '@byvoss/crisp-crown';
 
 const table = document.querySelector<CrispTable>('crisp-table');
 table.columns = ['name', 'email', 'status'];
 table.data = await fetchUsers();
 ```
 
+### Bonus: Rust Server Blueprint
+
+Fancy seeing CRISP at warp speed? We've included a production-ready Rust server blueprint. One command creates everything you need:
+
+```bash
+# Create a complete CRISP + Rust project
+curl -sSf https://crisp.byvoss.tech/create-crisp-server.sh | sh
+
+# Interactive setup:
+# Project name: My Amazing Site
+# Type: [local/server]? local
+# URL: my-site.com
+# → Creates: local.my-site.com (auto-adds to /etc/hosts)
+# Web server: [Apache2/Nginx]? Nginx
+# → Generates perfect reverse proxy config
+
+# What you get:
+# ✓ Axum web server (blazing fast)
+# ✓ Tera templates with CRISP HTML
+# ✓ Text management system built-in  
+# ✓ All CRISP assets served efficiently
+# ✓ Custom nginx/Apache config for YOUR setup
+# ✓ systemd service file (server mode only)
+```
+
+**Start developing immediately:**
+```bash
+cd my-crisp-app
+cargo run
+
+# Visit http://localhost:3000
+# Edit templates in templates/
+# Texts in texts/en-GB.json
+# Automatic hot-reload included
+```
+
+**What's Included:**
+
+The Rust server blueprint includes:
+- Pre-configured Axum web server (~8MB total)
+- Tera templates with CRISP HTML
+- All CRISP blueprints as macros
+- Text management system
+- Session handling
+- Hot-reload in development
+
+Think of it as a mini-CMS foundation - everything you need to build a production site, nothing you don't. For detailed implementation patterns and macro usage, see Chapter 14.
+
+**Deploy to production:**
+```bash
+cargo build --release
+sudo cp target/release/crisp-server /usr/local/bin/
+sudo cp crisp-server.service /etc/systemd/system/
+sudo systemctl enable --now crisp-server
+
+# Done! Your site is live.
+```
+
+The entire server is ~8MB. Yes, megabytes. Not gigabytes. No node_modules folder, no build step, just instant productivity. See Chapter 14 for the mind-blowing performance comparisons.
+
 ## The Progressive Path
+
+Like a well-planned garden, CRISP grows with you. Start with a seed (Pure CSS), add water when needed (Interactive features), and eventually cultivate a full ecosystem (Complete platform). No transplant shock, no growing pains - just natural progression.
 
 ### Starting Small
 
@@ -469,6 +637,8 @@ table.data = await fetchUsers();
 
 ## Performance at Each Tier
 
+Numbers don't lie, and these numbers are positively giddy with excitement. Watch as your Lighthouse scores do a happy dance while your users' batteries breathe a sigh of relief. Here's what each tier costs (spoiler: not much).
+
 ### Tier 1 Performance
 - Initial Load: ~50KB CSS
 - No JavaScript execution
@@ -490,6 +660,8 @@ table.data = await fetchUsers();
 
 ## The Same HTML Works Everywhere
 
+This is the secret sauce, the philosopher's stone of web development: write once, enhance progressively. Your HTML doesn't need to know which tier it's running in - it just gets better features automatically, like a phone getting OS updates but without the planned obsolescence.
+
 The magic of progressive enhancement:
 
 ```html
@@ -505,6 +677,8 @@ The magic of progressive enhancement:
 No rewriting. No migration. Just enhancement.
 
 ## CDN Loading Strategy
+
+The art of loading resources is like conducting an orchestra - timing is everything. Too early and you block the render, too late and you get layout shifts. Here's the perfect symphony, refined through countless performance audits and user tears.
 
 ### Optimal Loading Order
 
@@ -528,7 +702,7 @@ No rewriting. No migration. Just enhancement.
   
   <!-- 3. Optional components (lazy load) -->
   <script type="module" 
-          src="https://unpkg.com/@byvoss/crisp-complete@latest/dist/complete.esm.js"
+          src="https://unpkg.com/@byvoss/crisp-crown@latest/dist/crown.esm.js"
           crossorigin="anonymous"
           defer>
   </script>
@@ -548,6 +722,8 @@ No rewriting. No migration. Just enhancement.
 ```
 
 ## Your Growth Path
+
+Like choosing the right tea for the occasion, picking your CRISP tier is about matching the tool to the task. Start with Pure (Earl Grey - classic, reliable), move to Interactive when users demand themes (English Breakfast - bit more robust), and reach for Complete only when complexity truly demands it (Builder's Tea - gets the job done).
 
 1. **Start with CSS** - Build everything
 2. **Add themes when needed** - Not before

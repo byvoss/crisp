@@ -412,7 +412,7 @@ Control the aside width:
 
 ## Responsive Breakpoints
 
-While CRISP layouts are responsive by default, sometimes you need explicit control. CRISP provides four semantic breakpoints organized in separate files:
+While CRISP layouts are responsive by default, sometimes you need explicit control. CRISP provides four semantic breakpoints organised in separate files:
 
 ```css
 /* File structure for breakpoints */
@@ -490,7 +490,7 @@ src/crisp/
 }
 ```
 
-But the media query still wraps everything. The layers just help with organization and specificity within each breakpoint.
+But the media query still wraps everything. The layers just help with organisation and specificity within each breakpoint.
 
 ### Using Breakpoints with Layouts
 
@@ -578,7 +578,7 @@ But the media query still wraps everything. The layers just help with organizati
     .button { background: red; } /* This is in the parent layer */
   }
   
-  /* Properly organized styles in sub-layers */
+  /* Properly organised styles in sub-layers */
   @import "breakpoints/phone.css" layer(phone) (max-width: 41.1875rem);
 }
 
@@ -593,7 +593,7 @@ But the media query still wraps everything. The layers just help with organizati
 4. `crisp.tablet` - Continues...
 5. `crisp.wide` - Strongest
 
-**The result**: Wild styles in the wrong place automatically lose to properly organized styles. The structure enforces good practices - you MUST put styles in the right file to make them work. 
+**The result**: Wild styles in the wrong place automatically lose to properly organised styles. The structure enforces good practices - you MUST put styles in the right file to make them work. 
 
 **Note**: `!important` still overrides layer specificity (it's the nuclear option), but the structure makes it unnecessary. When everything is in the right place, you never need `!important`.
 
