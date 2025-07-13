@@ -423,78 +423,64 @@ While CRISP layouts are responsive by default, sometimes you need explicit contr
 Why pixels instead of rems? Because `768px` is immediately understandable, while `48rem` requires mental math. CRISP values clarity.
 
 ```css
-/* In your blueprint CSS or overrides - media queries go directly in the files */
-@layer crisp {
-  /* Base styles (mobile-first) */
-  @media (min-width: 0) {
-    @layer base {
-      .as-split {
-        display: flex;
-        flex-direction: column;
-        gap: var(--split-gap, var(--space-1));
-      }
+/* In your blueprint CSS files - clean mobile-first approach */
 
-      /* Default all visibility utilities */
-      .only-phone { display: none; }
-      .only-tablet { display: none; }
-      .only-screen { display: none; }
-      .only-wide { display: none; }
-      
-      .not-phone { display: block; }
-      .not-tablet { display: block; }
-      .not-screen { display: block; }
-      .not-wide { display: block; }
-      
-      .as-aside-content { grid-template-columns: 1fr; }
-    }
-  }
-
-  /* Phone breakpoint (320px+) */
-  @media (min-width: 320px) {
-    @layer phone {
-      /* Only what changes */
-      .only-phone { display: block; }
-      .not-phone { display: none; }
-    }
-  }
-
-  /* Tablet breakpoint (660px+) */
+/* blueprints/split/split.css */
+.as-split {
+  /* Mobile-first base styles */
+  display: flex;
+  flex-direction: column;
+  gap: var(--split-gap, var(--space-1));
+  
+  /* Tablet and up */
   @media (min-width: 660px) {
-    @layer tablet {
-      /* Only what changes */
-      .only-phone { display: none; }
-      .only-tablet { display: block; }
-      
-      .not-phone { display: block; }
-      .not-tablet { display: none; }
-      
-      .as-split { flex-direction: row; }
-    }
+    flex-direction: row;
   }
+}
 
-  /* Screen breakpoint (960px+) */
-  @media (min-width: 960px) {
-    @layer screen {
-      /* Only what changes */
-      .only-tablet { display: none; }
-      .only-screen { display: block; }
-      
-      .not-tablet { display: block; }
-      .not-screen { display: none; }
-    }
-  }
+/* blueprints/visibility/visibility.css */
+/* Default all visibility utilities */
+.only-phone { display: none; }
+.only-tablet { display: none; }
+.only-screen { display: none; }
+.only-wide { display: none; }
 
-  /* Wide breakpoint (1260px+) */
-  @media (min-width: 1260px) {
-    @layer wide {
-      /* Only what changes */
-      .only-screen { display: none; }
-      .only-wide { display: block; }
-      
-      .not-screen { display: block; }
-      .not-wide { display: none; }
-    }
-  }
+.not-phone { display: block; }
+.not-tablet { display: block; }
+.not-screen { display: block; }
+.not-wide { display: block; }
+
+/* Phone (320px+) */
+@media (min-width: 320px) {
+  .only-phone { display: block; }
+  .not-phone { display: none; }
+}
+
+/* Tablet (660px+) */
+@media (min-width: 660px) {
+  .only-phone { display: none; }
+  .only-tablet { display: block; }
+  
+  .not-phone { display: block; }
+  .not-tablet { display: none; }
+}
+
+/* Screen (960px+) */
+@media (min-width: 960px) {
+  .only-tablet { display: none; }
+  .only-screen { display: block; }
+  
+  .not-tablet { display: block; }
+  .not-screen { display: none; }
+}
+
+/* Wide (1260px+) */
+@media (min-width: 1260px) {
+  .only-screen { display: none; }
+  .only-wide { display: block; }
+  
+  .not-screen { display: block; }
+  .not-wide { display: none; }
 }
 ```
 
@@ -513,19 +499,20 @@ Why pixels instead of rems? Because `768px` is immediately understandable, while
 /* ...but layers can't be conditional! */
 ```
 
-**What actually works**:
+**What CRISP does instead** (simple and clean):
 ```css
-@layer crisp {
-  /* We can organize with layers inside media queries */
-  @media (max-width: 659px) {
-    @layer phone {
-      .as-split { flex-direction: column; }
-    }
+/* Just put media queries where they belong - with their styles */
+.as-split {
+  display: flex;
+  flex-direction: column;
+  
+  @media (min-width: 660px) {
+    flex-direction: row;
   }
 }
 ```
 
-But the media query still wraps everything. The layers just help with organisation and specificity within each breakpoint.
+No layer complexity. Just clean, nested media queries that follow the cascade naturally.
 
 ### Using Breakpoints with Layouts
 
@@ -562,27 +549,26 @@ But the media query still wraps everything. The layers just help with organisati
 **What mobile-first really means**:
 
 ```css
-/* In base.css - Mobile styles */
+/* In blueprints/button/button.css - Clean and simple! */
 .button {
+  /* Mobile-first base styles */
   display: inline-flex;
   padding: var(--space-0-75) var(--space-1-5);
   font-size: 1rem;
   border-radius: 0.5rem;
   /* 10+ more properties... */
-}
-
-/* In tablet.css - ONLY what changes! */
-.button {
-  padding: var(--space-1) var(--space-2);  /* Bigger padding */
-  font-size: 1.125rem;                    /* Bigger text */
-  /* That's it! Everything else inherits */
-}
-
-/* In wide.css - Again, ONLY differences */
-.button {
-  padding: var(--space-1-25) var(--space-2-5);  /* Even bigger */
-  /* font-size stays from tablet */
-  /* Everything else cascades up */
+  
+  /* Tablet (660px+) - ONLY what changes! */
+  @media (min-width: 660px) {
+    padding: var(--space-1) var(--space-2);  /* Bigger padding */
+    font-size: 1.125rem;                    /* Bigger text */
+  }
+  
+  /* Wide (1260px+) - Again, ONLY differences */
+  @media (min-width: 1260px) {
+    padding: var(--space-1-25) var(--space-2-5);  /* Even bigger */
+    /* font-size stays from tablet - true cascade! */
+  }
 }
 ```
 
@@ -604,38 +590,43 @@ But the media query still wraps everything. The layers just help with organisati
 
 ### The Architecture Protects Itself
 
-**Why this structure matters:**
+**Why CRISP's layer structure matters:**
 
 ```css
-@layer crisp {
-  /* Someone tries to quick-fix in the wrong place */
-  @media (max-width: 659px) {
-    .button { background: red; } /* This is in the parent layer */
-  }
-  
-  /* Properly organised styles in sub-layers */
-  @media (max-width: 659px) {
-    @layer phone {
-      .button { background: blue; } /* This wins! Sub-layer beats parent layer */
-    }
-  }
+/* The build process automatically sorts your styles into the right layers */
+
+/* From blueprints/button/button.css */
+.button {
+  background: var(--color-primary);  /* Goes into @layer crisp.elements */
+}
+
+.button.with-icon {
+  gap: var(--space-1);  /* Goes into @layer crisp.properties */
+}
+
+.button:hover {
+  background: var(--color-primary-dark);  /* Goes into @layer crisp.states */
 }
 ```
 
-**The cascade hierarchy:**
-1. `crisp` (parent layer) - Weakest
-2. `crisp.base` - Stronger
-3. `crisp.phone` - Even stronger
-4. `crisp.tablet` - Continues...
-5. `crisp.wide` - Strongest
+**The cascade hierarchy that matters:**
+1. `kernel` - Core property definitions (you never touch this)
+2. `crisp.elements` - Base component styles
+3. `crisp.properties` - Property modifiers (.with-*)
+4. `crisp.states` - Interactive states (:hover, :focus)
+5. `overrides` - Your custom styles (always wins)
 
-**The result**: Wild styles in the wrong place automatically lose to properly organised styles. The layer structure enforces good practices - proper layer organization ensures styles cascade correctly. 
+**The result**: Styles automatically cascade in the right order. No fighting specificity. No `!important` needed.
 
-**Note**: `!important` still overrides layer specificity (it's the nuclear option), but the structure makes it unnecessary. When everything is in the right place, you never need `!important`.
-
-**The only thing that always wins**: The evil atomic bomb approach - `!important`. Where that drops, no grass grows anymore. It's the CSS equivalent of salting the earth. Don't be that developer.
-
-This isn't just about being tidy - it's **technical guardrails** that guide you toward clean, maintainable code.
+**Media queries?** They just work within this structure:
+```css
+.button {
+  padding: var(--space-1);
+  
+  @media (min-width: 660px) {
+    padding: var(--space-2);  /* Still in elements layer, just responsive */
+  }
+}
 
 ### Container Queries: The bound Exception
 
